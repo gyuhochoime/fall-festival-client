@@ -1,3 +1,5 @@
+// Firebase 기능 비활성화
+/*
 import { initializeApp } from 'firebase/app';
 import { getMessaging } from 'firebase/messaging';
 
@@ -14,3 +16,10 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const messaging = getMessaging(app);
+*/
+
+// 로컬 테스트용 더미 객체
+export const app = null;
+export const messaging = null;
+
+console.log('Firebase 기능이 비활성화되었습니다.');

@@ -1,3 +1,5 @@
+// Firebase FCM 서비스워커 비활성화
+/*
 importScripts('https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.0.2/firebase-messaging-compat.js');
 
@@ -43,3 +45,7 @@ self.addEventListener('notificationclick', function (event) {
     }),
   );
 });
+*/
+
+// 로컬 테스트용 빈 서비스워커
+console.log('Firebase FCM 서비스워커가 비활성화되었습니다.');

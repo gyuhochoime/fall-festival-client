@@ -26,8 +26,9 @@ import {
   LostFail,
 } from '@/pages';
 import Layout from '@/layout';
-import 'firebase/compat/app';
-import '@/services/fcm/foregroundMessage';
+// Firebase FCM 기능 비활성화
+// import 'firebase/compat/app';
+// import '@/services/fcm/foregroundMessage';
 if (window.Kakao && !window.Kakao.isInitialized()) {
   window.Kakao.init('b3f17a02c1f339facee6125f903e309e');
 }
@@ -156,6 +157,8 @@ if ('serviceWorker' in navigator) {
       .catch((err) => {
         console.error('❌ PWA 서비스워커 등록 실패:', err);
       });
+    // Firebase FCM 서비스워커 등록 비활성화
+    /*
     navigator.serviceWorker
       .register('/firebase-messaging-sw.js')
       .then((registration) => {
@@ -164,5 +167,6 @@ if ('serviceWorker' in navigator) {
       .catch((err) => {
         console.error('❌ FCM 서비스워커 등록 실패:', err);
       });
+    */
   });
 }

@@ -1,8 +1,20 @@
+// Firebase FCM 기능 비활성화
+/*
 import { getToken } from 'firebase/messaging';
 import { messaging } from '@/services/fcm/firebase';
 import { sendToken } from '@/services/alarm';
 import { axiosInstance } from '@/lib';
+*/
 
+export async function handleAllowNotification({ currentAccess }: { currentAccess?: string }) {
+  // Firebase FCM 기능 비활성화됨
+  console.log('Firebase FCM 기능이 비활성화되었습니다. 로컬 테스트 모드입니다.');
+  console.log('currentAccess:', currentAccess); // 파라미터 사용
+  return false;
+}
+
+/*
+// 원본 코드 (Firebase 기능 비활성화)
 export async function handleAllowNotification({ currentAccess }: { currentAccess?: string }) {
   try {
     console.log('푸시 알림 권한 요청');
@@ -44,3 +56,4 @@ export async function handleAllowNotification({ currentAccess }: { currentAccess
   }
   return false;
 }
+*/

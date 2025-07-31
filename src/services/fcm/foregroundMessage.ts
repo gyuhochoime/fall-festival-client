@@ -1,3 +1,5 @@
+// Firebase FCM 기능 비활성화
+/*
 import { onMessage } from 'firebase/messaging';
 import { messaging } from './firebase';
 import { useWaitingStore } from '@/features/waiting/stores/useWaitingStore';
@@ -13,3 +15,7 @@ onMessage(messaging, (payload) => {
     });
   }
 });
+*/
+
+// 로컬 테스트용 빈 파일
+console.log('Firebase FCM 기능이 비활성화되었습니다.');
