@@ -21,7 +21,7 @@
   yarn build
 ```
 ## Testing
-https://spring-festival-testing.vercel.app/
+(배포 예정)
 
 ## Dependencies
 
