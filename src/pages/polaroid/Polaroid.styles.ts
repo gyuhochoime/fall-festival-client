@@ -41,7 +41,7 @@ export const ComingSoon = styled.div`
   color: ${(props) => props.theme.colors.primary.bl400};
   text-align: center;
   padding: 0.75rem 1.5rem;
-  border: 2px solid ${(props) => props.theme.colors.primary.bl400};
+  border: 3px solid ${(props) => props.theme.colors.primary.bl400};
   border-radius: 2rem;
   background-color: ${(props) => props.theme.colors.grayScale.gy50};
   margin: 0;
