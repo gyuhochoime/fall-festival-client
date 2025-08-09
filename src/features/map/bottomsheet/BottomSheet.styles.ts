@@ -79,7 +79,7 @@ export const ContentUnitWrap = styled.div<{ $isLastItem?: boolean }>`
 `;
 
 export const NoDataMessage = styled.div`
-  color: ${(props) => props.theme.colors.grayScale.gy9000};
+  color: ${(props) => props.theme.colors.grayScale.gy900};
   font-size: 1rem;
   text-align: center;
   padding: 1rem;

@@ -4,7 +4,7 @@ import { ImageTextIconFrame } from '@/components/image-text-icon-frame';
 import { externalLinks } from '@/constants/main/ExternalLink';
 import Student from '@/assets/images/menu/ericanote.jpeg';
 import Form from '@/assets/icons/form_logo.svg';
-import Lost from '@/assets/icons/lost_logo.svg';
+import Fortune from '@/assets/icons/pixel_moon.svg';
 import Make from '@/assets/icons/lionlove_logo.svg';
 import Lion from '@/assets/icons/lion_logo.svg';
 /**
@@ -20,6 +20,17 @@ export default function Menu() {
   return (
     <S.SectionContainer>
       <S.Section>
+        <S.SubTitle aria-label="오늘의 운세">오늘의 운세</S.SubTitle>
+        <S.Frame>
+          <ImageTextIconFrame
+            image={Fortune}
+            title="오늘의 운세 보기"
+            description="하냥이와 함께 오늘의 운세를 확인해보세요"
+            onClick={() => navigate('/main/fortune')}
+          />
+        </S.Frame>
+      </S.Section>
+      <S.Section>
         <S.SubTitle aria-label="SNS 바로가기">SNS 바로가기</S.SubTitle>
         <S.Frame>
           <ImageTextIconFrame
@@ -33,17 +44,6 @@ export default function Menu() {
             title="멋사 보러가볼까"
             description="멋사 인스타그램 바로가기"
             onClick={() => window.open(externalLinks.instagramLikelion, '_blank')}
-          />
-        </S.Frame>
-      </S.Section>
-      <S.Section>
-        <S.SubTitle aria-label="분실물">분실물</S.SubTitle>
-        <S.Frame>
-          <ImageTextIconFrame
-            image={Lost}
-            title="분실물 신고하기"
-            description="여기서 습득한 분실물을 신고할 수 있어요"
-            onClick={() => navigate('/main/lost')}
           />
         </S.Frame>
       </S.Section>

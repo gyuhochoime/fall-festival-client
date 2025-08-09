@@ -5,7 +5,6 @@ import { GlobalStyle } from '@/styles/global';
 import { theme } from '@/styles/theme';
 import {
   Main,
-  Login,
   Map,
   MapSearch,
   Performance,
@@ -14,25 +13,14 @@ import {
   //User,
   PerformanceDetail,
   TimeTable,
-  LostSearch,
-  LostPost,
   Notice,
   NoticeDetail,
-  Lost,
-  LostUpload,
-  LostComplete,
   MadeBy,
-  Redirection,
-  LostFail,
+  Fortune,
+  Polaroid,
 } from '@/pages';
 import Layout from '@/layout';
 import { ensureSessionCookie } from '@/utils/session';
-// Firebase FCM 기능 비활성화
-// import 'firebase/compat/app';
-// import '@/services/fcm/foregroundMessage';
-if (window.Kakao && !window.Kakao.isInitialized()) {
-  window.Kakao.init('b3f17a02c1f339facee6125f903e309e');
-}
 
 // 비로그인 사용자 세션 쿠키 보장
 ensureSessionCookie();
@@ -52,10 +40,12 @@ const routes = createBrowserRouter([
         path: 'main',
         element: <Main />,
       },
+      /*
       {
         path: 'main/lost/search',
         element: <LostSearch />,
       },
+      */
       {
         path: 'main/notice',
         element: <Notice />,
@@ -64,6 +54,7 @@ const routes = createBrowserRouter([
         path: 'main/notice/:id',
         element: <NoticeDetail />,
       },
+      /*
       {
         path: 'main/lost',
         element: <Lost />,
@@ -84,17 +75,14 @@ const routes = createBrowserRouter([
         path: 'main/lost/post/:id',
         element: <LostPost />,
       },
+      */
       {
         path: 'main/about',
         element: <MadeBy />,
       },
       {
-        path: 'login',
-        element: <Login />,
-      },
-      {
-        path: 'login/success',
-        element: <Redirection />,
+        path: 'main/fortune',
+        element: <Fortune />,
       },
       /*{
         path: 'user',
@@ -133,6 +121,10 @@ const routes = createBrowserRouter([
         path: 'booth/:id',
         element: <BoothDetail />,
       },
+      {
+        path: 'polaroid',
+        element: <Polaroid />,
+      },
     ],
   },
 ]);
@@ -151,26 +143,26 @@ window.addEventListener('DOMContentLoaded', () => {
   if (splash) splash.remove();
 });
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/sw.js')
-      .then((registration) => {
-        console.log('✅ PWA 서비스워커 등록 완료:', registration);
-      })
-      .catch((err) => {
-        console.error('❌ PWA 서비스워커 등록 실패:', err);
-      });
-    // Firebase FCM 서비스워커 등록 비활성화
-    /*
-    navigator.serviceWorker
-      .register('/firebase-messaging-sw.js')
-      .then((registration) => {
-        console.log('✅ FCM 서비스워커 등록 완료:', registration);
-      })
-      .catch((err) => {
-        console.error('❌ FCM 서비스워커 등록 실패:', err);
-      });
-    */
-  });
-}
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker
+//       .register('/sw.js')
+//       .then((registration) => {
+//         console.log('✅ PWA 서비스워커 등록 완료:', registration);
+//       })
+//       .catch((err) => {
+//         console.error('❌ PWA 서비스워커 등록 실패:', err);
+//       });
+//     // Firebase FCM 서비스워커 등록 비활성화
+//     /*
+//     navigator.serviceWorker
+//       .register('/firebase-messaging-sw.js')
+//       .then((registration) => {
+//         console.log('✅ FCM 서비스워커 등록 완료:', registration);
+//       })
+//       .catch((err) => {
+//         console.error('❌ FCM 서비스워커 등록 실패:', err);
+//       });
+//     */
+//   });
+// }

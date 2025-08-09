@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './Carousel.styles';
 import TimeIcon from '@/assets/icons/time_gy200.svg?react';
 import { CarouselProps } from './Carousel.types';
-import { PerformanceAlert } from '../alarm';
 
 export default function Carousel({ data }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -131,9 +130,6 @@ export default function Carousel({ data }: CarouselProps) {
           <TimeIcon width="1.125rem" height="1.125rem" />
           <S.TimeText fade={textFade}>{currentSinger.time}</S.TimeText>
         </S.TimeBox>
-        <S.AlertBox>
-          <PerformanceAlert id={currentSinger.fcm_singer} />
-        </S.AlertBox>
       </S.SingerTimeWrap>
     </S.Container>
   );
