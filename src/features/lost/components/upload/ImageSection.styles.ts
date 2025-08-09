@@ -41,7 +41,7 @@ export const ReUploadButton = styled.button`
   border: none;
   background-color: ${(props) => props.theme.colors.primary.bl400};
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   cursor: pointer;
 `;
 
@@ -55,14 +55,14 @@ export const ImageButton = styled.button`
   gap: 0.625rem;
   align-self: stretch;
   border-radius: 0.75rem;
-  border: 1px dashed ${(props) => props.theme.colors.grayScale.gy600};
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  border: 1px dashed ${(props) => props.theme.colors.grayScale.gy300};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   cursor: pointer;
 `;
 
 export const ImageButtonText = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.gy50};
+  color: ${(props) => props.theme.colors.grayScale.gy900};
 `;
 
 export const CommentBox = styled.div`

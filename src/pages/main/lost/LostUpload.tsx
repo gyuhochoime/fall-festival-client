@@ -33,7 +33,7 @@ export default function LostUpload() {
   });
   const { open, key } = useModal(ModalCaution);
   const closeModal = useModalStore((state) => state.closeModal);
-  const token = localStorage.getItem('access_token');
+  // 세션 기반으로 전환: 토큰 사용 안 함
 
   useEffect(() => {
     setIsNav(false);
@@ -70,12 +70,7 @@ export default function LostUpload() {
           formData.append('image', formState.image!);
 
           try {
-            await axiosInstance.post('/api/lost-items', formData, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': undefined,
-              },
-            });
+            await axiosInstance.post('/api/lost-items', formData);
             navigate('/main/lost/upload/complete');
           } catch {
             navigate('/main/lost/upload/fail');
@@ -115,7 +110,7 @@ export default function LostUpload() {
                 <S.StaffButtonText $active={formState.isDeliveredToStaff}>
                   {formState.isDeliveredToStaff ? '전달 완료' : '전달 안함'}
                 </S.StaffButtonText>
-                <CheckIcon width={'1rem'} height={'1rem'} fill={theme.colors.grayScale.white} />
+                <CheckIcon width={'1rem'} height={'1rem'} fill={theme.colors.grayScale.black} />
               </S.StaffButton>
             </S.StaffBox>
             {/* 위치 */}
@@ -157,8 +152,8 @@ export default function LostUpload() {
               onClick={() => updateForm('checked', !formState.checked)}
               style={{
                 color: formState.checked
-                  ? theme.colors.grayScale.black
-                  : theme.colors.grayScale.gy400,
+                  ? theme.colors.grayScale.white
+                  : theme.colors.grayScale.gy500,
               }}
             >
               <CheckIcon width="2.0625rem" height="2.0625rem" />

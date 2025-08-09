@@ -6,7 +6,7 @@ export const Container = styled.aside`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   padding-bottom: 2.5rem;
 `;
 

@@ -3,8 +3,7 @@ import * as S from './Registration.styles';
 import PlusIcon from '@/assets/icons/plus.svg?react';
 import ModalPost from '../../modal/ModalPost';
 import { theme } from '@/styles/theme';
-import { LoginModal } from '@/features/login/modal';
-import { useAuthStore } from '@/stores/useAuthStore';
+// 로그인 모달/상태 사용 제거
 
 /**
  * 분실물 등록 컴포넌트
@@ -12,44 +11,24 @@ import { useAuthStore } from '@/stores/useAuthStore';
  */
 
 export default function Registration() {
-  const loginStatus = useAuthStore((state) => state.isLoggedIn);
   const modalPost = useModal(ModalPost);
-  const loginModalContent = LoginModal as React.ComponentType<{
-    close?: () => void;
-    title: string;
-  }>;
-  const loginModal = useModal(loginModalContent);
 
   const handleAddClick = () => {
-    if (loginStatus) {
-      modalPost.open(
-        {
-          title: '분실물 등록 숙지 사항',
-        },
-        {
-          isHelpIcon: false,
-        },
-      );
-    } else {
-      loginModal.open(
-        {
-          title: '로그인',
-          close: () => {
-            loginModal.close();
-          },
-        },
-        {
-          isHelpIcon: false,
-        },
-      );
-    }
+    modalPost.open(
+      {
+        title: '분실물 등록 숙지 사항',
+      },
+      {
+        isHelpIcon: false,
+      },
+    );
   };
   return (
     <S.Container>
       <S.Button onClick={() => handleAddClick()}>
         <S.IconTextWrap>
           <S.Icon>
-            <PlusIcon width={'1.5rem'} height={'1.5rem'} fill={theme.colors.grayScale.white} />
+            <PlusIcon width={'1.5rem'} height={'1.5rem'} fill={theme.colors.grayScale.black} />
           </S.Icon>
           <S.ButtonText>분실물 등록하기</S.ButtonText>
         </S.IconTextWrap>

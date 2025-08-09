@@ -20,7 +20,7 @@ export const InfoWrap = styled.div`
 export const TodayPerformanceText = styled.p`
   align-self: stretch;
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const DayWrap = styled.div`
@@ -41,14 +41,14 @@ export const TextWrap = styled.div`
 
 export const StartText = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy400};
+  color: ${(props) => props.theme.colors.grayScale.gy500};
 `;
 
 export const HelpIconStyled = styled(HelpIcon)`
   width: 1.125rem;
   height: 1.125rem;
   cursor: pointer;
-  fill: ${(props) => props.theme.colors.grayScale.gy600};
+  fill: ${(props) => props.theme.colors.grayScale.gy300};
 `;
 
 export const Carousel = styled.div`
@@ -78,5 +78,5 @@ export const FrameBox = styled.div`
 export const NoteText = styled.p`
   align-self: stretch;
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;

@@ -46,7 +46,7 @@ export default function ImageSection({ image, setImage }: ImageSectionProps) {
       ) : (
         <>
           <S.ImageButton as="div" onClick={handleReUpload}>
-            <CameraIcon width="1.5rem" height="1.5rem" fill={theme.colors.grayScale.gy50} />
+            <CameraIcon width="1.5rem" height="1.5rem" fill={theme.colors.grayScale.gy900} />
             <S.ImageButtonText>이미지 업로드 (1장)</S.ImageButtonText>
           </S.ImageButton>
           <S.MariginBox>

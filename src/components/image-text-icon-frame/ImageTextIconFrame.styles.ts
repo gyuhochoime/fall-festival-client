@@ -12,11 +12,11 @@ export const Container = styled.div<ImageProps>`
   align-items: center;
   gap: 1.25rem;
   border-radius: 0.5rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
   cursor: pointer;
 
   &:active {
-    background-color: ${(props) => props.theme.colors.grayScale.black};
+    background-color: ${(props) => props.theme.colors.grayScale.white};
   }
 `;
 
@@ -39,13 +39,13 @@ export const TextWrap = styled.div<ImageProps>`
 export const TitleText = styled.p`
   ${(props) => props.theme.fonts.header.h4};
   align-self: stretch;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const DescriptionText = styled.p`
   ${(props) => props.theme.fonts.body.xsmall400};
   align-self: stretch;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Icon = styled.img`

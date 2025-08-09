@@ -23,7 +23,7 @@ export const Main = styled.main`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   position: relative;
 `;
 

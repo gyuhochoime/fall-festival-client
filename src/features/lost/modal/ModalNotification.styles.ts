@@ -10,7 +10,7 @@ export const ModalContainer = styled.div`
 
 export const ModalText = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
   margin-top: 1.25rem;
 `;

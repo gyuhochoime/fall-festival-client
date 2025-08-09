@@ -22,12 +22,12 @@ export const NoResultMessageBox = styled.div`
 
 export const NoResultMessageTitle = styled.p`
   ${(props) => props.theme.fonts.body.medium400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
   text-align: center;
 `;
 
 export const NoResultMessage = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
   text-align: center;
 `;

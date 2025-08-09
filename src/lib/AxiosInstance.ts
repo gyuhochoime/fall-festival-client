@@ -1,5 +1,6 @@
-import { logout } from '@/services/login';
 import axios from 'axios';
+import { getSessionIdFromCookie, ensureSessionCookie } from '@/utils/session';
+import type { AxiosRequestHeaders } from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -12,41 +13,19 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // 로컬 스토리지에서 토큰 가져오기
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // 세션 쿠키 보장 및 세션 ID 헤더 부착
+    const sid = getSessionIdFromCookie() || ensureSessionCookie();
+    const headers: AxiosRequestHeaders = (config.headers || {}) as AxiosRequestHeaders;
+    headers['X-Session-Id'] = sid;
+    config.headers = headers;
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
-
-    // access token 만료 시도 감지
-    if (error.response?.status === 406 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const refreshResponse = await axiosInstance.post('/auth/refresh');
-        const newAccessToken = refreshResponse.headers['authorization']?.replace('Bearer ', '');
-        if (newAccessToken) {
-          localStorage.setItem('access_token', newAccessToken);
-          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-          return axiosInstance(originalRequest);
-        }
-      } catch (refreshError) {
-        console.error('토큰 갱신 실패', refreshError);
-        await logout();
-        window.location.href = '/login';
-      }
-    }
-
     return Promise.reject(error);
   },
 );

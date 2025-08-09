@@ -17,7 +17,7 @@ export const TextFrame = styled.div`
 `;
 
 const Text = styled.p`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const HeaderText = styled(Text)`

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Text = styled.span`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   ${(props) => props.theme.fonts.body.medium500};
   text-align: center;
 `;
@@ -16,7 +16,7 @@ export const Container = styled.div`
 `;
 
 export const BottomText = styled.span`
-  color: ${(props) => props.theme.colors.grayScale.gy500};
+  color: ${(props) => props.theme.colors.grayScale.gy9000};
   ${(props) => props.theme.fonts.body.xsmall500};
   text-decoration-line: underline;
   text-decoration-style: solid;

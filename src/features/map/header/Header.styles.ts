@@ -36,7 +36,7 @@ export const HeadWrap = styled.div<HeaderProps>`
   align-items: center;
   padding: 1.19rem 0.88rem 1.44rem;
   position: relative;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   transition: background-color 0.2s ease-in-out;
   height: 3.875rem;
 `;
@@ -59,7 +59,7 @@ export const TitleWrap = styled.button`
 export const Title = styled.div`
   min-width: 5.2rem;
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: right;
 `;
 
@@ -99,8 +99,8 @@ export const DropDownWrap = styled.div<HeaderProps>`
   align-items: center;
   width: 100%;
   border-radius: 0 0 0.75rem 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
-  border-bottom: 1px solid ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
+  border-bottom: 1px solid ${(props) => props.theme.colors.grayScale.gy50};
   box-shadow: ${(props) => (props.$expanded ? '0px 3px 5.9px 0px rgb(255 255 255 / 10%)' : 'none')};
   z-index: 2;
 
@@ -126,18 +126,18 @@ export const DaySelectButton = styled.button`
   padding: 1.18rem 1.66rem;
   cursor: pointer;
   ${(props) => props.theme.fonts.body.medium400};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.grayScale.gy900};
+    background-color: ${(props) => props.theme.colors.grayScale.gy50};
   }
 
   &:active {
-    background-color: ${(props) => props.theme.colors.grayScale.gy800};
+    background-color: ${(props) => props.theme.colors.grayScale.gy100};
   }
 
-  border-bottom: 1px solid ${(props) => props.theme.colors.grayScale.gy900};
+  border-bottom: 1px solid ${(props) => props.theme.colors.grayScale.gy50};
 
   &:last-child {
     border-bottom: none;
@@ -162,7 +162,7 @@ export const OverLay = styled.div<HeaderProps>`
       ? `rgba(0, 0, 0, 0.60);`
       : `linear-gradient(
           180deg,
-          ${props.theme.colors.grayScale.black} 0%,
+          ${props.theme.colors.grayScale.white} 0%,
           rgb(47 47 51 / 89%) 13.84%,
           rgb(72 72 75 / 79%) 28.59%,
           rgb(91 91 94 / 71%) 36.9%,

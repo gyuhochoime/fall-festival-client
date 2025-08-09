@@ -24,6 +24,6 @@ export const TagWrapper = styled.div`
 `;
 
 export const CustomLink = styled.a`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-decoration: underline;
 `;

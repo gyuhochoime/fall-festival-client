@@ -30,7 +30,7 @@ export const ItemInfoBox = styled.div`
 
 export const ItemName = styled.div`
   ${(props) => props.theme.fonts.body.small500};
-  color: ${({ theme }) => theme.colors.grayScale.gy100};
+  color: ${({ theme }) => theme.colors.grayScale.gy800};
   align-self: stretch;
   white-space: nowrap;
   overflow: hidden;
@@ -46,7 +46,7 @@ export const LocationBox = styled.div`
 
 export const LocationText = styled.div`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${({ theme }) => theme.colors.grayScale.gy500};
+  color: ${({ theme }) => theme.colors.grayScale.gy9000};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ModalBox = styled.div`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,5 +24,5 @@ export const Description2 = styled.p`
 export const SubText = styled.p`
   text-decoration: underline;
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy500};
+  color: ${(props) => props.theme.colors.grayScale.gy9000};
 `;

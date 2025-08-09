@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const Container = styled.div`
   width: 100%;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   height: 2.5rem;
   display: flex;
   justify-content: center;
@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const Nav = styled.nav`
   width: 20.9375rem;
   padding: 0 1rem;
-  border-bottom: 2px solid ${(props) => props.theme.colors.grayScale.gy900};
+  border-bottom: 2px solid ${(props) => props.theme.colors.grayScale.gy50};
 `;
 
 export const List = styled.ul`
@@ -23,7 +23,7 @@ export const List = styled.ul`
 export const Item = styled(motion.li)<{ $current: boolean }>`
   flex: 1;
   color: ${(props) =>
-    props.$current ? props.theme.colors.grayScale.gy50 : props.theme.colors.grayScale.gy700};
+    props.$current ? props.theme.colors.grayScale.gy900 : props.theme.colors.grayScale.gy200};
   ${(props) => props.theme.fonts.header.h4};
   position: relative;
   height: 2.5rem;
@@ -39,5 +39,5 @@ export const Underline = styled(motion.div)`
   left: 0;
   right: 0;
   height: 2px;
-  background-color: ${(props) => props.theme.colors.grayScale.gy100};
+  background-color: ${(props) => props.theme.colors.grayScale.gy800};
 `;

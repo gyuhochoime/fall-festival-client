@@ -23,7 +23,7 @@ export const MenuItem = styled.div`
 `;
 
 export const MenuCategory = styled.p`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   ${(props) => props.theme.fonts.header.h3};
 `;
 

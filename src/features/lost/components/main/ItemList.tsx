@@ -71,7 +71,7 @@ export default function ItemList() {
             height={'1.125rem'}
             onClick={() => handleHelpClick()}
             style={{ cursor: 'pointer' }}
-            fill={theme.colors.grayScale.gy600}
+            fill={theme.colors.grayScale.gy300}
           />
         </S.TabIconBox>
         <S.Grid style={{ opacity }}>

@@ -34,13 +34,13 @@ export const TextWrap = styled.div`
 
 export const MainTitle = styled.p`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   align-self: stretch;
 `;
 
 export const SubTitle = styled.p`
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   align-self: stretch;
 `;
 
@@ -69,7 +69,7 @@ export const PartWrap = styled.div`
 
 export const PartTitle = styled.p`
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   align-self: stretch;
 `;
 

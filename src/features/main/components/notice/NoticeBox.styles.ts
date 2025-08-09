@@ -12,7 +12,7 @@ export const HorizontalLine = styled.div`
 `;
 
 export const Line = styled.div`
-  background-color: ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
   height: 1px;
   width: 100%;
   align-self: stretch;

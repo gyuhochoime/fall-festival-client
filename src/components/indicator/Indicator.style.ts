@@ -27,5 +27,5 @@ export const Dots = styled(motion.li)<{ $isClickable: boolean }>`
   flex-shrink: 0;
   aspect-ratio: 1/1;
   cursor: ${(props) => (props.$isClickable ? 'pointer' : 'default')};
-  background-color: ${(props) => props.theme.colors.grayScale.gy200};
+  background-color: ${(props) => props.theme.colors.grayScale.gy700};
 `;

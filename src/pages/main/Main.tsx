@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { NavBar } from '@/components/nav-bar';
 import * as S from './Main.styles';
 import { EventCarousels } from '@/features/main/components/carousels';
@@ -7,20 +6,29 @@ import { NoticeSlider } from '@/features/main/components/slider';
 import Right from '@/assets/icons/right-arrow.svg?react';
 import Backeffct from '@/assets/icons/Background-Reflect.svg?react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { UserLogin, Footer } from '@/features/main/components/user';
-import { useAuthStore } from '@/stores/useAuthStore';
+import { /* UserLogin, */ Footer } from '@/features/main/components/user';
+// import { useAuthStore } from '@/stores/useAuthStore';
 import { useEffect } from 'react';
+import { ensureSessionCookie } from '@/utils/session';
 import AppInstallPrompt from '@/features/main/components/user/AppInstallPrompt';
 
 export default function Main() {
   const navigate = useNavigate();
   const location = useLocation();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  // const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   useEffect(() => {
     const isFirst = localStorage.getItem('isFirst');
     if (isFirst === null) {
-      navigate('/login', { state: { isFirst: true } });
+      /* navigate('/login', { state: { isFirst: true } }); */
+
+      // isFirst false로 설정
+      localStorage.setItem('isFirst', 'false');
+
+      // 그리고 고유한 세션 ID 만들어서 쿠키로 설정 (소문자 알파벳 + 숫자 16자리)
+      ensureSessionCookie();
     }
+    // 첫 방문이 아니어도 세션 쿠키 없으면 보충
+    ensureSessionCookie();
   }, []);
   return (
     <S.Container>
@@ -37,7 +45,7 @@ export default function Main() {
             <EventCarousels />
           </S.CarouselsBox>
         </section>
-        {!isLoggedIn && <UserLogin />}
+        {/* !isLoggedIn && <UserLogin /> */}
         <section>
           <S.TitleWrapper>
             <S.Title>공지사항</S.Title>

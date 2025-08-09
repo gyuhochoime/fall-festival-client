@@ -14,10 +14,10 @@ export const StaffLabel = styled.div<{ $absolute?: boolean }>`
   align-items: center;
   gap: 0.625rem;
   border-radius: 0.375rem;
-  background-color: ${({ theme }) => theme.colors.grayScale.gy950};
+  background-color: ${({ theme }) => theme.colors.grayScale.offwhite};
 `;
 
 export const LabelText = styled.div`
   ${(props) => props.theme.fonts.body.xsmall400};
-  color: ${({ theme }) => theme.colors.grayScale.white};
+  color: ${({ theme }) => theme.colors.grayScale.black};
 `;

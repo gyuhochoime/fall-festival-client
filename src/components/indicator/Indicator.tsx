@@ -47,7 +47,7 @@ export default function Indicator({ totalPages, currentPage, onClick }: Indicato
                 opacity: 1,
                 x: 0,
                 backgroundColor:
-                  index === currentPage ? theme.colors.primary.bl400 : theme.colors.grayScale.gy200,
+                  index === currentPage ? theme.colors.primary.bl400 : theme.colors.grayScale.gy700,
               }}
               exit={{
                 scale: 0,

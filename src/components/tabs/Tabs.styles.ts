@@ -35,12 +35,12 @@ export const Tab = styled.button<{
   cursor: pointer;
   border: 1px solid;
   border-color: ${(props) =>
-    props.$isActive ? 'transparent' : props.theme.colors.grayScale.white};
+    props.$isActive ? 'transparent' : props.theme.colors.grayScale.black};
   background-color: ${(props) =>
     props.$isActive ? props.theme.colors.primary.bl400 : 'transparent'};
 
   &:active {
-    background-color: ${(props) => props.theme.colors.grayScale.gy950};
+    background-color: ${(props) => props.theme.colors.grayScale.offwhite};
   }
 `;
 
@@ -48,8 +48,8 @@ export const TabText = styled.p<{ $isActive: boolean }>`
   ${(props) => props.theme.fonts.body.small400};
   color: ${(props) =>
     props.$isActive
-      ? `${props.theme.colors.grayScale.black}`
-      : `${props.theme.colors.grayScale.white}`};
+      ? `${props.theme.colors.grayScale.white}`
+      : `${props.theme.colors.grayScale.black}`};
   text-align: center;
   text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   white-space: nowrap;

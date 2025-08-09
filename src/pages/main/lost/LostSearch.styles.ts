@@ -40,8 +40,8 @@ export const SearchSection = styled.div`
   align-items: center;
   justify-content: end;
   flex-grow: 1;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
-  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy800};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
+  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy100};
   border-radius: 0.375rem;
   min-height: 2.5rem;
 `;
@@ -51,11 +51,11 @@ export const SearchInput = styled.input`
   padding: 0.5rem 0.75rem;
   background-color: transparent;
   border: none;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 
   ${(props) => props.theme.fonts.body.medium500};
   &::placeholder {
-    color: ${(props) => props.theme.colors.grayScale.gy500};
+    color: ${(props) => props.theme.colors.grayScale.gy9000};
   }
 
   &:focus {
@@ -87,7 +87,7 @@ export const RecentSearchHeader = styled.h3`
   margin-left: 1.25rem;
   margin-bottom: 1rem;
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.offwhite};
+  color: ${(props) => props.theme.colors.grayScale.gy950};
 `;
 
 export const LoginInfoBox = styled.div`
@@ -109,14 +109,14 @@ export const LoginInfoButton = styled.button`
   background: #4f75f9;
   border: none;
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
   cursor: pointer;
 `;
 
 export const LoginInfoText = styled.p`
   ${(props) => props.theme.fonts.body.medium400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
   text-align: center;
   align-self: stretch;
 `;
@@ -132,7 +132,7 @@ export const EmptyHistoryMessage = styled.div`
   align-items: center;
   height: 1.856rem;
   ${(props) => props.theme.fonts.body.medium400};
-  color: ${(props) => props.theme.colors.grayScale.gy500};
+  color: ${(props) => props.theme.colors.grayScale.gy9000};
 `;
 
 export const ResultSection = styled.section`
@@ -173,12 +173,12 @@ export const NoResultMessageBox = styled.div`
 
 export const NoResultMessageTitle = styled.p`
   ${(props) => props.theme.fonts.body.medium400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
   text-align: center;
 `;
 
 export const NoResultMessage = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
   text-align: center;
 `;

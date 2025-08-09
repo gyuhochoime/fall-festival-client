@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 0.75rem;
   border-radius: 0.75rem;
-  border: 0.0375rem solid ${(props) => props.theme.colors.grayScale.white};
+  border: 0.0375rem solid ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const TextSection = styled.div`
@@ -25,7 +25,7 @@ export const TextBtnFrame = styled.div`
 export const Text = styled.span<{ $isBlue?: boolean }>`
   ${(props) => props.theme.fonts.body.small500};
   color: ${(props) =>
-    props.$isBlue ? props.theme.colors.primary.bl400 : props.theme.colors.grayScale.white};
+    props.$isBlue ? props.theme.colors.primary.bl400 : props.theme.colors.grayScale.black};
 `;
 
 export const HeaderText = styled(Text)`
@@ -44,7 +44,7 @@ export const SmallText = styled(Text)`
 
 export const HorizontalLine = styled.div`
   height: 0.0625rem;
-  background: ${(props) => props.theme.colors.grayScale.gy900};
+  background: ${(props) => props.theme.colors.grayScale.gy50};
 `;
 
 export const ButtonFrame = styled.div`
@@ -66,6 +66,6 @@ export const Button = styled(motion.button)`
   border-radius: 0.75rem;
 
   &:disabled {
-    background-color: ${(props) => props.theme.colors.grayScale.gy700};
+    background-color: ${(props) => props.theme.colors.grayScale.gy200};
   }
 `;

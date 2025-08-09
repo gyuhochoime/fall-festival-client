@@ -6,7 +6,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   justify-content: center;
   align-items: center;
   border: none;
-  color: ${({ theme }) => theme.colors.grayScale.white};
+  color: ${({ theme }) => theme.colors.grayScale.black};
   white-space: nowrap;
   cursor: pointer;
   border-radius: ${({ $size }) => ($size === 'small' ? '0.5rem' : '0.75rem')};
@@ -44,7 +44,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${({ theme }) => theme.colors.primary.bl400};
 
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.grayScale.gy700};
+    background-color: ${({ theme }) => theme.colors.grayScale.gy200};
     cursor: not-allowed;
   }
 

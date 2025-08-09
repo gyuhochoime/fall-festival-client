@@ -42,13 +42,13 @@ export const Input = styled.input`
   gap: 0.625rem;
   align-self: stretch;
   border-radius: 0.75rem;
-  border: 1px solid ${(props) => props.theme.colors.grayScale.gy600};
+  border: 1px solid ${(props) => props.theme.colors.grayScale.gy300};
   ${(props) => props.theme.fonts.body.medium500};
   background-color: transparent;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.grayScale.gy400};
+    color: ${(props) => props.theme.colors.grayScale.gy500};
   }
 `;
 
@@ -71,14 +71,14 @@ export const StaffButton = styled.button<{ $active?: boolean }>`
   background-color: ${(props) =>
     props.$active ? props.theme.colors.secondary.bl500 : 'transparent'};
   border: 1px dashed
-    ${(props) => (props.$active ? theme.colors.secondary.bl500 : theme.colors.grayScale.gy600)};
+    ${(props) => (props.$active ? theme.colors.secondary.bl500 : theme.colors.grayScale.gy300)};
   transition: background-color 0.5s ease;
   cursor: pointer;
 `;
 
 export const StaffButtonText = styled.p<{ $active?: boolean }>`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
 `;
 
@@ -107,13 +107,13 @@ export const DescriptionInput = styled.textarea`
   resize: none;
   align-self: stretch;
   border-radius: 0.75rem;
-  border: 1px solid ${(props) => props.theme.colors.grayScale.gy600};
+  border: 1px solid ${(props) => props.theme.colors.grayScale.gy300};
   ${(props) => props.theme.fonts.body.medium500};
   background-color: transparent;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.grayScale.gy400};
+    color: ${(props) => props.theme.colors.grayScale.gy500};
   }
 `;
 
@@ -127,7 +127,7 @@ export const CheckWrap = styled.div`
 
 export const CheckText = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
 `;
 
 export const Icon = styled.div<{ $checked?: boolean }>`
@@ -139,7 +139,7 @@ export const Icon = styled.div<{ $checked?: boolean }>`
   align-items: center;
   border-radius: 1rem;
   border: ${(props) =>
-    props.$checked ? 'none' : `1px solid ${props.theme.colors.grayScale.gy400}`};
+    props.$checked ? 'none' : `1px solid ${props.theme.colors.grayScale.gy500}`};
   background-color: ${(props) =>
     props.$checked ? props.theme.colors.primary.bl400 : 'transparent'};
   cursor: pointer;

@@ -5,8 +5,8 @@ export const Container = styled.div`
   width: 19.25rem;
   flex-direction: column;
   align-items: flex-start;
-  border-top: 3px solid ${(props) => props.theme.colors.grayScale.gy50};
-  border-left: 3px solid ${(props) => props.theme.colors.grayScale.gy50};
+  border-top: 3px solid ${(props) => props.theme.colors.grayScale.gy900};
+  border-left: 3px solid ${(props) => props.theme.colors.grayScale.gy900};
   background-color: ${(props) => props.theme.colors.primary.bl400};
   box-shadow: 3px 3px 0 0 #26409c;
 `;
@@ -26,7 +26,7 @@ export const InfoSection = styled.div`
   align-items: center;
   align-self: stretch;
   background: linear-gradient(117deg, #a5b6ef 16.05%, #bbcfff 76.33%);
-  border-top: 3px solid ${(props) => props.theme.colors.grayScale.gy50};
+  border-top: 3px solid ${(props) => props.theme.colors.grayScale.gy900};
 `;
 
 export const TagWrapper = styled.div`
@@ -38,7 +38,7 @@ export const TagWrapper = styled.div`
 export const EventTitle = styled.p`
   ${(props) => props.theme.fonts.header.h3}
   text-align: center;
-  color: ${(props) => props.theme.colors.grayScale.gy950};
+  color: ${(props) => props.theme.colors.grayScale.offwhite};
 `;
 
 export const TextContainer = styled.div`
@@ -47,7 +47,7 @@ export const TextContainer = styled.div`
   align-items: center;
   gap: 0.5rem;
   align-self: stretch;
-  color: ${(props) => props.theme.colors.grayScale.gy950};
+  color: ${(props) => props.theme.colors.grayScale.offwhite};
   padding: 0.5rem 0 1.25rem;
 `;
 

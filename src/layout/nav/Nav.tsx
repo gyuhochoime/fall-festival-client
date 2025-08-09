@@ -2,9 +2,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import * as S from './Nav.styles';
 import { NAV_ITEMS } from './nav-item';
 import Lottie from 'react-lottie-player';
-import useModal from '@/hooks/useModal';
-import { LoginModal } from '@/features/login/modal';
-import { useAuthStore } from '@/stores/useAuthStore';
 
 /**
  * Nav component
@@ -13,29 +10,12 @@ import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function Nav() {
   const locate = useLocation();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const modal = LoginModal as React.ComponentType<{
-    close?: () => void;
-    title: string;
-  }>;
-  const { open, close } = useModal(modal);
-  const handleNavigate = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    isLocation: boolean,
-    path: string,
-  ) => {
+  // 비로그인 세션 체제로 전환: 로그인 모달/게이트 비활성화
+  const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>, isLocation: boolean) => {
     if (isLocation) {
       e.preventDefault();
     }
-    if (path === '/user' && !isLoggedIn) {
-      e.preventDefault();
-      open({
-        title: '로그인',
-        close: () => {
-          close();
-        },
-      });
-    }
+    // 로그인 게이트 제거
   };
 
   return (
@@ -47,9 +27,7 @@ export default function Nav() {
             to={item.path}
             key={item.id}
             style={{ textDecoration: 'none' }}
-            onClick={(e) => {
-              handleNavigate(e, isLocation, item.path);
-            }}
+            onClick={(e) => handleNavigate(e, isLocation)}
           >
             <S.NavBtn whileTap={{ scale: 0.92, backgroundColor: '#212526' }}>
               {!isLocation ? (

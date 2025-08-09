@@ -20,6 +20,6 @@ export const IconButton = styled(motion.button)`
 `;
 
 export const Text = styled.p`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   ${(props) => props.theme.fonts.body.xsmall500};
 `;

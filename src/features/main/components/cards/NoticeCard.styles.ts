@@ -6,8 +6,8 @@ export const Container = styled.div<{ $isFirst?: boolean }>`
   width: 12.25rem;
   flex-direction: column;
   align-items: flex-start;
-  background-color: ${(props) => props.theme.colors.secondary.ye200};
-  box-shadow: 3px 3px 0px 0px #e6ab12;
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
+  box-shadow: 3px 3px 0px 0px #919191ff;
   margin-left: ${(props) => (props.$isFirst ? '1.25rem' : '0')};
 `;
 
@@ -17,9 +17,10 @@ export const HeaderSection = styled.div`
   align-items: center;
   gap: 7.5rem;
   align-self: stretch;
-  border-top: 3px solid ${(props) => props.theme.colors.secondary.ye200};
-  border-left: 3px solid ${(props) => props.theme.colors.secondary.ye200};
-  background: ${(props) => props.theme.colors.grayScale.gy50};
+
+  /* border-top: 3px solid ${(props) => props.theme.colors.secondary.ye200};
+  border-left: 3px solid ${(props) => props.theme.colors.secondary.ye200}; */
+  background: transparent;
 `;
 
 export const InfoSection = styled.div`
@@ -31,9 +32,10 @@ export const InfoSection = styled.div`
   align-items: center;
   gap: 0.125rem;
   align-self: stretch;
-  border-top: 3px solid ${(props) => props.theme.colors.grayScale.gy50};
-  border-left: 3px solid ${(props) => props.theme.colors.grayScale.gy50};
-  background: ${(props) => props.theme.colors.secondary.ye200};
+
+  /* border-top: 3px solid ${(props) => props.theme.colors.grayScale.gy900};
+  border-left: 3px solid ${(props) => props.theme.colors.grayScale.gy900}; */
+  background: transparent; /* ${(props) => props.theme.colors.grayScale.gy200}; */
 `;
 
 export const TagWrapper = styled.div`
@@ -50,7 +52,7 @@ export const EventTitle = styled.p`
 
 export const TextWrapper = styled.div`
   ${(props) => props.theme.fonts.header.h3}
-  color: ${(props) => props.theme.colors.grayScale.gy950};
+  color: ${(props) => props.theme.colors.grayScale.black};
   display: flex;
   text-align: left;
   gap: 0.5rem;

@@ -99,7 +99,7 @@ export default function TimeTable() {
                       <>
                         <S.PerformanceName>{performance.name}</S.PerformanceName>
                         <S.PerformanceTime>
-                          <ClockIcon width="1.125rem" height="1.125rem" fill="#fafafa" />
+                          <ClockIcon width="1.125rem" height="1.125rem" fill="#17171B" />
                           {performance.start}~{performance.end}
                         </S.PerformanceTime>
                       </>

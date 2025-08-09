@@ -10,7 +10,7 @@ export const Container = styled.div`
 export const Title = styled.p`
   margin-top: 4.06rem;
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
 `;
 export const TextBox = styled.div`
@@ -23,7 +23,7 @@ export const TextBox = styled.div`
 
 export const Text = styled.p`
   ${(props) => props.theme.fonts.body.medium400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
   text-align: center;
 `;
 

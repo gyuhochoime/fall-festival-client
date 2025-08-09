@@ -11,7 +11,7 @@ export const Container = styled.div<{ $width?: string; $activeStyle?: boolean }>
   gap: 0.75rem;
   padding: 0.75rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   cursor: ${(props) => (props.onClick ? 'pointer' : 'default')};
   overflow: hidden;
 
@@ -19,7 +19,7 @@ export const Container = styled.div<{ $width?: string; $activeStyle?: boolean }>
     props.$activeStyle &&
     `
     &:active {
-      background-color: ${props.theme.colors.grayScale.gy900};
+      background-color: ${props.theme.colors.grayScale.gy50};
     }
   `}
 `;
@@ -36,7 +36,7 @@ export const MenuContainer = styled.div<{ $width?: string }>`
   gap: 1.25rem;
   padding: 0.75rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
 `;
 
 export const Image = styled.img`
@@ -45,7 +45,7 @@ export const Image = styled.img`
   flex-shrink: 0;
   aspect-ratio: 1/1;
   border-radius: 0.375rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy300};
+  background-color: ${(props) => props.theme.colors.grayScale.gy600};
 `;
 
 export const ContentsWrap = styled.div`
@@ -84,7 +84,7 @@ export const TitleWrap = styled.div`
 
 export const Title = styled.p`
   ${(props) => props.theme.fonts.header.h4}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -95,14 +95,14 @@ export const Title = styled.p`
 export const TitleDivider = styled.div`
   width: 0.063rem;
   height: 1rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy800};
+  background-color: ${(props) => props.theme.colors.grayScale.gy100};
   flex-shrink: 0;
   margin: 0 0.125rem;
 `;
 
 export const SubTitle = styled.span`
   ${(props) => props.theme.fonts.body.medium400}
-  color: ${(props) => props.theme.colors.grayScale.gy700};
+  color: ${(props) => props.theme.colors.grayScale.gy200};
   white-space: nowrap;
   flex: 0 0 auto;
 `;
@@ -118,7 +118,7 @@ export const ContentsFooter = styled.div`
 
 export const Organization = styled.p`
   ${(props) => props.theme.fonts.body.small400}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -139,7 +139,7 @@ export const TimeIcon = styled.img`
 
 export const Time = styled.p`
   ${(props) => props.theme.fonts.body.small400}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -157,7 +157,7 @@ export const Pickup = styled.div`
   background-color: ${(props) => props.theme.colors.primary.bl400};
   ${(props) => props.theme.fonts.body.xsmall500};
   border-radius: 0.375rem;
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.white};
   flex-shrink: 0;
 `;
 
@@ -172,7 +172,7 @@ export const LinkToDetail = styled.div`
   background-color: ${(props) => props.theme.colors.secondary.pk100};
   ${(props) => props.theme.fonts.body.xsmall400};
   border-radius: 0.375rem;
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.white};
   flex-shrink: 0;
 `;
 
@@ -188,7 +188,7 @@ export const MenuTextWrap = styled.div`
 
 export const MenuDescription = styled.p`
   ${(props) => props.theme.fonts.body.xsmall400}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   min-height: 2.25rem;
   max-width: 14.5rem;
   text-align: left;
@@ -197,7 +197,7 @@ export const MenuDescription = styled.p`
 
 export const Price = styled.p`
   ${(props) => props.theme.fonts.body.small500}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: right;
   margin-left: auto;
   margin-top: auto;

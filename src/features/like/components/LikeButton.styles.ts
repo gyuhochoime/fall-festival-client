@@ -16,5 +16,5 @@ export const Button = styled.button`
 
 export const Text = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy100};
+  color: ${(props) => props.theme.colors.grayScale.gy800};
 `;

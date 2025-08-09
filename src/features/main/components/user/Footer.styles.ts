@@ -13,7 +13,7 @@ export const Container = styled.footer`
 
 export const Sub = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500}
-  color: ${theme.colors.grayScale.gy500};
+  color: ${theme.colors.grayScale.gy9000};
   text-align: center;
 `;
 
@@ -28,6 +28,6 @@ export const Btn = styled.div`
 
 export const Out = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500}
-  color: ${theme.colors.grayScale.gy500};
+  color: ${theme.colors.grayScale.gy9000};
   text-decoration: underline;
 `;

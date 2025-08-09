@@ -40,7 +40,7 @@ export const SingerTimeBox = styled.div`
 
 export const Singer = styled.p`
   ${(props) => props.theme.fonts.header.h1};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const TimeBox = styled.div`
@@ -52,14 +52,14 @@ export const TimeBox = styled.div`
 
 export const Time = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy300};
+  color: ${(props) => props.theme.colors.grayScale.gy600};
   text-align: center;
   white-space: nowrap;
 `;
 
 export const Description = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy400};
+  color: ${(props) => props.theme.colors.grayScale.gy500};
 `;
 export const TitleSongWrap = styled.div`
   margin-top: 1rem;
@@ -73,7 +73,7 @@ export const TitleSongWrap = styled.div`
 export const TitleSongText = styled.p`
   align-self: stretch;
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const SongWrap = styled.div`
@@ -108,11 +108,11 @@ export const SongImage = styled.img`
 
 export const SongName = styled.p`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const SongLine = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
 `;
