@@ -5,8 +5,8 @@ import HyLightXLikeLion from '@/assets/images/hylight-likelion.svg?react';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
-import useModal from '@/hooks/useModal.ts';
-import AlarmModal from '@/features/alarm/components/AlarmModal.tsx';
+// import useModal from '@/hooks/useModal.ts';
+// import AlarmModal from '@/features/alarm/components/AlarmModal.tsx';
 
 /**
  * 카카오 로그인 화면입니다.
@@ -18,7 +18,7 @@ import AlarmModal from '@/features/alarm/components/AlarmModal.tsx';
  */
 const Login: React.FC = () => {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
-  const { open, close } = useModal(AlarmModal);
+  // const { open, close } = useModal(AlarmModal);
   const navigate = useNavigate();
   const isFirst = useLocation().state?.isFirst;
 
@@ -29,7 +29,8 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (isFirst === true) {
-      open({ title: '알림 허용하고 편하게 사용하기', close: close });
+      /* 처음 웹앱 이용시 실행 블록 */
+      // open({ title: '알림 허용하고 편하게 사용하기', close: close });
       localStorage.setItem('isFirst', 'false');
     }
   });

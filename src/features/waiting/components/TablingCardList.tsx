@@ -76,7 +76,7 @@ export default function TablingCardList({ tablingCards }: TablingCardListProps) 
                   <RightIcon
                     width={'1.5rem'}
                     height={'1.5rem'}
-                    fill="#FAFAFA"
+                    fill="#17171B"
                     style={{ zIndex: 1 }}
                     onClick={() => navigate(`/booth/${item.pubId}`)}
                   />

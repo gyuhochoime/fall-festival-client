@@ -8,7 +8,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 0.25rem;
-  background-color: ${(props) => props.theme.colors.grayScale.white};
+  background-color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Active = styled.div`

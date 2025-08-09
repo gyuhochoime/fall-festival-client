@@ -39,8 +39,8 @@ export const SearchSection = styled.div`
   align-items: center;
   justify-content: end;
   flex-grow: 1;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
-  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy800};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
+  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy100};
   border-radius: 0.375rem;
   min-height: 2.5rem;
 `;
@@ -50,11 +50,11 @@ export const SearchInput = styled.input`
   padding: 0.5rem 0.75rem;
   background-color: transparent;
   border: none;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 
   ${(props) => props.theme.fonts.body.medium500};
   &::placeholder {
-    color: ${(props) => props.theme.colors.grayScale.gy500};
+    color: ${(props) => props.theme.colors.grayScale.gy900};
   }
 
   &:focus {
@@ -86,7 +86,7 @@ export const RecommendedSearchHeader = styled.h3`
   margin-left: 1.25rem;
   margin-bottom: 1rem;
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.offwhite};
+  color: ${(props) => props.theme.colors.grayScale.gy950};
 `;
 
 export const SearchResultsContainer = styled.div`
@@ -99,7 +99,7 @@ export const SearchResultsContainer = styled.div`
 export const Divider = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
 `;
 
 export const NoSearchDataSection = styled.div`
@@ -108,7 +108,7 @@ export const NoSearchDataSection = styled.div`
   align-items: center;
   margin-top: 1.56rem;
   gap: 0.25rem;
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
 `;
 
 export const NoSearchDataTitle = styled.h3`

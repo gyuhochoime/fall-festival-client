@@ -15,7 +15,7 @@ export const Container = styled.div<{ $first: boolean }>`
       : ''};
 
   &:active {
-    background-color: ${(props) => props.theme.colors.grayScale.gy950};
+    background-color: ${(props) => props.theme.colors.grayScale.offwhite};
   }
 `;
 
@@ -23,7 +23,7 @@ export const Wrapper = styled(motion.div)`
   width: 100%;
   height: 100%;
   padding: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   border-radius: 0.75rem;
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@ export const UpText = styled.p`
 
 export const RankNumber = styled.p`
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.gy100};
+  color: ${(props) => props.theme.colors.grayScale.gy800};
 `;
 
 export const Like = styled.div`
@@ -86,7 +86,7 @@ export const Like = styled.div`
 
 export const LikeCount = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy100};
+  color: ${(props) => props.theme.colors.grayScale.gy800};
 `;
 
 export const MenuContainer = styled.div<{ $width?: string }>`
@@ -101,7 +101,7 @@ export const MenuContainer = styled.div<{ $width?: string }>`
   gap: 1.25rem;
   padding: 0.75rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
 `;
 
 export const Image = styled.img`
@@ -110,7 +110,7 @@ export const Image = styled.img`
   flex-shrink: 0;
   aspect-ratio: 1/1;
   border-radius: 0.375rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy300};
+  background-color: ${(props) => props.theme.colors.grayScale.gy600};
 `;
 
 export const ContentsWrap = styled.div`
@@ -148,7 +148,7 @@ export const TitleWrap = styled.div`
 
 export const Title = styled.p`
   ${(props) => props.theme.fonts.header.h4}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   max-width: 8.8125rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -160,13 +160,13 @@ export const Title = styled.p`
 export const TitleDivider = styled.div`
   width: 0.063rem;
   height: 1rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy800};
+  background-color: ${(props) => props.theme.colors.grayScale.gy100};
   flex-shrink: 0;
 `;
 
 export const SubTitle = styled.span`
   ${(props) => props.theme.fonts.body.medium400}
-  color: ${(props) => props.theme.colors.grayScale.gy700};
+  color: ${(props) => props.theme.colors.grayScale.gy200};
   white-space: nowrap;
   flex: 0 0 auto;
 `;
@@ -182,7 +182,7 @@ export const ContentsFooter = styled.div`
 
 export const Organization = styled.p`
   ${(props) => props.theme.fonts.body.small400}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -203,7 +203,7 @@ export const TimeIcon = styled.img`
 
 export const Time = styled.p`
   ${(props) => props.theme.fonts.body.xsmall400}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -221,7 +221,7 @@ export const Pickup = styled.div`
   background-color: ${(props) => props.theme.colors.primary.bl400};
   ${(props) => props.theme.fonts.body.xsmall400};
   border-radius: 0.375rem;
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.white};
   flex-shrink: 0;
 `;
 
@@ -236,7 +236,7 @@ export const LinkToDetail = styled.div`
   background-color: ${(props) => props.theme.colors.secondary.pk100};
   ${(props) => props.theme.fonts.body.xsmall400};
   border-radius: 0.375rem;
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.white};
   flex-shrink: 0;
 `;
 
@@ -252,7 +252,7 @@ export const MenuTextWrap = styled.div`
 
 export const MenuDescription = styled.p`
   ${(props) => props.theme.fonts.body.xsmall400}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   height: 2.25rem;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -264,7 +264,7 @@ export const MenuDescription = styled.p`
 
 export const Price = styled.p`
   ${(props) => props.theme.fonts.body.small500}
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: right;
   margin-left: auto;
   margin-top: auto;

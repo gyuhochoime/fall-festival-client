@@ -37,7 +37,7 @@ export default function ItemCard({ item }: ItemCardProps) {
           <LocationIcon
             width={'0.875rem'}
             height={'0.875rem'}
-            fill={theme.colors.grayScale.gy200}
+            fill={theme.colors.grayScale.gy700}
           />
           <S.LocationText>{item.foundLocation}</S.LocationText>
         </S.LocationBox>

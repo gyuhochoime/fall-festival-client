@@ -42,7 +42,7 @@ export default function ModalPost() {
               $checked={checked[index]}
               onClick={() => toggleCheck(index)}
               style={{
-                color: checked[index] ? theme.colors.grayScale.black : theme.colors.grayScale.gy400,
+                color: checked[index] ? theme.colors.grayScale.white : theme.colors.grayScale.gy500,
               }}
             >
               <CheckIcon width="0.9536rem" height="0.6922rem" />

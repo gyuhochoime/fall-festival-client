@@ -5,8 +5,8 @@ export const Card = styled(Reorder.Item)`
   width: 100%;
   background: linear-gradient(
     180deg,
-    ${(props) => props.theme.colors.grayScale.gy950} 55.99%,
-    ${(props) => props.theme.colors.grayScale.black} 99.88%
+    ${(props) => props.theme.colors.grayScale.offwhite} 55.99%,
+    ${(props) => props.theme.colors.grayScale.white} 99.88%
   );
   border-radius: 0.75rem;
 `;
@@ -26,7 +26,7 @@ export const CardImage = styled(motion.div)<{ image: string }>`
   height: 10.3rem;
   border-radius: 0.75rem 0.75rem 0 0;
   background:
-    linear-gradient(180deg, rgb(23 23 27 / 0%) 29.33%, #17171b 100%),
+    linear-gradient(180deg, rgb(23 23 27 / 0%) 29.33%, #f5f5f5 100%),
     url(${(props) => props.image}) lightgray center / cover no-repeat;
   z-index: 0;
 `;
@@ -40,7 +40,7 @@ export const Header = styled(motion.div)`
 export const HeaderText = styled.span`
   flex: 1;
   overflow: hidden;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-overflow: ellipsis;
   white-space: nowrap;
   ${(props) => props.theme.fonts.header.h4};
@@ -50,13 +50,13 @@ export const HeaderText = styled.span`
 export const HorizontalLine = styled.div`
   width: 100%;
   height: 0.0625rem;
-  background: ${(props) => props.theme.colors.grayScale.gy900};
+  background: ${(props) => props.theme.colors.grayScale.gy50};
 `;
 
 export const VerticalLine = styled.div`
   height: 1rem;
   width: 0.0625rem;
-  background: ${(props) => props.theme.colors.grayScale.gy900};
+  background: ${(props) => props.theme.colors.grayScale.gy50};
 `;
 
 export const TextSection = styled.div`
@@ -83,7 +83,7 @@ export const BigNumTextFrame = styled.div`
 
   :last-child {
     ${(props) => props.theme.fonts.body.large400};
-    color: ${(props) => props.theme.colors.grayScale.white};
+    color: ${(props) => props.theme.colors.grayScale.black};
   }
 `;
 
@@ -95,24 +95,24 @@ export const NumTextFrame = styled.div`
 
   & > p {
     ${(props) => props.theme.fonts.body.medium400};
-    color: ${(props) => props.theme.colors.grayScale.white};
+    color: ${(props) => props.theme.colors.grayScale.black};
   }
 `;
 
 export const Title = styled.span`
   width: 4rem;
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Strong = styled.span`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Small = styled.span`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const SelectedFrame = styled.div`

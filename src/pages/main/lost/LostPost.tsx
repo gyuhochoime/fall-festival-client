@@ -53,7 +53,7 @@ export default function LostPost() {
             <LocationIcon
               width={'1.125rem'}
               height={'1.125rem'}
-              fill={theme.colors.grayScale.gy400}
+              fill={theme.colors.grayScale.gy500}
             />
             <S.LocationText>{item?.foundLocation}</S.LocationText>
           </S.LocationBox>

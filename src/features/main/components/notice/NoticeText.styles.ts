@@ -9,7 +9,7 @@ export const Container = styled.div`
   border-radius: 0.75rem;
 
   &:active {
-    background-color: ${(props) => props.theme.colors.grayScale.gy900};
+    background-color: ${(props) => props.theme.colors.grayScale.gy50};
   }
 `;
 
@@ -19,7 +19,7 @@ export const Image = styled.img`
   flex-shrink: 0;
   aspect-ratio: 1/1;
   border-radius: 0.375rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy300};
+  background-color: ${(props) => props.theme.colors.grayScale.gy600};
   object-fit: cover;
 `;
 
@@ -31,7 +31,7 @@ export const TextWrapper = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   flex-shrink: 0;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Title = styled.p`

@@ -134,7 +134,7 @@ export const SingerTimeWrap = styled.div`
 
 export const SingerName = styled.p<{ fade: 'in' | 'out' }>`
   ${(props) => props.theme.fonts.header.h1};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
@@ -150,7 +150,7 @@ export const TimeBox = styled.div`
 
 export const TimeText = styled.p<{ fade: 'in' | 'out' }>`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy300};
+  color: ${(props) => props.theme.colors.grayScale.gy600};
   transition:
     opacity 0.3s ease,
     transform 0.3s ease;
@@ -168,7 +168,7 @@ export const AlertBox = styled.div`
 
 export const AlertText = styled.p<{ fade: 'in' | 'out' }>`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
   transition:
     opacity 0.3s ease,

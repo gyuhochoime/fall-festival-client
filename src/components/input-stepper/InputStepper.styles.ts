@@ -20,7 +20,7 @@ export const Button = styled(motion.button)`
 export const InputField = styled.span`
   width: 6.25rem;
   height: 2.5rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
   border-radius: 0.375rem;
   border: none;
   text-align: center;
@@ -29,7 +29,7 @@ export const InputField = styled.span`
   justify-content: center;
   overflow: hidden;
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const InputFieldInput = styled.input`
@@ -38,7 +38,7 @@ export const InputFieldInput = styled.input`
   text-align: center;
   border: none;
   ${(props) => props.theme.fonts.body.medium500};
-  ${(props) => props.theme.colors.grayScale.white};
+  ${(props) => props.theme.colors.grayScale.black};
 
   &:focus {
     outline: none;
@@ -47,5 +47,5 @@ export const InputFieldInput = styled.input`
 
 export const InputFieldText = styled(motion.span)`
   ${(props) => props.theme.fonts.body.medium500};
-  ${(props) => props.theme.colors.grayScale.white};
+  ${(props) => props.theme.colors.grayScale.black};
 `;

@@ -91,12 +91,12 @@ export const TimeBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>`
       ? 'transparent'
       : $isActive
         ? theme.colors.primary.bl400
-        : theme.colors.grayScale.gy800};
+        : theme.colors.grayScale.gy100};
 `;
 
 export const TimeText = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${({ theme }) => theme.colors.grayScale.white};
+  color: ${({ theme }) => theme.colors.grayScale.black};
 `;
 
 export const ContentBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>`
@@ -113,11 +113,11 @@ export const ContentBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>
       ? 'transparent'
       : $isActive
         ? 'rgba(79, 117, 249, 0.30)'
-        : theme.colors.grayScale.gy900};
+        : theme.colors.grayScale.gy50};
 `;
 
 export const PerformanceName = styled.p`
-  color: ${({ theme }) => theme.colors.grayScale.white};
+  color: ${({ theme }) => theme.colors.grayScale.black};
   ${(props) => props.theme.fonts.body.large500};
 `;
 
@@ -127,7 +127,7 @@ export const PerformanceTime = styled.div`
   align-items: flex-start;
   gap: 0.375rem;
   ${(props) => props.theme.fonts.body.small500};
-  color: ${({ theme }) => theme.colors.grayScale.white};
+  color: ${({ theme }) => theme.colors.grayScale.black};
 `;
 
 export const Divider = styled.div`
@@ -141,7 +141,7 @@ export const Divider = styled.div`
 export const Line = styled.div`
   width: 4.38rem;
   height: 1px;
-  background-color: ${({ theme }) => theme.colors.grayScale.gy900};
+  background-color: ${({ theme }) => theme.colors.grayScale.gy50};
 `;
 
 export const TabNavWrap = styled.div`
@@ -149,6 +149,6 @@ export const TabNavWrap = styled.div`
   top: 3.875rem;
   left: 0;
   right: 0;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   z-index: 100;
 `;

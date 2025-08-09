@@ -14,7 +14,7 @@ export const BottomSheetMotionDiv = styled(motion.div)`
   margin: 0;
   border-top-left-radius: 0.75rem;
   border-top-right-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   transition: transform 150ms ease-out;
   overflow: hidden;
   will-change: transform; /* 성능 최적화 */
@@ -51,7 +51,7 @@ export const BottomSheetContent = styled.div`
   flex: 1;
   overflow-y: auto;
   overscroll-behavior: contain;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   padding: 0 1.25rem;
   position: relative;
   -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
@@ -74,12 +74,12 @@ export const ContentUnitWrap = styled.div<{ $isLastItem?: boolean }>`
   width: 100%;
   padding: 0.5988rem 0;
   border-bottom: ${(props) =>
-    props.$isLastItem ? 'none' : `0.0625rem solid ${props.theme.colors.grayScale.gy900}`};
+    props.$isLastItem ? 'none' : `0.0625rem solid ${props.theme.colors.grayScale.gy50}`};
   margin-bottom: ${(props) => (props.$isLastItem ? '33rem' : '0')};
 `;
 
 export const NoDataMessage = styled.div`
-  color: ${(props) => props.theme.colors.grayScale.gy500};
+  color: ${(props) => props.theme.colors.grayScale.gy9000};
   font-size: 1rem;
   text-align: center;
   padding: 1rem;
@@ -93,7 +93,7 @@ export const NoDataMessage = styled.div`
 export const DevSection = styled.div`
   margin: 1.5rem 0;
   padding: 1rem;
-  border-top: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy900};
+  border-top: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy50};
   text-align: center;
 `;
 
@@ -105,7 +105,7 @@ export const DevSection = styled.div`
 export const DevButton = styled.button`
   background-color: #2d2d2d;
   color: #f0f0f0;
-  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy800};
+  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy100};
   border-radius: 0.25rem;
   padding: 0.625rem 1rem;
   font-size: 0.875rem;

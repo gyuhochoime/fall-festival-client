@@ -26,7 +26,7 @@ export const DayButton = styled.div`
 
 export const DayTimeText = styled.p`
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const TimeSelect = styled.div`
@@ -40,7 +40,7 @@ export const TimeSelect = styled.div`
 export const TimeSelectBox = styled.div<{ $open: boolean }>`
   width: 100%;
   border-radius: 0.75rem;
-  background-color: ${({ theme }) => theme.colors.grayScale.gy900};
+  background-color: ${({ theme }) => theme.colors.grayScale.gy50};
   overflow: hidden;
   transition: height 0.3s ease;
 `;
@@ -74,7 +74,7 @@ export const DropdownWrapper = styled.div<{ $open: boolean }>`
 
 export const TimeSelectOption = styled.p`
   ${(props) => props.theme.fonts.body.small500};
-  color: ${({ theme }) => theme.colors.grayScale.white};
+  color: ${({ theme }) => theme.colors.grayScale.black};
 `;
 
 export const DropdownItem = styled.div`
@@ -85,7 +85,7 @@ export const DropdownItem = styled.div`
   align-self: stretch;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.grayScale.gy800};
+    background-color: ${({ theme }) => theme.colors.grayScale.gy100};
     border-radius: 0.75rem;
   }
 `;

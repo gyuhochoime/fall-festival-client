@@ -28,7 +28,7 @@ export const TextBox = styled.div`
 
 export const Text = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Icon = styled.div<{ $checked?: boolean }>`
@@ -40,7 +40,7 @@ export const Icon = styled.div<{ $checked?: boolean }>`
   align-items: center;
   border-radius: 1rem;
   border: ${(props) =>
-    props.$checked ? 'none' : `1px solid ${props.theme.colors.grayScale.gy400}`};
+    props.$checked ? 'none' : `1px solid ${props.theme.colors.grayScale.gy500}`};
   background-color: ${(props) =>
     props.$checked ? props.theme.colors.primary.bl400 : 'transparent'};
   cursor: pointer;
@@ -59,14 +59,14 @@ export const Button = styled.button<{ $active?: boolean }>`
   border-radius: 0.75rem;
   border: none;
   background-color: ${(props) =>
-    props.$active ? props.theme.colors.primary.bl400 : props.theme.colors.grayScale.gy700};
+    props.$active ? props.theme.colors.primary.bl400 : props.theme.colors.grayScale.gy200};
   cursor: ${(props) => (props.$active ? 'pointer' : 'default')};
   transition: background-color 0.4s ease;
 `;
 
 export const ButtonText = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
   transition: color 0.4s ease;
 `;

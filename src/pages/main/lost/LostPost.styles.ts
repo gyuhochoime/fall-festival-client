@@ -43,7 +43,7 @@ export const NameBox = styled.div`
 
 export const NameText = styled.h2`
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const LocationWrap = styled.div`
@@ -56,7 +56,7 @@ export const LocationWrap = styled.div`
 
 export const Title = styled.p`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const LocationBox = styled.div`
@@ -68,7 +68,7 @@ export const LocationBox = styled.div`
 
 export const LocationText = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.gy500};
+  color: ${(props) => props.theme.colors.grayScale.gy9000};
 `;
 
 export const TimeWrap = styled.div`
@@ -82,7 +82,7 @@ export const TimeWrap = styled.div`
 export const TimeTitle = styled.p`
   align-self: stretch;
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const TimeDayWrap = styled.div`
@@ -104,7 +104,7 @@ export const DayBox = styled.div`
 export const DayTitle = styled.p`
   align-self: stretch;
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const DayBorder = styled.div`
@@ -119,7 +119,7 @@ export const DayBorder = styled.div`
 `;
 
 export const DayText = styled.p`
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.white};
   text-align: center;
   text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   ${(props) => props.theme.fonts.body.small400};
@@ -142,10 +142,10 @@ export const TimeText = styled.div`
   align-items: flex-start;
   gap: 14.4375rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
   align-self: stretch;
   ${(props) => props.theme.fonts.body.small500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const LostItemDescriptionWrap = styled.div`
@@ -158,7 +158,7 @@ export const LostItemDescriptionWrap = styled.div`
 
 export const DescriptionTitle = styled.p`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const DescriptionBox = styled.div`
@@ -169,7 +169,7 @@ export const DescriptionBox = styled.div`
   gap: 0.625rem;
   align-self: stretch;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -188,11 +188,11 @@ export const DescriptionBox = styled.div`
 export const DescriptionText = styled.p`
   flex: 1 0 0;
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
 `;
 
 export const InfoText = styled.p`
   width: 20.9375rem;
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy400};
+  color: ${(props) => props.theme.colors.grayScale.gy500};
 `;

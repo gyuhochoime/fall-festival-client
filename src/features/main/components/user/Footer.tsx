@@ -1,19 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import * as S from './Footer.styles';
 import Instagram from '@/assets/icons/instagram.svg?react';
-import { useAuthStore } from '@/stores/useAuthStore';
-import { logout } from '@/services/login';
 export default function Footer() {
-  const navigate = useNavigate();
-  const isLoggined = useAuthStore((state) => state.isLoggedIn);
-  const handleLoginClick = () => {
-    if (isLoggined) {
-      logout();
-      window.location.reload();
-    } else {
-      navigate('/login');
-    }
-  };
+  // const navigate = useNavigate();
+  // const handleLoginClick = () => navigate('/login');
   return (
     <S.Container>
       <Instagram width={'2.5rem'} height={'2.5rem'} />
@@ -25,9 +15,9 @@ export default function Footer() {
         <br />
         @LIKELION ERICA. All Rights Reserved.
       </S.Sub>
-      <S.Btn>
-        <S.Out onClick={handleLoginClick}>{isLoggined ? '로그아웃하기' : '로그인하기'}</S.Out>
-      </S.Btn>
+      {/*<S.Btn>
+          <S.Out onClick={handleLoginClick}>로그인하기</S.Out>
+      </S.Btn> */}
     </S.Container>
   );
 }

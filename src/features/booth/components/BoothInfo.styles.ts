@@ -17,9 +17,9 @@ export const ImageBtnFrame = styled.div`
 export const Image = styled.img`
   width: 6.25rem;
   height: 6.25rem;
-  background: ${(props) => props.theme.colors.grayScale.gy800};
+  background: ${(props) => props.theme.colors.grayScale.gy100};
   border-radius: 0.75rem;
-  border: 0.5px solid ${(props) => props.theme.colors.grayScale.gy800};
+  border: 0.5px solid ${(props) => props.theme.colors.grayScale.gy100};
 `;
 
 export const TextSection = styled.div`
@@ -35,7 +35,7 @@ export const TextFrame = styled.div`
 
 export const Text = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const BoothName = styled(Text)`
@@ -44,7 +44,7 @@ export const BoothName = styled(Text)`
 
 export const VerticalLine = styled.div`
   width: 0.0625rem;
-  background: ${(props) => props.theme.colors.grayScale.gy800};
+  background: ${(props) => props.theme.colors.grayScale.gy100};
 `;
 
 export const TakeOut = styled.div`
@@ -58,5 +58,5 @@ export const TakeOut = styled.div`
   background-color: ${(props) => props.theme.colors.primary.bl400};
   border-radius: 0.375rem;
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.white};
 `;

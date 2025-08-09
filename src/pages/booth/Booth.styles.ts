@@ -20,6 +20,6 @@ export const TabNavContainer = styled.div`
   top: 3.875rem;
   left: 0;
   right: 0;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   z-index: 100;
 `;

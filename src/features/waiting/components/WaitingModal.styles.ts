@@ -10,7 +10,7 @@ export const Container = styled(motion.div)`
 `;
 
 const Text = styled.p`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const MediumText = styled(Text)`
@@ -36,11 +36,11 @@ export const Button = styled(motion.button)`
   align-items: center;
   border: none;
   border-radius: 0.75rem;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   background: ${(props) => props.theme.colors.primary.bl400};
 
   &:disabled {
-    background: ${(props) => props.theme.colors.grayScale.gy700};
+    background: ${(props) => props.theme.colors.grayScale.gy200};
   }
 `;
 
@@ -52,17 +52,17 @@ export const PhoneInput = styled.input`
   align-items: center;
   text-align: center;
   border-radius: 0.5rem;
-  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy600};
+  border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy300};
   ${(props) => props.theme.fonts.body.medium500};
-  background-color: ${(props) => props.theme.colors.grayScale.black};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 
   &:placeholder-shown {
-    color: ${(props) => props.theme.colors.grayScale.gy600};
+    color: ${(props) => props.theme.colors.grayScale.gy300};
   }
 
   &:focus {
     outline: none;
-    border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.white};
+    border: 0.0625rem solid ${(props) => props.theme.colors.grayScale.black};
   }
 `;

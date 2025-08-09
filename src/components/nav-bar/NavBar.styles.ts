@@ -9,7 +9,7 @@ export const Container = styled.header<{ $opacity?: boolean }>`
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme.colors.grayScale.black};
+  background-color: ${({ theme }) => theme.colors.grayScale.white};
   position: fixed;
   top: 0;
   z-index: 99;
@@ -32,7 +32,7 @@ export const RightSection = styled.div`
 export const Title = styled.p`
   ${(props) => props.theme.fonts.header.h3}
   text-align: center;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const InputWrapper = styled.label`
@@ -41,8 +41,8 @@ export const InputWrapper = styled.label`
   justify-content: space-between;
   width: 18.4375rem;
   height: 2.5rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
-  border: 1px solid ${(props) => props.theme.colors.grayScale.gy800};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
+  border: 1px solid ${(props) => props.theme.colors.grayScale.gy100};
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
 
@@ -50,12 +50,12 @@ export const InputWrapper = styled.label`
     ${(props) => props.theme.fonts.body.medium500}
     flex: 1;
     width: 100%;
-    background-color: ${(props) => props.theme.colors.grayScale.gy950};
+    background-color: ${(props) => props.theme.colors.grayScale.offwhite};
     border: none;
-    color: ${(props) => props.theme.colors.grayScale.white};
+    color: ${(props) => props.theme.colors.grayScale.black};
 
     &::placeholder {
-      color: ${(props) => props.theme.colors.grayScale.gy500};
+      color: ${(props) => props.theme.colors.grayScale.gy900};
     }
 
     &:focus {
@@ -92,8 +92,8 @@ export const SearchWrapper = styled.label`
   justify-content: space-between;
   width: 100%;
   height: 2.5rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
-  border: 1px solid ${(props) => props.theme.colors.grayScale.gy800};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
+  border: 1px solid ${(props) => props.theme.colors.grayScale.gy100};
   border-radius: 0.375rem;
   padding: 0.5rem 0.75rem;
 
@@ -101,12 +101,12 @@ export const SearchWrapper = styled.label`
     ${(props) => props.theme.fonts.body.medium500}
     flex: 1;
     width: 100%;
-    background-color: ${(props) => props.theme.colors.grayScale.gy950};
+    background-color: ${(props) => props.theme.colors.grayScale.offwhite};
     border: none;
-    color: ${(props) => props.theme.colors.grayScale.white};
+    color: ${(props) => props.theme.colors.grayScale.black};
 
     &::placeholder {
-      color: ${(props) => props.theme.colors.grayScale.gy500};
+      color: ${(props) => props.theme.colors.grayScale.gy900};
     }
 
     &:focus {

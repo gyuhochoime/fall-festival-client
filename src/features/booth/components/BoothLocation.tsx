@@ -47,7 +47,7 @@ export default function BoothLocation({
       <S.Map ref={mapRef}>
         <S.Button onClick={() => navigate(`/map/${id}`, { replace: true })}>
           <S.ButtonText>지도에서 보기</S.ButtonText>
-          <RightIcon width={'1rem'} height={'1rem'} fill="#FAFAFA" />
+          <RightIcon width={'1rem'} height={'1rem'} fill="#17171B" />
         </S.Button>
       </S.Map>
     </S.Container>

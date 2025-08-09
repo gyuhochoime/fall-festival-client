@@ -10,16 +10,16 @@ export const Button = styled(motion.button)`
   justify-content: center;
   gap: 0.375rem;
   border: none;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
 
   &:disabled {
     & > p {
-      color: ${(props) => props.theme.colors.grayScale.gy400} !important;
+      color: ${(props) => props.theme.colors.grayScale.gy500} !important;
     }
   }
 `;
 
 export const Text = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;

@@ -19,13 +19,13 @@ export const TitleWrap = styled.div`
 
 export const Title = styled.p`
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   align-self: stretch;
 `;
 
 export const Description = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy300};
+  color: ${(props) => props.theme.colors.grayScale.gy600};
   align-self: stretch;
 `;
 

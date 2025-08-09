@@ -8,7 +8,7 @@ export const Container = styled.section`
 `;
 
 const Text = styled.p`
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Title = styled(Text)`
@@ -23,7 +23,7 @@ export const Map = styled.div`
   width: 100%;
   height: 12.5rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
   position: relative;
 `;
 
@@ -33,7 +33,7 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   gap: 0.375rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   border-radius: 0.375rem;
   border: none;
   position: absolute;
@@ -44,5 +44,5 @@ export const Button = styled.button`
 
 export const ButtonText = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;

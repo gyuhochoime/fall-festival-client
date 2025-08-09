@@ -15,7 +15,7 @@ export const Header = styled.header`
 `;
 export const Count = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy400};
+  color: ${(props) => props.theme.colors.grayScale.gy500};
 `;
 
 export const BoothList = styled.ul`
@@ -36,5 +36,5 @@ export const BoothItem = styled.li`
 export const HorizontalLine = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
 `;

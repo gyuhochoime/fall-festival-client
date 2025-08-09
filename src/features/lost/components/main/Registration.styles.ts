@@ -18,11 +18,11 @@ export const Button = styled.button`
   align-self: stretch;
   border-radius: 0.75rem;
   border: none;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
   cursor: pointer;
 
   &:active {
-    background-color: ${(props) => props.theme.colors.grayScale.gy900};
+    background-color: ${(props) => props.theme.colors.grayScale.gy50};
   }
 `;
 
@@ -43,11 +43,11 @@ export const Icon = styled.div`
 
 export const ButtonText = styled.p`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.gy200};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
 `;
 
 export const Text = styled.p`
   align-self: stretch;
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy400};
+  color: ${(props) => props.theme.colors.grayScale.gy500};
 `;

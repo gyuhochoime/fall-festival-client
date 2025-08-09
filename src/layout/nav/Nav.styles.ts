@@ -9,7 +9,7 @@ export const Nav = styled.nav`
   width: 100%;
   height: 6.625rem;
   padding: 0.5rem 1.25rem 2rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,5 +33,5 @@ export const NavBtn = styled(motion.button)`
 
 export const NavBtnText = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy100};
+  color: ${(props) => props.theme.colors.grayScale.gy800};
 `;

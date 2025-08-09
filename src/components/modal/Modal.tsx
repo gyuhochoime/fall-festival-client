@@ -87,7 +87,7 @@ function ModalItem({
             {isHelp && <S.Help fill="#e9e9ea" width={18} height={18} />}
             <S.ModalTitleText>{props.title}</S.ModalTitleText>
           </S.ModalTitle>
-          <S.ModalCloseBtn onClick={onHandleClose} fill="#fafafa" width={18} height={18} />
+          <S.ModalCloseBtn onClick={onHandleClose} fill="#17171B" width={18} height={18} />
         </S.ModalTab>
         <Component {...props}></Component>
       </S.ModalWrapper>

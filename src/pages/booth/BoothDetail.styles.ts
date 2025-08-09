@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const BackgroundImg = styled.img`
   width: 100%;
   height: 5.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy100};
+  background-color: ${(props) => props.theme.colors.grayScale.gy800};
   object-fit: cover;
   object-position: center;
 `;
@@ -41,11 +41,11 @@ export const TakeOut = styled.div`
   align-items: center;
   gap: 0.625rem;
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.white};
 `;
 
 export const HorizontalLine = styled.div`
   height: 0.5rem;
   width: 100vw;
-  background-color: ${(props) => props.theme.colors.grayScale.gy900};
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
 `;

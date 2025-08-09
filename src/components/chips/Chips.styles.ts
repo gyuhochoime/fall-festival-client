@@ -37,7 +37,7 @@ export const Chip = styled.div<{
   align-items: center;
   gap: 0.25rem;
   border-radius: 1rem;
-  border: 0.0375rem solid ${(props) => props.theme.colors.grayScale.white};
+  border: 0.0375rem solid ${(props) => props.theme.colors.grayScale.black};
   cursor: pointer;
 
   &:active {
@@ -47,7 +47,7 @@ export const Chip = styled.div<{
 
 export const ChipText = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.gy100};
+  color: ${(props) => props.theme.colors.grayScale.gy800};
   text-align: center;
   white-space: nowrap;
 `;

@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Title = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const TextWrap = styled.div`
@@ -23,5 +23,5 @@ export const TextWrap = styled.div`
 
 export const Text = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;

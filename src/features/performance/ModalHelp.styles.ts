@@ -17,6 +17,6 @@ export const ModalTextBox = styled.div`
 
 export const ModalText = styled.p`
   ${(props) => props.theme.fonts.body.small400};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
 `;

@@ -18,14 +18,14 @@ export const ModalOverlay = styled(motion.div)`
 
 export const ModalWrapper = styled(motion.div)`
   min-width: 20.9375rem;
-  background-color: ${(props) => props.theme.colors.grayScale.black};
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   border-radius: 0.75rem;
   margin-top: -6.625rem;
 `;
 
 export const ModalTab = styled.div`
   height: 3rem;
-  border-bottom: 0.6px solid ${(props) => props.theme.colors.grayScale.gy900};
+  border-bottom: 0.6px solid ${(props) => props.theme.colors.grayScale.gy50};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +41,7 @@ export const ModalTitle = styled.div`
 
 export const ModalTitleText = styled.span`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const Help = styled(HelpIcon)``;
@@ -65,14 +65,14 @@ export const Content = styled.div`
 
 export const ModalText = styled.span`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
 `;
 
 export const CancelButton = styled.button`
   background-color: transparent;
   border: none;
-  color: ${(props) => props.theme.colors.grayScale.gy500};
+  color: ${(props) => props.theme.colors.grayScale.gy9000};
   ${(props) => props.theme.fonts.body.xsmall500};
   text-decoration-line: underline;
   text-decoration-style: solid;

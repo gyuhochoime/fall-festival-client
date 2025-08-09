@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 0.625rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
+  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
 `;
 
 export const Wrap = styled.div`
@@ -26,7 +26,7 @@ export const ImageBox = styled.div`
   border-radius: 4rem;
   display: flex;
   overflow: hidden;
-  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
+  background-color: ${(props) => props.theme.colors.grayScale.gy950};
   justify-content: flex-end;
   border: none;
   align-items: center;
@@ -55,12 +55,12 @@ export const ColorButtonWrap = styled.div`
 
 export const Name = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
 `;
 export const Description = styled.p`
   ${(props) => props.theme.fonts.body.xsmall400};
-  color: ${(props) => props.theme.colors.grayScale.white};
+  color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
   align-self: stretch;
 `;
