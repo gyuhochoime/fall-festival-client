@@ -1,44 +1,52 @@
 import { navItems } from '@/layout/nav/nav.types';
-import HOME_LOTTIE from '@/assets/lotties/home-blue-filled.json';
-import MAP_LOTTIE from '@/assets/lotties/geopoint-blue-filled.json';
-import STAGE_LOTTIE from '@/assets/lotties/stage-blue-filled.json';
-import PUB_LOTTIE from '@/assets/lotties/pub-blue-filled.json';
-//import WAITING_LOTTIE from '@/assets/lotties/waiting-blue-filled.json';
 
 import HOME_ICON from '@/assets/icons/home.svg?react';
 import MAP_ICON from '@/assets/icons/geopoint.svg?react';
 import STAGE_ICON from '@/assets/icons/stage.svg?react';
 import PUB_ICON from '@/assets/icons/pub.svg?react';
-//import WAITING_ICON from '@/assets/icons/waiting.svg?react';
+import POLAROID_ICON from '@/assets/icons/polaroid.svg?react';
+
+import HOME_ICON_ACTIVE from '@/assets/icons/home-filled.svg?react';
+import MAP_ICON_ACTIVE from '@/assets/icons/geopoint-filled.svg?react';
+import STAGE_ICON_ACTIVE from '@/assets/icons/stage-filled.svg?react';
+import PUB_ICON_ACTIVE from '@/assets/icons/pub-filled.svg?react';
+import POLAROID_ICON_ACTIVE from '@/assets/icons/polaroid-filled.svg?react';
 
 export const NAV_ITEMS: navItems = [
   {
     id: 'home',
     path: '/main',
     label: '홈',
-    icon: HOME_LOTTIE,
-    DefaultIcon: <HOME_ICON width={'1.5rem'} height={'1.5rem'} fill="#17171B" />,
+    DefaultIcon: <HOME_ICON width={'1.5rem'} height={'1.5rem'} />,
+    ActiveIcon: <HOME_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
   },
   {
     id: 'map',
     path: '/map',
     label: '지도',
-    icon: MAP_LOTTIE,
-    DefaultIcon: <MAP_ICON width={'1.5rem'} height={'1.5rem'} fill="#17171B" />,
+    DefaultIcon: <MAP_ICON width={'1.5rem'} height={'1.5rem'} />,
+    ActiveIcon: <MAP_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
   },
   {
     id: 'performance',
     path: '/performance',
     label: '공연',
-    icon: STAGE_LOTTIE,
-    DefaultIcon: <STAGE_ICON width={'1.5rem'} height={'1.5rem'} fill="#17171B" />,
+    DefaultIcon: <STAGE_ICON width={'1.5rem'} height={'1.5rem'} />,
+    ActiveIcon: <STAGE_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
   },
   {
     id: 'booth',
     path: '/booth',
     label: '주점',
-    icon: PUB_LOTTIE,
-    DefaultIcon: <PUB_ICON width={'1.5rem'} height={'1.5rem'} fill="#17171B" />,
+    DefaultIcon: <PUB_ICON width={'1.5rem'} height={'1.5rem'} />,
+    ActiveIcon: <PUB_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
+  },
+  {
+    id: 'polaroid',
+    path: '/polaroid',
+    label: '폴라로이드',
+    DefaultIcon: <POLAROID_ICON width={'1.5rem'} height={'1.5rem'} />,
+    ActiveIcon: <POLAROID_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
   },
   /*{
     id: 'user',

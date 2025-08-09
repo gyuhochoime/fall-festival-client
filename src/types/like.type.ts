@@ -5,5 +5,4 @@ export interface LikeType {
   prevRank?: number;
   currentRank?: number;
   updateCount: number;
-  waitingCount?: number;
 }

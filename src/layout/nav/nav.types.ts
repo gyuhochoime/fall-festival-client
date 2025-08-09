@@ -4,8 +4,8 @@ export type navItem = {
   id: string;
   path: string;
   label: string;
-  icon: object;
   DefaultIcon: ReactElement;
+  ActiveIcon: ReactElement;
 };
 
 export type navItems = navItem[];

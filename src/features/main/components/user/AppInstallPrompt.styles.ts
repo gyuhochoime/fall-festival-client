@@ -72,7 +72,7 @@ export const ModalText = styled.span`
 export const CancelButton = styled.button`
   background-color: transparent;
   border: none;
-  color: ${(props) => props.theme.colors.grayScale.gy9000};
+  color: ${(props) => props.theme.colors.grayScale.gy900};
   ${(props) => props.theme.fonts.body.xsmall500};
   text-decoration-line: underline;
   text-decoration-style: solid;

@@ -1,4 +1,3 @@
-import { LikeButton } from '@/features/like';
 import * as S from './BoothInfo.styles';
 import { newlineToBr } from '@/utils/newlineToBr';
 import { BOOTH_LIST } from '@/constants/booth/booth';
@@ -12,7 +11,6 @@ export default function BoothInfo({ id }: { id: number }) {
     <S.Container>
       <S.ImageBtnFrame>
         <S.Image src={booth.profileImage} />
-        <LikeButton id={booth?.id} left="-0.45rem" />
       </S.ImageBtnFrame>
       <S.TextSection>
         <S.TextFrame>
