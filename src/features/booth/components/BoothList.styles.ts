@@ -38,3 +38,29 @@ export const HorizontalLine = styled.div`
   height: 1px;
   background-color: ${(props) => props.theme.colors.grayScale.gy50};
 `;
+
+export const BoothItemWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  gap: 7px;
+  border: ${({ $isFavorited }) => ($isFavorited ? 'none' : '1px solid #F893AD')};
+  background: ${({ $isFavorited }) => ($isFavorited ? '#f893ad' : 'none')};
+  border-radius: 12px;
+  width: 54px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: ${({ $isFavorited }) => ($isFavorited ? '#ffffff' : '#f893ad')};
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+`;
