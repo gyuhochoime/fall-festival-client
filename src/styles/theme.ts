@@ -25,6 +25,7 @@ const createFontStyle = (
 const colors = {
   primary: {
     bl400: '#4F75F9',
+    violet: '#7E419A',
   },
   secondary: {
     pk200: '#FBA7FD',
