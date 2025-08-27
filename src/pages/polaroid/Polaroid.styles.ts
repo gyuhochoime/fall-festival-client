@@ -5,8 +5,8 @@ export const Container = styled.div`
   inset: 0;
   z-index: 1; /* 레이아웃 Main 위 */
   width: 100%;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   background-color: ${(p) => p.theme.colors.grayScale.white};
   display: flex;
   flex-direction: column;
@@ -153,12 +153,42 @@ export const FramePreview = styled.div`
   min-height: 200px;
 `;
 
-export const PolaroidCard = styled.div`
+export const PolaroidCard = styled.div<{ $shaking?: boolean }>`
   position: relative;
   background: ${(p) => p.theme.colors.grayScale.white};
   border: 1px solid ${(p) => p.theme.colors.grayScale.gy200};
   border-radius: 8px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+  transition: transform 0.3s ease;
+
+  /* 흔들기 애니메이션 */
+  ${(p) =>
+    p.$shaking &&
+    `
+    animation: shake 1s ease-in-out;
+  `}
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-10px) rotate(-2deg);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(10px) rotate(2deg);
+    }
+  }
 
   /* width/height는 inline-style로 제어 (정확한 비율 유지) */
 `;
@@ -250,4 +280,105 @@ export const SubtleText = styled.p`
   color: ${(p) => p.theme.colors.grayScale.gy600};
   text-align: center;
   margin: 8px 16px 16px;
+  font-size: x-small;
+`;
+
+// 흔들기 관련 스타일
+export const ShakeInstructions = styled.div`
+  text-align: center;
+  padding: 16px;
+  margin: 16px 0;
+`;
+
+export const ShakeText = styled.p`
+  ${(p) => p.theme.fonts.body.medium500};
+  color: ${(p) => p.theme.colors.grayScale.gy700};
+  margin-bottom: 16px;
+`;
+
+export const ProgressBar = styled.div`
+  width: 100%;
+  max-width: 280px;
+  height: 6px;
+  background: ${(p) => p.theme.colors.grayScale.gy200};
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0 auto 12px;
+`;
+
+export const ProgressFill = styled.div<{ $width: number }>`
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #8bc34a);
+  width: ${(p) => p.$width}%;
+  transition: width 0.3s ease;
+  border-radius: 3px;
+`;
+
+export const ShakeCounter = styled.p`
+  ${(p) => p.theme.fonts.body.small400};
+  color: ${(p) => p.theme.colors.grayScale.gy600};
+  text-align: center;
+`;
+
+export const PermissionButton = styled.button`
+  background: linear-gradient(
+    45deg,
+    ${(p) => p.theme.colors.primary.violet},
+    ${(p) => p.theme.colors.primary.bl400}
+  );
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 16px auto;
+  display: block;
+  box-shadow: 0 4px 15px rgb(0 0 0 / 20%);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgb(0 0 0 / 30%);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+export const ErrorMessage = styled.div`
+  background: rgb(255 107 107 / 10%);
+  color: ${(p) => p.theme.colors.secondary.rd500};
+  padding: 15px;
+  border-radius: 10px;
+  margin: 16px;
+  text-align: center;
+  ${(p) => p.theme.fonts.body.small400};
+  border: 1px solid rgb(255 107 107 / 20%);
+`;
+
+export const SuccessMessage = styled.div`
+  background: rgb(146 71 171 / 10%);
+  color: ${(p) => p.theme.colors.primary.violet};
+  padding: 15px;
+  border-radius: 10px;
+  margin: 16px;
+  text-align: center;
+  ${(p) => p.theme.fonts.body.small400};
+  border: 1px solid rgb(146 71 171 / 30%);
+  animation: fade-in 0.5s ease;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;
