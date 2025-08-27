@@ -2,6 +2,7 @@ import * as S from './NavBar.styles';
 import SearchIcon from '@/assets/icons/search.svg?react';
 import BackIcon from '@/assets/icons/left-arrow.svg?react';
 import LogoIcon from '@/assets/icons/Logo_Sample.svg?react';
+import HeartIcon from '@/assets/icons/favorite.svg?react';
 
 import { NavBarProps, SearchNavBarProps } from './NavBar.types';
 import { useNavigate } from 'react-router-dom';
@@ -23,8 +24,10 @@ import { useNavigate } from 'react-router-dom';
 const NavBar: React.FC<NavBarProps> = ({
   isBack = false,
   isSearch = false,
+  isFavorite = false,
   title,
   onSearchClick,
+  onFavoriteClick,
   backPath = -1,
   opacity = false,
 }) => {
@@ -49,6 +52,13 @@ const NavBar: React.FC<NavBarProps> = ({
             width={'1.5rem'}
             height={'1.5rem'}
             onClick={handleBack}
+          />
+        ) : isFavorite ? (
+          <HeartIcon
+            style={{ cursor: 'pointer' }}
+            width={'1.5rem'}
+            height={'1.5rem'}
+            onClick={onFavoriteClick}
           />
         ) : (
           <LogoIcon width={'5.125rem'} height={'3.25rem'} />
