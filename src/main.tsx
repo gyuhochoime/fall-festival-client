@@ -18,6 +18,7 @@ import {
   MadeBy,
   Fortune,
   Polaroid,
+  Favorites,
 } from '@/pages';
 import Layout from '@/layout';
 import { ensureSessionCookie } from '@/utils/session';
@@ -124,6 +125,10 @@ const routes = createBrowserRouter([
       {
         path: 'polaroid',
         element: <Polaroid />,
+      },
+      {
+        path: 'favorites',
+        element: <Favorites />,
       },
     ],
   },
