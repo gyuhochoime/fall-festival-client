@@ -1,5 +1,6 @@
 import * as S from './ImageTextFrame.styles';
 import { ImageTextFrameWithOrganizationProps } from './ImageTextFrame.types';
+import PubBeerIcon from '@/assets/icons/pub_beer.svg?react';
 
 /**
  * 이미지와 제목, 소속, 포장가능 여부를 함께 표시하는 프레임 컴포넌트
@@ -38,10 +39,13 @@ export default function ImageTextFrameWithOrganization({
       <S.Image src={image} alt="" />
       <S.ContentsWrap>
         <S.Title>{title}</S.Title>
-        <S.ContentsFooter>
-          <S.Organization>{organization}</S.Organization>
-          {canPickup && <S.Pickup>포장 가능</S.Pickup>}
-        </S.ContentsFooter>
+        <S.Organization>{organization}</S.Organization>
+        {canPickup && (
+          <S.Pickup>
+            <PubBeerIcon width="0.75rem" height="0.75rem" />
+            포장가능
+          </S.Pickup>
+        )}
       </S.ContentsWrap>
     </S.Container>
   );

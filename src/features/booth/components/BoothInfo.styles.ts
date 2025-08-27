@@ -55,8 +55,8 @@ export const TakeOut = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  background-color: ${(props) => props.theme.colors.primary.bl400};
-  border-radius: 0.375rem;
+  background-color: ${(props) => props.theme.colors.primary.violet};
+  border-radius: 2rem;
   ${(props) => props.theme.fonts.body.xsmall500};
   color: ${(props) => props.theme.colors.grayScale.white};
 `;

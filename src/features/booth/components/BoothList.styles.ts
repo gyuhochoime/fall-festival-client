@@ -23,6 +23,7 @@ export const BoothList = styled.ul`
   flex-direction: column;
   gap: 1.5rem;
   padding: 0rem 0rem 13.12rem;
+  margin: 0;
 `;
 
 export const BoothItem = styled.li`
@@ -36,7 +37,7 @@ export const BoothItem = styled.li`
 export const HorizontalLine = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${(props) => props.theme.colors.grayScale.gy50};
+  background-color: ${(props) => props.theme.colors.grayScale.gy200};
 `;
 
 export const BoothItemWrapper = styled.div`
@@ -47,10 +48,11 @@ export const BoothItemWrapper = styled.div`
 export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
   position: absolute;
   top: 12px;
-  right: 12px;
+  right: 0px;
   gap: 7px;
-  border: ${({ $isFavorited }) => ($isFavorited ? 'none' : '1px solid #F893AD')};
-  background: ${({ $isFavorited }) => ($isFavorited ? '#f893ad' : 'none')};
+  border: ${({ $isFavorited, theme }) =>
+    $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`};
+  background: ${({ $isFavorited, theme }) => ($isFavorited ? theme.colors.primary.violet : 'none')};
   border-radius: 12px;
   width: 54px;
   height: 72px;
@@ -59,8 +61,9 @@ export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  color: ${({ $isFavorited }) => ($isFavorited ? '#ffffff' : '#f893ad')};
+  color: ${({ $isFavorited, theme }) => ($isFavorited ? '#ffffff' : theme.colors.primary.violet)};
   cursor: pointer;
   z-index: 10;
   transition: all 0.2s ease;
+  margin-right: 0;
 `;
