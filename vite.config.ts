@@ -4,23 +4,14 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import tsConfigPaths from 'vite-tsconfig-paths';
 import { compression } from 'vite-plugin-compression2';
-import fs from 'fs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: 443,
-    https: {
-      key: fs.readFileSync('C:\\Users\\pdj28\\key\\key.pem'),
-      cert: fs.readFileSync('C:\\Users\\pdj28\\key\\cert.pem'),
-    },
+    port: 8080,
   },
   preview: {
-    port: 443,
-    https: {
-      key: fs.readFileSync('C:\\Users\\pdj28\\key\\key.pem'),
-      cert: fs.readFileSync('C:\\Users\\pdj28\\key\\cert.pem'),
-    },
+    port: 8080,
   },
   plugins: [
     react(),
