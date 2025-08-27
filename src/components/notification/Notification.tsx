@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as S from './Notification.styles';
 import { NotificationProps } from './Notification.types';
 import CloseIcon from '@/assets/icons/close.svg?react';
-import NotificationIcon from '@/assets/images/notification.webp';
+import NotificationIcon from '@/assets/images/notification_new.webp';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const ANIMATION_VARIANTS = {

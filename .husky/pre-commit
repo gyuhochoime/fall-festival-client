@@ -1,1 +1,5 @@
-yarn lint-staged
+
+
+# yarn 대신 npm 또는 npx 사용
+npx lint-staged
+

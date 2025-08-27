@@ -4,7 +4,7 @@ import { Notification } from '@/components/notification';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BOOTH_LIST } from '@/constants/booth/booth';
 import { Fragment } from 'react/jsx-runtime';
-import { useState } from 'react';
+import { useFavorites } from '@/hooks/useFavorites';
 
 import FavoriteOn from 'src/assets/icons/favorite-on.svg?react';
 import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
@@ -12,36 +12,18 @@ import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
 export default function BoothList() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // 찜하기 기능 상태 관리 추가 (localStorage)
-  const [favorites, setFavorites] = useState<number[]>(() => {
-    const saved = localStorage.getItem('booth-favorites');
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  const handleToggleFavorite = (boothId: number, event: React.MouseEvent) => {
-    event.stopPropagation();
-
-    setFavorites((prev) => {
-      const newFavorites = prev.includes(boothId)
-        ? prev.filter((id) => id !== boothId)
-        : [...prev, boothId];
-
-      localStorage.setItem('booth-favorites', JSON.stringify(newFavorites));
-      return newFavorites;
-    });
-  };
+  const { handleToggleFavorite, isFavorited } = useFavorites();
 
   return (
     <S.Container>
-      <Notification title="[공지] 미성년자 입장 불가" width="100%" />
+      <Notification title="[공지] 미취학 아동 입장 제한" width="100%" />
       <S.Header>
         <S.Count>전체 26개</S.Count>
       </S.Header>
       <S.BoothList>
         <S.BoothItem>
           {BOOTH_LIST.map((booth) => {
-            const isFavorited = favorites.includes(booth.id); //주점 찜하기 추가
+            const isBoothFavorited = isFavorited(booth.id);
 
             return (
               <Fragment key={booth.id}>
@@ -61,11 +43,11 @@ export default function BoothList() {
                   />
                   <S.FavoriteButton
                     onClick={(e) => handleToggleFavorite(booth.id, e)}
-                    $isFavorited={isFavorited}
-                    aria-label={isFavorited ? '찜 완료' : '찜하기'}
+                    $isFavorited={isBoothFavorited}
+                    aria-label={isBoothFavorited ? '찜 완료' : '찜하기'}
                   >
-                    {isFavorited ? <FavoriteOn /> : <FavoriteOff />}
-                    {isFavorited ? '찜 완료' : '찜하기'}
+                    {isBoothFavorited ? <FavoriteOn /> : <FavoriteOff />}
+                    {isBoothFavorited ? '찜 완료' : '찜하기'}
                   </S.FavoriteButton>
                 </S.BoothItemWrapper>
                 <S.HorizontalLine />

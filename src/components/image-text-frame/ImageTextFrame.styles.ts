@@ -9,7 +9,7 @@ export const Container = styled.div<{ $width?: string; $activeStyle?: boolean }>
     return '20.9375rem';
   }};
   gap: 0.75rem;
-  padding: 0.75rem;
+  padding: 0.75rem 0;
   border-radius: 0.75rem;
   background-color: ${(props) => props.theme.colors.grayScale.white};
   cursor: ${(props) => (props.onClick ? 'pointer' : 'default')};
@@ -40,8 +40,8 @@ export const MenuContainer = styled.div<{ $width?: string }>`
 `;
 
 export const Image = styled.img`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   flex-shrink: 0;
   aspect-ratio: 1/1;
   border-radius: 0.375rem;
@@ -117,8 +117,8 @@ export const ContentsFooter = styled.div`
 `;
 
 export const Organization = styled.p`
-  ${(props) => props.theme.fonts.body.small400}
-  color: ${(props) => props.theme.colors.grayScale.black};
+  ${(props) => props.theme.fonts.body.xsmall500}
+  color: ${(props) => props.theme.colors.grayScale.gy700};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -148,16 +148,17 @@ export const Time = styled.p`
 
 export const Pickup = styled.div`
   display: flex;
-  width: 3.75rem;
-  height: 1.5rem;
+  width: 67px;
+  height: 22px;
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 0.625rem;
-  background-color: ${(props) => props.theme.colors.primary.bl400};
+  padding: 4px;
+  gap: 2px;
+  background-color: ${(props) => props.theme.colors.primary.violet}20;
   ${(props) => props.theme.fonts.body.xsmall500};
-  border-radius: 0.375rem;
-  color: ${(props) => props.theme.colors.grayScale.white};
+  border-radius: 1.2rem;
+  color: ${(props) => props.theme.colors.primary.violet};
   flex-shrink: 0;
 `;
 
@@ -195,9 +196,19 @@ export const MenuDescription = styled.p`
   margin-bottom: auto;
 `;
 
+export const menuTitle = styled.p`
+  ${(props) => props.theme.fonts.header.h4}
+  color: ${(props) => props.theme.colors.primary.violet};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 0 1 auto;
+`;
+
 export const Price = styled.p`
   ${(props) => props.theme.fonts.body.small500}
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.primary.violet};
   text-align: right;
   margin-left: auto;
   margin-top: auto;
