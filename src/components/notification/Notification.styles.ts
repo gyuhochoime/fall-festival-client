@@ -11,8 +11,8 @@ export const Container = styled.div<{ $width?: string }>`
   }};
   height: 2.5rem;
   padding: 0.5rem 1rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy50};
-  border-radius: 0.5rem;
+  background: ${(props) => props.theme.colors.primary.violet}20;
+  border-radius: 2rem;
 `;
 
 export const Icon = styled.img`
@@ -24,7 +24,7 @@ export const Icon = styled.img`
 
 export const Title = styled.p`
   ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.primary.violet};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

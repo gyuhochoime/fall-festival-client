@@ -42,7 +42,7 @@
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "idb": "^8.0.3",
-    "lint-staged": "^15.5.0",
+    "lint-staged": "^15.5.2",
     "postcss": "8.5.1",
     "prettier": "^3.5.3",
     "styled-reset": "^4.5.2",
