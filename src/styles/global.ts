@@ -30,7 +30,7 @@ export const GlobalStyle = createGlobalStyle`
         height: 100vh;
         overflow: hidden;
         background-color: ${(props) => props.theme.colors.grayScale.white};
-        font-family: SUIT, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
     
     html {

@@ -4,8 +4,10 @@
 export interface NavBarProps {
   isBack?: boolean;
   isSearch?: boolean;
+  isFavorite?: boolean;
   title?: string;
   onSearchClick?: () => void;
+  onFavoriteClick?: () => void;
   backPath?: number | string;
   opacity?: boolean;
 }
