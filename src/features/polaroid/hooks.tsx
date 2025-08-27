@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { DEVELOP_CONFIG } from './constants';
+import { DEVELOP_CONFIG, SHAKE_CONFIG } from './constants';
 import { FrameCategory, FrameKey } from './types';
 
 /**
@@ -41,6 +41,136 @@ export function useDevelopAnimation() {
   }, []);
 
   return { opacity, startDevelop, stopDevelop };
+}
+
+/**
+ * 흔들기 현상 애니메이션을 관리하는 훅
+ */
+export function useShakeDevelop() {
+  const [shakeCount, setShakeCount] = useState(0);
+  const [isShaking, setIsShaking] = useState(false);
+  const [permissionGranted, setPermissionGranted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const maxShakes = SHAKE_CONFIG.maxShakes;
+  const lastShakeTimeRef = useRef(0);
+  const onCompleteRef = useRef<(() => void) | null>(null);
+
+  // 아주 간단한 흔들기 감지
+  const detectShake = (event: DeviceMotionEvent) => {
+    const acceleration = event.accelerationIncludingGravity;
+    if (!acceleration) return;
+
+    const currentTime = Date.now();
+    if (currentTime - lastShakeTimeRef.current < SHAKE_CONFIG.shakeCooldown) return;
+
+    const totalAcceleration = Math.sqrt(
+      (acceleration.x || 0) ** 2 + (acceleration.y || 0) ** 2 + (acceleration.z || 0) ** 2,
+    );
+
+    if (totalAcceleration > SHAKE_CONFIG.shakeThreshold) {
+      // alert('흔들림 감지!');
+
+      // 바로 카운트 올리기
+      setShakeCount((prev) => {
+        const newCount = prev + 1;
+
+        // 완료 체크
+        if (newCount >= maxShakes && onCompleteRef.current) {
+          setTimeout(() => {
+            onCompleteRef.current?.();
+          }, 500);
+        }
+
+        return newCount;
+      });
+
+      // 흔들기 애니메이션
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 300);
+
+      lastShakeTimeRef.current = currentTime;
+    }
+  };
+
+  // 권한 요청 - 간단하게
+  const requestPermission = async (): Promise<boolean> => {
+    try {
+      const DeviceMotionEventTyped = DeviceMotionEvent as unknown as {
+        requestPermission?: () => Promise<'granted' | 'denied'>;
+      };
+
+      if (typeof DeviceMotionEventTyped.requestPermission === 'function') {
+        const permission = await DeviceMotionEventTyped.requestPermission();
+        const granted = permission === 'granted';
+        setPermissionGranted(granted);
+        return granted;
+      } else {
+        setPermissionGranted(true);
+        return true;
+      }
+    } catch (error) {
+      console.error('Permission error:', error);
+      setError('권한 요청 실패');
+      return false;
+    }
+  };
+
+  // 흔들기 시작
+  const startShakeDevelop = async (onComplete?: () => void) => {
+    // 초기화
+    setShakeCount(0);
+    setError(null);
+    onCompleteRef.current = onComplete || null;
+
+    // 권한 체크/요청
+    if (!permissionGranted) {
+      const granted = await requestPermission();
+      if (!granted) return;
+    }
+
+    // 이벤트 리스너 등록
+    window.addEventListener('devicemotion', detectShake);
+  };
+
+  // 중지
+  const stopShakeDevelop = () => {
+    window.removeEventListener('devicemotion', detectShake);
+    setShakeCount(0);
+    onCompleteRef.current = null;
+  };
+
+  // 테스트용
+  const simulateShake = () => {
+    setShakeCount((prev) => {
+      const newCount = prev + 1;
+      if (newCount >= maxShakes && onCompleteRef.current) {
+        setTimeout(() => onCompleteRef.current?.(), 500);
+      }
+      return newCount;
+    });
+    setIsShaking(true);
+    setTimeout(() => setIsShaking(false), 300);
+  };
+
+  const progress = shakeCount / maxShakes;
+  const opacity = progress;
+  const isCompleted = shakeCount >= maxShakes;
+
+  return {
+    shakeCount,
+    maxShakes,
+    progress,
+    opacity,
+    isShaking,
+    isCompleted,
+    permissionGranted,
+    error,
+    requestPermission,
+    startShakeDevelop,
+    stopShakeDevelop,
+    simulateShake,
+  };
 }
 
 /**

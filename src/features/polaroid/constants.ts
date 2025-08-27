@@ -44,6 +44,23 @@ export const DEVELOP_CONFIG = {
   },
 };
 
+// 흔들기 현상 관련 상수
+export const SHAKE_CONFIG = {
+  // === 기본 흔들기 설정 ===
+  maxShakes: 50, // 현상 완료까지 필요한 흔들기 횟수 (10~30 권장)
+  shakeThreshold: 15, // 흔들기 감지 임계값 (10~25 권장, 낮을수록 민감)
+  shakeCooldown: 200, // 연속 흔들기 방지 시간 (100~300ms 권장)
+
+  // === 애니메이션 타이밍 설정 ===
+  shakeAnimationDuration: 300, // 흔들기 애니메이션 지속 시간 (200~500ms 권장)
+  completionDelay: 500, // 완료 후 다음 단계로 이동하는 지연 시간 (300~800ms 권장)
+
+  // === CSS 애니메이션 관련 (Polaroid.styles.ts에서 수동으로 동기화 필요) ===
+  cssAnimationDuration: '0.5s', // CSS shake 애니메이션 지속시간
+  shakeIntensity: 5, // 흔들기 강도 (px) - 3~10 권장
+  rotationAngle: 1, // 회전 각도 (deg) - 0.5~2 권장
+};
+
 // 온보딩 슬라이드 텍스트
 export const SLIDE_TEXTS = [
   '흘려보내기 아쉬운 순간들을\n폴라로이드 카메라에 담아 보세요!',
