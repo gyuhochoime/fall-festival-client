@@ -49,8 +49,8 @@ const NavBar: React.FC<NavBarProps> = ({
         {isBack ? (
           <BackIcon
             style={{ cursor: 'pointer' }}
-            width={'1.5rem'}
-            height={'1.5rem'}
+            width={'0.95rem'}
+            height={'0.95rem'}
             onClick={handleBack}
           />
         ) : isFavorite ? (
