@@ -4,7 +4,7 @@ import { Notification } from '@/components/notification';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BOOTH_LIST } from '@/constants/booth/booth';
 import { Fragment } from 'react/jsx-runtime';
-import { useFavorites } from '@/hooks/useFavorites';
+import { useState } from 'react';
 
 import FavoriteOn from 'src/assets/icons/favorite-on.svg?react';
 import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
@@ -12,7 +12,25 @@ import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
 export default function BoothList() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { handleToggleFavorite, isFavorited } = useFavorites();
+
+  // 찜하기 기능 상태 관리 추가 (localStorage)
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const saved = localStorage.getItem('booth-favorites');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const handleToggleFavorite = (boothId: number, event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    setFavorites((prev) => {
+      const newFavorites = prev.includes(boothId)
+        ? prev.filter((id) => id !== boothId)
+        : [...prev, boothId];
+
+      localStorage.setItem('booth-favorites', JSON.stringify(newFavorites));
+      return newFavorites;
+    });
+  };
 
   return (
     <S.Container>
@@ -23,7 +41,7 @@ export default function BoothList() {
       <S.BoothList>
         <S.BoothItem>
           {BOOTH_LIST.map((booth) => {
-            const isBoothFavorited = isFavorited(booth.id);
+            const isFavorited = favorites.includes(booth.id); //주점 찜하기 추가
 
             return (
               <Fragment key={booth.id}>
@@ -43,11 +61,11 @@ export default function BoothList() {
                   />
                   <S.FavoriteButton
                     onClick={(e) => handleToggleFavorite(booth.id, e)}
-                    $isFavorited={isBoothFavorited}
-                    aria-label={isBoothFavorited ? '찜 완료' : '찜하기'}
+                    $isFavorited={isFavorited}
+                    aria-label={isFavorited ? '찜 완료' : '찜하기'}
                   >
-                    {isBoothFavorited ? <FavoriteOn /> : <FavoriteOff />}
-                    {isBoothFavorited ? '찜 완료' : '찜하기'}
+                    {isFavorited ? <FavoriteOn /> : <FavoriteOff />}
+                    {isFavorited ? '찜 완료' : '찜하기'}
                   </S.FavoriteButton>
                 </S.BoothItemWrapper>
                 <S.HorizontalLine />

@@ -33,6 +33,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  padding-top: 3.875rem;
 `;
 
 export const TakeOut = styled.div`

@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   background-color: ${(props) => props.theme.colors.grayScale.white};
+  padding-top: 3.875rem;
 `;
 
 export const Main = styled.main`
