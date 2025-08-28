@@ -13,6 +13,7 @@ import { MadeBy } from './main/made';
 import { Fortune } from './main/fortune';
 import Polaroid from '@/pages/polaroid/Polaroid';
 import Favorites from '@/pages/favorites/Favorites';
+import BoothSearch from '@/pages/booth/search/BoothSearch';
 
 export {
   Main,
@@ -30,4 +31,5 @@ export {
   Fortune,
   Polaroid,
   Favorites,
+  BoothSearch,
 };
