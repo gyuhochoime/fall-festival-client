@@ -5,6 +5,7 @@ import Map from '@/pages/map/MapPage';
 import Performance from '@/pages/performance/Performance';
 import Booth from '@/pages/booth/Booth';
 import Polaroid from '@/pages/polaroid/Polaroid';
+import Favorites from '@/pages/favorites/Favorites';
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
           <Route path="/performance/*" element={<Performance />} />
           <Route path="/booth/*" element={<Booth />} />
           <Route path="/polaroid" element={<Polaroid />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Route>
       </Routes>
     </Router>

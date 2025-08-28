@@ -30,7 +30,7 @@ export const RightSection = styled.div`
 `;
 
 export const Title = styled.p`
-  ${(props) => props.theme.fonts.header.h3}
+  ${(props) => props.theme.fonts.header.h4}
   text-align: center;
   color: ${(props) => props.theme.colors.grayScale.black};
 `;
