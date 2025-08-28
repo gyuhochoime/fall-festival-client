@@ -6,7 +6,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   justify-content: center;
   align-items: center;
   border: none;
-  color: ${({ theme }) => theme.colors.grayScale.black};
+  color: ${({ theme }) => theme.colors.grayScale.white};
   white-space: nowrap;
   cursor: pointer;
   border-radius: ${({ $size }) => ($size === 'small' ? '0.5rem' : '0.75rem')};
@@ -41,7 +41,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
         return theme.fonts.body.medium500;
     }
   }}
-  background-color: ${({ theme }) => theme.colors.primary.bl400};
+  background-color: ${({ theme }) => theme.colors.primary.violet};
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.grayScale.gy200};

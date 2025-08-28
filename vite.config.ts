@@ -50,7 +50,7 @@ export default defineConfig({
       manifest: {
         name: 'ESPERO:HYLIGHT 2025',
         short_name: 'ESPERO:HYLIGHT',
-        description: 'HYU-ERICA 2025 spring festival application',
+        description: 'HYU-ERICA 2025 fall festival application',
         theme_color: '#F5F5F5',
         background_color: '#F5F5F5',
         start_url: '/',
@@ -116,7 +116,7 @@ export default defineConfig({
       },
 
       devOptions: {
-        enabled: false,
+        enabled: true,
         navigateFallback: 'index.html',
         suppressWarnings: true,
         type: 'module',

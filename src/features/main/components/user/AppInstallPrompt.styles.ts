@@ -9,7 +9,7 @@ export const ModalOverlay = styled(motion.div)`
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;

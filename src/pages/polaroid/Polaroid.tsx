@@ -2,6 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 
+import BackIcon from '@/assets/icons/left-arrow.svg?react';
+import CloseIcon from '@/assets/icons/close-black.svg?react';
+
 import * as S from '@/pages/polaroid/Polaroid.styles';
 import {
   Step,
@@ -165,12 +168,22 @@ export default function Polaroid() {
     <S.Container>
       {/* 상단 헤더 */}
       <S.Header>
-        <S.HeaderButton aria-label="뒤로" onClick={handleBack}>
-          {'<'}
+        <S.HeaderButton aria-label="뒤로">
+          <BackIcon
+            style={{ cursor: 'pointer' }}
+            width={'0.95rem'}
+            height={'0.95rem'}
+            onClick={handleBack}
+          />
         </S.HeaderButton>
         <S.HeaderTitle>{headerTitle}</S.HeaderTitle>
-        <S.HeaderButton aria-label="나가기" onClick={handleExit}>
-          ×
+        <S.HeaderButton aria-label="나가기">
+          <CloseIcon
+            style={{ cursor: 'pointer' }}
+            width={'0.85rem'}
+            height={'0.85rem'}
+            onClick={handleExit}
+          />
         </S.HeaderButton>
       </S.Header>
 
