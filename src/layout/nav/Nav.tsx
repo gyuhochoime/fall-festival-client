@@ -29,9 +29,9 @@ export default function Nav() {
             style={{ textDecoration: 'none' }}
             onClick={(e) => handleNavigate(e, isLocation)}
           >
-            <S.NavBtn whileTap={{ scale: 0.92, backgroundColor: '#212526' }}>
+            <S.NavBtn $isActive={isLocation}>
               {!isLocation ? item.DefaultIcon : item.ActiveIcon}
-              <S.NavBtnText>{item.label}</S.NavBtnText>
+              <S.NavBtnText $isActive={isLocation}>{item.label}</S.NavBtnText>
             </S.NavBtn>
           </NavLink>
         );

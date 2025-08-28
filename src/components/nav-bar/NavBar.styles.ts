@@ -27,6 +27,8 @@ export const RightSection = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
+  margin-top: 3px;
+  margin-right: 3px;
 `;
 
 export const Title = styled.p`

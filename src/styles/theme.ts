@@ -40,6 +40,8 @@ const colors = {
     bl130: '#BAE0FF',
     rd090: '#FECFD9',
     pk100: '#F5D5FF',
+    vl100: '#DBC2EC',
+    vl50: '#F0E7F3',
   },
   grayScale: {
     white: '#FAFAFA',

@@ -12,7 +12,7 @@ export default function Booth() {
   };
 
   const handleSearchClick = () => {
-    navigate('/map/search');
+    navigate('/booth/search');
   };
 
   return (
