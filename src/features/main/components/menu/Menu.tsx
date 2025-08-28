@@ -26,7 +26,7 @@ export default function Menu() {
             image={Fortune}
             title="오늘의 운세 보기"
             description="하냥이와 함께 오늘의 운세를 확인해보세요"
-            onClick={() => navigate('/main/fortune')}
+            onClick={() => navigate('/main/fortune/onboarding')}
           />
         </S.Frame>
       </S.Section>

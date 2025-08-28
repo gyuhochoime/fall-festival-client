@@ -1,1 +1,1 @@
-export { default as Fortune } from './Fortune';
+export { default as FortuneOnboarding } from './FortuneOnboarding';

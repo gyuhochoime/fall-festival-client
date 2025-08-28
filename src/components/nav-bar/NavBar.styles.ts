@@ -9,7 +9,8 @@ export const Container = styled.header<{ $opacity?: boolean }>`
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme.colors.grayScale.white};
+  background-color: ${({ theme, $opacity }) =>
+    $opacity ? 'transparent' : theme.colors.grayScale.white};
   position: fixed;
   top: 0;
   z-index: 99;
@@ -22,13 +23,17 @@ export const LeftSection = styled.div`
   flex: 1;
 `;
 
-export const RightSection = styled.div`
+export const RightSection = styled.div<{ $opacity?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   flex: 1;
   margin-top: 3px;
   margin-right: 3px;
+
+  svg {
+    filter: ${({ $opacity }) => ($opacity ? 'brightness(0) invert(1)' : 'none')};
+  }
 `;
 
 export const Title = styled.p`

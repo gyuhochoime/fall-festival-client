@@ -70,7 +70,7 @@ const NavBar: React.FC<NavBarProps> = ({
       </S.LeftSection>
 
       {title && <S.Title>{title}</S.Title>}
-      <S.RightSection>
+      <S.RightSection $opacity={opacity}>
         {isSearch && (
           <SearchIcon
             style={{ cursor: 'pointer' }}
