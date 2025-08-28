@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './BoothDetail.styles';
 import { BoothInfo, BoothLocation, MenuList } from '@/features/booth';
@@ -11,9 +11,14 @@ import { useFavorites } from '@/hooks/useFavorites';
 export default function BoothDetail() {
   const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const fromRef = useRef(location.state?.from || '/booth');
   const booth = BOOTH_LIST.find((booth) => booth.id === Number(id)); // ✅ 타입 일치
   const { handleToggleFavorite, isFavorited } = useFavorites();
+
+  const handleCloseClick = () => {
+    navigate('/booth');
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,7 +32,13 @@ export default function BoothDetail() {
 
   return (
     <S.Container>
-      <NavBar isBack title="주점" backPath={fromRef.current} />
+      <NavBar
+        isBack
+        isClose
+        title="주점 정보"
+        backPath={fromRef.current}
+        onCloseClick={handleCloseClick}
+      />
       <S.BackgroundImg src={booth.posterImage} />
       <S.FavoriteButton
         onClick={(e) => handleToggleFavorite(booth.id, e)}
