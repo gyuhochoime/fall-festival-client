@@ -8,4 +8,4 @@ export type navItem = {
   ActiveIcon: ReactElement;
 };
 
-export type navItems = navItem[];
+export type navItems = readonly navItem[];
