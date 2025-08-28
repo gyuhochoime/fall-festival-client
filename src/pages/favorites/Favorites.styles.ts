@@ -59,15 +59,17 @@ export const HorizontalLine = styled.div`
 `;
 
 export const BoothItemWrapper = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  gap: 0.75rem;
 `;
 
 export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
-  position: absolute;
-  top: 12px;
-  right: 0px;
-  gap: 7px;
+  flex-shrink: 0;
+  gap: 0.4375rem;
   width: 54px;
   height: 72px;
   display: flex;
@@ -96,4 +98,5 @@ export const EmptyText = styled.p`
   ${(props) => props.theme.fonts.body.medium400};
   color: ${(props) => props.theme.colors.grayScale.gy400};
   text-align: center;
+  white-space: pre-line;
 `;

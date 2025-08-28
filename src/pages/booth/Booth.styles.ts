@@ -7,6 +7,7 @@ export const Container = styled.div`
   gap: 1rem;
   width: 100%;
   position: relative;
+  padding-top: 3.875rem;
 `;
 
 export const Main = styled.main`

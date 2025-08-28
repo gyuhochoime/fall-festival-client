@@ -44,6 +44,7 @@ export default function BoothLocation({
   return (
     <S.Container>
       <S.Title>위치</S.Title>
+      {/* 부스 위치 정보 입력값 ep.3 -> 디자인에 맞춰 -로 변경해 출력 */}
       <S.Locate>{boothLocation.replace('.', '-')}</S.Locate>
       <S.Map ref={mapRef}>
         <S.Button onClick={() => navigate(`/map/${id}`, { replace: true })}>

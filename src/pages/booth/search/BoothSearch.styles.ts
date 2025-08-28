@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   background-color: ${(props) => props.theme.colors.grayScale.white};
+  padding-top: 3.875rem;
 `;
 
 export const Main = styled.main`
@@ -102,31 +103,35 @@ export const HorizontalLine = styled.div`
 `;
 
 export const BoothItemWrapper = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  gap: 0.75rem;
 `;
 
 export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
-  position: absolute;
-  top: 12px;
-  right: 0px;
-  gap: 7px;
+  flex-shrink: 0;
+  gap: 0.4375rem;
   border: ${({ $isFavorited, theme }) =>
     $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`};
   background: ${({ $isFavorited, theme }) => ($isFavorited ? theme.colors.primary.violet : 'none')};
-  border-radius: 12px;
-  width: 54px;
-  height: 72px;
+  border-radius: 0.75rem;
+  width: 3.375rem;
+  height: 4.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: ${({ $isFavorited, theme }) => ($isFavorited ? '#ffffff' : theme.colors.primary.violet)};
   cursor: pointer;
-  z-index: 10;
   transition: all 0.2s ease;
-  margin-right: 0;
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 export const EmptyState = styled.div`
@@ -157,4 +162,5 @@ export const NoResultsText = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
   color: ${(props) => props.theme.colors.grayScale.gy400};
   text-align: center;
+  white-space: pre-line;
 `;
