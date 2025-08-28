@@ -11,9 +11,7 @@
     "lint:style": "stylelint 'src/**/*.{js,ts,jsx,tsx}'",
     "lint:style:fix": "stylelint 'src/**/*.{js,ts,jsx,tsx}' --fix",
     "prepare": "husky",
-    "secure": "vite --config vite.https.config.ts",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist"
+    "secure": "vite --config vite.https.config.ts"
   },
   "dependencies": {
     "@svgr/plugin-svgo": "^8.1.0",
