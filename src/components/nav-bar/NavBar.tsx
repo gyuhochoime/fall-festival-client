@@ -3,6 +3,7 @@ import SearchIcon from '@/assets/icons/search.svg?react';
 import BackIcon from '@/assets/icons/left-arrow.svg?react';
 import LogoIcon from '@/assets/icons/Logo_Sample.svg?react';
 import HeartIcon from '@/assets/icons/favorite.svg?react';
+import CloseIcon from '@/assets/icons/close-black.svg?react';
 
 import { NavBarProps, SearchNavBarProps } from './NavBar.types';
 import { useNavigate } from 'react-router-dom';
@@ -25,9 +26,11 @@ const NavBar: React.FC<NavBarProps> = ({
   isBack = false,
   isSearch = false,
   isFavorite = false,
+  isClose = false,
   title,
   onSearchClick,
   onFavoriteClick,
+  onCloseClick,
   backPath = -1,
   opacity = false,
 }) => {
@@ -75,6 +78,14 @@ const NavBar: React.FC<NavBarProps> = ({
             onClick={onSearchClick}
           />
         )}
+        {isClose && (
+          <CloseIcon
+            style={{ cursor: 'pointer' }}
+            width={'0.85rem'}
+            height={'0.85rem'}
+            onClick={onCloseClick}
+          />
+        )}
       </S.RightSection>
     </S.Container>
   );
@@ -113,11 +124,11 @@ const SearchNavBar: React.FC<SearchNavBarProps> = ({
 
   return (
     <S.Container style={{ gap: '0.75rem' }}>
-      <BackIcon width={'1.5rem'} height={'1.5rem'} onClick={handleBack} />
+      <BackIcon width={'0.85rem'} height={'0.85rem'} onClick={handleBack} />
       <S.SearchWrapper htmlFor="search">
         <input id="search" placeholder={placeholder} onChange={onChange} value={value || ''} />
         <S.Btn whileTap={{ scale: 0.92, backgroundColor: '#212526' }}>
-          <SearchIcon width={'1.5rem'} height={'1.5rem'} onClick={onClick} />
+          <SearchIcon width={'0.95rem'} height={'0.95rem'} onClick={onClick} />
         </S.Btn>
       </S.SearchWrapper>
     </S.Container>

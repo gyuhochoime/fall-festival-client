@@ -5,9 +5,11 @@ export interface NavBarProps {
   isBack?: boolean;
   isSearch?: boolean;
   isFavorite?: boolean;
+  isClose?: boolean;
   title?: string;
   onSearchClick?: () => void;
   onFavoriteClick?: () => void;
+  onCloseClick?: () => void;
   backPath?: number | string;
   opacity?: boolean;
 }
