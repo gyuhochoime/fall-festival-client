@@ -17,6 +17,11 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 16px;
         }
 
+        /* additional media query for galaxy fold */
+        @media (width <= 360px) {
+        font-size: 14px;
+        }
+
         @media (width <= 320px) {
         font-size: 12px;
         }

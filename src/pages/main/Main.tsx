@@ -74,7 +74,7 @@ export default function Main() {
       <AppInstallPrompt />
       <S.Layout />
       {/* <NavBar opacity={true} /> */}
-      <div style={{ padding: '20px 15px' }}>
+      <div style={{ padding: '1.3rem 1rem' }}>
         <img src={logo} style={{ position: 'relative' }} width="150px" />
       </div>
       <S.Main>
