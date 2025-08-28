@@ -10,20 +10,10 @@ export const Wrapper = styled.div`
 export const CardWrap = styled.div`
   position: relative;
   width: 100dvw;
-  height: 13.3rem;
 
   /* slick-track가 두 줄로 깨지는 현상 방지 */
   .slick-track {
     display: flex !important;
     flex-wrap: nowrap !important;
   }
-`;
-
-export const CursorBox = styled.div`
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 3rem;
-  margin-bottom: 0.88rem;
 `;

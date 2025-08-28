@@ -6,9 +6,9 @@ export const Layout = styled.div`
   /* background-image: url(${BackLayout});
   background-repeat: no-repeat;
   background-size: cover; */
-  background: linear-gradient(180deg, #7e419a 26.44%, #fafafa 84.62%);
+  background: linear-gradient(180deg, #7e419a 26.44%, #fafafa 94.62%);
   width: 100%;
-  height: 80rem;
+  height: 100dvh;
   position: absolute;
 `;
 export const Container = styled.div`
@@ -30,12 +30,12 @@ export const Main = styled.main`
 
 export const Title = styled.p`
   ${(props) => props.theme.fonts.header.h3}
+  color: ${(props) => props.theme.colors.grayScale.offwhite};
 `;
 
 export const CarouselsBox = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 2.5rem;
 `;
 
 // ne

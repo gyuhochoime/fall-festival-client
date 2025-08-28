@@ -79,8 +79,7 @@ export default function Main() {
       </div>
       <S.Main>
         <section>
-          {' '}
-          <S.TitleWrapper>
+          <S.TitleWrapper style={{ margin: '0px auto' }}>
             <S.Title>진행 중인 이벤트</S.Title>
           </S.TitleWrapper>
           <S.CarouselsBox>

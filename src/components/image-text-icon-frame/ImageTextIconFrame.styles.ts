@@ -11,9 +11,10 @@ export const Container = styled.div<ImageProps>`
     $hasImage ? '0.75rem 0.5rem 0.75rem 0.75rem' : '0.875rem 0.5rem 0.875rem 1.125rem'};
   align-items: center;
   gap: 1.25rem;
-  border-radius: 0.5rem;
-  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
+  border-radius: 16px;
+  background-color: ${(props) => props.theme.colors.grayScale.white};
   cursor: pointer;
+  box-shadow: 0 0 12px 0 rgb(126 65 154 / 30%);
 
   &:active {
     background-color: ${(props) => props.theme.colors.grayScale.white};
@@ -25,7 +26,7 @@ export const Image = styled.img`
   height: 3.5rem;
   flex-shrink: 0;
   aspect-ratio: 1/1;
-  border-radius: 2.5rem;
+  border-radius: 12px;
   background-color: transparent;
 `;
 

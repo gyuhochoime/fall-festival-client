@@ -19,6 +19,7 @@ interface EventCarouselsProps {
 export default function EventCarousels({ events }: EventCarouselsProps) {
   const navigate = useNavigate();
   const isSwipingRef = useRef(false);
+  const ignoreClickOnceRef = useRef(false);
 
   const eventCardLinkMap: Record<string, string> = {
     '1': '/main/notice/13',
@@ -74,6 +75,7 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
     afterChange: () => {
       setTimeout(() => {
         isSwipingRef.current = false;
+        ignoreClickOnceRef.current = true; // 드래그 후 첫 클릭 무시
       }, 100);
     },
   };
@@ -93,10 +95,13 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
                   isSun={isSun}
                   tags={tags}
                   onClick={() => {
-                    if (!isSwipingRef.current) {
-                      const link = eventCardLinkMap[card.id];
-                      if (link) navigate(link);
+                    if (isSwipingRef.current) return;
+                    if (ignoreClickOnceRef.current) {
+                      ignoreClickOnceRef.current = false;
+                      return;
                     }
+                    const link = eventCardLinkMap[card.id];
+                    if (link) navigate(link);
                   }}
                 />
               </div>
