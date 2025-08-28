@@ -14,7 +14,7 @@ export const Nav = styled.nav`
   align-items: center;
   z-index: 100;
   border-radius: 1rem 1rem 0 0;
-  background: linear-gradient(to top, #fff 10%, transparent 100%), #ffffffbd;
+  background: linear-gradient(to top, #fafafa 10%, transparent 100%), #ffffffbd;
   box-shadow: 0 -2px 2px #dbc2e39b;
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);

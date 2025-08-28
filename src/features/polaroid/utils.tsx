@@ -61,6 +61,10 @@ export async function drawPolaroidOnCanvas(
   canvas.width = FRAME_DIMENSIONS.width;
   canvas.height = FRAME_DIMENSIONS.height;
 
+  // 1. Draw white background
+  ctx.fillStyle = 'white';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   try {
     // 사용자 사진 로드
     const userImg = new Image();
@@ -71,27 +75,36 @@ export async function drawPolaroidOnCanvas(
       userImg.src = photoUrl;
     });
 
-    // 전체 프레임 영역에 사용자 사진을 cover 방식으로 그리기
-    const imgRatio = userImg.width / userImg.height;
-    const canvasRatio = FRAME_DIMENSIONS.width / FRAME_DIMENSIONS.height;
+    // 2. Draw user's image onto the inner area (90,90,900,1280) with cover effect
+    const targetX = 90;
+    const targetY = 90;
+    const targetWidth = 900;
+    const targetHeight = 1280;
 
-    let drawWidth: number;
-    let drawHeight: number;
+    // Calculate source image dimensions for "cover" effect
+    const sourceAspectRatio = userImg.width / userImg.height;
+    const targetAspectRatio = targetWidth / targetHeight;
 
-    if (imgRatio > canvasRatio) {
-      // 이미지가 더 가로로 김: 높이를 캔버스에 맞추고 너비는 크롭
-      drawHeight = FRAME_DIMENSIONS.height;
-      drawWidth = drawHeight * imgRatio;
+    let sx = 0;
+    let sy = 0;
+    let sWidth = userImg.width;
+    let sHeight = userImg.height;
+
+    if (sourceAspectRatio > targetAspectRatio) {
+      // Image is wider than target, crop horizontally
+      sHeight = userImg.height;
+      sWidth = sHeight * targetAspectRatio;
+      sx = (userImg.width - sWidth) / 2;
+      sy = 0;
     } else {
-      // 이미지가 더 세로로 김: 너비를 캔버스에 맞추고 높이는 크롭
-      drawWidth = FRAME_DIMENSIONS.width;
-      drawHeight = drawWidth / imgRatio;
+      // Image is taller or same aspect ratio, crop vertically
+      sWidth = userImg.width;
+      sHeight = sWidth / targetAspectRatio;
+      sy = (userImg.height - sHeight) / 2;
+      sx = 0;
     }
 
-    const drawX = (FRAME_DIMENSIONS.width - drawWidth) / 2;
-    const drawY = (FRAME_DIMENSIONS.height - drawHeight) / 2;
-
-    ctx.drawImage(userImg, drawX, drawY, drawWidth, drawHeight);
+    ctx.drawImage(userImg, sx, sy, sWidth, sHeight, targetX, targetY, targetWidth, targetHeight);
 
     // 프레임 이미지 로드 및 그리기 (위에 덮어씌우기)
     const frameImg = new Image();
