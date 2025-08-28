@@ -6,5 +6,6 @@ export const Container = styled.main`
   align-items: center;
   color: ${(props) => props.theme.colors.grayScale.black};
   width: 100%;
+  padding-top: 3.875rem;
   overflow: hidden;
 `;
