@@ -27,6 +27,7 @@ const NavBar: React.FC<NavBarProps> = ({
   isSearch = false,
   isFavorite = false,
   isClose = false,
+  hideLeft = false,
   title,
   onSearchClick,
   onFavoriteClick,
@@ -49,7 +50,7 @@ const NavBar: React.FC<NavBarProps> = ({
   return (
     <S.Container $opacity={opacity}>
       <S.LeftSection>
-        {isBack ? (
+        {hideLeft ? null : isBack ? (
           <BackIcon
             style={{ cursor: 'pointer' }}
             width={'0.95rem'}

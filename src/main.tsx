@@ -19,6 +19,7 @@ import {
   Fortune,
   Polaroid,
   Favorites,
+  BoothSearch,
 } from '@/pages';
 import Layout from '@/layout';
 import { ensureSessionCookie } from '@/utils/session';
@@ -129,6 +130,10 @@ const routes = createBrowserRouter([
       {
         path: 'favorites',
         element: <Favorites />,
+      },
+      {
+        path: 'booth/search',
+        element: <BoothSearch />,
       },
     ],
   },
