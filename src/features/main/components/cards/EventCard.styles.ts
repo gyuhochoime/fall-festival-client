@@ -5,10 +5,9 @@ export const Container = styled.div`
   width: 19.25rem;
   flex-direction: column;
   align-items: flex-start;
-  border-top: 3px solid ${(props) => props.theme.colors.grayScale.gy900};
-  border-left: 3px solid ${(props) => props.theme.colors.grayScale.gy900};
   background-color: ${(props) => props.theme.colors.primary.bl400};
   box-shadow: 3px 3px 0 0 #26409c;
+  margin: 20px;
 `;
 
 export const HeaderSection = styled.div`

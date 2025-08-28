@@ -13,6 +13,9 @@ dist-ssr
 dev-dist
 *.local
 
+vite.https.config.ts
+.gemini
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -28,4 +31,3 @@ dev-dist
 # This file contains sensitive information like API keys and credentials
 # Should be kept out of version control for security reasons
 .env
-vite.https.config.ts

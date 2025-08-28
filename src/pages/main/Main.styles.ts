@@ -3,11 +3,12 @@ import BackLayout from '@/assets/icons/Background-main.svg';
 import { motion } from 'framer-motion';
 
 export const Layout = styled.div`
-  background-image: url(${BackLayout});
+  /* background-image: url(${BackLayout});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  background: linear-gradient(180deg, #7e419a 26.44%, #fafafa 84.62%);
   width: 100%;
-  height: 24rem;
+  height: 80rem;
   position: absolute;
 `;
 export const Container = styled.div`
@@ -35,26 +36,6 @@ export const CarouselsBox = styled.div`
   display: flex;
   justify-content: center;
   padding-bottom: 2.5rem;
-`;
-
-export const Effect = styled.div`
-  position: absolute;
-  display: flex;
-  top: 0;
-  justify-content: flex-end;
-  z-index: 10;
-  width: 100%;
-  pointer-events: none;
-`;
-
-export const BackEffect = styled.div`
-  position: absolute;
-  display: flex;
-  top: 0;
-  justify-content: flex-start;
-  z-index: -10000;
-  width: 100%;
-  pointer-events: none;
 `;
 
 // ne

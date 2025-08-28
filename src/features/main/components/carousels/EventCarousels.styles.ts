@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -10,17 +9,14 @@ export const Wrapper = styled.div`
 
 export const CardWrap = styled.div`
   position: relative;
-  width: 19.3rem;
+  width: 100dvw;
   height: 13.3rem;
-`;
 
-export const MotionCard = styled(motion.div)<{ $isHidden: boolean }>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: ${(props) => (props.$isHidden ? 'none' : 'block')};
-  will-change: transform;
-  cursor: ${(props) => (props.$isHidden ? 'default' : 'pointer')};
+  /* slick-track가 두 줄로 깨지는 현상 방지 */
+  .slick-track {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+  }
 `;
 
 export const CursorBox = styled.div`

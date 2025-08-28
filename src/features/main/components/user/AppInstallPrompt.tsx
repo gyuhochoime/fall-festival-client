@@ -1,68 +1,74 @@
 import { BeforeInstallPromptEvent } from '@/types/window';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './AppInstallPrompt.styles';
 import { easeOut } from 'framer-motion';
 import { BlueButton } from '@/components/bluebuttons';
 
-const defaultBeforeInstallPromptEvent: BeforeInstallPromptEvent = {
-  platforms: [],
-  userChoice: Promise.resolve({ outcome: 'dismissed', platform: '' }),
-  prompt: () => Promise.resolve(),
-  preventDefault: () => {},
-};
-
-const isIOSPromptActive = () => {
-  const isActive = JSON.parse(localStorage.getItem('iosInstalled') || 'true');
-
-  if (isActive) {
-    return defaultBeforeInstallPromptEvent;
-  }
-
-  return null;
-};
-
-export default function AppInstallPrompt() {
+export default function AppInstallPrompt({ forced = false }: { forced?: boolean }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const isDeviceIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(
-    isDeviceIOS ? isIOSPromptActive() : null,
-  );
-  const handleInstallClick = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-
-      deferredPrompt.userChoice.then(() => {
-        setDeferredPrompt(null);
-      });
-    }
-  };
-
-  const handleCancelClick = () => {
-    localStorage.setItem('iosInstalled', 'false');
-    setDeferredPrompt(null);
-  };
 
   const handleBeforeInstallPrompt = (event: BeforeInstallPromptEvent) => {
     event.preventDefault();
     setDeferredPrompt(event);
+    setIsVisible(true);
   };
 
   useEffect(() => {
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    if (forced) {
+      setIsVisible(true);
+      return;
+    }
+
+    // If the user has dismissed the prompt, do nothing.
+    if (localStorage.getItem('isAppInstallDismissed') === 'true') {
+      return;
+    }
+
+    if (isDeviceIOS) {
+      setIsVisible(true);
+    } else {
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    }
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      if (!isDeviceIOS && !forced) {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      }
     };
-  }, []);
+  }, [isDeviceIOS, forced]);
+
+  const handleInstallClick = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        setIsVisible(false);
+      });
+    } else {
+      // Handle forced or iOS click
+      setIsVisible(false);
+    }
+  };
+
+  const handleCancelClick = () => {
+    // User has dismissed the prompt. Don't show it again.
+    if (!forced) {
+      localStorage.setItem('isAppInstallDismissed', 'true');
+    }
+    setIsVisible(false);
+  };
+
+  if (!isVisible) {
+    return null;
+  }
+
   return (
-    <Fragment>
-      {deferredPrompt && (
-        <AppInstallPromptModal
-          handleInstallClick={handleInstallClick}
-          handleCancelClick={handleCancelClick}
-          platform={isDeviceIOS ? 'ios' : 'android'}
-        />
-      )}
-    </Fragment>
+    <AppInstallPromptModal
+      handleInstallClick={handleInstallClick}
+      handleCancelClick={handleCancelClick}
+      platform={isDeviceIOS ? 'ios' : 'android'}
+    />
   );
 }
 
@@ -90,7 +96,7 @@ function AppInstallPromptModal({
       >
         <S.ModalTab>
           <S.ModalTitle>
-            {<S.Help fill="#e9e9ea" width={18} height={18} />}
+            {<S.Help fill="#000000bd" width={18} height={18} />}
             <S.ModalTitleText>홈 화면 추가하기</S.ModalTitleText>
           </S.ModalTitle>
           <S.ModalCloseBtn onClick={handleCancelClick} fill="#17171B" width={18} height={18} />
@@ -104,7 +110,7 @@ function AppInstallPromptModal({
           ) : (
             <S.ModalText>
               홈 화면에 추가하면
-              <br /> 더 편리하게 HyLight를 즐길 수 있어요!
+              <br /> 더 편리하게 축제를 즐길 수 있어요!
             </S.ModalText>
           )}
           {platform === 'android' && (
