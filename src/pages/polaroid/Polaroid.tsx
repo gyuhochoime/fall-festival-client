@@ -9,6 +9,7 @@ import * as S from '@/pages/polaroid/Polaroid.styles';
 import {
   Step,
   FRAMES,
+  FRAME_DIMENSIONS,
   SLIDE_TEXTS,
   getCurrentFrame,
   calculatePreviewSize,
@@ -69,6 +70,9 @@ export default function Polaroid() {
     () => calculatePreviewSize(containerWidth, containerHeight),
     [containerWidth, containerHeight],
   );
+
+  // Calculate scale factor for inner image positioning
+  const scaleFactor = useMemo(() => previewWidth / FRAME_DIMENSIONS.width, [previewWidth]);
 
   // 현재 선택된 프레임 정보
   const currentFrame = useMemo(
@@ -233,10 +237,10 @@ export default function Polaroid() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
+                    top: 90 * scaleFactor,
+                    left: 90 * scaleFactor,
+                    width: 900 * scaleFactor,
+                    height: 1280 * scaleFactor,
                     backgroundColor: '#f0f0f0',
                     backgroundImage: photoUrl ? `url(${photoUrl})` : undefined,
                     backgroundSize: 'cover',
@@ -323,10 +327,10 @@ export default function Polaroid() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
+                    top: 90 * scaleFactor,
+                    left: 90 * scaleFactor,
+                    width: 900 * scaleFactor,
+                    height: 1280 * scaleFactor,
                     backgroundColor: '#f0f0f0', // 밝은 회색 초기값
                     backgroundImage: photoUrl ? `url(${photoUrl})` : undefined,
                     backgroundSize: 'cover',
@@ -436,10 +440,10 @@ export default function Polaroid() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
+                    top: 90 * scaleFactor,
+                    left: 90 * scaleFactor,
+                    width: 900 * scaleFactor,
+                    height: 1280 * scaleFactor,
                     backgroundColor: '#f0f0f0',
                     backgroundImage: photoUrl ? `url(${photoUrl})` : undefined,
                     backgroundSize: 'cover',
