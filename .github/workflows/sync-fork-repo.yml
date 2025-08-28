@@ -22,14 +22,3 @@ jobs:
             -d '{"branch":"main"}')
           
           echo "API Response: $response"
-          
-          # 성공 여부 확인
-          if echo "$response" | grep -q '"merged":true'; then
-            echo "✅ Fork repository successfully synced with upstream!"
-          elif echo "$response" | grep -q '"message":"Already up to date"'; then
-            echo "✅ Fork repository is already up to date!"
-          elif echo "$response" | grep -q '"merge_type":"merge"'; then
-            echo "✅ Fork repository synced with merge commit!"
-          else
-            echo "⚠️ Sync completed, but please check the response above"
-          fi
