@@ -28,3 +28,4 @@ dev-dist
 # This file contains sensitive information like API keys and credentials
 # Should be kept out of version control for security reasons
 .env
+vite.https.config.ts
