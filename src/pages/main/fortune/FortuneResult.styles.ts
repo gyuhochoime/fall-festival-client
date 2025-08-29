@@ -7,7 +7,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
-  padding-top: 3.875rem;
 `;
 
 export const Content = styled.div`
@@ -49,8 +48,8 @@ export const Card = styled.img<{ $isFlipped: boolean }>`
   transition: all 0.8s ease;
   transform-style: preserve-3d;
   box-shadow:
-    0 20px 40px rgb(0 0 0 / 30%),
-    0 8px 16px rgb(0 0 0 / 20%);
+    0 0 20px 6px ${({ theme }) => theme.colors.secondary.DS_Card}50,
+    0 0 30px 12px ${({ theme }) => theme.colors.secondary.DS_Card}30;
   border-radius: 12px;
   border: none;
   background: transparent;

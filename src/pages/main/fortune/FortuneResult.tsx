@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneResult.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import FortuneCardBack from '@/assets/images/fortune/Backdummy.png';
-import ResultDummy from '@/assets/images/fortune/resultdummy.png';
+import FortuneCardBack from '@/assets/images/fortune/FortuneCardBack_big.webp';
+import ResultDummy from '@/assets/images/fortune/resultdummy.webp';
 
 interface LocationState {
   selectedCardIndex: number;

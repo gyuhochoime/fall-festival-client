@@ -6,8 +6,7 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #7e419a 0%, #2d1c46 49%);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  padding-top: 3.875rem;
+  overflow: auto;
 `;
 
 export const Content = styled.div`

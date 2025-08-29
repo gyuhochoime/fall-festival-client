@@ -6,7 +6,7 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #7e419a 0%, #2d1c46 49%);
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding-top: 3.875rem;
 `;
 
@@ -40,18 +40,13 @@ export const Memo = styled.p`
   color: ${({ theme }) => theme.colors.grayScale.white}75;
   text-shadow: 0px 0px 5px ${({ theme }) => theme.colors.grayScale.white}75;
   text-align: center;
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
 `;
 
 export const InputSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 100%;
+  width: calc(100% - 2.5rem);
   max-width: 400px;
   margin-top: 1rem;
 `;
@@ -80,7 +75,7 @@ export const Fortunelotties = styled.div`
   background: transparents;
   border-radius: 16px;
   padding: 0rem;
-  width: 100%;
+  width: calc(100% - 2.5rem);
   height: 350px;
   max-width: 400px;
   text-align: center;
@@ -91,7 +86,6 @@ export const RefreshButton = styled.button`
   ${(props) => props.theme.fonts.header.h4};
   background: ${({ theme }) => theme.colors.primary.violet};
   width: calc(100% - 2.5rem);
-  max-width: 400px;
   color: white;
   border: none;
   border-radius: 50px;
@@ -99,9 +93,4 @@ export const RefreshButton = styled.button`
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.primary.violet};
-  position: fixed;
-  bottom: 3.7rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
 `;
