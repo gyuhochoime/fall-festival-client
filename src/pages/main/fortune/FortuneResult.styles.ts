@@ -58,7 +58,7 @@ export const CardInner = styled.button<{ $isFlipped: boolean }>`
   box-shadow:
     0 0 20px 6px ${({ theme }) => theme.colors.secondary.DS_Card}50,
     0 0 30px 12px ${({ theme }) => theme.colors.secondary.DS_Card}30;
-  border-radius: 12px;
+  border-radius: 21.13px;
 
   ${({ $isFlipped }) =>
     $isFlipped &&
@@ -77,7 +77,7 @@ export const CardInner = styled.button<{ $isFlipped: boolean }>`
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.primary.violet};
     outline-offset: 4px;
-    border-radius: 14px;
+    border-radius: 21.13px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -89,7 +89,7 @@ export const CardInner = styled.button<{ $isFlipped: boolean }>`
 const CardFace = styled.div`
   position: absolute;
   inset: 0;
-  border-radius: 12px;
+  border-radius: 21.13px;
   overflow: hidden;
   backface-visibility: hidden;
   box-shadow:
