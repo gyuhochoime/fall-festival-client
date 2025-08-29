@@ -49,7 +49,7 @@ const NavBar: React.FC<NavBarProps> = ({
 
   return (
     <S.Container $opacity={opacity}>
-      <S.LeftSection>
+      <S.LeftSection $opacity={opacity}>
         {hideLeft ? null : isBack ? (
           <BackIcon
             style={{ cursor: 'pointer' }}
