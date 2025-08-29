@@ -48,7 +48,7 @@ export default function FortuneResult() {
       <S.Content>
         <S.Title>
           {!isFlipped
-            ? '선택된 카드를 클릭하여 \n 운세를 확인해보세요!'
+            ? '카드를 터치하여 \n 오늘의 운세를 확인해보세요'
             : `${month}월 ${day}일의 ${name}님은 \n 이만큼 행복할 거예요!`}
         </S.Title>
 
