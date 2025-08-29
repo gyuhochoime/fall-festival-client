@@ -6,7 +6,7 @@ export const Layout = styled.div`
   /* background-image: url(${BackLayout});
   background-repeat: no-repeat;
   background-size: cover; */
-  background: linear-gradient(180deg, #7e419a 30%, #7e419aca 50%, transparent 80%);
+  background: linear-gradient(180deg, #7e419a 35%, #7e419aca 45%, transparent 90%);
   width: 100%;
   height: 50rem;
   position: absolute;
@@ -44,25 +44,19 @@ export const TitleWrapper = styled.div`
   width: 20.9375rem;
   justify-content: space-between;
   align-items: center;
-  margin: 2rem auto 0.8rem;
+  margin: 2.5rem auto 0.8rem;
 `;
 
 export const MoreButton = styled(motion.div)`
-  color: ${(props) => props.theme.colors.primary.darkviolet};
+  color: ${(props) => props.theme.colors.primary.violet};
   display: flex;
-  padding: 0.25rem 0 0.25rem 0.25rem;
+  padding: 0.25rem 0 0;
   justify-content: center;
   align-items: center;
   gap: 0.1rem;
-
-  & svg {
-    path {
-      fill: ${(props) => props.theme.colors.primary.darkviolet};
-    }
-  }
 `;
 
 export const BtnText = styled.p`
-  ${(props) => props.theme.fonts.body.xsmall500}
+  ${(props) => props.theme.fonts.body.small600}
   text-align: center;
 `;

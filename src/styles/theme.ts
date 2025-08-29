@@ -26,7 +26,7 @@ const colors = {
   primary: {
     bl400: '#4F75F9',
     violet: '#7E419A',
-    darkviolet: '#4c2060ff',
+    darkviolet: '#4c2060',
   },
   secondary: {
     pk200: '#FBA7FD',
@@ -42,6 +42,8 @@ const colors = {
     rd090: '#FECFD9',
     pk100: '#F5D5FF',
     vl100: '#DBC2EC',
+    vl800: '#5E3586',
+    vl900: '#2D1C46',
     vl50: '#F0E7F3',
     DS_Card: '#8D38D8',
   },
@@ -71,13 +73,15 @@ const fonts = {
     medium500: createFontStyle(1, 500, 150, -0.02),
     small400: createFontStyle(0.875, 400, 142, -0.0175),
     small500: createFontStyle(0.875, 500, 142, -0.0175),
+    small600: createFontStyle(0.875, 600, 142, -0.0175),
     xsmall400: createFontStyle(0.75, 400, 150, -0.015),
     xsmall500: createFontStyle(0.75, 500, 150, -0.015),
+    xsmall600: createFontStyle(0.75, 600, 150, -0.015),
   },
   header: {
     h1: createFontStyle(1.75, 700, 130, -0.035),
     h2: createFontStyle(1.5, 700, 134, -0.03),
-    h3: createFontStyle(1.25, 700, 142, -0.025),
+    h3: createFontStyle(1.25, 600, 142, -0.025),
     h4: createFontStyle(1, 500, 150, -0.02),
   },
 };

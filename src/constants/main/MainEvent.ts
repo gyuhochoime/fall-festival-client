@@ -1,4 +1,4 @@
-import { EventCardData } from '@/types/eventCardData.type';
+// import { EventCardData } from '@/types/eventCardData.type';
 
 /**
  * 날짜별 이벤트 카드 배열 정의
@@ -11,9 +11,14 @@ import { EventCardData } from '@/types/eventCardData.type';
  * @param {string} location - 장소
  * @param {boolean} isSun - 낮/밤 구분
  */
+
+/*
 interface EventCardDate {
   [date: string]: EventCardData[];
 }
+*/
+
+/*
 
 const readyEvent = [
   {
@@ -227,3 +232,4 @@ export const MainEventData: EventCardDate = {
     },
   ],
 };
+*/
