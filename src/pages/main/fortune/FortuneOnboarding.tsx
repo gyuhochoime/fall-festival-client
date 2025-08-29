@@ -5,6 +5,7 @@ import * as S from './FortuneOnboarding.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import Lottie from 'react-lottie-player';
 import fortuneAnimation from '@/assets/lotties/OnlyBackground.json';
+import FortuneBall from '@/assets/images/fortune/Ball.png';
 
 export default function FortuneOnboarding() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
@@ -48,7 +49,7 @@ export default function FortuneOnboarding() {
 
       <S.Content>
         <S.Subtitle>
-          오늘은 어떤 하루가 될까요? {'\n'} 당신을 알려주시면 오늘의 행운이 반짝일거예요!
+          오늘은 어떤 하루가 될까요? {'\n'} 당신을 알려주시면 행운이 반짝일거예요!
         </S.Subtitle>
         <S.Fortunelotties>
           <Lottie
@@ -57,6 +58,7 @@ export default function FortuneOnboarding() {
             play
             style={{ width: '100%', height: '100%' }}
           />
+          <img src={FortuneBall} />
         </S.Fortunelotties>
         <S.InputSection>
           <S.InputGroup>
@@ -76,9 +78,9 @@ export default function FortuneOnboarding() {
               maxLength={8}
             />
           </S.InputGroup>
+          <S.RefreshButton onClick={handleFortuneClick}>오늘의 운세 보러가기</S.RefreshButton>
+          <S.Memo>입력하신 정보는 축제가 끝나면 깨끗하게 사라져요</S.Memo>
         </S.InputSection>
-        <S.RefreshButton onClick={handleFortuneClick}>오늘의 운세 보러가기</S.RefreshButton>
-        <S.Memo>입력하신 정보는 축제가 끝나면 깨끗하게 사라져요</S.Memo>
       </S.Content>
     </S.Container>
   );
