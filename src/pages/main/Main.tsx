@@ -4,7 +4,7 @@ import { EventCardData } from '@/types/eventCardData.type';
 import * as S from './Main.styles';
 import { EventCarousels } from '@/features/main/components/carousels';
 import { Menu } from '@/features/main/components/menu/index';
-import { NoticeSlider } from '@/features/main/components/slider';
+import MainNoticeList from '@/features/main/components/notice/MainNoticeList';
 import Right from '@/assets/icons/right-arrow.svg?react';
 import { useNavigate } from 'react-router-dom';
 import { Footer } from '@/features/main/components/user';
@@ -74,12 +74,12 @@ export default function Main() {
       <AppInstallPrompt />
       <S.Layout />
       {/* <NavBar opacity={true} /> */}
-      <div style={{ padding: '1.3rem 1rem' }}>
-        <img src={logo} style={{ position: 'relative' }} width="150px" />
+      <div style={{ padding: '1.3rem 1rem 0' }}>
+        <img src={logo} style={{ position: 'relative' }} width="150px" height="49px" />
       </div>
       <S.Main>
         <section>
-          <S.TitleWrapper style={{ margin: '0px auto' }}>
+          <S.TitleWrapper style={{ marginBottom: 0 }}>
             <S.Title>진행 중인 이벤트</S.Title>
           </S.TitleWrapper>
           <S.CarouselsBox>
@@ -90,14 +90,13 @@ export default function Main() {
         <section>
           <S.TitleWrapper>
             <S.Title>공지사항</S.Title>
-            <S.BlackButton whileTap={{ scale: 0.95 }} onClick={() => navigate('/main/notice')}>
+            <S.MoreButton whileTap={{ scale: 0.95 }} onClick={() => navigate('/main/notice')}>
               <S.BtnText>모두 보기</S.BtnText>
               <Right width={'1rem'} height={'1rem'} />
-            </S.BlackButton>
+            </S.MoreButton>
           </S.TitleWrapper>
-          <NoticeSlider />
+          <MainNoticeList />
         </section>
-
         <Menu />
         <Footer />
       </S.Main>

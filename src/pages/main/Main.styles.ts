@@ -6,9 +6,9 @@ export const Layout = styled.div`
   /* background-image: url(${BackLayout});
   background-repeat: no-repeat;
   background-size: cover; */
-  background: linear-gradient(180deg, #7e419a 26.44%, #fafafa 94.62%);
+  background: linear-gradient(180deg, #7e419a 30%, #7e419aca 50%, transparent 80%);
   width: 100%;
-  height: 100dvh;
+  height: 50rem;
   position: absolute;
 `;
 export const Container = styled.div`
@@ -44,15 +44,22 @@ export const TitleWrapper = styled.div`
   width: 20.9375rem;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 1.21rem;
+  margin: 2rem auto 0.8rem;
 `;
 
-export const BlackButton = styled(motion.div)`
+export const MoreButton = styled(motion.div)`
+  color: ${(props) => props.theme.colors.primary.darkviolet};
   display: flex;
-  padding: 0.25rem 0.625rem 0.25rem 0.75rem;
+  padding: 0.25rem 0 0.25rem 0.25rem;
   justify-content: center;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.1rem;
+
+  & svg {
+    path {
+      fill: ${(props) => props.theme.colors.primary.darkviolet};
+    }
+  }
 `;
 
 export const BtnText = styled.p`
