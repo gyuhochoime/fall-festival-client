@@ -53,12 +53,17 @@ export default function FortuneResult() {
         </S.Title>
 
         <S.CardContainer>
-          <S.Card
-            src={isFlipped ? ResultDummy : FortuneCardBack}
-            alt={`selected fortune card ${selectedCardIndex + 1}`}
-            onClick={handleCardClick}
-            $isFlipped={isFlipped}
-          />
+          <S.CardInner $isFlipped={isFlipped} onClick={handleCardClick} aria-pressed={isFlipped}>
+            <S.CardFaceFront>
+              <img
+                src={FortuneCardBack}
+                alt={`selected fortune card ${selectedCardIndex + 1} back`}
+              />
+            </S.CardFaceFront>
+            <S.CardFaceBack>
+              <img src={ResultDummy} alt="fortune result" />
+            </S.CardFaceBack>
+          </S.CardInner>
         </S.CardContainer>
       </S.Content>
     </S.Container>
