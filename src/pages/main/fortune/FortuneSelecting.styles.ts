@@ -11,18 +11,20 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 1rem 1.5rem 2rem;
+  padding: 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 1rem;
   flex: 1;
   max-width: 500px;
   width: 100%;
+  margin: 0 auto;
 `;
 
 export const Title = styled.p`
-  margin-top: 25px;
+  margin-top: 2rem;
   ${(props) => props.theme.fonts.header.h4};
   color: ${({ theme }) => theme.colors.grayScale.white};
   text-shadow: 0px 0px 6px ${({ theme }) => theme.colors.grayScale.white};
@@ -42,7 +44,7 @@ export const CardSection = styled.div`
   border-radius: 50%;
   background: ${({ theme }) => theme.colors.primary.violet}20;
   box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.primary.violet}20;
-  margin-top: 15px;
+  margin-top: 1rem;
 `;
 
 export const CardRow = styled.div`

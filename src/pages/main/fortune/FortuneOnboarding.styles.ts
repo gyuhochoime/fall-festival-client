@@ -11,18 +11,20 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 1rem 1.5rem 8rem;
+  padding: 1rem 1.5rem 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 1rem;
   flex: 1;
   max-width: 500px;
   width: 100%;
+  margin: 0 auto;
 `;
 
 export const Subtitle = styled.p`
-  margin-top: 25px;
+  margin-top: 1rem;
   ${(props) => props.theme.fonts.header.h4};
   color: ${({ theme }) => theme.colors.grayScale.white};
   text-shadow: 0px 0px 6px ${({ theme }) => theme.colors.grayScale.white};
@@ -51,7 +53,7 @@ export const InputSection = styled.div`
   gap: 5px;
   width: 100%;
   max-width: 400px;
-  margin-top: 0px;
+  margin-top: 1rem;
 `;
 
 export const InputGroup = styled.div`
@@ -77,12 +79,12 @@ export const Input = styled.input`
 export const Fortunelotties = styled.div`
   background: transparents;
   border-radius: 16px;
-  padding: 2rem;
+  padding: 0rem;
   width: 100%;
   height: 350px;
   max-width: 400px;
   text-align: center;
-  margin-top: 25px;
+  margin: 0rem;
 `;
 
 export const RefreshButton = styled.button`
@@ -98,7 +100,7 @@ export const RefreshButton = styled.button`
   transition: all 0.2s ease;
   box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.primary.violet};
   position: fixed;
-  bottom: 4rem;
+  bottom: 3.7rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;

@@ -11,18 +11,20 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 1rem 1.5rem 8rem;
+  padding: 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
   flex: 1;
   max-width: 500px;
   width: 100%;
+  margin: 0 auto;
 `;
 
 export const Title = styled.p`
-  margin-top: 25px;
+  margin-top: 2rem;
   ${(props) => props.theme.fonts.header.h4};
   color: ${({ theme }) => theme.colors.grayScale.white};
   text-shadow: 0px 0px 6px ${({ theme }) => theme.colors.grayScale.white};
@@ -37,7 +39,7 @@ export const CardContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 500px;
-  margin-top: 0rem;
+  margin-top: 1rem;
 `;
 
 export const Card = styled.img<{ $isFlipped: boolean }>`
