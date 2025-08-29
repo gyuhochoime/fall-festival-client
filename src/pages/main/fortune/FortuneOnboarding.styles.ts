@@ -80,6 +80,7 @@ export const Fortunelotties = styled.div`
   max-width: 400px;
   text-align: center;
   margin-top: -3rem;
+  margin-left: -1rem;
 
   > img {
     position: absolute;
@@ -92,6 +93,7 @@ export const Fortunelotties = styled.div`
     max-height: 80%;
     pointer-events: none;
     z-index: 1;
+    margin-left: 0.25rem;
   }
 
   > div {
