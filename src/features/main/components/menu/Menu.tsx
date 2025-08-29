@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './Menu.styles';
 import { ImageTextIconFrame } from '@/components/image-text-icon-frame';
+import { ImageBannerFrame } from '@/components/image-banner-frame';
 import { externalLinks } from '@/constants/main/ExternalLink';
 import Student from '@/assets/images/menu/ericanote.jpeg';
 import Form from '@/assets/icons/form_logo.svg';
-import Fortune from '@/assets/icons/pixel_moon.svg';
+// import Fortune from '@/assets/icons/pixel_moon.svg';
+import FortuneBannerImg from '@/assets/images/fortune-banner.webp';
+
 import Make from '@/assets/icons/lionlove_logo.svg';
 import Lion from '@/assets/icons/lion_logo.svg';
 /**
@@ -20,12 +23,16 @@ export default function Menu() {
   return (
     <S.SectionContainer>
       <S.Section>
-        <S.SubTitle aria-label="오늘의 운세">오늘의 운세</S.SubTitle>
         <S.Frame>
-          <ImageTextIconFrame
+          {/* <ImageTextIconFrame
             image={Fortune}
             title="오늘의 운세 보기"
             description="하냥이와 함께 오늘의 운세를 확인해보세요"
+            onClick={() => navigate('/main/fortune/onboarding')}
+          /> */}
+
+          <ImageBannerFrame
+            image={FortuneBannerImg}
             onClick={() => navigate('/main/fortune/onboarding')}
           />
         </S.Frame>

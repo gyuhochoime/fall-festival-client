@@ -26,6 +26,7 @@ const colors = {
   primary: {
     bl400: '#4F75F9',
     violet: '#7E419A',
+    darkviolet: '#4c2060ff',
   },
   secondary: {
     pk200: '#FBA7FD',
