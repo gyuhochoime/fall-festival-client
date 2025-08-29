@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 1rem 1.5rem 2rem;
+  padding: 1rem 1.5rem 8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,11 +40,17 @@ export const Subtitle = styled.p`
 `;
 
 export const Memo = styled.p`
+  width: calc(100% - 2rem);
+  max-width: 400px;
   ${(props) => props.theme.fonts.body.xsmall400};
   color: ${({ theme }) => theme.colors.grayScale.white}75;
   text-shadow: 0px 0px 5px ${({ theme }) => theme.colors.grayScale.white}75;
   text-align: center;
-  margin-top: 3px;
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
 `;
 
 export const InputSection = styled.div`
@@ -76,8 +82,8 @@ export const Input = styled.input`
   }
 `;
 
-export const FortuneCard = styled.div`
-  background: ${({ theme }) => theme.colors.secondary.vl100}40;
+export const Fortunelotties = styled.div`
+  background: transparents;
   border-radius: 16px;
   padding: 2rem;
   width: 100%;
@@ -90,7 +96,8 @@ export const FortuneCard = styled.div`
 export const RefreshButton = styled.button`
   ${(props) => props.theme.fonts.header.h4};
   background: ${({ theme }) => theme.colors.primary.violet};
-  width: 100%;
+  width: calc(100% - 2.5rem);
+  max-width: 400px;
   color: white;
   border: none;
   border-radius: 50px;
@@ -98,5 +105,9 @@ export const RefreshButton = styled.button`
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.primary.violet};
-  margin-top: 5px;
+  position: fixed;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
 `;

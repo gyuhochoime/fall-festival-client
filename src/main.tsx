@@ -17,6 +17,8 @@ import {
   NoticeDetail,
   MadeBy,
   FortuneOnboarding,
+  FortuneSelecting,
+  FortuneResult,
   Polaroid,
   Favorites,
   BoothSearch,
@@ -85,6 +87,14 @@ const routes = createBrowserRouter([
       {
         path: 'main/fortune/onboarding',
         element: <FortuneOnboarding />,
+      },
+      {
+        path: 'main/fortune/selecting',
+        element: <FortuneSelecting />,
+      },
+      {
+        path: 'main/fortune/result',
+        element: <FortuneResult />,
       },
       /*{
         path: 'user',
