@@ -36,7 +36,7 @@ export const TagWrapper = styled.div`
 export const EventTitle = styled.p`
   ${(props) => props.theme.fonts.header.h3}
   text-align: center;
-  color: ${(props) => props.theme.colors.grayScale.gy950};
+  color: ${(props) => props.theme.colors.secondary.vl900};
   margin-bottom: 5px;
 `;
 
@@ -47,7 +47,7 @@ export const TextContainer = styled.div`
   align-items: center;
   gap: 8px;
   align-self: stretch;
-  color: ${(props) => props.theme.colors.grayScale.gy800};
+  color: ${(props) => props.theme.colors.secondary.vl800};
   padding: 0.5rem 0;
 `;
 
@@ -56,6 +56,12 @@ export const TextWrapper = styled.div`
   display: flex;
   text-align: center;
   gap: 0.25rem;
+
+  .location-icon {
+    path {
+      stroke: ${(props) => props.theme.colors.secondary.vl800};
+    }
+  }
 `;
 
 export const EventText = styled.p`

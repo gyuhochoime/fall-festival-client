@@ -13,13 +13,13 @@ export const NoticeItem = styled.div`
   gap: 1rem; /* Gap between image and text */
   background-color: ${(props) => props.theme.colors.grayScale.white};
   border-radius: 16px;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 1rem 0.7rem 0.7rem;
   box-shadow: 0 0 12px 0 rgb(126 65 154 / 30%);
 `;
 
 export const ImageThumbnail = styled.img`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   flex-shrink: 0;
   aspect-ratio: 1/1;
   border-radius: 12px;
@@ -37,6 +37,7 @@ export const NoticeTitle = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
   color: ${(props) => props.theme.colors.grayScale.black};
   margin-bottom: 0.25rem;
+  line-height: 130%;
 `;
 
 export const NoticeContent = styled.p`
