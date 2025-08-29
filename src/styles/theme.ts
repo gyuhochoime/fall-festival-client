@@ -7,7 +7,7 @@ const createFontStyle = (
   letterSpacing: number = 0,
 ) => css`
   font-family:
-    SUIT,
+    pretendard,
     -apple-system,
     BlinkMacSystemFont,
     'Segoe UI',

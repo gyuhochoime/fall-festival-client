@@ -63,11 +63,11 @@ export const Input = styled.input`
   outline: none;
   border-radius: 16px;
   background: ${({ theme }) => theme.colors.grayScale.white}98;
-  font-size: ${(props) => props.theme.fonts.body.small400};
+  font-size: 16px;
   color: ${({ theme }) => theme.colors.primary.violet};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.primary.violet};
+    color: ${({ theme }) => theme.colors.primary.violet}99;
   }
 `;
 
