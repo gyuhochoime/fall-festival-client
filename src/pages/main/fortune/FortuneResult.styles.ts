@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   background: linear-gradient(180deg, #7e419a 0%, #2d1c46 49%);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: hidden;
   padding-top: 3.875rem;
 `;
 
@@ -22,7 +22,7 @@ export const Content = styled.div`
 `;
 
 export const Title = styled.p`
-  margin-top: 35px;
+  margin-top: 25px;
   ${(props) => props.theme.fonts.header.h4};
   color: ${({ theme }) => theme.colors.grayScale.white};
   text-shadow: 0px 0px 6px ${({ theme }) => theme.colors.grayScale.white};

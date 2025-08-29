@@ -56,7 +56,8 @@ export default defineConfig({
         start_url: '/',
         display: 'standalone',
         display_override: ['window-controls-overlay', 'standalone'],
-        orientation: 'portrait',
+        // 운세 카드 회전 (사파리) 활성화
+        orientation: 'any',
         icons: [
           {
             src: 'icons/icon-48x48.webp',
