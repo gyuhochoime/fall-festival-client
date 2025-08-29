@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneOnboarding.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
+import Lottie from 'react-lottie-player';
+import fortuneAnimation from '@/assets/lotties/OnlyBackground.json';
 
 export default function FortuneOnboarding() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
@@ -23,6 +25,16 @@ export default function FortuneOnboarding() {
     setBirthDate(value);
   };
 
+  const handleFortuneClick = () => {
+    if (name.trim() && birthDate.length === 8) {
+      navigate('/main/fortune/selecting', {
+        state: { name, birthDate },
+      });
+    } else {
+      alert('이름과 생년월일 8자리를 모두 입력해주세요.');
+    }
+  };
+
   useEffect(() => {
     setIsNav(false);
     return () => {
@@ -38,7 +50,14 @@ export default function FortuneOnboarding() {
         <S.Subtitle>
           빛나는 구슬이 당신을 기다리고 있어요 {'\n'} 당신을 알려주시면 오늘의 행운이 반짝일거예요!
         </S.Subtitle>
-        <S.FortuneCard>Lottie 삽입 예정</S.FortuneCard>
+        <S.Fortunelotties>
+          <Lottie
+            loop
+            animationData={fortuneAnimation}
+            play
+            style={{ width: '100%', height: '100%' }}
+          />
+        </S.Fortunelotties>
         <S.InputSection>
           <S.InputGroup>
             <S.Input
@@ -58,7 +77,7 @@ export default function FortuneOnboarding() {
             />
           </S.InputGroup>
         </S.InputSection>
-        <S.RefreshButton>구슬에게 물어보기</S.RefreshButton>
+        <S.RefreshButton onClick={handleFortuneClick}>구슬에게 물어보기</S.RefreshButton>
         <S.Memo>입력하신 정보는 축제가 끝나면 깨끗하게 사라져요</S.Memo>
       </S.Content>
     </S.Container>
