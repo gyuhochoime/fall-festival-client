@@ -148,7 +148,7 @@ export const Time = styled.p`
 
 export const Pickup = styled.div`
   display: flex;
-  width: 67px;
+  width: max-content;
   height: 22px;
   justify-content: center;
   align-items: center;
