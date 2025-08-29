@@ -10,7 +10,7 @@ import PerformanceDetail from '@/pages/performance/PerformanceDetail';
 import Notice from '@/pages/main/notice/Notice';
 import NoticeDetail from '@/pages/main/notice/NoticeDetail';
 import { MadeBy } from './main/made';
-import { FortuneOnboarding } from './main/fortune';
+import { FortuneOnboarding, FortuneSelecting, FortuneResult } from './main/fortune';
 import Polaroid from '@/pages/polaroid/Polaroid';
 import Favorites from '@/pages/favorites/Favorites';
 import BoothSearch from '@/pages/booth/search/BoothSearch';
@@ -29,6 +29,8 @@ export {
   BoothDetail,
   MadeBy,
   FortuneOnboarding,
+  FortuneSelecting,
+  FortuneResult,
   Polaroid,
   Favorites,
   BoothSearch,

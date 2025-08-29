@@ -16,11 +16,15 @@ export const Container = styled.header<{ $opacity?: boolean }>`
   z-index: 99;
 `;
 
-export const LeftSection = styled.div`
+export const LeftSection = styled.div<{ $opacity?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex: 1;
+
+  svg {
+    filter: ${({ $opacity }) => ($opacity ? 'brightness(0) invert(1)' : 'none')};
+  }
 `;
 
 export const RightSection = styled.div<{ $opacity?: boolean }>`
