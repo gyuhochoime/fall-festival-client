@@ -7,6 +7,8 @@ export interface CardProps {
   location: string;
   date: string;
   onClick?: () => void;
+  currentIndex?: number;
+  totalCards?: number;
 }
 
 export interface ProgressProps {

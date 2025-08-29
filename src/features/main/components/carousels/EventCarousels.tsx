@@ -58,6 +58,8 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
               <div key={i}>
                 <EventCard
                   {...card}
+                  currentIndex={i + 1}
+                  totalCards={todayEvents.length}
                   onClick={() => {
                     if (isSwipingRef.current) return;
                     const link = eventCardLinkMap[card.id];

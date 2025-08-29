@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   width: 20rem;
   flex-direction: column;
   align-items: flex-start;
   background-color: #dfc9ffff;
   box-shadow: 0 0 10px 0 #dbc2e3;
-  border-radius: 15px;
-  margin: 15px;
+  border-radius: 1rem;
+  margin: 0.8rem;
 `;
 
 export const HeaderSection = styled.div`
@@ -66,4 +67,19 @@ export const TextWrapper = styled.div`
 
 export const EventText = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500}
+`;
+
+export const Pill = styled.div`
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 1rem;
+  background-color: ${(props) => props.theme.colors.secondary.vl800}80;
+  color: ${(props) => props.theme.colors.grayScale.white};
+  ${(props) => props.theme.fonts.body.xsmall400}
+
+  span {
+    opacity: 0.7;
+  }
 `;
