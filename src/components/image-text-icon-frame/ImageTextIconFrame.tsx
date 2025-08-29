@@ -1,5 +1,4 @@
 import * as S from './ImageTextIconFrame.styles';
-import RightArrow from '@/assets/icons/right-arrow.svg?react';
 import { ImageTextIconFrameProps } from './ImageTextIconFrame.types';
 
 /**
@@ -25,7 +24,6 @@ export default function ImageTextIconFrame({
         <S.TitleText>{title}</S.TitleText>
         <S.DescriptionText>{description}</S.DescriptionText>
       </S.TextWrap>
-      <RightArrow width={24} height={24} />
     </S.Container>
   );
 }

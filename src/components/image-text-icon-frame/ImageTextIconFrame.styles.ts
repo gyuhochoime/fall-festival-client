@@ -8,7 +8,7 @@ export const Container = styled.div<ImageProps>`
   display: flex;
   width: 20.9375rem;
   padding: ${({ $hasImage }) =>
-    $hasImage ? '0.75rem 0.5rem 0.75rem 0.75rem' : '0.875rem 0.5rem 0.875rem 1.125rem'};
+    $hasImage ? '0.7rem 0.6rem 0.7rem 0.85rem' : '0.87rem 0.6rem 0.87rem 1.225rem'};
   align-items: center;
   gap: 1.25rem;
   border-radius: 16px;
@@ -22,11 +22,11 @@ export const Container = styled.div<ImageProps>`
 `;
 
 export const Image = styled.img`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3rem;
+  height: 3rem;
   flex-shrink: 0;
   aspect-ratio: 1/1;
-  border-radius: 12px;
+  border-radius: 50%;
   background-color: transparent;
 `;
 
