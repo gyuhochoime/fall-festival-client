@@ -44,7 +44,7 @@ export default function FortuneSelecting() {
       <NavBar isBack isClose={true} onCloseClick={handleCloseClick} opacity={true} />
 
       <S.Content>
-        <S.Title>지금 이 순간 마음이 이끌리는 {'\n'} 카드 한장을 뽑아주세요!</S.Title>
+        <S.Title>지금 이 순간 마음이 이끌리는 {'\n'} 카드 한 장을 뽑아주세요!</S.Title>
 
         <S.CardSection>
           <S.CardRow>

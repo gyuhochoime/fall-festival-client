@@ -43,6 +43,7 @@ const colors = {
     pk100: '#F5D5FF',
     vl100: '#DBC2EC',
     vl50: '#F0E7F3',
+    DS_Card: '#8D38D8',
   },
   grayScale: {
     white: '#FAFAFA',
