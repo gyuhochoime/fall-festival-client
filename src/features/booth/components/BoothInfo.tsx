@@ -4,7 +4,6 @@ import { BOOTH_LIST } from '@/constants/booth/booth';
 import { OPERATING_HOURS } from '@/constants/booth/operating-hours';
 import PubBeerIcon from '@/assets/icons/pub_beer.svg?react';
 import TimeIcon from '@/assets/icons/time_pub.svg?react';
-import LocationIcon from '@/assets/icons/location_black.svg?react';
 
 export default function BoothInfo({ id }: { id: number }) {
   const booth = BOOTH_LIST.find((booth) => booth.id === id);
@@ -33,10 +32,6 @@ export default function BoothInfo({ id }: { id: number }) {
             {OPERATING_HOURS}
           </S.OperatingHours>
           <S.VerticalLine_black />
-          <S.Location>
-            <LocationIcon width="0.85rem" height="0.95rem" />
-            위치 정보
-          </S.Location>
           <S.LocationButton
             onClick={() => {
               const locationSection = document.querySelector('[data-section="location"]');
