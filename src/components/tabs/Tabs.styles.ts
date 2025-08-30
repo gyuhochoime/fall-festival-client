@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const TabsContainer = styled.div<{ $autoWidth?: boolean }>`
+export const TabsContainer = styled.div<{ $autoWidth?: boolean; $gap?: string }>`
   display: flex;
   width: ${(props) => (props.$autoWidth ? 'auto' : '100%')};
-  gap: 0.5rem;
+  gap: ${(props) => props.$gap || '0.5rem'};
   overflow-x: auto;
 
   /* 스크롤바 안 보이게 설정 */

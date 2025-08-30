@@ -19,6 +19,7 @@ function Tabs({
   autoWidth = false,
   toggle = false,
   margin = '0',
+  gap,
 }: TabsProps) {
   const handleTabClick = (tab: string) => {
     if (toggle && activeTab === tab) {
@@ -29,7 +30,7 @@ function Tabs({
   };
 
   return (
-    <S.TabsContainer $autoWidth={autoWidth}>
+    <S.TabsContainer $autoWidth={autoWidth} $gap={gap}>
       {tabs.map((tab, index) => (
         <S.Tab
           key={tab}

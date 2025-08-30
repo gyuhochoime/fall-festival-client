@@ -89,6 +89,7 @@ export default function Performance() {
               tabs={['1일차', '2일차', '3일차']}
               activeTab={selectedDay}
               onTabClick={(tab) => setSelectedDay(tab as DayType)}
+              gap="0.25rem"
             />
             <S.HelpIconStyled onClick={() => handleHelpClick()} />
           </S.TabsHelpWrap>
