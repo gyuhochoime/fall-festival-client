@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { DEVELOP_CONFIG, SHAKE_CONFIG } from './constants';
 import { FrameCategory, FrameKey } from './types';
+import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 
 /**
  * 현상 애니메이션을 관리하는 훅
@@ -185,7 +186,23 @@ export function useFrameSelection() {
     if (frameCategory === 'basic') {
       setFrameKey('black');
     } else {
-      setFrameKey('day1');
+      // 날짜별 스페셜 프레임 자동선택
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const [year, month, day] = FESTIVAL_START_DATE.split('-').map(Number);
+      const startDate = new Date(year, month - 1, day);
+
+      const diffTime = today.getTime() - startDate.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays >= 0 && diffDays < FESTIVAL_TOTAL_DAYS) {
+        const dayNumber = diffDays + 1;
+        setFrameKey(`day${dayNumber}` as FrameKey);
+      } else {
+        setFrameKey('black');
+      }
     }
   }, [frameCategory]);
 
