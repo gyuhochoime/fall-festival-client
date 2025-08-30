@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useToastStore } from '@/stores/useToastStore';
 import * as S from './Toast.styles';
 
