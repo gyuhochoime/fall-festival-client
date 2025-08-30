@@ -58,12 +58,6 @@ export const InfoWrap = styled.div`
   margin-top: 1rem;
 `;
 
-export const TodayPerformanceText = styled.p`
-  align-self: stretch;
-  ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.black};
-`;
-
 export const DayWrap = styled.div`
   display: flex;
   min-width: 20.9375rem;
@@ -73,16 +67,11 @@ export const DayWrap = styled.div`
   margin-top: 1.5rem;
 `;
 
-export const TextWrap = styled.div`
+export const TabsHelpWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-`;
-
-export const StartText = styled.p`
-  ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy500};
 `;
 
 export const HelpIconStyled = styled(HelpIcon)`

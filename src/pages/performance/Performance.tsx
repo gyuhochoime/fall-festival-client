@@ -39,7 +39,7 @@ export default function Performance() {
         title: '공연 정보 제공 안내',
       },
       {
-        isHelpIcon: true,
+        isHelpIcon: false,
       },
     );
   };
@@ -78,22 +78,20 @@ export default function Performance() {
       {/* 본문 */}
       <S.Fullscreen role="main">
         <S.InfoWrap>
-          <S.TodayPerformanceText>오늘의 공연</S.TodayPerformanceText>
           <Notification
             title="[공지] 공연관람 유의사항"
             onClick={() => navigate('/main/notice/25')}
           />
         </S.InfoWrap>
         <S.DayWrap>
-          <S.TextWrap>
-            <S.StartText>{`공연 시작 17:${selectedDay === '1일차' ? '00' : '30'}시`}</S.StartText>
+          <S.TabsHelpWrap>
+            <Tabs
+              tabs={['1일차', '2일차', '3일차']}
+              activeTab={selectedDay}
+              onTabClick={(tab) => setSelectedDay(tab as DayType)}
+            />
             <S.HelpIconStyled onClick={() => handleHelpClick()} />
-          </S.TextWrap>
-          <Tabs
-            tabs={['1일차', '2일차', '3일차']}
-            activeTab={selectedDay}
-            onTabClick={(tab) => setSelectedDay(tab as DayType)}
-          />
+          </S.TabsHelpWrap>
         </S.DayWrap>
 
         <S.Carousel>

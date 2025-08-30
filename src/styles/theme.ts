@@ -73,6 +73,7 @@ const fonts = {
     medium500: createFontStyle(1, 500, 150, -0.02),
     small400: createFontStyle(0.875, 400, 142, -0.0175),
     small500: createFontStyle(0.875, 500, 142, -0.0175),
+    s500: createFontStyle(0.875, 500, 142, -0.0175),
     small600: createFontStyle(0.875, 600, 142, -0.0175),
     xsmall400: createFontStyle(0.75, 400, 150, -0.015),
     xsmall500: createFontStyle(0.75, 500, 150, -0.015),
@@ -83,6 +84,7 @@ const fonts = {
     h2: createFontStyle(1.5, 700, 134, -0.03),
     h3: createFontStyle(1.25, 600, 142, -0.025),
     h4: createFontStyle(1, 500, 150, -0.02),
+    h4_600: createFontStyle(1, 600, 150, -0.02),
   },
 };
 
