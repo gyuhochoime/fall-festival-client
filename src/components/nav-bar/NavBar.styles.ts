@@ -21,6 +21,7 @@ export const LeftSection = styled.div<{ $opacity?: boolean }>`
   align-items: center;
   justify-content: flex-start;
   flex: 1;
+  margin-left: 8.5px;
 
   svg {
     filter: ${({ $opacity }) => ($opacity ? 'brightness(0) invert(1)' : 'none')};
