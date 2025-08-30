@@ -1,7 +1,7 @@
 import * as S from './Performance.styles';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavBar } from '@/components/nav-bar';
+import { useLayoutStore } from '@/stores/useLayoutStore';
 import { Notification } from '@/components/notification';
 import { Tabs } from '@/components/tabs';
 import { ImageTextIconFrame } from '@/components/image-text-icon-frame';
@@ -9,6 +9,9 @@ import { Carousel } from '@/features/performance';
 import { performanceData } from '@/constants/performance/SingerInfo';
 import { ModalHelp } from '@/features/performance';
 import useModal from '@/hooks/useModal';
+
+import BackIcon from '@/assets/icons/left-arrow.svg?react';
+import CloseIcon from '@/assets/icons/close-black.svg?react';
 
 export type DayType = '1일차' | '2일차' | '3일차';
 
@@ -20,8 +23,15 @@ export type DayType = '1일차' | '2일차' | '3일차';
 export default function Performance() {
   const { open } = useModal(ModalHelp);
   const navigate = useNavigate();
+  const setIsNav = useLayoutStore((s) => s.setIsNav);
   const [selectedDay, setSelectedDay] = useState<DayType>('1일차');
   const performances = performanceData[selectedDay];
+
+  // 진입/이탈 시 하단 탭바 숨김/복원
+  React.useEffect(() => {
+    setIsNav(false);
+    return () => setIsNav(true);
+  }, [setIsNav]);
 
   const handleHelpClick = () => {
     open(
@@ -33,48 +43,82 @@ export default function Performance() {
       },
     );
   };
+
+  const handleBack = () => {
+    navigate('/main');
+    setIsNav(true);
+  };
+
+  const handleExit = () => {
+    navigate('/main');
+    setIsNav(true);
+  };
+
   return (
     <S.PerformanceContainer>
-      <NavBar isBack={false} />
-      <S.InfoWrap>
-        <S.TodayPerformanceText>오늘의 공연</S.TodayPerformanceText>
-        <Notification
-          title="[공지] 공연관람 유의사항"
-          onClick={() => navigate('/main/notice/25')}
-        />
-      </S.InfoWrap>
-      <S.DayWrap>
-        <S.TextWrap>
-          <S.StartText>{`공연 시작 17:${selectedDay === '1일차' ? '00' : '30'}시`}</S.StartText>
-          <S.HelpIconStyled onClick={() => handleHelpClick()} />
-        </S.TextWrap>
-        <Tabs
-          tabs={['1일차', '2일차', '3일차']}
-          activeTab={selectedDay}
-          onTabClick={(tab) => setSelectedDay(tab as DayType)}
-        />
-      </S.DayWrap>
-
-      <S.Carousel>
-        <Carousel data={performances} />
-      </S.Carousel>
-      <S.TableNoteWrap>
-        <S.NoteText>공연 유의사항</S.NoteText>
-        <S.FrameBox>
-          <ImageTextIconFrame
-            image=""
-            title="전체 타임 테이블 확인하기"
-            description="공연 일정 한 번에 확인하기"
-            onClick={() => navigate('/performance/timetable')}
+      {/* 상단 헤더 */}
+      <S.Header>
+        <S.HeaderButton aria-label="뒤로">
+          <BackIcon
+            style={{ cursor: 'pointer' }}
+            width={'0.95rem'}
+            height={'0.95rem'}
+            onClick={handleBack}
           />
-          <ImageTextIconFrame
-            image=""
-            title="❗️공연 유의사항 보러가기"
-            description="공연 보기 전 필독!"
+        </S.HeaderButton>
+        <S.HeaderTitle>공연</S.HeaderTitle>
+        <S.HeaderButton aria-label="나가기">
+          <CloseIcon
+            style={{ cursor: 'pointer' }}
+            width={'0.85rem'}
+            height={'0.85rem'}
+            onClick={handleExit}
+          />
+        </S.HeaderButton>
+      </S.Header>
+
+      {/* 본문 */}
+      <S.Fullscreen role="main">
+        <S.InfoWrap>
+          <S.TodayPerformanceText>오늘의 공연</S.TodayPerformanceText>
+          <Notification
+            title="[공지] 공연관람 유의사항"
             onClick={() => navigate('/main/notice/25')}
           />
-        </S.FrameBox>
-      </S.TableNoteWrap>
+        </S.InfoWrap>
+        <S.DayWrap>
+          <S.TextWrap>
+            <S.StartText>{`공연 시작 17:${selectedDay === '1일차' ? '00' : '30'}시`}</S.StartText>
+            <S.HelpIconStyled onClick={() => handleHelpClick()} />
+          </S.TextWrap>
+          <Tabs
+            tabs={['1일차', '2일차', '3일차']}
+            activeTab={selectedDay}
+            onTabClick={(tab) => setSelectedDay(tab as DayType)}
+          />
+        </S.DayWrap>
+
+        <S.Carousel>
+          <Carousel data={performances} />
+        </S.Carousel>
+        <S.TableNoteWrap>
+          <S.NoteText>공연 유의사항</S.NoteText>
+          <S.FrameBox>
+            <ImageTextIconFrame
+              image=""
+              title="전체 타임 테이블 확인하기"
+              description="공연 일정 한 번에 확인하기"
+              onClick={() => navigate('/performance/timetable')}
+            />
+            <ImageTextIconFrame
+              image=""
+              title="❗️공연 유의사항 보러가기"
+              description="공연 보기 전 필독!"
+              onClick={() => navigate('/main/notice/25')}
+            />
+          </S.FrameBox>
+        </S.TableNoteWrap>
+      </S.Fullscreen>
     </S.PerformanceContainer>
   );
 }
