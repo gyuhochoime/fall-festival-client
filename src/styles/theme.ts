@@ -53,6 +53,7 @@ const colors = {
     gy50: '#F4F4F4',
     gy100: '#E9E9EA',
     gy200: '#D3D4D4',
+    gy200_eee: '#EEE',
     gy300: '#BCBEBF',
     gy400: '#A6A9AA',
     gy500: '#909394',
@@ -62,6 +63,7 @@ const colors = {
     gy900: '#373D3F',
     gy950: '#212526',
     black: '#17171B',
+    black_1a1a: '#1A1A1A',
   },
 };
 

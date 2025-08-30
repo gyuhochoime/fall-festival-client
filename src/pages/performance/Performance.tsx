@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { Notification } from '@/components/notification';
 import { Tabs } from '@/components/tabs';
-import { ImageTextIconFrame } from '@/components/image-text-icon-frame';
+
 import { Carousel } from '@/features/performance';
 import { performanceData } from '@/constants/performance/SingerInfo';
 import { ModalHelp } from '@/features/performance';
@@ -24,7 +24,7 @@ export default function Performance() {
   const { open } = useModal(ModalHelp);
   const navigate = useNavigate();
   const setIsNav = useLayoutStore((s) => s.setIsNav);
-  const [selectedDay, setSelectedDay] = useState<DayType>('1일차');
+  const [selectedDay, setSelectedDay] = useState<DayType>('2일차');
   const performances = performanceData[selectedDay];
 
   // 진입/이탈 시 하단 탭바 숨김/복원
@@ -98,23 +98,6 @@ export default function Performance() {
         <S.Carousel>
           <Carousel data={performances} />
         </S.Carousel>
-        <S.TableNoteWrap>
-          <S.NoteText>공연 유의사항</S.NoteText>
-          <S.FrameBox>
-            <ImageTextIconFrame
-              image=""
-              title="전체 타임 테이블 확인하기"
-              description="공연 일정 한 번에 확인하기"
-              onClick={() => navigate('/performance/timetable')}
-            />
-            <ImageTextIconFrame
-              image=""
-              title="❗️공연 유의사항 보러가기"
-              description="공연 보기 전 필독!"
-              onClick={() => navigate('/main/notice/25')}
-            />
-          </S.FrameBox>
-        </S.TableNoteWrap>
       </S.Fullscreen>
     </S.PerformanceContainer>
   );

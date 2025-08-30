@@ -46,7 +46,6 @@ export const Fullscreen = styled.main`
   overflow: hidden auto;
   min-height: 0;
   padding-bottom: 16px;
-  gap: 8px;
 `;
 
 export const InfoWrap = styled.div`
@@ -64,7 +63,7 @@ export const DayWrap = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 0.375rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 `;
 
 export const TabsHelpWrap = styled.div`
