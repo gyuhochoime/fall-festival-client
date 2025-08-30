@@ -2,9 +2,9 @@ export type Step = 'intro' | 'frame' | 'develop' | 'done';
 
 export type FrameCategory = 'basic' | 'special';
 
-export type BasicFrameKey = 'empty' | 'fall' | 'party';
+export type BasicFrameKey = 'black' | 'pink' | 'sky' | 'white' | 'yellow';
 
-export type SpecialFrameKey = 'day1' | 'day2' | 'day3';
+export type SpecialFrameKey = 'day1' | 'day2' | 'day3' | 'black' | 'pink' | 'denim';
 
 export type FrameKey = BasicFrameKey | SpecialFrameKey;
 

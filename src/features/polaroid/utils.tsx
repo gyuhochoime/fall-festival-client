@@ -14,7 +14,7 @@ import {
 export function getCurrentFrame(frameCategory: FrameCategory, frameKey: FrameKey): FrameData {
   if (frameCategory === 'basic') {
     const basicFrame = FRAMES.basic[frameKey as BasicFrameKey];
-    return basicFrame || FRAMES.basic.empty;
+    return basicFrame || FRAMES.basic.black;
   } else {
     const specialFrame = FRAMES.special[frameKey as SpecialFrameKey];
     return specialFrame || FRAMES.special.day1;
