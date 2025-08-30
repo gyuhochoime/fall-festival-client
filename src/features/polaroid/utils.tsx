@@ -7,9 +7,13 @@ import {
   FrameData,
   PolaroidDimensions,
 } from './types';
+import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 
 /**
  * 현재 선택된 프레임 정보를 가져오는 함수
+ *
+ * basic 선택시 black 기본 선택
+ * special 선택시 디바이스 현재날짜가 9.15일: day1, 9.16: day2, 9.17: day 3, 나머지는 black 기본 선택하도록 하기
  */
 export function getCurrentFrame(frameCategory: FrameCategory, frameKey: FrameKey): FrameData {
   if (frameCategory === 'basic') {
@@ -17,7 +21,28 @@ export function getCurrentFrame(frameCategory: FrameCategory, frameKey: FrameKey
     return basicFrame || FRAMES.basic.black;
   } else {
     const specialFrame = FRAMES.special[frameKey as SpecialFrameKey];
-    return specialFrame || FRAMES.special.day1;
+    if (specialFrame) {
+      return specialFrame;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const [year, month, day] = FESTIVAL_START_DATE.split('-').map(Number);
+    const startDate = new Date(year, month - 1, day);
+
+    const diffTime = today.getTime() - startDate.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays >= 0 && diffDays < FESTIVAL_TOTAL_DAYS) {
+      const dayNumber = diffDays + 1;
+      const dateBasedFrameKey = `day${dayNumber}` as SpecialFrameKey;
+      if (dateBasedFrameKey in FRAMES.special) {
+        return FRAMES.special[dateBasedFrameKey];
+      }
+    }
+
+    return FRAMES.basic.black;
   }
 }
 
@@ -131,4 +156,29 @@ export function downloadCanvasAsImage(canvas: HTMLCanvasElement, filename?: stri
   a.href = data;
   a.download = filename || `polaroid-${Date.now()}.jpg`;
   a.click();
+}
+
+/**
+ * 특정 스페셜 프레임이 오늘 날짜에 선택 가능한지 확인하는 함수
+ */
+export function isSpecialFrameAvailable(frameKey: SpecialFrameKey): boolean {
+  const dayNumberMatch = frameKey.match(/^day(\d+)$/);
+  if (!dayNumberMatch) {
+    // 'dayX' 형식이 아닌 스페셜 프레임은 항상 가능하다고 가정
+    return true;
+  }
+
+  const frameDay = parseInt(dayNumberMatch[1], 10);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const [year, month, day] = FESTIVAL_START_DATE.split('-').map(Number);
+  const startDate = new Date(year, month - 1, day);
+
+  const diffTime = today.getTime() - startDate.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  // diffDays는 0부터 시작 (0 = 1일차), frameDay는 1부터 시작
+  return diffDays === frameDay - 1;
 }

@@ -5,6 +5,7 @@ import Nav from '@/layout/nav';
 import Main from '@/layout/main/Main';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { Modal as ModalProvider } from '@/components/modal';
+import { Toast } from '@/components/toast';
 
 /**
  * Layout component
@@ -22,6 +23,7 @@ export default function Layout() {
         </Main>
       </AnimatePresence>
       <ModalProvider />
+      <Toast />
     </S.Container>
   );
 }
