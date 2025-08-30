@@ -211,12 +211,11 @@ export const Photo = styled.img`
 export const FramePicker = styled.div`
   display: flex;
   gap: 16px;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 16px 20px;
-  width: 100%;
-  overflow: auto hidden;
+  max-width: 100%;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
 
   /* 스크롤바 숨기기 */
   &::-webkit-scrollbar {
@@ -236,7 +235,6 @@ export const FrameOption = styled.button<{ $selected?: boolean }>`
   border: none;
   background: transparent;
   flex-shrink: 0;
-  scroll-snap-align: center;
 
   img {
     width: 48px;

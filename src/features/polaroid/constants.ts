@@ -1,31 +1,51 @@
 import { FrameCollection, PolaroidDimensions } from './types';
 
 // Basic frames
-import basicEmptyFrame from '@/assets/images/frames/basic/empty.png';
-import basicEmptyThumb from '@/assets/images/frames/basic/empty-thumb.png';
-import basicFallFrame from '@/assets/images/frames/basic/fall.png';
-import basicFallThumb from '@/assets/images/frames/basic/fall-thumb.png';
-import basicPartyFrame from '@/assets/images/frames/basic/party.png';
-import basicPartyThumb from '@/assets/images/frames/basic/party-thumb.png';
+// Basic (color)
+import basicBlackFrame from '@/assets/images/polaroid/frames/basic/black.png';
+import basicBlackThumb from '@/assets/images/polaroid/frames/basic/black-thumb.webp';
+import basicPinkFrame from '@/assets/images/polaroid/frames/basic/pink.png';
+import basicPinkThumb from '@/assets/images/polaroid/frames/basic/pink-thumb.webp';
+import basicSkyFrame from '@/assets/images/polaroid/frames/basic/sky.png';
+import basicSkyThumb from '@/assets/images/polaroid/frames/basic/sky-thumb.webp';
+import basicWhiteFrame from '@/assets/images/polaroid/frames/basic/white.png';
+import basicWhiteThumb from '@/assets/images/polaroid/frames/basic/white-thumb.webp';
+import basicYellowFrame from '@/assets/images/polaroid/frames/basic/yellow.png';
+import basicYellowThumb from '@/assets/images/polaroid/frames/basic/yellow-thumb.webp';
 
 // Special frames
-import specialDay1Frame from '@/assets/images/frames/special/day1.png';
-import specialDay1Thumb from '@/assets/images/frames/special/day1-thumb.png';
-import specialDay2Frame from '@/assets/images/frames/special/day2.png';
-import specialDay2Thumb from '@/assets/images/frames/special/day2-thumb.png';
-import specialDay3Frame from '@/assets/images/frames/special/day3.png';
-import specialDay3Thumb from '@/assets/images/frames/special/day3-thumb.png';
+// Special (daily)
+import specialDay1Frame from '@/assets/images/polaroid/frames/special/day1.png';
+import specialDay1Thumb from '@/assets/images/polaroid/frames/special/day1-thumb.webp';
+import specialDay2Frame from '@/assets/images/polaroid/frames/special/day2.png';
+import specialDay2Thumb from '@/assets/images/polaroid/frames/special/day2-thumb.webp';
+import specialDay3Frame from '@/assets/images/polaroid/frames/special/day3.png';
+import specialDay3Thumb from '@/assets/images/polaroid/frames/special/day3-thumb.webp';
+
+// Special (color)
+import specialBlackFrame from '@/assets/images/polaroid/frames/special/black.png';
+import specialBlackThumb from '@/assets/images/polaroid/frames/special/black-thumb.webp';
+import specialPinkFrame from '@/assets/images/polaroid/frames/special/pink.png';
+import specialPinkThumb from '@/assets/images/polaroid/frames/special/pink-thumb.webp';
+import specialDenimFrame from '@/assets/images/polaroid/frames/special/denim.png';
+import specialDenimThumb from '@/assets/images/polaroid/frames/special/denim-thumb.webp';
 
 export const FRAMES: FrameCollection = {
   basic: {
-    empty: { frame: basicEmptyFrame, thumb: basicEmptyThumb, name: '기본' },
-    fall: { frame: basicFallFrame, thumb: basicFallThumb, name: '가을' },
-    party: { frame: basicPartyFrame, thumb: basicPartyThumb, name: '파티' },
+    black: { frame: basicBlackFrame, thumb: basicBlackThumb, name: '검정' },
+    pink: { frame: basicPinkFrame, thumb: basicPinkThumb, name: '분홍' },
+    sky: { frame: basicSkyFrame, thumb: basicSkyThumb, name: '하늘' },
+    white: { frame: basicWhiteFrame, thumb: basicWhiteThumb, name: '하양' },
+    yellow: { frame: basicYellowFrame, thumb: basicYellowThumb, name: '노랑' },
   },
   special: {
     day1: { frame: specialDay1Frame, thumb: specialDay1Thumb, name: '1일차' },
     day2: { frame: specialDay2Frame, thumb: specialDay2Thumb, name: '2일차' },
     day3: { frame: specialDay3Frame, thumb: specialDay3Thumb, name: '3일차' },
+
+    black: { frame: specialBlackFrame, thumb: specialBlackThumb, name: '검정' },
+    pink: { frame: specialPinkFrame, thumb: specialPinkThumb, name: '분홍' },
+    denim: { frame: specialDenimFrame, thumb: specialDenimThumb, name: '데님' },
   },
 };
 
