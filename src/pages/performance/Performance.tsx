@@ -29,7 +29,7 @@ export default function Performance() {
 
   // 진입/이탈 시 하단 탭바 숨김/복원
   React.useEffect(() => {
-    setIsNav(false);
+    setIsNav(true);
     return () => setIsNav(true);
   }, [setIsNav]);
 
@@ -46,12 +46,10 @@ export default function Performance() {
 
   const handleBack = () => {
     navigate('/main');
-    setIsNav(true);
   };
 
   const handleExit = () => {
     navigate('/main');
-    setIsNav(true);
   };
 
   return (
