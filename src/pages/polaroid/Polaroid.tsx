@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLayoutStore } from '@/stores/useLayoutStore';
+import { useToastStore } from '@/stores/useToastStore';
 
 import BackIcon from '@/assets/icons/left-arrow.svg?react';
 import CloseIcon from '@/assets/icons/close-black.svg?react';
@@ -15,12 +16,14 @@ import {
   calculatePreviewSize,
   drawPolaroidOnCanvas,
   downloadCanvasAsImage,
+  isSpecialFrameAvailable,
   useDevelopAnimation,
   useShakeDevelop,
   useFrameSelection,
   useOnboardingSlides,
   usePhotoCapture,
   useContainerSize,
+  SpecialFrameKey,
 } from '@/features/polaroid';
 
 /**
@@ -32,6 +35,7 @@ import {
 export default function Polaroid() {
   const navigate = useNavigate();
   const setIsNav = useLayoutStore((s) => s.setIsNav);
+  const showToast = useToastStore((s) => s.showToast);
 
   // 전체 단계
   const [step, setStep] = useState<Step>('intro');
@@ -49,7 +53,7 @@ export default function Polaroid() {
   // 흔들기 현상 훅
   const {
     shakeCount,
-    maxShakes,
+    // maxShakes,
     progress,
     opacity: shakeOpacity,
     isShaking,
@@ -79,6 +83,18 @@ export default function Polaroid() {
     () => getCurrentFrame(frameCategory, frameKey),
     [frameCategory, frameKey],
   );
+
+  // 흔들기 진행률에 따른 텍스트
+  const shakeProgressText = useMemo(() => {
+    const percent = progress * 100;
+    if (percent <= 50) {
+      return '흔들어 주세요!';
+    }
+    if (percent <= 80) {
+      return '잘하고 있어요!';
+    }
+    return '조금만 더!';
+  }, [progress]);
 
   // 진입/이탈 시 하단 탭바 숨김/복원
   useEffect(() => {
@@ -116,14 +132,14 @@ export default function Polaroid() {
 
   // 프레임 선택 완료 -> 현상 시작
   const handleStartDevelop = () => {
-    console.log('🎬 Starting develop, permission granted:', permissionGranted);
+    console.log('Starting develop, permission granted:', permissionGranted);
     setStep('develop');
 
     // 흔들기 센서가 지원되는 경우에는 흔들기만 허용 (기본 애니메이션 사용 안함)
     if (window.DeviceMotionEvent) {
       // 권한이 있으면 바로 흔들기 시작, 없으면 권한 요청 UI 표시
       if (permissionGranted) {
-        console.log('✅ Permission already granted, starting shake develop immediately');
+        console.log('Permission already granted, starting shake develop immediately');
         startShakeDevelop(() => setStep('done'));
       } else {
         console.log('❌ No permission yet, will show permission button');
@@ -131,16 +147,16 @@ export default function Polaroid() {
       // 권한이 없어도 기본 애니메이션은 시작하지 않음 (흔들기 우선)
     } else {
       // 데스크톱 등 가속도 센서가 없는 경우에만 기본 애니메이션 사용
-      console.log('🖥️ No device motion support, using basic animation');
+      console.log('No device motion support, using basic animation');
       startDevelop(() => setStep('done'));
     }
   };
 
   // 권한 요청 후 흔들기 시작 - 단순하게
   const handleRequestPermissionAndStart = async () => {
-    console.log('🔔 Permission button clicked');
+    console.log('Permission button clicked');
     await startShakeDevelop(() => {
-      console.log('🎉 Shake develop completed!');
+      console.log('Shake develop completed!');
       setStep('done');
     });
   };
@@ -160,6 +176,7 @@ export default function Polaroid() {
     try {
       await drawPolaroidOnCanvas(canvasRef.current, photoUrl, currentFrame);
       downloadCanvasAsImage(canvasRef.current);
+      showToast('저장되었습니다!');
     } catch (error) {
       console.error('Failed to save polaroid:', error);
     }
@@ -297,16 +314,31 @@ export default function Polaroid() {
                       <span>{frame.name}</span>
                     </S.FrameOption>
                   ))
-                : Object.entries(FRAMES.special).map(([key, frame]) => (
-                    <S.FrameOption
-                      key={key}
-                      onClick={() => setFrameKey(key as keyof typeof FRAMES.special)}
-                      $selected={frameKey === key}
-                    >
-                      <img src={frame.thumb} alt={frame.name} />
-                      <span>{frame.name}</span>
-                    </S.FrameOption>
-                  ))}
+                : Object.entries(FRAMES.special).map(([key, frame]) => {
+                    const specialFrameKey = key as SpecialFrameKey;
+                    const isAvailable = isSpecialFrameAvailable(specialFrameKey);
+                    const dayNumber = key.replace('day', '');
+
+                    const handleClick = () => {
+                      if (isAvailable) {
+                        setFrameKey(specialFrameKey);
+                      } else {
+                        showToast(`${dayNumber}일차 프레임은\n해당일에만 사용할 수 있어요.`);
+                      }
+                    };
+
+                    return (
+                      <S.FrameOption
+                        key={key}
+                        onClick={handleClick}
+                        $selected={frameKey === key}
+                        $disabled={!isAvailable}
+                      >
+                        <img src={frame.thumb} alt={frame.name} />
+                        <span>{frame.name}</span>
+                      </S.FrameOption>
+                    );
+                  })}
             </S.FramePicker>
             <S.PrimaryButton onClick={handleStartDevelop}>현상 시작</S.PrimaryButton>
           </>
@@ -317,6 +349,7 @@ export default function Polaroid() {
             <S.FramePreview>
               <S.PolaroidCard
                 $shaking={isShaking}
+                onClick={simulateShake}
                 style={{
                   width: previewWidth,
                   height: previewHeight,
@@ -367,29 +400,14 @@ export default function Polaroid() {
             {/* 흔들기 지원 && 권한 있음 */}
             {window.DeviceMotionEvent && permissionGranted && (
               <S.ShakeInstructions>
-                <S.ShakeText>📱 폰을 흔들어서 사진을 현상하세요!</S.ShakeText>
+                <S.ShakeText>사진을 흔들거나 터치해 주세요!</S.ShakeText>
                 <S.ProgressBar>
                   <S.ProgressFill $width={progress * 100} />
                 </S.ProgressBar>
-                <S.ShakeCounter>
-                  흔든 횟수: {shakeCount} / {maxShakes}
-                </S.ShakeCounter>
-
-                {/* 디버깅용 상태 표시 */}
-                {/* 
-                <div style={{
-                  marginTop: '8px',
-                  fontSize: '10px',
-                  color: '#666',
-                  textAlign: 'center',
-                  fontFamily: 'monospace'
-                }}>
-                  <div>권한: {permissionGranted ? '✅' : '❌'}</div>
-                  <div>진행률: {Math.round(progress * 100)}%</div>
-                </div>
-                */}
+                <S.ShakeCounter>{shakeProgressText}</S.ShakeCounter>
 
                 {/* 데스크톱 테스트용 */}
+                {/* 
                 {!('ontouchstart' in window) && (
                   <button
                     onClick={simulateShake}
@@ -406,6 +424,7 @@ export default function Polaroid() {
                     데스크톱 테스트: 클릭으로 흔들기
                   </button>
                 )}
+                */}
               </S.ShakeInstructions>
             )}
 

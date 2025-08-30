@@ -67,7 +67,7 @@ export const OperatingHours = styled.div`
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  margin-top: 6px;
+  margin-top: 5px;
   ${(props) => props.theme.fonts.body.xsmall500};
   color: ${(props) => props.theme.colors.grayScale.black};
 `;
@@ -77,15 +77,6 @@ export const VerticalLine_black = styled.div`
   height: 0.75rem;
   margin-top: 6px;
   background: ${(props) => props.theme.colors.grayScale.black};
-`;
-
-export const Location = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-top: 6px;
-  ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.black};
 `;
 
 export const InfoRow = styled.div`
@@ -102,8 +93,8 @@ export const LocationButton = styled.button`
   color: ${(props) => props.theme.colors.primary.violet};
   text-decoration: underline;
   padding: 0;
-  margin-left: 0.25rem;
-  margin-top: 6px;
+  margin-left: 0.1rem;
+  margin-top: 5px;
 
   &:hover {
     color: ${(props) => props.theme.colors.primary.violet}CC;

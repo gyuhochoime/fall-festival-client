@@ -84,11 +84,11 @@ export const Fortunelotties = styled.div`
 
   > img {
     position: absolute;
-    top: 68%;
+    top: 71%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
-    height: auto;
+    width: 136px;
+    height: 156px;
     max-width: 80%;
     max-height: 80%;
     pointer-events: none;

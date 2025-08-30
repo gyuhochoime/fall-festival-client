@@ -5,7 +5,7 @@ import Map from '@/pages/map/MapPage';
 import Performance from '@/pages/performance/Performance';
 import Booth from '@/pages/booth/Booth';
 import Polaroid from '@/pages/polaroid/Polaroid';
-import Favorites from '@/pages/favorites/Favorites';
+import Favorites from '@/pages/booth/favorites/Favorites';
 
 const AppRouter = () => {
   return (

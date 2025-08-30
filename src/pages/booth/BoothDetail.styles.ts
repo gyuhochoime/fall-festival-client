@@ -34,6 +34,7 @@ export const Container = styled.div`
   align-items: center;
   position: relative;
   padding-top: 3.875rem;
+  margin-left: -15px;
 `;
 
 export const TakeOut = styled.div`
@@ -56,7 +57,7 @@ export const HorizontalLine = styled.div`
 export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
   position: absolute;
   top: 10.5rem;
-  right: 2.5rem;
+  right: 20px;
   gap: 7px;
   border: ${({ $isFavorited, theme }) =>
     $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`};
