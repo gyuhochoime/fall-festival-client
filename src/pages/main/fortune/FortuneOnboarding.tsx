@@ -26,13 +26,33 @@ export default function FortuneOnboarding() {
     setBirthDate(value);
   };
 
+  const isValidDate = (dateString: string) => {
+    if (dateString.length !== 8) return false;
+
+    const year = parseInt(dateString.substring(0, 4));
+    const month = parseInt(dateString.substring(4, 6));
+    const day = parseInt(dateString.substring(6, 8));
+
+    // 연도 범위 검증 (1900-현재년도) -> 해당 부분에 대한 논의 필요
+    const currentYear = new Date().getFullYear();
+    if (year < 1900 || year > currentYear) return false;
+
+    if (month < 1 || month > 12) return false;
+
+    // 일 범위 검증 (해당 월의 실제 일수 확인)
+    const date = new Date(year, month - 1, day);
+    return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+  };
+
   const handleFortuneClick = () => {
-    if (name.trim() && birthDate.length === 8) {
+    if (name.trim() && birthDate.length === 8 && isValidDate(birthDate)) {
       navigate('/main/fortune/selecting', {
         state: { name, birthDate },
       });
-    } else {
-      alert('이름과 생년월일 8자리를 모두 입력해주세요.');
+    } else if (!name.trim()) {
+      alert('이름을 입력해주세요.');
+    } else if (!isValidDate(birthDate)) {
+      alert('유효하지 않은 생년월일 입니다. 올바른 생년월일 8자리를 입력해주세요. (예: 19990101)');
     }
   };
 
