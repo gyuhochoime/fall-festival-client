@@ -4,7 +4,7 @@ import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneOnboarding.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import Lottie from 'react-lottie-player';
-import fortuneAnimation from '@/assets/lotties/Background_Size.json';
+import fortuneAnimation from '@/assets/lotties/fortune/Background_Size.json';
 import FortuneBall from '@/assets/images/fortune/Ball.webp';
 
 export default function FortuneOnboarding() {

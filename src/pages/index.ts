@@ -12,7 +12,7 @@ import NoticeDetail from '@/pages/main/notice/NoticeDetail';
 import { MadeBy } from './main/made';
 import { FortuneOnboarding, FortuneSelecting, FortuneResult } from './main/fortune';
 import Polaroid from '@/pages/polaroid/Polaroid';
-import Favorites from '@/pages/favorites/Favorites';
+import Favorites from '@/pages/booth/favorites/Favorites';
 import BoothSearch from '@/pages/booth/search/BoothSearch';
 
 export {
