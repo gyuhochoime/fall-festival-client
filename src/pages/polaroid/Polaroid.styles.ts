@@ -226,7 +226,7 @@ export const FramePicker = styled.div`
   scrollbar-width: none;
 `;
 
-export const FrameOption = styled.button<{ $selected?: boolean }>`
+export const FrameOption = styled.button<{ $selected?: boolean; $disabled?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,6 +235,9 @@ export const FrameOption = styled.button<{ $selected?: boolean }>`
   border: none;
   background: transparent;
   flex-shrink: 0;
+  opacity: ${(p) => (p.$disabled ? 0.5 : 1)};
+  cursor: ${(p) => (p.$disabled ? 'not-allowed' : 'pointer')};
+  transition: opacity 0.2s ease;
 
   img {
     width: 48px;
