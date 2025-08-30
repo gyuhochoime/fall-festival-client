@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneResult.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import FortuneCardBack from '@/assets/images/fortune/Backdummy.png';
-import ResultDummy from '@/assets/images/fortune/resultdummy.png';
+import FortuneCardBack from '@/assets/images/fortune/FortuneCardBack_big.webp';
+import ResultDummy from '@/assets/images/fortune/resultdummy.webp';
 
 interface LocationState {
   selectedCardIndex: number;
@@ -48,17 +48,22 @@ export default function FortuneResult() {
       <S.Content>
         <S.Title>
           {!isFlipped
-            ? '선택된 카드를 클릭하여 \n 운세를 확인해보세요!'
+            ? '카드를 터치하여 \n 오늘의 운세를 확인해보세요'
             : `${month}월 ${day}일의 ${name}님은 \n 이만큼 행복할 거예요!`}
         </S.Title>
 
         <S.CardContainer>
-          <S.Card
-            src={isFlipped ? ResultDummy : FortuneCardBack}
-            alt={`selected fortune card ${selectedCardIndex + 1}`}
-            onClick={handleCardClick}
-            $isFlipped={isFlipped}
-          />
+          <S.CardInner $isFlipped={isFlipped} onClick={handleCardClick} aria-pressed={isFlipped}>
+            <S.CardFaceFront>
+              <img
+                src={FortuneCardBack}
+                alt={`selected fortune card ${selectedCardIndex + 1} back`}
+              />
+            </S.CardFaceFront>
+            <S.CardFaceBack>
+              <img src={ResultDummy} alt="fortune result" />
+            </S.CardFaceBack>
+          </S.CardInner>
         </S.CardContainer>
       </S.Content>
     </S.Container>

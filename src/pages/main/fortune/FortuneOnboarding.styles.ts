@@ -6,8 +6,8 @@ export const Container = styled.div`
   background: linear-gradient(180deg, #7e419a 0%, #2d1c46 49%);
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
-  padding-top: 3.875rem;
+  overflow-y: auto;
+  padding-top: 3.7rem;
 `;
 
 export const Content = styled.div`
@@ -15,14 +15,16 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 1rem;
   flex: 1;
   max-width: 500px;
   width: 100%;
+  margin: 0 auto;
 `;
 
 export const Subtitle = styled.p`
-  margin-top: 25px;
+  margin-top: 1rem;
   ${(props) => props.theme.fonts.header.h4};
   color: ${({ theme }) => theme.colors.grayScale.white};
   text-shadow: 0px 0px 6px ${({ theme }) => theme.colors.grayScale.white};
@@ -32,32 +34,27 @@ export const Subtitle = styled.p`
 `;
 
 export const Memo = styled.p`
-  width: calc(100% - 2rem);
-  max-width: 400px;
+  width: calc(100% - 0rem);
   ${(props) => props.theme.fonts.body.xsmall400};
   color: ${({ theme }) => theme.colors.grayScale.white}75;
   text-shadow: 0px 0px 5px ${({ theme }) => theme.colors.grayScale.white}75;
   text-align: center;
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
+  margin-top: 5px;
 `;
 
 export const InputSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 100%;
+  width: calc(100% - 0rem);
   max-width: 400px;
-  margin-top: 0px;
+  margin-top: 0rem;
 `;
 
 export const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 2px;
+  margin-top: 3px;
 `;
 
 export const Input = styled.input`
@@ -66,40 +63,55 @@ export const Input = styled.input`
   outline: none;
   border-radius: 16px;
   background: ${({ theme }) => theme.colors.grayScale.white}98;
-  font-size: ${(props) => props.theme.fonts.body.small400};
+  font-size: 16px;
   color: ${({ theme }) => theme.colors.primary.violet};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.primary.violet};
+    color: ${({ theme }) => theme.colors.primary.violet}99;
   }
 `;
 
 export const Fortunelotties = styled.div`
-  background: transparents;
+  position: relative;
+  background: transparent;
   border-radius: 16px;
-  padding: 2rem;
-  width: 100%;
+  width: calc(100% - 0rem);
   height: 350px;
   max-width: 400px;
   text-align: center;
-  margin-top: 25px;
+  margin-top: -3rem;
+  margin-left: -1rem;
+
+  > img {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    max-width: 80%;
+    max-height: 80%;
+    pointer-events: none;
+    z-index: 1;
+    margin-left: 0.25rem;
+  }
+
+  > div {
+    position: relative;
+    z-index: 2;
+  }
 `;
 
 export const RefreshButton = styled.button`
   ${(props) => props.theme.fonts.header.h4};
   background: ${({ theme }) => theme.colors.primary.violet};
-  width: calc(100% - 2.5rem);
-  max-width: 400px;
+  width: calc(100% - 0rem);
   color: white;
   border: none;
   border-radius: 50px;
   padding: 0.75rem 2rem;
+  margin-top: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.primary.violet};
-  position: fixed;
-  bottom: 4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
 `;

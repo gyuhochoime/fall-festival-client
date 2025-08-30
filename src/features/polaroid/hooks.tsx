@@ -178,12 +178,12 @@ export function useShakeDevelop() {
  */
 export function useFrameSelection() {
   const [frameCategory, setFrameCategory] = useState<FrameCategory>('basic');
-  const [frameKey, setFrameKey] = useState<FrameKey>('empty');
+  const [frameKey, setFrameKey] = useState<FrameKey>('black');
 
   // 카테고리 변경 시 기본 프레임 설정
   useEffect(() => {
     if (frameCategory === 'basic') {
-      setFrameKey('empty');
+      setFrameKey('black');
     } else {
       setFrameKey('day1');
     }
