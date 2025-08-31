@@ -4,6 +4,7 @@ import { MapPageBottomSheet } from '@/features/map';
 import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
 import SearchBar from '@/components/search-bar/SearchBar';
+import DaySelectorModal from '@/components/day-selector-modal/DaySelectorModal';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 import { getCurrentFestivalDay } from '@/utils/dateUtils';
@@ -28,12 +29,15 @@ export default function Map() {
   );
 
   // 날짜 및 카테고리 관련 상태
-  const [selectedDay] = useState<DAYS>(currentDay);
+  const [selectedDay, setSelectedDay] = useState<DAYS>(currentDay);
   const [selectedCategory, setSelectedCategory] = useState<CATEGORIES | null>(null);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
 
   // 지도 카테고리 상태
   const [selectedMapCategory, setSelectedMapCategory] = useState<string>('');
+
+  // 모달 상태
+  const [isDayModalOpen, setIsDayModalOpen] = useState<boolean>(false);
 
   // 카테고리 매핑
   const categoryMapping: Record<string, CATEGORIES | null> = {
@@ -144,6 +148,20 @@ export default function Map() {
     navigate('/map/search');
   };
 
+  const handleDayChange = (day: string) => {
+    if (day === 'open-modal') {
+      setIsDayModalOpen(true);
+    } else {
+      // 선택된 날짜를 상태로 업데이트
+      setSelectedDay(day as DAYS);
+      console.log('[MapPage] 선택된 날짜:', day);
+    }
+  };
+
+  const handleDayModalClose = () => {
+    setIsDayModalOpen(false);
+  };
+
   const handleMapCategoryChange = (category: string) => {
     console.log('[MapPage] 카테고리 변경:', category, '이전:', selectedMapCategory);
     // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
@@ -175,7 +193,11 @@ export default function Map() {
           opacity={true}
         />
         <S.SearchBarContainer>
-          <SearchBar selectedDay={`${selectedDay}`} onSearchClick={handleSearchClick} />
+          <SearchBar
+            selectedDay={`${selectedDay}`}
+            onSearchClick={handleSearchClick}
+            onDayChange={handleDayChange}
+          />
         </S.SearchBarContainer>
         <S.CategoryTabsContainer>
           <Tabs
@@ -196,6 +218,13 @@ export default function Map() {
           </S.BottomSheetContainer>
         )}
       </S.ContentContainer>
+
+      <DaySelectorModal
+        isOpen={isDayModalOpen}
+        selectedDay={`${selectedDay}`}
+        onDaySelect={handleDayChange}
+        onClose={handleDayModalClose}
+      />
     </S.MapContainer>
   );
 }
