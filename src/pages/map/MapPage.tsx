@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MapPageBottomSheet } from '@/features/map';
 import { NavBar } from '@/components/nav-bar';
+import { Tabs } from '@/components/tabs';
 import SearchBar from '@/components/search-bar/SearchBar';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
@@ -9,7 +10,6 @@ import { getCurrentFestivalDay } from '@/utils/dateUtils';
 import * as S from './MapPage.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import ReCenterButtonIcon from '@/assets/icons/re-center.svg?react';
-import ReCenterClickedButtonIcon from '@/assets/icons/re-center-clicked.svg?react';
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { MapData, MapDataItem } from '@/constants/map/MapData';
 
@@ -32,6 +32,20 @@ export default function Map() {
   const [selectedCategory, setSelectedCategory] = useState<CATEGORIES | null>(null);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
 
+  // 지도 카테고리 상태
+  const [selectedMapCategory, setSelectedMapCategory] = useState<string>('');
+
+  // 카테고리 매핑
+  const categoryMapping: Record<string, CATEGORIES | null> = {
+    이벤트: '프로모션',
+    주점: '주점',
+    푸드트럭: '푸드트럭',
+    의무실: '콘텐츠',
+    화장실: '화장실',
+    흡연실: '흡연구역',
+    셔틀콕: '셔틀콕',
+  };
+
   // 카카오맵 커스텀 훅 사용
   const { moveToCurrentLocation, showItemMarker, kakaoMap } = useKakaoMap(
     {
@@ -43,7 +57,7 @@ export default function Map() {
       scrollwheel: true,
       isBottomSheetOpen,
     },
-    selectedCategory,
+    selectedMapCategory ? categoryMapping[selectedMapCategory] : selectedCategory,
     selectedDay,
   );
   console.log('[MapPage] useKakaoMap 훅 초기화 완료');
@@ -130,18 +144,17 @@ export default function Map() {
     navigate('/map/search');
   };
 
-  // 현재 위치 버튼 관련 상태
-  const [isReCentering, setIsReCentering] = useState<boolean>(false);
+  const handleMapCategoryChange = (category: string) => {
+    console.log('[MapPage] 카테고리 변경:', category, '이전:', selectedMapCategory);
+    // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
+    const newCategory = category === selectedMapCategory ? '' : category;
+    setSelectedMapCategory(newCategory);
+    console.log('[MapPage] 매핑된 카테고리:', newCategory ? categoryMapping[newCategory] : 'none');
+  };
 
   // 현재 위치로 이동 핸들러
   const handleReCenterClick = () => {
-    setIsReCentering(true); // 클릭 효과 활성화
     moveToCurrentLocation(); // 현재 위치로 이동
-
-    // 일정 시간 후 버튼 상태 원래대로 복원
-    setTimeout(() => {
-      setIsReCentering(false);
-    }, 1000);
   };
 
   console.log('[지도] MapPage 컴포넌트가 렌더링되었습니다.');
@@ -150,7 +163,7 @@ export default function Map() {
     <S.MapContainer>
       <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen} />
       <S.ReCenterButton $isBottomSheetOpen={isBottomSheetOpen} onClick={handleReCenterClick}>
-        {isReCentering ? <ReCenterClickedButtonIcon /> : <ReCenterButtonIcon />}
+        <ReCenterButtonIcon />
       </S.ReCenterButton>
       <S.ContentContainer>
         <NavBar
@@ -164,6 +177,15 @@ export default function Map() {
         <S.SearchBarContainer>
           <SearchBar selectedDay={`${selectedDay}`} onSearchClick={handleSearchClick} />
         </S.SearchBarContainer>
+        <S.CategoryTabsContainer>
+          <Tabs
+            tabs={['이벤트', '주점', '푸드트럭', '의무실', '화장실', '흡연실', '셔틀콕']}
+            activeTab={selectedMapCategory}
+            onTabClick={handleMapCategoryChange}
+            autoWidth={true}
+            margin="0.75rem"
+          />
+        </S.CategoryTabsContainer>
         {isBottomSheetOpen && (
           <S.BottomSheetContainer>
             <MapPageBottomSheet

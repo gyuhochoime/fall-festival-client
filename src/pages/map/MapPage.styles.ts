@@ -44,6 +44,30 @@ export const SearchBarContainer = styled.div`
   z-index: ${Z_INDEX.CONTENTS};
 `;
 
+export const CategoryTabsContainer = styled.div`
+  position: absolute;
+  top: 7.5rem;
+  left: 54%;
+  transform: translateX(-50%);
+  z-index: ${Z_INDEX.CONTENTS};
+  width: 100%;
+  overflow: auto hidden;
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* 스크롤 스냅 */
+  scroll-snap-type: x mandatory;
+
+  /* 부드러운 스크롤 */
+  scroll-behavior: smooth;
+`;
+
 export const ReCenterButton = styled.div<{ $isBottomSheetOpen?: boolean }>`
   position: fixed;
   bottom: ${(props) => (props.$isBottomSheetOpen ? '18rem' : '8rem')};
