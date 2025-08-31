@@ -6,7 +6,6 @@ import * as S from './PerformanceDetail.styles';
 import { PerformanceDetailsProps } from './PerformanceDetail.types';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { useEffect } from 'react';
-import React from 'react';
 import { NavBar } from '@/components/nav-bar/NavBar';
 
 /**
