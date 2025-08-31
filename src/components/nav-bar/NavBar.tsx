@@ -69,7 +69,7 @@ const NavBar: React.FC<NavBarProps> = ({
         )}
       </S.LeftSection>
 
-      {title && <S.Title>{title}</S.Title>}
+      {title && <S.Title $opacity={opacity}>{title}</S.Title>}
       <S.RightSection $opacity={opacity}>
         {isSearch && (
           <SearchIcon

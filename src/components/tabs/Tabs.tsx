@@ -19,6 +19,7 @@ function Tabs({
   autoWidth = false,
   toggle = false,
   margin = '0',
+  gap,
 }: TabsProps) {
   const handleTabClick = (tab: string) => {
     if (toggle && activeTab === tab) {
@@ -29,7 +30,7 @@ function Tabs({
   };
 
   return (
-    <S.TabsContainer $autoWidth={autoWidth}>
+    <S.TabsContainer $autoWidth={autoWidth} $gap={gap}>
       {tabs.map((tab, index) => (
         <S.Tab
           key={tab}
@@ -38,8 +39,11 @@ function Tabs({
           $isFirst={index === 0}
           $isLast={index === tabs.length - 1}
           $margin={margin}
+          $isFirstDay={tab === '1일차'}
         >
-          <S.TabText $isActive={tab === activeTab}>{tab}</S.TabText>
+          <S.TabText $isActive={tab === activeTab} $isFirstDay={tab === '1일차'}>
+            {tab}
+          </S.TabText>
         </S.Tab>
       ))}
     </S.TabsContainer>

@@ -27,21 +27,25 @@ export default function TabNav<T extends readonly string[]>({
   tabs,
   currentStep,
   setStep,
+  variant = 'default',
 }: TabNavProps<T>) {
   return (
     <S.Container>
-      <S.Nav>
-        <S.List>
+      <S.Nav $variant={variant}>
+        <S.List $variant={variant}>
           {tabs.map((tab) => (
             <S.Item
               $current={tab === currentStep}
+              $variant={variant}
               key={tab}
               onClick={() => {
                 setStep(tab);
               }}
             >
               {tab}
-              {tab === currentStep ? <S.Underline layoutId="underline" id="underline" /> : null}
+              {tab === currentStep && variant === 'default' ? (
+                <S.Underline layoutId="underline" id="underline" />
+              ) : null}
             </S.Item>
           ))}
         </S.List>
