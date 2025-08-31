@@ -1,7 +1,10 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M18 36V10L42 6V32M18 18L42 14" stroke="#7E419A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12 42C15.3137 42 18 39.3137 18 36C18 32.6863 15.3137 30 12 30C8.68629 30 6 32.6863 6 36C6 39.3137 8.68629 42 12 42Z" stroke="#7E419A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M36 38C39.3137 38 42 35.3137 42 32C42 28.6863 39.3137 26 36 26C32.6863 26 30 28.6863 30 32C30 35.3137 32.6863 38 36 38Z" stroke="#7E419A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M36 34C37.1046 34 38 33.1046 38 32C38 30.8954 37.1046 30 36 30C34.8954 30 34 30.8954 34 32C34 33.1046 34.8954 34 36 34Z" stroke="#7E419A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12 38C13.1046 38 14 37.1046 14 36C14 34.8954 13.1046 34 12 34C10.8954 34 10 34.8954 10 36C10 37.1046 10.8954 38 12 38Z" stroke="#7E419A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 18V5L21 3V16M9 9L21 7" stroke="#7E419A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6 21C7.65685 21 9 19.6569 9 18C9 16.3431 7.65685 15 6 15C4.34315 15 3 16.3431 3 18C3 19.6569 4.34315 21 6 21Z" fill="#7E419A" stroke="#7E419A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18 19C19.6569 19 21 17.6569 21 16C21 14.3431 19.6569 13 18 13C16.3431 13 15 14.3431 15 16C15 17.6569 16.3431 19 18 19Z" fill="#7E419A" stroke="#7E419A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<mask id="path-4-inside-1_2014_2171" fill="white">
+<path d="M18 17C18.5523 17 19 16.5523 19 16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16C17 16.5523 17.4477 17 18 17Z"/>
+</mask>
+<path d="M19 16H17C17 15.4477 17.4477 15 18 15V17V19C19.6569 19 21 17.6569 21 16H19ZM18 17V15C18.5523 15 19 15.4477 19 16H17H15C15 17.6569 16.3431 19 18 19V17ZM17 16H19C19 16.5523 18.5523 17 18 17V15V13C16.3431 13 15 14.3431 15 16H17ZM18 15V17C17.4477 17 17 16.5523 17 16H19H21C21 14.3431 19.6569 13 18 13V15Z" fill="#7E419A" mask="url(#path-4-inside-1_2014_2171)"/>
+<path d="M6 19C6.55228 19 7 18.5523 7 18C7 17.4477 6.55228 17 6 17C5.44772 17 5 17.4477 5 18C5 18.5523 5.44772 19 6 19Z" stroke="#7E419A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

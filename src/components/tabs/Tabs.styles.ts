@@ -4,7 +4,7 @@ export const TabsContainer = styled.div<{ $autoWidth?: boolean; $gap?: string }>
   display: flex;
   width: ${(props) => (props.$autoWidth ? 'auto' : '100%')};
   gap: ${(props) => props.$gap || '0.5rem'};
-  overflow-x: auto;
+  overflow: auto hidden;
 
   /* 스크롤바 안 보이게 설정 */
   -webkit-overflow-scrolling: touch;
@@ -14,6 +14,12 @@ export const TabsContainer = styled.div<{ $autoWidth?: boolean; $gap?: string }>
   &::-webkit-scrollbar {
     display: none;
   }
+
+  /* 부드러운 스크롤 */
+  scroll-behavior: smooth;
+
+  /* 스크롤 스냅 */
+  scroll-snap-type: x proximity;
 `;
 
 export const Tab = styled.button<{
@@ -48,7 +54,7 @@ export const Tab = styled.button<{
     if (props.$isFirstDay) {
       return props.theme.colors.grayScale.gy200_eee;
     }
-    return 'transparent';
+    return props.theme.colors.grayScale.white;
   }};
 
   &:active {
