@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MapPageBottomSheet } from '@/features/map';
 import { NavBar } from '@/components/nav-bar';
+import SearchBar from '@/components/search-bar/SearchBar';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 import { getCurrentFestivalDay } from '@/utils/dateUtils';
@@ -125,6 +126,10 @@ export default function Map() {
     navigate('/main');
   };
 
+  const handleSearchClick = () => {
+    navigate('/map/search');
+  };
+
   // 현재 위치 버튼 관련 상태
   const [isReCentering, setIsReCentering] = useState<boolean>(false);
 
@@ -156,6 +161,9 @@ export default function Map() {
           onCloseClick={handleExit}
           opacity={true}
         />
+        <S.SearchBarContainer>
+          <SearchBar selectedDay={`${selectedDay}`} onSearchClick={handleSearchClick} />
+        </S.SearchBarContainer>
         {isBottomSheetOpen && (
           <S.BottomSheetContainer>
             <MapPageBottomSheet

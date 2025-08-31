@@ -36,6 +36,14 @@ export const ContentContainer = styled.div`
   }
 `;
 
+export const SearchBarContainer = styled.div`
+  position: absolute;
+  top: 4.375rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: ${Z_INDEX.CONTENTS};
+`;
+
 export const ReCenterButton = styled.div<{ $isBottomSheetOpen?: boolean }>`
   position: fixed;
   bottom: ${(props) => (props.$isBottomSheetOpen ? '18rem' : '8rem')};
