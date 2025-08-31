@@ -5,6 +5,9 @@ import { useToastStore } from '@/stores/useToastStore';
 
 import BackIcon from '@/assets/icons/left-arrow.svg?react';
 import CloseIcon from '@/assets/icons/close-black.svg?react';
+import Onboarding1 from '@/assets/images/polaroid/onboarding/page1.webp';
+import Onboarding2 from '@/assets/images/polaroid/onboarding/page2.webp';
+import Onboarding3 from '@/assets/images/polaroid/onboarding/page3.webp';
 
 import * as S from '@/pages/polaroid/Polaroid.styles';
 import {
@@ -25,6 +28,8 @@ import {
   useContainerSize,
   SpecialFrameKey,
 } from '@/features/polaroid';
+
+const ONBOARDING_IMAGES = [Onboarding1, Onboarding2, Onboarding3];
 
 /**
  * 폴라로이드 촬영/현상 플로우
@@ -213,9 +218,9 @@ export default function Polaroid() {
         {step === 'intro' && (
           <>
             <S.SwipeWrap ref={scrollRef} onScroll={onScroll}>
-              {[0, 1, 2].map((i) => (
+              {ONBOARDING_IMAGES.map((src, i) => (
                 <S.Slide key={i}>
-                  <S.PlaceholderImage>Image {i + 1}</S.PlaceholderImage>
+                  <S.OnboardingImage src={src} alt={`온보딩 이미지 ${i + 1}`} />
                   <S.SlideText>{SLIDE_TEXTS[i]}</S.SlideText>
                 </S.Slide>
               ))}
