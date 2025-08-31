@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './SearchPage.styles';
+import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
-import { SearchNavBar } from '@/components/nav-bar';
 import { ImageTextFrameWithTime } from '@/components/image-text-frame';
-import { RECOMMENDED_WORDS } from '@/constants/search';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { MapData, MapDataItem } from '@/constants/map/MapData';
 import { useDebounce } from '@/hooks/useDebounce';
+import SearchIcon from '@/assets/icons/search-gray.svg?react';
+import CloseIcon from '@/assets/icons/close-search.svg?react';
+import MapSearchIcon from '@/assets/icons/map-search.svg?react';
 
 export default function MapSearch() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
@@ -60,19 +62,47 @@ export default function MapSearch() {
     [navigate],
   );
 
-  // 추천 항목 클릭시 처리
+  const handleExit = () => {
+    navigate('/map');
+  };
+
+  const handleClearSearch = () => {
+    setSearchKeyword('');
+  };
+
   const handleRecommendedClick = (keyword: string) => {
     setSearchKeyword(keyword);
   };
 
   return (
     <S.SearchPageContainer>
-      <SearchNavBar
-        placeholder="궁금한 것을 검색해보세요!"
-        onChange={handleInputChange}
-        value={searchKeyword}
-        backPath={`/map`} // 항상 지도로 돌아가도록 설정
+      <NavBar
+        isBack={true}
+        title="지도 검색"
+        isClose={true}
+        backPath="/main"
+        onCloseClick={handleExit}
       />
+      <S.SearchSection>
+        <S.SearchInputWrapper>
+          <S.SearchInput
+            type="text"
+            placeholder="검색어를 입력해 주세요"
+            value={searchKeyword}
+            onChange={handleInputChange}
+          />
+          <S.SearchIconWrapper
+            $isClickable={searchKeyword.trim() !== ''}
+            onClick={searchKeyword.trim() !== '' ? handleClearSearch : undefined}
+          >
+            {searchKeyword.trim() !== '' ? (
+              <CloseIcon width="1rem" height="1rem" />
+            ) : (
+              <SearchIcon width="1rem" height="1rem" />
+            )}
+          </S.SearchIconWrapper>
+        </S.SearchInputWrapper>
+      </S.SearchSection>
       {searchKeyword ? (
         searchResults.length > 0 ? (
           <S.SearchResultsContainer>
@@ -90,25 +120,29 @@ export default function MapSearch() {
             ))}
           </S.SearchResultsContainer>
         ) : (
-          <S.NoSearchDataSection>
-            <h3>검색 결과가 없어요 T.T</h3>
-            <h4>지도에서 찾고 싶은 검색어의 키워드가 정확한지</h4>
-            <h4>다시 한 번 확인해주세요!</h4>
-          </S.NoSearchDataSection>
+          <S.NoResultsState>
+            <MapSearchIcon width="2.25rem" height="2.25rem" />
+            <S.NoResultsText>
+              앗, 검색 결과가 없어요.
+              {'\n'}
+              검색어를 다시 한번 확인해 주세요!
+            </S.NoResultsText>
+          </S.NoResultsState>
         )
       ) : (
-        <>
-          <S.RecommendedSearchSection>
-            <S.RecommendedSearchHeader>추천 검색어</S.RecommendedSearchHeader>
+        <S.RecommendedSearchSection>
+          <S.RecommendedSearchHeader>추천 검색어</S.RecommendedSearchHeader>
+          <S.CustomTabsWrapper>
             <Tabs
-              tabs={[...RECOMMENDED_WORDS]}
+              tabs={['화장실', '주류 구매', '셔틀콕']}
               activeTab=""
-              onTabClick={(tab) => handleRecommendedClick(tab)}
+              onTabClick={handleRecommendedClick}
               autoWidth={true}
-              margin="1.25rem"
+              margin="0"
+              gap="0.5rem"
             />
-          </S.RecommendedSearchSection>
-        </>
+          </S.CustomTabsWrapper>
+        </S.RecommendedSearchSection>
       )}
     </S.SearchPageContainer>
   );
