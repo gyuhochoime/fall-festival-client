@@ -2,16 +2,12 @@ import styled from 'styled-components';
 import HelpIcon from '@/assets/icons/nrk_help.svg?react';
 
 export const PerformanceContainer = styled.div`
-  position: fixed;
-  inset: 0;
-  z-index: 1;
+  position: relative;
   width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
+  min-height: 100dvh;
   background-color: ${(p) => p.theme.colors.grayScale.white};
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 export const Header = styled.header`
@@ -45,7 +41,7 @@ export const Fullscreen = styled.main`
   position: relative;
   overflow: visible;
   min-height: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 5rem;
 `;
 
 export const InfoWrap = styled.div`
@@ -112,14 +108,14 @@ export const NoteText = styled.p`
 `;
 
 export const TimeTableButton = styled.button`
-  position: fixed;
-  top: 37.25rem;
-  right: 1.25rem;
   display: flex;
   padding: 0.25rem 0.75rem;
   justify-content: center;
   align-items: center;
   gap: 0.375rem;
+  margin-top: 2rem;
+  align-self: flex-end;
+  margin-right: 1.25rem;
   ${(props) => props.theme.fonts.body.xsmall500};
   color: ${(props) => props.theme.colors.primary.violet};
   text-align: center;
@@ -132,7 +128,6 @@ export const TimeTableButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 10;
 `;
 
 export const ProgressContainer = styled.div`

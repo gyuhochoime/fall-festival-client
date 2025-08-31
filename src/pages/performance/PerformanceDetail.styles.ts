@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
 export const DetailsContainer = styled.div`
-  position: fixed;
-  inset: 0;
-  z-index: 1;
+  position: relative;
   width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
+  min-height: 100dvh;
   background: linear-gradient(
     180deg,
     rgb(249 235 255 / 20%) 13.46%,
@@ -15,7 +12,6 @@ export const DetailsContainer = styled.div`
   );
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 export const Header = styled.header`
@@ -49,7 +45,7 @@ export const Fullscreen = styled.main`
   position: relative;
   overflow: visible;
   min-height: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 5rem;
 `;
 
 export const ArtistInfoSection = styled.div`

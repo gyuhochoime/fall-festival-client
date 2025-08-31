@@ -12,16 +12,12 @@ to {
 `;
 
 export const Container = styled.div`
-  position: fixed;
-  inset: 0;
-  z-index: 1;
+  position: relative;
   width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
+  min-height: 100dvh;
   background-color: ${(p) => p.theme.colors.grayScale.white};
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `;
 
 export const Header = styled.header`
@@ -53,9 +49,10 @@ export const TimeWrap = styled.div`
   position: relative;
   flex: 1;
   margin-top: 8.625rem;
-  height: 34.6875rem;
+  min-height: 34.6875rem;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 5rem;
 `;
 
 export const TimeAndBarContainer = styled.div`
