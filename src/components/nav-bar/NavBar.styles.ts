@@ -24,7 +24,7 @@ export const LeftSection = styled.div<{ $opacity?: boolean }>`
   margin-left: 8.5px;
 
   svg {
-    filter: ${({ $opacity }) => ($opacity ? 'brightness(0) invert(1)' : 'none')};
+    filter: none;
   }
 `;
 
@@ -37,11 +37,11 @@ export const RightSection = styled.div<{ $opacity?: boolean }>`
   margin-right: 3px;
 
   svg {
-    filter: ${({ $opacity }) => ($opacity ? 'brightness(0) invert(1)' : 'none')};
+    filter: none;
   }
 `;
 
-export const Title = styled.p`
+export const Title = styled.p<{ $opacity?: boolean }>`
   ${(props) => props.theme.fonts.header.h4}
   text-align: center;
   color: ${(props) => props.theme.colors.grayScale.black};
