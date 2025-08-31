@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import SongIcon from '@/assets/icons/song.svg?react';
 import CalendarIcon from '@/assets/icons/calendar-black.svg?react';
 import TimePerformanceIcon from '@/assets/icons/time-performance.svg?react';
+import StageFillIcon from '@/assets/icons/stage-fill.svg?react';
 import * as S from './PerformanceDetail.styles';
 import { PerformanceDetailsProps } from './PerformanceDetail.types';
 import { useLayoutStore } from '@/stores/useLayoutStore';
@@ -89,21 +89,15 @@ export default function PerformanceDetail() {
           <S.TitleSongText>대표곡</S.TitleSongText>
           <S.SongWrap>
             {songList.map((song, index) => (
-              <React.Fragment key={index}>
-                <S.SongBox key={index}>
-                  <S.Wrap>
-                    <S.SongImage src={song.image} />
-                    <S.SongName key={index}>{song.name}</S.SongName>
-                  </S.Wrap>
-                  <SongIcon
-                    width={'1.5rem'}
-                    height={'1.5rem'}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => window.open(song.url, '_blank')}
-                  />
-                </S.SongBox>
-                <S.SongLine />
-              </React.Fragment>
+              <S.SongBox key={index} onClick={() => window.open(song.url, '_blank')}>
+                <S.Wrap>
+                  <S.SongImage src={song.image} />
+                  <S.SongName>{song.name}</S.SongName>
+                </S.Wrap>
+                <S.SongIcon>
+                  <StageFillIcon width={'1.5rem'} height={'1.5rem'} />
+                </S.SongIcon>
+              </S.SongBox>
             ))}
           </S.SongWrap>
         </S.TitleSongWrap>

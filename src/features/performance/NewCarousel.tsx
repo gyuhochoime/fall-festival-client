@@ -1,4 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import * as S from './NewCarousel.styles';
 import TimeIcon from '@/assets/icons/time-performance.svg?react';
 import NorthStarIcon from '@/assets/icons/north-star.svg?react';
@@ -8,24 +11,8 @@ import { PerformanceItem } from './Carousel.types';
 
 export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [visibleData, setVisibleData] = useState(data);
   const [textFade, setTextFade] = useState<'in' | 'out'>('in');
-
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  // 탭 변경 감지
-  useEffect(() => {
-    if (data !== visibleData) {
-      const timeout = setTimeout(() => {
-        setCurrentIndex(0);
-        setVisibleData(data);
-      }, 300);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [currentIndex, data, visibleData]);
+  const isSwipingRef = useRef(false);
 
   // 텍스트 fade 처리
   useEffect(() => {
@@ -44,51 +31,31 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
     }
   }, [currentIndex, onIndexChange]);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    centerMode: false,
+    variableWidth: true,
+    initialSlide: 0,
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX.current === null || touchEndX.current === null) return;
-    const deltaX = touchStartX.current - touchEndX.current;
-
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX > 0) {
-        setCurrentIndex((prev) => (prev + 1) % visibleData.length);
-      } else {
-        setCurrentIndex((prev) => (prev - 1 + visibleData.length) % visibleData.length);
-      }
-    }
-
-    touchStartX.current = null;
-    touchEndX.current = null;
-  };
-
-  const handleScroll = () => {
-    if (!carouselRef.current) return;
-
-    const scrollLeft = carouselRef.current.scrollLeft;
-    const itemWidth = carouselRef.current.offsetWidth - 2.5 * 16; // 2.5rem in px
-    const gap = 1.5 * 16; // 1.5rem in px
-
-    console.log('Scroll event:', {
-      scrollLeft,
-      itemWidth,
-      gap,
-      offsetWidth: carouselRef.current.offsetWidth,
-    });
-
-    const newIndex = Math.round(scrollLeft / (itemWidth + gap));
-    setCurrentIndex(Math.max(0, Math.min(newIndex, visibleData.length - 1)));
+    beforeChange: () => {
+      isSwipingRef.current = true;
+    },
+    afterChange: (current: number) => {
+      setCurrentIndex(current);
+      setTimeout(() => {
+        isSwipingRef.current = false;
+      }, 100);
+    },
   };
 
   return (
     <S.Container>
-      {visibleData.length === 0 ? (
+      {data.length === 0 ? (
         <S.EmptyStateContainer>
           <StageFillIcon width="3rem" height="3rem" />
           <S.EmptyStateText>
@@ -96,67 +63,71 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
           </S.EmptyStateText>
         </S.EmptyStateContainer>
       ) : (
-        <S.CarouselWrapper
-          ref={carouselRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onScroll={handleScroll}
-        >
-          {visibleData.map((singer: PerformanceItem, index: number) => {
-            const isEven = index % 2 === 0;
-            const isActive = index === currentIndex;
+        <S.CarouselWrapper>
+          <Slider {...settings}>
+            {data.map((singer: PerformanceItem, index: number) => {
+              const isEven = index % 2 === 0;
+              const isActive = index === currentIndex;
 
-            return (
-              <S.CarouselItem key={index}>
-                {isEven ? (
-                  <>
-                    <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
-                      <S.ArtistName>{singer.singer}</S.ArtistName>
-                      <S.TimeBox>
-                        <TimeIcon width="0.75rem" height="0.75rem" />
-                        <S.TimeText>{singer.time}</S.TimeText>
-                      </S.TimeBox>
-                    </S.ArtistTimeBox>
-                    <S.NorthStar>
-                      <NorthStarIcon width="1rem" height="1rem" />
-                    </S.NorthStar>
-                    <S.VerticalLine />
-                    <S.ArtistCircle $isActive={isActive}>
-                      <S.ArtistImage
-                        src={singer.backgroundUrl}
-                        alt={singer.singer}
-                        onClick={() => onArtistClick?.(singer)}
-                        style={{ cursor: 'pointer' }}
-                      />
-                    </S.ArtistCircle>
-                  </>
-                ) : (
-                  <>
-                    <S.ArtistCircle $isActive={isActive}>
-                      <S.ArtistImage
-                        src={singer.backgroundUrl}
-                        alt={singer.singer}
-                        onClick={() => onArtistClick?.(singer)}
-                        style={{ cursor: 'pointer' }}
-                      />
-                    </S.ArtistCircle>
-                    <S.VerticalLine />
-                    <S.NorthStar>
-                      <NorthStarIcon width="1rem" height="1rem" />
-                    </S.NorthStar>
-                    <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
-                      <S.ArtistName>{singer.singer}</S.ArtistName>
-                      <S.TimeBox>
-                        <TimeIcon width="0.75rem" height="0.75rem" />
-                        <S.TimeText>{singer.time}</S.TimeText>
-                      </S.TimeBox>
-                    </S.ArtistTimeBox>
-                  </>
-                )}
-              </S.CarouselItem>
-            );
-          })}
+              return (
+                <div key={index}>
+                  <S.CarouselItem>
+                    {isEven ? (
+                      <>
+                        <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
+                          <S.ArtistName>{singer.singer}</S.ArtistName>
+                          <S.TimeBox>
+                            <TimeIcon width="0.75rem" height="0.75rem" />
+                            <S.TimeText>{singer.time}</S.TimeText>
+                          </S.TimeBox>
+                        </S.ArtistTimeBox>
+                        <S.NorthStar>
+                          <NorthStarIcon width="1rem" height="1rem" />
+                        </S.NorthStar>
+                        <S.VerticalLine />
+                        <S.ArtistCircle $isActive={isActive}>
+                          <S.ArtistImage
+                            src={singer.backgroundUrl}
+                            alt={singer.singer}
+                            onClick={() => {
+                              if (isSwipingRef.current) return;
+                              onArtistClick?.(singer);
+                            }}
+                            style={{ cursor: 'pointer' }}
+                          />
+                        </S.ArtistCircle>
+                      </>
+                    ) : (
+                      <>
+                        <S.ArtistCircle $isActive={isActive}>
+                          <S.ArtistImage
+                            src={singer.backgroundUrl}
+                            alt={singer.singer}
+                            onClick={() => {
+                              if (isSwipingRef.current) return;
+                              onArtistClick?.(singer);
+                            }}
+                            style={{ cursor: 'pointer' }}
+                          />
+                        </S.ArtistCircle>
+                        <S.VerticalLine />
+                        <S.NorthStar>
+                          <NorthStarIcon width="1rem" height="1rem" />
+                        </S.NorthStar>
+                        <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
+                          <S.ArtistName>{singer.singer}</S.ArtistName>
+                          <S.TimeBox>
+                            <TimeIcon width="0.75rem" height="0.75rem" />
+                            <S.TimeText>{singer.time}</S.TimeText>
+                          </S.TimeBox>
+                        </S.ArtistTimeBox>
+                      </>
+                    )}
+                  </S.CarouselItem>
+                </div>
+              );
+            })}
+          </Slider>
         </S.CarouselWrapper>
       )}
     </S.Container>

@@ -7,14 +7,23 @@ export const Container = styled.div`
 `;
 
 export const CarouselWrapper = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  width: 100dvw;
   padding-left: 1.25rem;
-  padding-right: 1.25rem;
+
+  /* slick-track 스타일링 */
+  .slick-track {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  /* slick-slide 스타일링 */
+  .slick-slide {
+    padding: 0 0.75rem;
+  }
+
+  .slick-list {
+    overflow: visible;
+  }
 `;
 
 export const CarouselItem = styled.div`

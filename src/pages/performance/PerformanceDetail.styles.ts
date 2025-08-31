@@ -185,57 +185,65 @@ export const Description = styled.p`
   color: ${(props) => props.theme.colors.grayScale.gy500};
 `;
 export const TitleSongWrap = styled.div`
-  margin-top: 1rem;
+  margin-top: 2.75rem;
   display: flex;
-  width: 20.7011rem;
+  width: 20.938rem;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.75rem;
 `;
 
 export const TitleSongText = styled.p`
   align-self: stretch;
-  ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.black_1a1a};
+  ${(props) => props.theme.fonts.header.h4_600};
 `;
 
 export const SongWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.5rem;
   align-self: stretch;
 `;
 
 export const SongBox = styled.div`
   display: flex;
-  padding: 0.5rem 0rem;
-  justify-content: space-between;
+  padding: 0.75rem;
   align-items: center;
+  justify-content: space-between;
   align-self: stretch;
+  border-radius: 1rem;
+  background: ${(props) => props.theme.colors.grayScale.white};
+  box-shadow: 0 0 0.75rem 0 rgb(126 65 154 / 30%);
+  cursor: pointer;
+  position: relative;
 `;
 
 export const Wrap = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.875rem;
+  gap: 1.25rem;
 `;
 
 export const SongImage = styled.img`
   width: 3rem;
   height: 3rem;
   aspect-ratio: 1/1;
-  border-radius: 0.5rem;
-  background: #c4c4c4;
+  border-radius: 3.125rem;
+  background: ${(props) => props.theme.colors.grayScale.gy200_eee};
 `;
 
 export const SongName = styled.p`
-  ${(props) => props.theme.fonts.header.h4};
-  color: ${(props) => props.theme.colors.grayScale.black};
+  overflow: hidden;
+  color: ${(props) => props.theme.colors.grayScale.black_1a1a};
+  text-overflow: ellipsis;
+  ${(props) => props.theme.fonts.body.medium500};
 `;
 
-export const SongLine = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: ${(props) => props.theme.colors.grayScale.gy50};
+export const SongIcon = styled.div`
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
 `;
