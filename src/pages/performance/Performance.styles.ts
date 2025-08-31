@@ -80,9 +80,10 @@ export const HelpIconStyled = styled(HelpIcon)`
   fill: ${(props) => props.theme.colors.grayScale.gy300};
 `;
 
-export const Carousel = styled.div`
+export const Carousel = styled.div<{ $isFirstDay?: boolean }>`
   display: flex;
   align-items: center;
+  justify-content: ${(props) => (props.$isFirstDay ? 'center' : 'flex-start')};
   gap: 0.75rem;
   width: 100%;
   margin-top: 1rem;

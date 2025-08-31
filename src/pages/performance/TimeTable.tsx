@@ -1,9 +1,11 @@
 import * as S from './TimeTable.styles';
 import ClockIcon from '@/assets/icons/clock.svg?react';
+import BackIcon from '@/assets/icons/left-arrow.svg?react';
+import CloseIcon from '@/assets/icons/close-black.svg?react';
 import { singers, time } from '@/constants/performance/SingerList';
 import { useEffect, useState } from 'react';
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import { NavBar } from '@/components/nav-bar';
+import { useNavigate } from 'react-router-dom';
 import TabNav from '@/components/tab-nav';
 
 /**
@@ -21,7 +23,17 @@ export default function TimeTable() {
   const [selectedDay, setSelectedDay] = useState<'1일차' | '2일차' | '3일차'>('1일차');
   const [currentTime, setCurrentTime] = useState(new Date());
   const setIsNav = useLayoutStore((state) => state.setIsNav);
+  const navigate = useNavigate();
   const currentPerformances = singers[selectedDay];
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const handleExit = () => {
+    navigate('/');
+  };
+
   useEffect(() => {
     setIsNav(false);
     return () => {
@@ -32,7 +44,7 @@ export default function TimeTable() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 1000);
+    }, 1000000);
 
     return () => clearInterval(timer);
   }, []);
@@ -67,9 +79,32 @@ export default function TimeTable() {
 
   return (
     <S.Container>
-      <NavBar isBack={true} title="타임테이블" />
+      <S.Header>
+        <S.HeaderButton aria-label="뒤로">
+          <BackIcon
+            style={{ cursor: 'pointer' }}
+            width={'0.95rem'}
+            height={'0.95rem'}
+            onClick={handleBack}
+          />
+        </S.HeaderButton>
+        <S.HeaderTitle>타임테이블</S.HeaderTitle>
+        <S.HeaderButton aria-label="나가기">
+          <CloseIcon
+            style={{ cursor: 'pointer' }}
+            width={'0.85rem'}
+            height={'0.85rem'}
+            onClick={handleExit}
+          />
+        </S.HeaderButton>
+      </S.Header>
       <S.TabNavWrap>
-        <TabNav tabs={TABS} currentStep={selectedDay} setStep={setSelectedDay} />
+        <TabNav
+          tabs={TABS}
+          currentStep={selectedDay}
+          setStep={setSelectedDay}
+          variant="timetable"
+        />
       </S.TabNavWrap>
       <S.TimeWrap>
         <S.Divider>

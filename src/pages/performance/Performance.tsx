@@ -96,18 +96,20 @@ export default function Performance() {
           </S.TabsHelpWrap>
         </S.DayWrap>
 
-        <S.Carousel>
+        <S.Carousel $isFirstDay={selectedDay === '1일차'}>
           <NewCarousel data={performances} onIndexChange={setCurrentIndex} />
         </S.Carousel>
-        <S.ProgressContainer>
-          <S.ProgressBar>
-            <S.ProgressFill
-              width={`${(1 / performances.length) * 100}%`}
-              left={`${(currentIndex / performances.length) * 100}%`}
-            />
-          </S.ProgressBar>
-        </S.ProgressContainer>
-        <S.TimeTableButton onClick={() => navigate('/timetable')}>
+        {performances.length > 0 && (
+          <S.ProgressContainer>
+            <S.ProgressBar>
+              <S.ProgressFill
+                width={`${(1 / performances.length) * 100}%`}
+                left={`${(currentIndex / performances.length) * 100}%`}
+              />
+            </S.ProgressBar>
+          </S.ProgressContainer>
+        )}
+        <S.TimeTableButton onClick={() => navigate('/performance/timetable')}>
           전체 타임 테이블 보러가기
         </S.TimeTableButton>
       </S.Fullscreen>

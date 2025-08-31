@@ -47,7 +47,6 @@ export const TimeBox = styled.div`
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  align-self: stretch;
 `;
 
 export const TimeText = styled.span`
@@ -86,4 +85,21 @@ export const ArtistImage = styled.img`
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+`;
+
+export const EmptyStateContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 8.625rem;
+  margin-bottom: 11.5rem;
+`;
+
+export const EmptyStateText = styled.div`
+  align-self: stretch;
+  color: ${(props) => props.theme.colors.primary.violet};
+  text-align: center;
+  ${(props) => props.theme.fonts.body.medium500};
+  white-space: pre-line;
 `;

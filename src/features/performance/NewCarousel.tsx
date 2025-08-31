@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './NewCarousel.styles';
 import TimeIcon from '@/assets/icons/time_gy200.svg?react';
 import NorthStarIcon from '@/assets/icons/north-star.svg?react';
+import StageFillIcon from '@/assets/icons/stage-fill.svg?react';
 import { NewCarouselProps } from './NewCarousel.types';
 
 export default function NewCarousel({ data, onIndexChange }: NewCarouselProps) {
@@ -86,58 +87,67 @@ export default function NewCarousel({ data, onIndexChange }: NewCarouselProps) {
 
   return (
     <S.Container>
-      <S.CarouselWrapper
-        ref={carouselRef}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onScroll={handleScroll}
-      >
-        {visibleData.map((singer, index) => {
-          const isEven = index % 2 === 0;
-          const isActive = index === currentIndex;
+      {visibleData.length === 0 ? (
+        <S.EmptyStateContainer>
+          <StageFillIcon width="3rem" height="3rem" />
+          <S.EmptyStateText>
+            앗, 축제 1일차에는 공연이 없어요{'\n'}다른 일차를 기대해 주세요!
+          </S.EmptyStateText>
+        </S.EmptyStateContainer>
+      ) : (
+        <S.CarouselWrapper
+          ref={carouselRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onScroll={handleScroll}
+        >
+          {visibleData.map((singer, index) => {
+            const isEven = index % 2 === 0;
+            const isActive = index === currentIndex;
 
-          return (
-            <S.CarouselItem key={index}>
-              {isEven ? (
-                <>
-                  <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
-                    <S.ArtistName>{singer.singer}</S.ArtistName>
-                    <S.TimeBox>
-                      <TimeIcon width="1.125rem" height="1.125rem" />
-                      <S.TimeText>{singer.time}</S.TimeText>
-                    </S.TimeBox>
-                  </S.ArtistTimeBox>
-                  <S.NorthStar>
-                    <NorthStarIcon width="1rem" height="1rem" />
-                  </S.NorthStar>
-                  <S.VerticalLine />
-                  <S.ArtistCircle $isActive={isActive}>
-                    <S.ArtistImage src={singer.backgroundUrl} alt={singer.singer} />
-                  </S.ArtistCircle>
-                </>
-              ) : (
-                <>
-                  <S.ArtistCircle $isActive={isActive}>
-                    <S.ArtistImage src={singer.backgroundUrl} alt={singer.singer} />
-                  </S.ArtistCircle>
-                  <S.VerticalLine />
-                  <S.NorthStar>
-                    <NorthStarIcon width="1rem" height="1rem" />
-                  </S.NorthStar>
-                  <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
-                    <S.ArtistName>{singer.singer}</S.ArtistName>
-                    <S.TimeBox>
-                      <TimeIcon width="1.125rem" height="1.125rem" />
-                      <S.TimeText>{singer.time}</S.TimeText>
-                    </S.TimeBox>
-                  </S.ArtistTimeBox>
-                </>
-              )}
-            </S.CarouselItem>
-          );
-        })}
-      </S.CarouselWrapper>
+            return (
+              <S.CarouselItem key={index}>
+                {isEven ? (
+                  <>
+                    <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
+                      <S.ArtistName>{singer.singer}</S.ArtistName>
+                      <S.TimeBox>
+                        <TimeIcon width="1.125rem" height="1.125rem" />
+                        <S.TimeText>{singer.time}</S.TimeText>
+                      </S.TimeBox>
+                    </S.ArtistTimeBox>
+                    <S.NorthStar>
+                      <NorthStarIcon width="1rem" height="1rem" />
+                    </S.NorthStar>
+                    <S.VerticalLine />
+                    <S.ArtistCircle $isActive={isActive}>
+                      <S.ArtistImage src={singer.backgroundUrl} alt={singer.singer} />
+                    </S.ArtistCircle>
+                  </>
+                ) : (
+                  <>
+                    <S.ArtistCircle $isActive={isActive}>
+                      <S.ArtistImage src={singer.backgroundUrl} alt={singer.singer} />
+                    </S.ArtistCircle>
+                    <S.VerticalLine />
+                    <S.NorthStar>
+                      <NorthStarIcon width="1rem" height="1rem" />
+                    </S.NorthStar>
+                    <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
+                      <S.ArtistName>{singer.singer}</S.ArtistName>
+                      <S.TimeBox>
+                        <TimeIcon width="1.125rem" height="1.125rem" />
+                        <S.TimeText>{singer.time}</S.TimeText>
+                      </S.TimeBox>
+                    </S.ArtistTimeBox>
+                  </>
+                )}
+              </S.CarouselItem>
+            );
+          })}
+        </S.CarouselWrapper>
+      )}
     </S.Container>
   );
 }

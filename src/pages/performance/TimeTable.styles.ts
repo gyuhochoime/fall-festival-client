@@ -12,12 +12,38 @@ to {
 `;
 
 export const Container = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  background-color: ${(p) => p.theme.colors.grayScale.white};
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+`;
+
+export const Header = styled.header`
+  height: 56px;
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
   align-items: center;
-  padding-bottom: 4.37rem;
-  width: 100%;
-  position: relative;
+  border-bottom: 1px solid ${(p) => p.theme.colors.grayScale.gy100};
+`;
+
+export const HeaderButton = styled.button`
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: ${(p) => p.theme.colors.grayScale.gy900};
+  ${(p) => p.theme.fonts.header.h3};
+`;
+
+export const HeaderTitle = styled.div`
+  text-align: center;
+  ${(p) => p.theme.fonts.header.h4};
+  color: ${(p) => p.theme.colors.grayScale.gy900};
 `;
 
 export const TimeWrap = styled.div`
