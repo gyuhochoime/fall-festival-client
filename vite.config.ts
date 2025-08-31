@@ -51,7 +51,7 @@ export default defineConfig({
         short_name: 'ESPERO',
         description: 'HYU-ERICA 2025 ESPERO 가을 축제 웹앱',
         theme_color: '#7E419A',
-        background_color: '#2D1C46',
+        background_color: '#301B3B',
         start_url: '/',
         display: 'standalone',
         display_override: ['window-controls-overlay', 'standalone'],
