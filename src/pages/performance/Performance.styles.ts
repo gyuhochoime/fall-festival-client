@@ -43,9 +43,9 @@ export const Fullscreen = styled.main`
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  overflow: hidden auto;
+  overflow: visible;
   min-height: 0;
-  padding-bottom: 16px;
+  padding-bottom: 1rem;
 `;
 
 export const InfoWrap = styled.div`
@@ -82,11 +82,11 @@ export const HelpIconStyled = styled(HelpIcon)`
 
 export const Carousel = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  align-self: stretch;
+  width: 100%;
   margin-top: 1rem;
+  overflow: visible;
 `;
 
 export const TableNoteWrap = styled.div`
@@ -108,4 +108,53 @@ export const NoteText = styled.p`
   align-self: stretch;
   ${(props) => props.theme.fonts.header.h3};
   color: ${(props) => props.theme.colors.grayScale.black};
+`;
+
+export const TimeTableButton = styled.button`
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.375rem;
+  ${(props) => props.theme.fonts.body.xsmall500};
+  color: ${(props) => props.theme.colors.primary.violet};
+  text-align: center;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  margin-right: 1.25rem;
+  align-self: flex-end;
+`;
+
+export const ProgressContainer = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+`;
+
+export const ProgressBar = styled.div`
+  width: 20.9375rem;
+  height: 0.125rem;
+  background: ${(props) => props.theme.colors.grayScale.gy200_eee};
+  position: relative;
+  border-radius: 0.0625rem;
+`;
+
+export const ProgressFill = styled.div<{ width: string; left: string }>`
+  width: ${(props) => props.width};
+  height: 0.2rem;
+  background: ${(props) => props.theme.colors.secondary.vl800};
+  position: absolute;
+  left: ${(props) => props.left};
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 0.0625rem;
+  transition: all 0.3s ease;
 `;

@@ -5,7 +5,7 @@ import { useLayoutStore } from '@/stores/useLayoutStore';
 import { Notification } from '@/components/notification';
 import { Tabs } from '@/components/tabs';
 
-import { Carousel } from '@/features/performance';
+import NewCarousel from '@/features/performance/NewCarousel';
 import { performanceData } from '@/constants/performance/SingerInfo';
 import { ModalHelp } from '@/features/performance';
 import useModal from '@/hooks/useModal';
@@ -25,6 +25,7 @@ export default function Performance() {
   const navigate = useNavigate();
   const setIsNav = useLayoutStore((s) => s.setIsNav);
   const [selectedDay, setSelectedDay] = useState<DayType>('2일차');
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const performances = performanceData[selectedDay];
 
   // 진입/이탈 시 하단 탭바 숨김/복원
@@ -96,8 +97,19 @@ export default function Performance() {
         </S.DayWrap>
 
         <S.Carousel>
-          <Carousel data={performances} />
+          <NewCarousel data={performances} onIndexChange={setCurrentIndex} />
         </S.Carousel>
+        <S.ProgressContainer>
+          <S.ProgressBar>
+            <S.ProgressFill
+              width={`${(1 / performances.length) * 100}%`}
+              left={`${(currentIndex / performances.length) * 100}%`}
+            />
+          </S.ProgressBar>
+        </S.ProgressContainer>
+        <S.TimeTableButton onClick={() => navigate('/timetable')}>
+          전체 타임 테이블 보러가기
+        </S.TimeTableButton>
       </S.Fullscreen>
     </S.PerformanceContainer>
   );
