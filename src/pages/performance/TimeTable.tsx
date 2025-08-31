@@ -1,6 +1,4 @@
 import * as S from './TimeTable.styles';
-import BackIcon from '@/assets/icons/left-arrow.svg?react';
-import CloseIcon from '@/assets/icons/close-black.svg?react';
 import { singers, time } from '@/constants/performance/SingerList';
 import { useEffect, useState } from 'react';
 import { useLayoutStore } from '@/stores/useLayoutStore';
@@ -8,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import TabNav from '@/components/tab-nav';
 import StageFillIcon from '@/assets/icons/stage-fill.svg?react';
 import NorthStarIcon from '@/assets/icons/north-star.svg?react';
+import { NavBar } from '@/components/nav-bar/NavBar';
 
 /**
  * TimeTable component
@@ -26,10 +25,6 @@ export default function TimeTable() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
   const currentPerformances = singers[selectedDay];
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   const handleExit = () => {
     navigate('/');
@@ -80,25 +75,13 @@ export default function TimeTable() {
 
   return (
     <S.Container>
-      <S.Header>
-        <S.HeaderButton aria-label="뒤로">
-          <BackIcon
-            style={{ cursor: 'pointer' }}
-            width={'0.95rem'}
-            height={'0.95rem'}
-            onClick={handleBack}
-          />
-        </S.HeaderButton>
-        <S.HeaderTitle>타임테이블</S.HeaderTitle>
-        <S.HeaderButton aria-label="나가기">
-          <CloseIcon
-            style={{ cursor: 'pointer' }}
-            width={'0.85rem'}
-            height={'0.85rem'}
-            onClick={handleExit}
-          />
-        </S.HeaderButton>
-      </S.Header>
+      <NavBar
+        isBack={true}
+        title="타임테이블"
+        isClose={true}
+        backPath={-1}
+        onCloseClick={handleExit}
+      />
       <S.TabNavWrap>
         <TabNav
           tabs={TABS}

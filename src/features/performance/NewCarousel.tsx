@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import * as S from './NewCarousel.styles';
-import TimeIcon from '@/assets/icons/time_gy200.svg?react';
+import TimeIcon from '@/assets/icons/time-performance.svg?react';
 import NorthStarIcon from '@/assets/icons/north-star.svg?react';
 import StageFillIcon from '@/assets/icons/stage-fill.svg?react';
 import { NewCarouselProps } from './NewCarousel.types';
+import { PerformanceItem } from './Carousel.types';
 
-export default function NewCarousel({ data, onIndexChange }: NewCarouselProps) {
+export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [visibleData, setVisibleData] = useState(data);
   const [textFade, setTextFade] = useState<'in' | 'out'>('in');
@@ -102,7 +103,7 @@ export default function NewCarousel({ data, onIndexChange }: NewCarouselProps) {
           onTouchEnd={handleTouchEnd}
           onScroll={handleScroll}
         >
-          {visibleData.map((singer, index) => {
+          {visibleData.map((singer: PerformanceItem, index: number) => {
             const isEven = index % 2 === 0;
             const isActive = index === currentIndex;
 
@@ -113,7 +114,7 @@ export default function NewCarousel({ data, onIndexChange }: NewCarouselProps) {
                     <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
                       <S.ArtistName>{singer.singer}</S.ArtistName>
                       <S.TimeBox>
-                        <TimeIcon width="1.125rem" height="1.125rem" />
+                        <TimeIcon width="0.75rem" height="0.75rem" />
                         <S.TimeText>{singer.time}</S.TimeText>
                       </S.TimeBox>
                     </S.ArtistTimeBox>
@@ -122,13 +123,23 @@ export default function NewCarousel({ data, onIndexChange }: NewCarouselProps) {
                     </S.NorthStar>
                     <S.VerticalLine />
                     <S.ArtistCircle $isActive={isActive}>
-                      <S.ArtistImage src={singer.backgroundUrl} alt={singer.singer} />
+                      <S.ArtistImage
+                        src={singer.backgroundUrl}
+                        alt={singer.singer}
+                        onClick={() => onArtistClick?.(singer)}
+                        style={{ cursor: 'pointer' }}
+                      />
                     </S.ArtistCircle>
                   </>
                 ) : (
                   <>
                     <S.ArtistCircle $isActive={isActive}>
-                      <S.ArtistImage src={singer.backgroundUrl} alt={singer.singer} />
+                      <S.ArtistImage
+                        src={singer.backgroundUrl}
+                        alt={singer.singer}
+                        onClick={() => onArtistClick?.(singer)}
+                        style={{ cursor: 'pointer' }}
+                      />
                     </S.ArtistCircle>
                     <S.VerticalLine />
                     <S.NorthStar>
@@ -137,7 +148,7 @@ export default function NewCarousel({ data, onIndexChange }: NewCarouselProps) {
                     <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
                       <S.ArtistName>{singer.singer}</S.ArtistName>
                       <S.TimeBox>
-                        <TimeIcon width="1.125rem" height="1.125rem" />
+                        <TimeIcon width="0.75rem" height="0.75rem" />
                         <S.TimeText>{singer.time}</S.TimeText>
                       </S.TimeBox>
                     </S.ArtistTimeBox>

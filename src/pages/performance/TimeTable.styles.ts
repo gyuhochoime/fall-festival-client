@@ -52,7 +52,7 @@ export const TimeWrap = styled.div`
   align-items: flex-start;
   position: relative;
   flex: 1;
-  margin-top: 4.25rem;
+  margin-top: 8.625rem;
   height: 34.6875rem;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -184,7 +184,7 @@ export const Line = styled.div`
 
 export const TabNavWrap = styled.div`
   position: fixed;
-  top: 3.875rem;
+  top: 4.375rem;
   left: 0;
   right: 0;
   background-color: ${(props) => props.theme.colors.grayScale.white};
@@ -196,7 +196,7 @@ export const EmptyStateContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 14.625rem;
+  margin-top: 19rem;
   margin-bottom: 11.5rem;
 `;
 

@@ -7,7 +7,7 @@
  * @property {string} singer - 가수 이름
  * @property {string} time - 공연 시간
  * @property {string} description - 공연 설명
- * @property {Array<{ image: string; name: string }>} songList - 공연 곡 리스트
+ * @property {Array<{ image: string; name: string; url: string }>} songList - 공연 곡 리스트
  */
 
 export type PerformanceItem = {
@@ -17,7 +17,7 @@ export type PerformanceItem = {
   fcm_singer: string;
   time: string;
   description: string;
-  songList: { image: string; name: string }[];
+  songList: { image: string; name: string; url: string }[];
 };
 
 /**

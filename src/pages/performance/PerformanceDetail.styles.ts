@@ -1,9 +1,132 @@
 import styled from 'styled-components';
 
 export const DetailsContainer = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  background: linear-gradient(
+    180deg,
+    rgb(249 235 255 / 20%) 13.46%,
+    rgb(182 121 211 / 20%) 50%,
+    rgb(255 255 255 / 20%) 74.52%
+  );
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+
+export const Header = styled.header`
+  height: 56px;
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
+  align-items: center;
+  border-bottom: 1px solid ${(p) => p.theme.colors.grayScale.gy100};
+`;
+
+export const HeaderButton = styled.button`
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: ${(p) => p.theme.colors.grayScale.gy900};
+  ${(p) => p.theme.fonts.header.h3};
+`;
+
+export const HeaderTitle = styled.div`
+  text-align: center;
+  ${(p) => p.theme.fonts.header.h4};
+  color: ${(p) => p.theme.colors.grayScale.gy900};
+`;
+
+export const Fullscreen = styled.main`
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: visible;
+  min-height: 0;
+  padding-bottom: 1rem;
+`;
+
+export const ArtistInfoSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 5.875rem;
+`;
+
+export const ArtistCircle = styled.div`
+  width: 15rem;
+  height: 15rem;
+  flex-shrink: 0;
+  background-color: #eee;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 12px rgb(126 65 154 / 30%));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+`;
+
+export const ArtistCircleImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+`;
+
+export const ArtistTextSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+export const ArtistName = styled.h3`
+  color: #1a1a1a;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 142%;
+  letter-spacing: -0.025rem;
+  margin: 0;
+`;
+
+export const ArtistGenre = styled.span`
+  color: #616161;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.02rem;
+`;
+
+export const ArtistInfoBox = styled.div`
+  display: flex;
+  width: 100%;
+  place-content: center center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+`;
+
+export const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+`;
+
+export const InfoText = styled.span`
+  color: #616161;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.014rem;
 `;
 
 export const ImageWrap = styled.div<{ $url: string }>`

@@ -9,9 +9,8 @@ import NewCarousel from '@/features/performance/NewCarousel';
 import { performanceData } from '@/constants/performance/SingerInfo';
 import { ModalHelp } from '@/features/performance';
 import useModal from '@/hooks/useModal';
-
-import BackIcon from '@/assets/icons/left-arrow.svg?react';
-import CloseIcon from '@/assets/icons/close-black.svg?react';
+import { PerformanceItem } from '@/features/performance/Carousel.types';
+import { NavBar } from '@/components/nav-bar/NavBar';
 
 export type DayType = '1일차' | '2일차' | '3일차';
 
@@ -45,36 +44,24 @@ export default function Performance() {
     );
   };
 
-  const handleBack = () => {
+  const handleExit = () => {
     navigate('/main');
   };
 
-  const handleExit = () => {
-    navigate('/main');
+  const handleArtistClick = (artistData: PerformanceItem) => {
+    navigate('/performance/detail', { state: artistData });
   };
 
   return (
     <S.PerformanceContainer>
       {/* 상단 헤더 */}
-      <S.Header>
-        <S.HeaderButton aria-label="뒤로">
-          <BackIcon
-            style={{ cursor: 'pointer' }}
-            width={'0.95rem'}
-            height={'0.95rem'}
-            onClick={handleBack}
-          />
-        </S.HeaderButton>
-        <S.HeaderTitle>공연</S.HeaderTitle>
-        <S.HeaderButton aria-label="나가기">
-          <CloseIcon
-            style={{ cursor: 'pointer' }}
-            width={'0.85rem'}
-            height={'0.85rem'}
-            onClick={handleExit}
-          />
-        </S.HeaderButton>
-      </S.Header>
+      <NavBar
+        isBack={true}
+        title="공연"
+        isClose={true}
+        backPath="/main"
+        onCloseClick={handleExit}
+      />
 
       {/* 본문 */}
       <S.Fullscreen role="main">
@@ -97,7 +84,11 @@ export default function Performance() {
         </S.DayWrap>
 
         <S.Carousel $isFirstDay={selectedDay === '1일차'}>
-          <NewCarousel data={performances} onIndexChange={setCurrentIndex} />
+          <NewCarousel
+            data={performances}
+            onIndexChange={setCurrentIndex}
+            onArtistClick={handleArtistClick}
+          />
         </S.Carousel>
         {performances.length > 0 && (
           <S.ProgressContainer>

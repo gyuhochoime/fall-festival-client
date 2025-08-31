@@ -54,7 +54,7 @@ export const InfoWrap = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 4.625rem;
 `;
 
 export const DayWrap = styled.div`
@@ -112,6 +112,9 @@ export const NoteText = styled.p`
 `;
 
 export const TimeTableButton = styled.button`
+  position: fixed;
+  top: 37.25rem;
+  right: 1.25rem;
   display: flex;
   padding: 0.25rem 0.75rem;
   justify-content: center;
@@ -129,9 +132,7 @@ export const TimeTableButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
-  margin-top: 0.25rem;
-  margin-right: 1.25rem;
-  align-self: flex-end;
+  z-index: 10;
 `;
 
 export const ProgressContainer = styled.div`
