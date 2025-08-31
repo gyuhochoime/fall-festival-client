@@ -8,7 +8,7 @@ import POLAROID_ICON from '@/assets/icons/polaroid.svg?react';
 
 import HOME_ICON_ACTIVE from '@/assets/icons/home-filled.svg?react';
 import MAP_ICON_ACTIVE from '@/assets/icons/geopoint-filled.svg?react';
-import STAGE_ICON_ACTIVE from '@/assets/icons/stage-filled.svg?react';
+import STAGE_ICON_ACTIVE from '@/assets/icons/stage-fill.svg?react';
 import PUB_ICON_ACTIVE from '@/assets/icons/pub-filled.svg?react';
 import POLAROID_ICON_ACTIVE from '@/assets/icons/polaroid-filled.svg?react';
 
@@ -32,7 +32,7 @@ export const NAV_ITEMS: navItems = [
     path: '/performance',
     label: '공연',
     DefaultIcon: <STAGE_ICON width={'1.5rem'} height={'1.5rem'} />,
-    ActiveIcon: <STAGE_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
+    ActiveIcon: <STAGE_ICON_ACTIVE width={'24px'} height={'24px'} />,
   },
   {
     id: 'booth',

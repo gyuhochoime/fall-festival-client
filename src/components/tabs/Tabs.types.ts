@@ -32,6 +32,12 @@ export type TabsProps = {
    * default: "0"
    */
   margin?: CSSMarginValue;
+
+  /**
+   * 탭 간격 지정 (예: "0.25rem")
+   * default: "0.5rem"
+   */
+  gap?: string;
 };
 
 /**

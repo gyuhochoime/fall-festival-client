@@ -12,32 +12,70 @@ to {
 `;
 
 export const Container = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  background-color: ${(p) => p.theme.colors.grayScale.white};
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+`;
+
+export const Header = styled.header`
+  height: 56px;
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
   align-items: center;
-  padding-bottom: 4.37rem;
-  width: 100%;
-  position: relative;
+  border-bottom: 1px solid ${(p) => p.theme.colors.grayScale.gy100};
+`;
+
+export const HeaderButton = styled.button`
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: ${(p) => p.theme.colors.grayScale.gy900};
+  ${(p) => p.theme.fonts.header.h3};
+`;
+
+export const HeaderTitle = styled.div`
+  text-align: center;
+  ${(p) => p.theme.fonts.header.h4};
+  color: ${(p) => p.theme.colors.grayScale.gy900};
 `;
 
 export const TimeWrap = styled.div`
   display: flex;
-  width: 20.9375rem;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   position: relative;
   flex: 1;
-  margin-top: 3.5rem;
+  margin-top: 8.625rem;
+  height: 34.6875rem;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 `;
 
+export const TimeAndBarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-left: 1.25rem;
+`;
+
+export const TimeContainer = styled.div`
+  display: flex;
+  width: 2.5rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
+
 export const TimeBoxWrap = styled.div`
   display: flex;
-  height: 6rem;
-  padding: 0.5rem;
-  align-items: flex-start;
-  align-self: stretch;
+  align-items: center;
 `;
 
 export const TimeTable = styled.div`
@@ -96,7 +134,7 @@ export const TimeBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>`
 
 export const TimeText = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
-  color: ${({ theme }) => theme.colors.grayScale.black};
+  color: ${({ theme }) => theme.colors.grayScale.gy850};
 `;
 
 export const ContentBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>`
@@ -146,9 +184,88 @@ export const Line = styled.div`
 
 export const TabNavWrap = styled.div`
   position: fixed;
-  top: 3.875rem;
+  top: 4.375rem;
   left: 0;
   right: 0;
   background-color: ${(props) => props.theme.colors.grayScale.white};
   z-index: 100;
+`;
+
+export const EmptyStateContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 19rem;
+  margin-bottom: 11.5rem;
+`;
+
+export const EmptyStateText = styled.div`
+  align-self: stretch;
+  color: ${(props) => props.theme.colors.primary.violet};
+  text-align: center;
+  ${(props) => props.theme.fonts.body.medium500};
+  white-space: pre-line;
+`;
+
+export const NorthStarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const NorthStarLine = styled.div`
+  width: 0.0663rem;
+  height: 33.75rem;
+  background: ${(props) => props.theme.colors.grayScale.gy100};
+  position: relative;
+`;
+
+export const NorthStarTop = styled.div`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+export const NorthStarBottom = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+export const ArtistBoxContainer = styled.div`
+  position: relative;
+  margin-left: 2.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+`;
+
+export const ArtistBox = styled.div<{ $isActive: boolean }>`
+  display: flex;
+  width: 15.3125rem;
+  height: 6.25rem;
+  padding: 0.75rem 1.25rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  background: ${({ $isActive, theme }) =>
+    $isActive ? 'rgba(126, 65, 154, 0.20)' : theme.colors.grayScale.white};
+  box-shadow: 0 0 0.75rem 0 rgb(126 65 154 / 30%);
+`;
+
+export const ArtistName = styled.div<{ $isActive: boolean }>`
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.primary.violet : theme.colors.grayScale.gy850};
+  ${(props) => props.theme.fonts.body.small600};
+`;
+
+export const ArtistTime = styled.div<{ $isActive: boolean }>`
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.primary.violet : theme.colors.grayScale.gy400};
+  ${(props) => props.theme.fonts.body.xsmall500};
 `;
