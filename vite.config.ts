@@ -43,16 +43,15 @@ export default defineConfig({
       injectRegister: false,
 
       pwaAssets: {
-        disabled: false,
-        config: true,
+        disabled: true,
       },
 
       manifest: {
-        name: 'ESPERO:HYLIGHT 2025',
-        short_name: 'ESPERO:HYLIGHT',
-        description: 'HYU-ERICA 2025 fall festival application',
-        theme_color: '#F5F5F5',
-        background_color: '#F5F5F5',
+        name: 'ESPERO',
+        short_name: 'ESPERO',
+        description: 'HYU-ERICA 2025 ESPERO 가을 축제 웹앱',
+        theme_color: '#7E419A',
+        background_color: '#301B3B',
         start_url: '/',
         display: 'standalone',
         display_override: ['window-controls-overlay', 'standalone'],
@@ -114,6 +113,7 @@ export default defineConfig({
 
       injectManifest: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        maximumFileSizeToCacheInBytes: 50 * 1024 * 1024, // 50 MB로 제한 증가
       },
 
       devOptions: {
