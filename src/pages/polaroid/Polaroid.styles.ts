@@ -70,15 +70,14 @@ export const Slide = styled.div`
   scroll-snap-align: start;
 `;
 
-export const PlaceholderImage = styled.div`
-  width: 70%;
-  max-width: 320px;
-  aspect-ratio: 3/4;
+export const OnboardingImage = styled.img`
+  width: 90%;
+
+  /* max-width: 320px; */
+  aspect-ratio: 1;
   border-radius: 12px;
-  background: ${(p) => p.theme.colors.grayScale.gy100};
-  display: grid;
-  place-items: center;
-  color: ${(p) => p.theme.colors.grayScale.gy500};
+  background: transparent;
+  object-fit: cover;
 `;
 
 export const SlideText = styled.p`
