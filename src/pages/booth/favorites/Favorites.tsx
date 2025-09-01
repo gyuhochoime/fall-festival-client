@@ -1,7 +1,7 @@
 import { NavBar } from '@/components/nav-bar/NavBar';
 import { ImageTextFrameWithOrganization } from '@/components/image-text-frame';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { BOOTH_LIST } from '@/constants/booth/booth';
+import { useBooths } from '@/hooks/useBooth';
 import { Fragment } from 'react/jsx-runtime';
 import { useFavorites } from '@/hooks/useFavorites';
 
@@ -14,8 +14,10 @@ export default function Favorites() {
   const location = useLocation();
   const { handleToggleFavorite, isFavorited } = useFavorites();
 
+  const { booths, loading, error } = useBooths();
+
   // 찜한 주점들만 필터링
-  const favoriteBooths = BOOTH_LIST.filter((booth) => isFavorited(booth.id));
+  const favoriteBooths = booths.filter((booth) => isFavorited(booth.id));
 
   return (
     <S.Container>
@@ -26,7 +28,15 @@ export default function Favorites() {
             <S.Count>전체 {favoriteBooths.length}개</S.Count>
           </S.Header>
 
-          {favoriteBooths.length === 0 ? (
+          {loading ? (
+            <S.EmptyState>
+              <S.EmptyText>찜한 주점을 불러오는 중...</S.EmptyText>
+            </S.EmptyState>
+          ) : error ? (
+            <S.EmptyState>
+              <S.EmptyText>{error}</S.EmptyText>
+            </S.EmptyState>
+          ) : favoriteBooths.length === 0 ? (
             <S.EmptyState>
               <S.EmptyText>
                 아직 찜한 주점이 없습니다.{'\n'}
