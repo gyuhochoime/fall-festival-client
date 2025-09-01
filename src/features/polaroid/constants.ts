@@ -67,7 +67,7 @@ export const DEVELOP_CONFIG = {
 // 흔들기 현상 관련 상수
 export const SHAKE_CONFIG = {
   // === 기본 흔들기 설정 ===
-  maxShakes: 20, // 현상 완료까지 필요한 흔들기 횟수 (10~30 권장)
+  maxShakes: 30, // 현상 완료까지 필요한 흔들기 횟수 (10~30 권장)
   shakeThreshold: 15, // 흔들기 감지 임계값 (10~25 권장, 낮을수록 민감)
   shakeCooldown: 200, // 연속 흔들기 방지 시간 (100~300ms 권장)
 
