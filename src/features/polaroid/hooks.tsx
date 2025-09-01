@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { DEVELOP_CONFIG, SHAKE_CONFIG } from './constants';
 import { FrameCategory, FrameKey } from './types';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
@@ -219,34 +219,9 @@ export function useFrameSelection() {
  */
 export function useOnboardingSlides() {
   const [slideIndex, setSlideIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const onScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const i = Math.round(el.scrollLeft / el.clientWidth);
-    setSlideIndex(i);
-  };
-
-  const goNextSlide = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const next = Math.min(2, slideIndex + 1);
-    el.scrollTo({ left: el.clientWidth * next, behavior: 'smooth' });
-  };
-
-  const goToSlide = (index: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollTo({ left: el.clientWidth * index, behavior: 'smooth' });
-  };
 
   return {
     slideIndex,
-    scrollRef,
-    onScroll,
-    goNextSlide,
-    goToSlide,
     setSlideIndex,
   };
 }
@@ -258,17 +233,20 @@ export function usePhotoCapture() {
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleShootClick = () => {
+  const handleShootClick = useCallback(() => {
     fileInputRef.current?.click();
-  };
+  }, []);
 
-  const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (photoUrl) URL.revokeObjectURL(photoUrl);
-    const url = URL.createObjectURL(file);
-    setPhotoUrl(url);
-  };
+  const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      if (photoUrl) URL.revokeObjectURL(photoUrl);
+      const url = URL.createObjectURL(file);
+      setPhotoUrl(url);
+    },
+    [photoUrl],
+  );
 
   // 메모리 누수 방지
   useEffect(() => {

@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { useToastStore } from '@/stores/useToastStore';
 
@@ -46,8 +50,16 @@ export default function Polaroid() {
   const [step, setStep] = useState<Step>('intro');
 
   // 커스텀 훅들
-  const { slideIndex, scrollRef, onScroll, goNextSlide, goToSlide, setSlideIndex } =
-    useOnboardingSlides();
+  const { slideIndex, setSlideIndex } = useOnboardingSlides();
+  const sliderRef = useRef<Slider | null>(null);
+
+  const goNextSlide = () => {
+    sliderRef.current?.slickNext();
+  };
+
+  const goToSlide = (index: number) => {
+    sliderRef.current?.slickGoTo(index);
+  };
 
   const { photoUrl, fileInputRef, handleShootClick, handleFileChange } = usePhotoCapture();
 
@@ -190,6 +202,48 @@ export default function Polaroid() {
   const headerTitle = useMemo(() => '폴라로이드', []);
   const isLastSlide = slideIndex === 2;
 
+  // YYYY-MM-DD 형식의 오늘 날짜를 반환하는 함수
+  const getTodayDateString = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // 스킵 버튼 핸들러
+  const handleSkip = () => {
+    if (isLastSlide) {
+      // 마지막 슬라이드에서 "오늘하루 그만보기"
+      localStorage.setItem('skipPolaroidDate', getTodayDateString());
+      handleShootClick(); // 촬영하기 버튼 클릭과 동일한 동작
+    } else {
+      // 중간 슬라이드에서 "안내화면 스킵하기"
+      goToSlide(2); // 마지막 슬라이드로 바로 이동
+    }
+  };
+
+  // step이 'intro'일 때, 오늘 날짜에 스킵했는지 확인
+  useEffect(() => {
+    if (step === 'intro') {
+      const skipDate = localStorage.getItem('skipPolaroidDate');
+      if (skipDate === getTodayDateString()) {
+        handleShootClick(); // 오늘 이미 스킵했다면 바로 촬영 단계로
+      }
+    }
+  }, [step, handleShootClick]); // step이 변경될 때마다 체크
+
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    afterChange: (index: number) => setSlideIndex(index),
+    centerMode: false,
+  };
+
   return (
     <S.Container>
       {/* 상단 헤더 */}
@@ -217,14 +271,16 @@ export default function Polaroid() {
       <S.Fullscreen role="main" ref={containerRef}>
         {step === 'intro' && (
           <>
-            <S.SwipeWrap ref={scrollRef} onScroll={onScroll}>
-              {ONBOARDING_IMAGES.map((src, i) => (
-                <S.Slide key={i}>
-                  <S.OnboardingImage src={src} alt={`온보딩 이미지 ${i + 1}`} />
-                  <S.SlideText>{SLIDE_TEXTS[i]}</S.SlideText>
-                </S.Slide>
-              ))}
-            </S.SwipeWrap>
+            <S.SliderWrapper>
+              <Slider ref={sliderRef} {...sliderSettings}>
+                {ONBOARDING_IMAGES.map((src, i) => (
+                  <S.Slide key={i}>
+                    <S.OnboardingImage src={src} alt={`온보딩 이미지 ${i + 1}`} />
+                    <S.SlideText>{SLIDE_TEXTS[i]}</S.SlideText>
+                  </S.Slide>
+                ))}
+              </Slider>
+            </S.SliderWrapper>
             <S.Dots>
               {[0, 1, 2].map((i) => (
                 <S.Dot key={i} $active={i === slideIndex} />
@@ -233,6 +289,9 @@ export default function Polaroid() {
             <S.PrimaryButton onClick={isLastSlide ? handleShootClick : goNextSlide}>
               {isLastSlide ? '촬영하기' : '다음으로'}
             </S.PrimaryButton>
+            <S.SkipLink onClick={handleSkip}>
+              {isLastSlide ? '오늘하루 그만보기' : '안내화면 스킵하기'}
+            </S.SkipLink>
 
             <input
               ref={fileInputRef}
@@ -502,7 +561,15 @@ export default function Polaroid() {
 
             <S.ButtonRow>
               <S.PrimaryButton onClick={handleSave}>저장하기</S.PrimaryButton>
-              <S.SecondaryButton onClick={() => setStep('intro')}>다시하기</S.SecondaryButton>
+              <S.SecondaryButton
+                onClick={() => {
+                  setStep('intro');
+                  setSlideIndex(2);
+                  requestAnimationFrame(() => goToSlide(2));
+                }}
+              >
+                다시하기
+              </S.SecondaryButton>
             </S.ButtonRow>
             {/* 숨김 캔버스: 저장 시 사용 */}
             <canvas ref={canvasRef} style={{ display: 'none' }} />

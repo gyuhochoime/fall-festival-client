@@ -49,30 +49,38 @@ export const Fullscreen = styled.main`
 `;
 
 // Intro swiper
-export const SwipeWrap = styled.div`
+export const SliderWrapper = styled.div`
   flex: 1;
   width: 100%;
-  display: flex;
-  overflow: auto hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+  min-height: 0; /* flex-child 높이 이슈 방지 */
+
+  /* slick-slider customizations */
+  .slick-slider,
+  .slick-list,
+  .slick-track {
+    height: 100%;
+  }
+
+  .slick-slide > div {
+    height: 100%;
+    display: flex;
+    width: 100%;
+  }
 `;
 
 export const Slide = styled.div`
-  flex: 0 0 100%;
   width: 100%;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 24px 0px;
-  scroll-snap-align: start;
+  position: relative;
 `;
 
 export const OnboardingImage = styled.img`
   width: 90%;
-  max-height: calc(100dvh - 17rem);
+  max-height: calc(100dvh - 18.5rem);
 
   /* max-width: 320px; */
   aspect-ratio: 1;
@@ -127,6 +135,14 @@ export const SecondaryButton = styled.button`
   color: ${(p) => p.theme.colors.grayScale.gy800};
   border-radius: 100px;
   ${(p) => p.theme.fonts.body.medium500};
+`;
+
+export const SkipLink = styled.a`
+  display: block;
+  text-decoration: underline;
+  color: ${(p) => p.theme.colors.primary.violet};
+  ${(p) => p.theme.fonts.body.small600};
+  padding-bottom: 3rem;
 `;
 
 export const ButtonRow = styled.div`

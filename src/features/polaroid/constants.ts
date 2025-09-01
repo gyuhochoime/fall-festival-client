@@ -32,19 +32,19 @@ import specialDenimThumb from '@/assets/images/polaroid/frames/special/denim-thu
 
 export const FRAMES: FrameCollection = {
   basic: {
-    black: { frame: basicBlackFrame, thumb: basicBlackThumb, name: '검정' },
-    pink: { frame: basicPinkFrame, thumb: basicPinkThumb, name: '분홍' },
-    sky: { frame: basicSkyFrame, thumb: basicSkyThumb, name: '하늘' },
-    white: { frame: basicWhiteFrame, thumb: basicWhiteThumb, name: '하양' },
-    yellow: { frame: basicYellowFrame, thumb: basicYellowThumb, name: '노랑' },
+    black: { frame: basicBlackFrame, thumb: basicBlackThumb, name: '블랙' },
+    pink: { frame: basicPinkFrame, thumb: basicPinkThumb, name: '핑크' },
+    sky: { frame: basicSkyFrame, thumb: basicSkyThumb, name: '스카이' },
+    white: { frame: basicWhiteFrame, thumb: basicWhiteThumb, name: '화이트' },
+    yellow: { frame: basicYellowFrame, thumb: basicYellowThumb, name: '옐로우' },
   },
   special: {
     day1: { frame: specialDay1Frame, thumb: specialDay1Thumb, name: '1일차' },
     day2: { frame: specialDay2Frame, thumb: specialDay2Thumb, name: '2일차' },
     day3: { frame: specialDay3Frame, thumb: specialDay3Thumb, name: '3일차' },
 
-    black: { frame: specialBlackFrame, thumb: specialBlackThumb, name: '검정' },
-    pink: { frame: specialPinkFrame, thumb: specialPinkThumb, name: '분홍' },
+    black: { frame: specialBlackFrame, thumb: specialBlackThumb, name: '심플 블랙' },
+    pink: { frame: specialPinkFrame, thumb: specialPinkThumb, name: '메탈 핑크' },
     denim: { frame: specialDenimFrame, thumb: specialDenimThumb, name: '데님' },
   },
 };
@@ -67,7 +67,7 @@ export const DEVELOP_CONFIG = {
 // 흔들기 현상 관련 상수
 export const SHAKE_CONFIG = {
   // === 기본 흔들기 설정 ===
-  maxShakes: 30, // 현상 완료까지 필요한 흔들기 횟수 (10~30 권장)
+  maxShakes: 20, // 현상 완료까지 필요한 흔들기 횟수 (10~30 권장)
   shakeThreshold: 15, // 흔들기 감지 임계값 (10~25 권장, 낮을수록 민감)
   shakeCooldown: 200, // 연속 흔들기 방지 시간 (100~300ms 권장)
 
@@ -84,6 +84,6 @@ export const SHAKE_CONFIG = {
 // 온보딩 슬라이드 텍스트
 export const SLIDE_TEXTS = [
   '흘려보내기 아쉬운 순간들을\n폴라로이드 카메라에 담아 보세요!',
-  '사진을 찍고 나면, 프레임을 선택할 수 있어요!\n오늘의 하루를 기록할 스페셜 프레임을 만나보세요',
-  '두근두근! 환한 미소는 준비 되셨나요?\n그럼, 시작해 볼까요?',
+  '사진을 찍고 나면, 프레임을 선택할 수 있어요!\n특정 일자에만 나타나는 스페셜 프레임도 놓치지 마세요',
+  '촬영한 사진은 서버에 저장되지 않으니 걱정 마세요!\n그럼, 시작해 볼까요?',
 ];
