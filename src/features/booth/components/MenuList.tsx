@@ -2,15 +2,15 @@ import { Tabs } from '@/components/tabs';
 import { useState } from 'react';
 import * as S from './MenuList.styles';
 import { MenuFrame } from '@/components/image-text-frame';
-import { BOOTH_LIST } from '@/constants/booth/booth';
+import { useBooth } from '@/hooks/useBooth';
 const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '음료'];
 
 export default function MenuList({ id }: { id: number }) {
   const [activeTab, setActiveTab] = useState<string>('');
-  const booth = BOOTH_LIST.find((booth) => booth.id === Number(id)); // ✅ 타입 일치
-  if (!booth) {
-    return null; // or handle the case when the booth is not found
-  }
+  const { booth, loading, error } = useBooth(id);
+
+  if (loading) return <div>메뉴 정보를 불러오는 중...</div>;
+  if (error || !booth) return <div>메뉴 정보를 찾을 수 없습니다.</div>;
   return (
     <>
       <S.TabsContainer>

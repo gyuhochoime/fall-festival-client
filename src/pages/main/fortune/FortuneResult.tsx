@@ -10,6 +10,7 @@ interface LocationState {
   selectedCardIndex: number;
   name: string;
   birthDate: string;
+  fortuneImageUrl?: string;
 }
 
 export default function FortuneResult() {
@@ -21,6 +22,7 @@ export default function FortuneResult() {
   const state = location.state as LocationState;
   const selectedCardIndex = state?.selectedCardIndex ?? 0;
   const name = state?.name || 'Username';
+  const fortuneImageUrl = state?.fortuneImageUrl;
 
   const today = new Date();
   const month = today.getMonth() + 1;
@@ -61,7 +63,7 @@ export default function FortuneResult() {
               />
             </S.CardFaceFront>
             <S.CardFaceBack>
-              <img src={ResultDummy} alt="fortune result" />
+              <img src={fortuneImageUrl || ResultDummy} alt="fortune result" />
             </S.CardFaceBack>
           </S.CardInner>
         </S.CardContainer>

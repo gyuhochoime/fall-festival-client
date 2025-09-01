@@ -1,0 +1,60 @@
+export interface BoothMenuItem {
+  name: string;
+  describtion: string;
+  price: string;
+}
+
+export interface BoothMenu {
+  main: BoothMenuItem[];
+  side: BoothMenuItem[];
+  sub: BoothMenuItem[];
+}
+
+export interface Booth {
+  id: number;
+  locate: string;
+  type: string;
+  affiliation: string;
+  pubName: string;
+  menu: BoothMenu;
+  takeout: boolean;
+  profileImage: string;
+  posterImage: string;
+}
+
+export interface PubApiResponse {
+  id: number;
+  location: string;
+  type: string;
+  affiliation: string;
+  name: string;
+  takeout: boolean;
+  profile_image: string;
+  poster_image: string;
+}
+
+export interface PubListResponse {
+  status: string;
+  data: PubApiResponse[];
+  message: string;
+}
+
+export interface PubDetailResponse {
+  status: string;
+  data: PubApiResponse;
+  message: string;
+}
+
+export interface MenuApiResponse {
+  id: number;
+  name: string;
+  category: 'main' | 'side' | 'drink';
+  description: string;
+  price: number;
+}
+
+export interface MenuListResponse {
+  status: string;
+  data: MenuApiResponse[];
+  message: string;
+}
