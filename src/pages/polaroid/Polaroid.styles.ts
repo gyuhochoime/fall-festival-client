@@ -72,12 +72,13 @@ export const Slide = styled.div`
 
 export const OnboardingImage = styled.img`
   width: 90%;
+  max-height: calc(100dvh - 17rem);
 
   /* max-width: 320px; */
   aspect-ratio: 1;
   border-radius: 12px;
   background: transparent;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const SlideText = styled.p`
