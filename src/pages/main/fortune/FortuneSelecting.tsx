@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneSelecting.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
+import { useFortune } from '@/hooks/useFortune';
 import FortuneCardBack from '@/assets/images/fortune/FortuneCardBack.webp';
 
 interface LocationState {
@@ -14,6 +15,7 @@ export default function FortuneSelecting() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
   const location = useLocation();
+  const { getFortune, loading } = useFortune();
 
   const state = location.state as LocationState;
   const { name, birthDate } = state || { name: '', birthDate: '' };
@@ -22,14 +24,22 @@ export default function FortuneSelecting() {
     navigate('/main');
   };
 
-  const handleCardClick = (cardIndex: number) => {
-    navigate('/main/fortune/result', {
-      state: {
-        selectedCardIndex: cardIndex,
-        name,
-        birthDate,
-      },
-    });
+  const handleCardClick = async (cardIndex: number) => {
+    if (loading) return;
+
+    try {
+      const imageUrl = await getFortune({ name, birth: birthDate });
+      navigate('/main/fortune/result', {
+        state: {
+          selectedCardIndex: cardIndex,
+          name,
+          birthDate,
+          fortuneImageUrl: imageUrl,
+        },
+      });
+    } catch {
+      alert('운세를 불러오는데 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   useEffect(() => {

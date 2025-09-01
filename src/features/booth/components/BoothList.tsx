@@ -2,9 +2,9 @@ import * as S from './BoothList.styles';
 import { ImageTextFrameWithOrganization } from '@/components/image-text-frame';
 import { Notification } from '@/components/notification';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { BOOTH_LIST } from '@/constants/booth/booth';
 import { Fragment } from 'react/jsx-runtime';
 import { useState } from 'react';
+import { useBooths } from '@/hooks/useBooth';
 
 import FavoriteOn from 'src/assets/icons/favorite-on.svg?react';
 import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
@@ -12,6 +12,7 @@ import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
 export default function BoothList() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { booths, loading, error } = useBooths();
 
   // 찜하기 기능 상태 관리 추가 (localStorage)
   const [favorites, setFavorites] = useState<number[]>(() => {
@@ -32,15 +33,31 @@ export default function BoothList() {
     });
   };
 
+  if (loading) {
+    return (
+      <S.Container>
+        <div>주점 정보를 불러오는 중...</div>
+      </S.Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <S.Container>
+        <div>{error}</div>
+      </S.Container>
+    );
+  }
+
   return (
     <S.Container>
       <Notification title="[공지] 미취학 아동 입장 제한" width="100%" />
       <S.Header>
-        <S.Count>전체 26개</S.Count>
+        <S.Count>전체 {booths.length}개</S.Count>
       </S.Header>
       <S.BoothList>
         <S.BoothItem>
-          {BOOTH_LIST.map((booth) => {
+          {booths.map((booth) => {
             const isFavorited = favorites.includes(booth.id); //주점 찜하기 추가
 
             return (
