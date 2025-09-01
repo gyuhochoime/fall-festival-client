@@ -1,15 +1,15 @@
 import * as S from './BoothInfo.styles';
 import { newlineToBr } from '@/utils/newlineToBr';
-import { BOOTH_LIST } from '@/constants/booth/booth';
+import { useBooth } from '@/hooks/useBooth';
 import { OPERATING_HOURS } from '@/constants/booth/operating-hours';
 import PubBeerIcon from '@/assets/icons/pub_beer.svg?react';
 import TimeIcon from '@/assets/icons/time_pub.svg?react';
 
 export default function BoothInfo({ id }: { id: number }) {
-  const booth = BOOTH_LIST.find((booth) => booth.id === id);
-  if (!booth) {
-    return null; // or handle the case when the booth is not found
-  }
+  const { booth, loading, error } = useBooth(id);
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error || !booth) return <div>주점 정보를 찾을 수 없습니다.</div>;
   return (
     <S.Container>
       <S.ImageBtnFrame>
