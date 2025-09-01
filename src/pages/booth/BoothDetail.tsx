@@ -3,17 +3,17 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './BoothDetail.styles';
 import { BoothInfo, BoothLocation, MenuList } from '@/features/booth';
-import { BOOTH_LIST } from '@/constants/booth/booth';
 import FavoriteOn from 'src/assets/icons/favorite-on.svg?react';
 import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
 import { useFavorites } from '@/hooks/useFavorites';
+import { useBooth } from '@/hooks/useBooth';
 
 export default function BoothDetail() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const fromRef = useRef(location.state?.from || '/booth');
-  const booth = BOOTH_LIST.find((booth) => booth.id === Number(id)); // ✅ 타입 일치
+  const { booth, loading, error } = useBooth(Number(id) || 0);
   const { handleToggleFavorite, isFavorited } = useFavorites();
 
   const handleCloseClick = () => {
@@ -24,8 +24,34 @@ export default function BoothDetail() {
     window.scrollTo(0, 0);
   }, []);
 
-  if (!booth) {
-    return null; // or handle the case when the booth is not found
+  if (loading) {
+    return (
+      <S.Container>
+        <NavBar
+          isBack
+          isClose
+          title="주점 정보"
+          backPath={fromRef.current}
+          onCloseClick={handleCloseClick}
+        />
+        <div>주점 정보를 불러오는 중...</div>
+      </S.Container>
+    );
+  }
+
+  if (error || !booth) {
+    return (
+      <S.Container>
+        <NavBar
+          isBack
+          isClose
+          title="주점 정보"
+          backPath={fromRef.current}
+          onCloseClick={handleCloseClick}
+        />
+        <div>{error || '주점을 찾을 수 없습니다.'}</div>
+      </S.Container>
+    );
   }
 
   const isBoothFavorited = isFavorited(booth.id);

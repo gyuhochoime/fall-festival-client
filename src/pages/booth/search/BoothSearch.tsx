@@ -1,7 +1,7 @@
 import { NavBar } from '@/components/nav-bar/NavBar';
 import { ImageTextFrameWithOrganization } from '@/components/image-text-frame';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { BOOTH_LIST } from '@/constants/booth/booth';
+import { useBooths } from '@/hooks/useBooth';
 import { Fragment, useState, useMemo } from 'react';
 import { useFavorites } from '@/hooks/useFavorites';
 
@@ -16,6 +16,7 @@ export default function BoothSearch() {
   const navigate = useNavigate();
   const location = useLocation();
   const { handleToggleFavorite, isFavorited } = useFavorites();
+  const { booths, loading } = useBooths();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleCloseClick = () => {
@@ -24,15 +25,15 @@ export default function BoothSearch() {
 
   // 검색 결과 필터링 (주점명, 소속 단체 기준)
   const filteredBooths = useMemo(() => {
-    if (!searchQuery.trim()) return [];
+    if (!searchQuery.trim() || loading) return [];
 
     const query = searchQuery.toLowerCase().trim();
-    return BOOTH_LIST.filter(
+    return booths.filter(
       (booth) =>
         booth.pubName.toLowerCase().includes(query) ||
         booth.affiliation.toLowerCase().includes(query),
     );
-  }, [searchQuery]);
+  }, [searchQuery, booths, loading]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
