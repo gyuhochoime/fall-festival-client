@@ -1,13 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MapPageHeader, MapPageBottomSheet } from '@/features/map';
-import { days, categories, DAYS, CATEGORIES } from '@/constants/map';
+import { MapPageBottomSheet } from '@/features/map';
+import { NavBar } from '@/components/nav-bar';
+import { Tabs } from '@/components/tabs';
+import SearchBar from '@/components/search-bar/SearchBar';
+import DaySelectorModal from '@/components/day-selector-modal/DaySelectorModal';
+import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 import { getCurrentFestivalDay } from '@/utils/dateUtils';
 import * as S from './MapPage.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import ReCenterButtonIcon from '@/assets/icons/re-center.svg?react';
-import ReCenterClickedButtonIcon from '@/assets/icons/re-center-clicked.svg?react';
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { MapData, MapDataItem } from '@/constants/map/MapData';
 
@@ -29,7 +32,23 @@ export default function Map() {
   const [selectedDay, setSelectedDay] = useState<DAYS>(currentDay);
   const [selectedCategory, setSelectedCategory] = useState<CATEGORIES | null>(null);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
-  const [backButtonVisible, setBackButtonVisible] = useState<boolean>(false);
+
+  // 지도 카테고리 상태
+  const [selectedMapCategory, setSelectedMapCategory] = useState<string>('');
+
+  // 모달 상태
+  const [isDayModalOpen, setIsDayModalOpen] = useState<boolean>(false);
+
+  // 카테고리 매핑
+  const categoryMapping: Record<string, CATEGORIES | null> = {
+    이벤트: '프로모션',
+    주점: '주점',
+    푸드트럭: '푸드트럭',
+    의무실: '콘텐츠',
+    화장실: '화장실',
+    흡연실: '흡연구역',
+    셔틀콕: '셔틀콕',
+  };
 
   // 카카오맵 커스텀 훅 사용
   const { moveToCurrentLocation, showItemMarker, kakaoMap } = useKakaoMap(
@@ -42,14 +61,12 @@ export default function Map() {
       scrollwheel: true,
       isBottomSheetOpen,
     },
-    selectedCategory,
+    selectedMapCategory ? categoryMapping[selectedMapCategory] : selectedCategory,
     selectedDay,
   );
   console.log('[MapPage] useKakaoMap 훅 초기화 완료');
 
-  // 헤더 관련 상태
-  const [headerExpanded, setHeaderExpanded] = useState<boolean>(false);
-  const [showCategory, setShowCategory] = useState<boolean>(true);
+  // 헤더 관련 상태 (제거됨)
 
   // itemId가 있을 경우 해당 아이템 자동 선택
   useEffect(() => {
@@ -116,106 +133,46 @@ export default function Map() {
     };
   }, []);
 
-  useEffect(() => {
-    if (headerExpanded) {
-      setIsBottomSheetOpen(false);
-    } else if (selectedCategory) {
-      setIsBottomSheetOpen(true);
-    }
-  }, [headerExpanded, selectedCategory]);
-
   // 날짜 바꾸면 카테고리 초기화
   useEffect(() => {
     setSelectedCategory(null);
   }, [selectedDay]);
 
-  // 카테고리나 아이템 선택되어있으면 뒤로가기 버튼 활성화
-  useEffect(() => {
-    if (selectedCategory) {
-      setBackButtonVisible(true);
-    } else {
-      setBackButtonVisible(false);
-    }
-  }, [selectedCategory]);
+  // 헤더 핸들러 (제거됨)
 
-  // 헤더 핸들러
-  const handleDayChange = (day: DAYS) => {
-    setSelectedDay(day);
-    setHeaderExpanded(false);
-  };
-
-  const handleHeaderToggle = () => {
-    if (headerExpanded) {
-      setHeaderExpanded(false);
-    } else {
-      setHeaderExpanded(true);
-    }
-  };
-
-  // useEffect와 동일한 로직을 함수로 변환
-  const handleHeaderExpandChange = (expanded: boolean) => {
-    if (expanded) {
-      setShowCategory(false);
-    } else {
-      // 축소 시 드롭다운 애니메이션 후에 카테고리 표시
-      setTimeout(() => {
-        setShowCategory(true);
-      }, 200); // 드롭다운 애니메이션 시간과 동일하게 설정
-    }
-  };
-
-  const handleCategoryChange = (category: CATEGORIES | null) => {
-    // 항상 먼저 초기화
-    setSelectedCategory(null);
-    setIsBottomSheetOpen(false);
-
-    // URL 변경이 필요한 경우
-    if (itemIdParam) {
-      navigate('/map', { replace: true });
-    }
-
-    // 약간의 지연 후에 새 카테고리 선택 (이전 상태가 완전히 정리되도록)
-    setTimeout(() => {
-      setSelectedCategory(category);
-      if (category) {
-        setIsBottomSheetOpen(true);
-      }
-    }, 100);
+  const handleExit = () => {
+    navigate('/main');
   };
 
   const handleSearchClick = () => {
-    navigate('/map/search', { replace: true });
+    navigate('/map/search');
   };
 
-  // 현재 위치 버튼 관련 상태
-  const [isReCentering, setIsReCentering] = useState<boolean>(false);
+  const handleDayChange = (day: string) => {
+    if (day === 'open-modal') {
+      setIsDayModalOpen(true);
+    } else {
+      // 선택된 날짜를 상태로 업데이트
+      setSelectedDay(day as DAYS);
+      console.log('[MapPage] 선택된 날짜:', day);
+    }
+  };
+
+  const handleDayModalClose = () => {
+    setIsDayModalOpen(false);
+  };
+
+  const handleMapCategoryChange = (category: string) => {
+    console.log('[MapPage] 카테고리 변경:', category, '이전:', selectedMapCategory);
+    // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
+    const newCategory = category === selectedMapCategory ? '' : category;
+    setSelectedMapCategory(newCategory);
+    console.log('[MapPage] 매핑된 카테고리:', newCategory ? categoryMapping[newCategory] : 'none');
+  };
 
   // 현재 위치로 이동 핸들러
   const handleReCenterClick = () => {
-    setIsReCentering(true); // 클릭 효과 활성화
     moveToCurrentLocation(); // 현재 위치로 이동
-
-    // 일정 시간 후 버튼 상태 원래대로 복원
-    setTimeout(() => {
-      setIsReCentering(false);
-    }, 1000);
-  };
-
-  // 뒤로가기 버튼 핸들러
-  const handleBackButtonClick = () => {
-    // 카테고리가 선택된 상태에서 뒤로가기 버튼 클릭 시
-    if (selectedCategory) {
-      setSelectedCategory(null); // 카테고리 초기화
-      setIsBottomSheetOpen(false); // 바텀시트 닫기
-      setBackButtonVisible(false); // 뒤로가기 버튼 숨기기
-
-      // URL에 itemId가 있는 경우 기본 맵 URL로 변경
-      if (itemIdParam) {
-        navigate('/map', { replace: true });
-      }
-
-      return;
-    }
   };
 
   console.log('[지도] MapPage 컴포넌트가 렌더링되었습니다.');
@@ -224,24 +181,33 @@ export default function Map() {
     <S.MapContainer>
       <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen} />
       <S.ReCenterButton $isBottomSheetOpen={isBottomSheetOpen} onClick={handleReCenterClick}>
-        {isReCentering ? <ReCenterClickedButtonIcon /> : <ReCenterButtonIcon />}
+        <ReCenterButtonIcon />
       </S.ReCenterButton>
       <S.ContentContainer>
-        <MapPageHeader
-          days={days}
-          selectedDay={selectedDay}
-          onDayChange={handleDayChange}
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={handleCategoryChange}
-          onSearchClick={handleSearchClick}
-          expanded={headerExpanded}
-          onExpandToggle={handleHeaderToggle}
-          showCategory={showCategory}
-          onExpandChange={handleHeaderExpandChange}
-          isBackVisible={backButtonVisible} // 뒤로가기 버튼 표시 여부
-          onBackButtonClick={handleBackButtonClick} // 뒤로가기 버튼 핸들러 추가
+        <NavBar
+          isBack={true}
+          title="지도"
+          isClose={true}
+          backPath="/main"
+          onCloseClick={handleExit}
+          opacity={true}
         />
+        <S.SearchBarContainer>
+          <SearchBar
+            selectedDay={`${selectedDay}`}
+            onSearchClick={handleSearchClick}
+            onDayChange={handleDayChange}
+          />
+        </S.SearchBarContainer>
+        <S.CategoryTabsContainer>
+          <Tabs
+            tabs={['이벤트', '주점', '푸드트럭', '의무실', '화장실', '흡연실', '셔틀콕']}
+            activeTab={selectedMapCategory}
+            onTabClick={handleMapCategoryChange}
+            autoWidth={true}
+            margin="0.75rem"
+          />
+        </S.CategoryTabsContainer>
         {isBottomSheetOpen && (
           <S.BottomSheetContainer>
             <MapPageBottomSheet
@@ -252,6 +218,13 @@ export default function Map() {
           </S.BottomSheetContainer>
         )}
       </S.ContentContainer>
+
+      <DaySelectorModal
+        isOpen={isDayModalOpen}
+        selectedDay={`${selectedDay}`}
+        onDaySelect={handleDayChange}
+        onClose={handleDayModalClose}
+      />
     </S.MapContainer>
   );
 }

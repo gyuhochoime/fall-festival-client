@@ -445,6 +445,7 @@ export function useKakaoMap(
 
     console.log(`[KakaoMap] '${selectedCategory}' 카테고리 마커 표시 시작`);
     const categoryData = LOCATION_DATA[selectedCategory];
+    console.log(`[KakaoMap] 카테고리 데이터 개수:`, categoryData?.length || 0);
 
     // 이전 커스텀 오버레이 제거
     customOverlaysRef.current.forEach((overlay) => {
@@ -461,6 +462,7 @@ export function useKakaoMap(
     let hasVisibleMarkers = false;
 
     categoryData.forEach((location) => {
+      console.log(`[KakaoMap] 마커 생성 시도: ${location.name}`);
       // closeDay에 현재 선택된 날짜가 포함되어 있으면 마커를 표시하지 않음
       if (location.closeDay && location.closeDay.includes(selectedDay)) {
         console.log(`[KakaoMap] ${location.name}은(는) ${selectedDay}에 운영하지 않습니다.`);

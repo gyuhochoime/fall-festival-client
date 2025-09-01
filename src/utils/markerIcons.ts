@@ -5,7 +5,7 @@ import MarkerPub from '@/assets/icons/marker-pub.svg';
 import MarkerLiquorStore from '@/assets/icons/marker-liquorstore.svg';
 import MarkerFleaMarket from '@/assets/icons/marker-fleamarket.svg';
 import MarkerPromotion from '@/assets/icons/marker-promotion.svg';
-import MarkerContents from '@/assets/icons/marker-contents.svg';
+import MarkerHospital from '@/assets/icons/marker-hospital.svg';
 import MarkerToilet from '@/assets/icons/marker-toilet.svg';
 import MarkerPerformance from '@/assets/icons/marker-performance.svg';
 import MarkerBusStop from '@/assets/icons/marker-busstop.svg';
@@ -25,7 +25,7 @@ export const markerIcons: MarkerIconMap = {
   '주류 구매 위치': MarkerLiquorStore,
   플리마켓: MarkerFleaMarket,
   프로모션: MarkerPromotion,
-  콘텐츠: MarkerContents,
+  콘텐츠: MarkerHospital,
   화장실: MarkerToilet,
   공연장: MarkerPerformance,
   셔틀콕: MarkerBusStop,

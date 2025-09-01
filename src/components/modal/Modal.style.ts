@@ -17,19 +17,25 @@ export const ModalOverlay = styled(motion.div)`
 `;
 
 export const ModalWrapper = styled(motion.div)`
-  min-width: 20.9375rem;
-  background-color: ${(props) => props.theme.colors.grayScale.white};
-  border-radius: 0.75rem;
-  margin-top: -6.625rem;
+  display: flex;
+  width: 18.4375rem;
+  padding-bottom: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-radius: 1.25rem;
+  background: ${(props) => props.theme.colors.grayScale.white};
+  box-shadow: 0 0 0.75rem 0 rgb(126 65 154 / 30%);
 `;
 
 export const ModalTab = styled.div`
-  height: 3rem;
-  border-bottom: 0.6px solid ${(props) => props.theme.colors.grayScale.gy50};
   display: flex;
-  align-items: center;
+  height: 3.375rem;
+  padding: 0.5rem 0.75rem;
   justify-content: center;
-  padding: 0 0.75rem;
+  align-items: center;
+  border-radius: 1.25rem 1.25rem 0 0;
+  border-bottom: 0.0625rem solid ${(props) => props.theme.colors.grayScale.gy300};
+  background: ${(props) => props.theme.colors.grayScale.white};
   position: relative;
 `;
 
@@ -40,7 +46,7 @@ export const ModalTitle = styled.div`
 `;
 
 export const ModalTitleText = styled.span`
-  ${(props) => props.theme.fonts.header.h4};
+  ${(props) => props.theme.fonts.header.h4_600};
   color: ${(props) => props.theme.colors.grayScale.black};
 `;
 

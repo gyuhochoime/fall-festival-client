@@ -53,15 +53,18 @@ const colors = {
     gy50: '#F4F4F4',
     gy100: '#E9E9EA',
     gy200: '#D3D4D4',
+    gy200_eee: '#EEE',
     gy300: '#BCBEBF',
     gy400: '#A6A9AA',
     gy500: '#909394',
     gy600: '#7A7D7F',
     gy700: '#64686A',
     gy800: '#4D5255',
+    gy850: '#424242',
     gy900: '#373D3F',
     gy950: '#212526',
     black: '#17171B',
+    black_1a1a: '#1A1A1A',
   },
 };
 
@@ -73,6 +76,7 @@ const fonts = {
     medium500: createFontStyle(1, 500, 150, -0.02),
     small400: createFontStyle(0.875, 400, 142, -0.0175),
     small500: createFontStyle(0.875, 500, 142, -0.0175),
+    s500: createFontStyle(0.875, 500, 142, -0.0175),
     small600: createFontStyle(0.875, 600, 142, -0.0175),
     xsmall400: createFontStyle(0.75, 400, 150, -0.015),
     xsmall500: createFontStyle(0.75, 500, 150, -0.015),
@@ -83,6 +87,7 @@ const fonts = {
     h2: createFontStyle(1.5, 700, 134, -0.03),
     h3: createFontStyle(1.25, 600, 142, -0.025),
     h4: createFontStyle(1, 500, 150, -0.02),
+    h4_600: createFontStyle(1, 600, 150, -0.02),
   },
 };
 
