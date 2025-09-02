@@ -19,17 +19,17 @@ export const ModalTextBox = styled.div`
 `;
 
 export const ModalText = styled.p`
-  ${(props) => props.theme.fonts.body.s500};
+  ${(props) => props.theme.fonts.body.small400};
   color: ${(props) => props.theme.colors.grayScale.black};
   text-align: center;
 `;
 
 export const ConfirmButton = styled.button`
-  padding: 6px 16px;
+  padding: 7px 20px;
   background: ${(props) => props.theme.colors.primary.violet};
-  border-radius: 15px;
+  border-radius: 14px;
   border: none;
   color: ${(props) => props.theme.colors.grayScale.white};
-  ${(props) => props.theme.fonts.body.medium500};
+  ${(props) => props.theme.fonts.body.small400};
   cursor: pointer;
 `;

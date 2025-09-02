@@ -62,7 +62,7 @@ export default function FortuneOnboarding() {
     } else if (!isValidDate(birthDate)) {
       openModal({
         title: '생년월일을 확인해 주세요!',
-        message: '유효하지 않은 생년월일이에요. \n 올바른 생년월일 8자리를 입력해주세요.',
+        message: '유효하지 않은 생년월일이에요. \n 올바른 생년월일 8자리를 입력해주세요!',
         buttonText: '다시 입력하기',
         onConfirm: closeModal,
       });
