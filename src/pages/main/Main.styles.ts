@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import BackLayout from '@/assets/icons/Background-main.svg';
 import { motion } from 'framer-motion';
+import logo from '@/assets/images/espero-logo.png';
 
 export const Layout = styled.div`
   /* background-image: url(${BackLayout});
@@ -11,6 +12,18 @@ export const Layout = styled.div`
   height: 50rem;
   position: absolute;
 `;
+
+export const MainLogo = styled.div`
+  position: absolute;
+  width: 150px;
+  height: 49px;
+  background-image: url(${logo});
+  background-size: contain;
+  background-repeat: no-repeat;
+  left: 1rem;
+  top: 1.3rem;
+`;
+
 export const Container = styled.div`
   width: 100%;
   height: auto;
