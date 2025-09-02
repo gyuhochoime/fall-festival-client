@@ -1,15 +1,18 @@
 import styled from 'styled-components';
+import EventBannerBg from '@/assets/images/event-banner-bg.webp';
 
 export const Container = styled.div`
   position: relative;
   display: flex;
-  width: 20rem;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #dfc9ffff;
+  background-image: url(${EventBannerBg});
+  background-size: cover;
   box-shadow: 0 0 10px 0 #dbc2e3;
   border-radius: 1rem;
-  margin: 0.8rem;
+  margin: 0.8rem auto;
+  height: 11rem;
+  max-width: 21rem; /* 모바일에서 너무 커지는 것 방지 */
 `;
 
 export const HeaderSection = styled.div`
@@ -26,6 +29,8 @@ export const InfoSection = styled.div`
   flex-direction: column;
   align-items: center;
   align-self: stretch;
+  height: 100%;
+  justify-content: center;
 `;
 
 export const TagWrapper = styled.div`
@@ -46,7 +51,7 @@ export const TextContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   align-self: stretch;
   color: ${(props) => props.theme.colors.secondary.vl800};
   padding: 0.5rem 0;

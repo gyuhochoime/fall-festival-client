@@ -3,7 +3,7 @@ import { getSessionIdFromCookie, ensureSessionCookie } from '@/utils/session';
 import type { AxiosRequestHeaders } from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.PROD ? import.meta.env.VITE_API_BASE_URL : '/',
   timeout: 10000,
   withCredentials: true,
   headers: {

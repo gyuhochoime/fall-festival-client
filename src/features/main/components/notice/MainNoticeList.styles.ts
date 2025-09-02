@@ -47,3 +47,25 @@ export const NoticeContent = styled.p`
   overflow: hidden; /* Hide overflow text */
   text-overflow: ellipsis; /* Add ellipsis for overflow */
 `;
+
+// 로딩, 에러, 빈 목록 메시지용 스타일
+export const LoadingText = styled.p`
+  ${(props) => props.theme.fonts.body.medium500}
+  text-align: center;
+  color: ${(props) => props.theme.colors.grayScale.offwhite};
+  margin: 2rem 0;
+`;
+
+export const ErrorText = styled.p`
+  ${(props) => props.theme.fonts.body.medium500};
+  color: ${(props) => props.theme.colors.secondary.rd500};
+  text-align: center;
+  padding: 1.5rem 0;
+`;
+
+export const NoNoticeText = styled.p`
+  ${(props) => props.theme.fonts.body.medium500};
+  color: ${(props) => props.theme.colors.grayScale.gy700};
+  text-align: center;
+  padding: 1.5rem 0;
+`;

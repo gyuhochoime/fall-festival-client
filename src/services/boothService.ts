@@ -39,7 +39,7 @@ const transformMenusToBoothMenu = (menus: MenuApiResponse[]) => {
 
 const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
   try {
-    const menuResponse = await axiosInstance.get<MenuListResponse>(`/pubs/${pub.id}/menus`);
+    const menuResponse = await axiosInstance.get<MenuListResponse>(`/api/pubs/${pub.id}/menus`);
     const menu = transformMenusToBoothMenu(menuResponse.data.data);
 
     return {
@@ -76,7 +76,7 @@ const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
 export const boothService = {
   async getAllBooths(): Promise<Booth[]> {
     try {
-      const response = await axiosInstance.get<PubListResponse>('/pubs');
+      const response = await axiosInstance.get<PubListResponse>('/api/pubs');
       const booths = await Promise.all(response.data.data.map(transformPubToBootn));
       return booths;
     } catch (error) {
@@ -88,7 +88,7 @@ export const boothService = {
 
   async getBoothById(id: number): Promise<Booth> {
     try {
-      const response = await axiosInstance.get<PubDetailResponse>(`/pubs/${id}`);
+      const response = await axiosInstance.get<PubDetailResponse>(`/api/pubs/${id}`);
       return await transformPubToBootn(response.data.data);
     } catch (error) {
       console.error(`Failed to fetch booth ${id} from API, using fallback data:`, error);

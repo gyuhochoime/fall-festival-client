@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './MainNoticeList.styles';
-import { NoticeData } from '@/constants/main/Notice';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+// import { NoticeData } from '@/constants/main/Notice'; // 기존 하드코딩 데이터 (주석 처리)
+import { useNavigate } from 'react-router-dom';
+import { fetchMainNotices, NoticeItem } from '@/services/noticeService';
 
+// 기존 타입과의 매핑을 위한 인터페이스
 interface Notice {
   id: number;
   title: string;
-  body: string; // Changed from content to body
-  img: string[]; // Changed from images to img
+  body: string;
+  img: string[];
 }
 
 // Helper function for text processing
@@ -19,23 +21,69 @@ const processContent = (content: string, maxLength: number = 25): string => {
   return singleLineContent;
 };
 
+// API 응답 데이터를 컴포넌트에서 사용하는 형식으로 변환
+const mapApiNoticeToUi = (apiNotice: NoticeItem): Notice => {
+  return {
+    id: apiNotice.id,
+    title: apiNotice.title,
+    body: apiNotice.content,
+    img: [apiNotice.image], // 이미지는 URL이 하나만 있는 형태로 변환
+  };
+};
+
 const MainNoticeList: React.FC = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
-  const noticesToDisplay: Notice[] = NoticeData.sort((a, b) => b.id - a.id).slice(0, 3);
+  const navigate = useNavigate();
+  const [notices, setNotices] = useState<Notice[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getNotices = async () => {
+      try {
+        const apiNotices = await fetchMainNotices();
+        const uiNotices = apiNotices.map(mapApiNoticeToUi);
+        setNotices(uiNotices);
+        setLoading(false);
+      } catch (err) {
+        console.error('공지사항을 불러오는데 실패했습니다:', err);
+        setError('공지사항을 불러오는데 실패했습니다.');
+        setLoading(false);
+      }
+    };
+
+    getNotices();
+  }, []);
+
+  if (loading)
+    return (
+      <S.Container>
+        <S.LoadingText>공지사항을 불러오는 중...</S.LoadingText>
+      </S.Container>
+    );
+  if (error)
+    return (
+      <S.Container>
+        <S.ErrorText>{error}</S.ErrorText>
+      </S.Container>
+    );
 
   return (
     <S.Container>
-      {noticesToDisplay.map((notice) => (
-        <S.NoticeItem key={notice.id} onClick={() => navigate(`/main/notice/${notice.id}`)}>
-          {notice.img && notice.img.length > 0 && (
-            <S.ImageThumbnail src={notice.img[0]} alt={notice.title} />
-          )}
-          <S.TextContentWrapper>
-            <S.NoticeTitle>{notice.title}</S.NoticeTitle>
-            <S.NoticeContent>{processContent(notice.body)}</S.NoticeContent>
-          </S.TextContentWrapper>
-        </S.NoticeItem>
-      ))}
+      {notices.length > 0 ? (
+        notices.map((notice) => (
+          <S.NoticeItem key={notice.id} onClick={() => navigate(`/main/notice/${notice.id}`)}>
+            {notice.img && notice.img.length > 0 && (
+              <S.ImageThumbnail src={notice.img[0]} alt={notice.title} />
+            )}
+            <S.TextContentWrapper>
+              <S.NoticeTitle>{notice.title}</S.NoticeTitle>
+              <S.NoticeContent>{processContent(notice.body)}</S.NoticeContent>
+            </S.TextContentWrapper>
+          </S.NoticeItem>
+        ))
+      ) : (
+        <S.NoNoticeText>공지사항이 없습니다.</S.NoNoticeText>
+      )}
     </S.Container>
   );
 };

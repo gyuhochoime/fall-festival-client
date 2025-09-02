@@ -40,24 +40,30 @@ function EventCard({
       <S.InfoSection>
         <S.EventTitle>{title}</S.EventTitle>
         <S.TextContainer>
-          <S.TextWrapper>
-            <Clock width={'1.125rem'} height={'1.125rem'} fill={theme.colors.secondary.vl800} />
-            <S.EventText>
-              {startTime}~{endTime}
-            </S.EventText>
-          </S.TextWrapper>
-          <S.TextWrapper>
-            <Location width={'1.125rem'} height={'1.125rem'} className="location-icon" />
-            <S.EventText>{location}</S.EventText>
-          </S.TextWrapper>
-          <S.TextWrapper>
-            <Calendar
-              width={'1.125rem'}
-              height={'1.125rem'}
-              stroke={theme.colors.secondary.vl800}
-            />
-            <S.EventText>{date}</S.EventText>
-          </S.TextWrapper>
+          {startTime && endTime && (
+            <S.TextWrapper>
+              <Clock width={'1.125rem'} height={'1.125rem'} fill={theme.colors.secondary.vl800} />
+              <S.EventText>
+                {startTime}~{endTime}
+              </S.EventText>
+            </S.TextWrapper>
+          )}
+          {location && (
+            <S.TextWrapper>
+              <Location width={'1.125rem'} height={'1.125rem'} className="location-icon" />
+              <S.EventText>{location}</S.EventText>
+            </S.TextWrapper>
+          )}
+          {date && (
+            <S.TextWrapper>
+              <Calendar
+                width={'1.125rem'}
+                height={'1.125rem'}
+                stroke={theme.colors.secondary.vl800}
+              />
+              <S.EventText>{date}</S.EventText>
+            </S.TextWrapper>
+          )}
         </S.TextContainer>
         {/*
         <Progress startTime={startTime} endTime={endTime} />
