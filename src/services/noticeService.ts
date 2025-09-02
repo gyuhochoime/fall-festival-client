@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '@/lib/AxiosInstance';
 
 // API 응답 타입 정의
 export interface NoticeItem {
@@ -37,7 +37,7 @@ interface NoticeDetailResponse {
  */
 export const fetchNotices = async (): Promise<NoticeItem[]> => {
   try {
-    const response = await axios.get<NoticeListResponse>(`/api/notices`);
+    const response = await axiosInstance.get<NoticeListResponse>(`/api/notices`);
     return response.data.data;
   } catch (error) {
     console.error('공지사항 목록을 가져오는데 실패했습니다:', error);
@@ -67,7 +67,7 @@ export const fetchMainNotices = async (): Promise<NoticeItem[]> => {
  */
 export const fetchNoticeDetail = async (id: number): Promise<NoticeItem> => {
   try {
-    const response = await axios.get<NoticeDetailResponse>(`/api/notices/${id}`);
+    const response = await axiosInstance.get<NoticeDetailResponse>(`/api/notices/${id}`);
     return response.data.data;
   } catch (error) {
     console.error(`공지사항 ${id}번을 가져오는데 실패했습니다:`, error);
