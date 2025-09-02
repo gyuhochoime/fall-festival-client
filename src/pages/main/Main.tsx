@@ -13,8 +13,6 @@ import { ensureSessionCookie } from '@/utils/session';
 import AppInstallPrompt from '@/features/main/components/user/AppInstallPrompt';
 import { fetchCurrentEvents, convertToEventCardData } from '@/services/eventService';
 
-import logo from '@/assets/images/espero-logo.png';
-
 // 주석 처리된 샘플 이벤트 데이터 (백업용)
 /* 
 const sampleEvents: EventCardData[] = [
@@ -94,13 +92,10 @@ export default function Main() {
     <S.Container>
       <AppInstallPrompt />
       <S.Layout />
-      {/* <NavBar opacity={true} /> */}
-      <div style={{ padding: '1.3rem 1rem 0' }}>
-        <img src={logo} style={{ position: 'relative' }} width="150px" height="49px" />
-      </div>
       <S.Main>
+        <S.MainLogo />
         <section>
-          <S.TitleWrapper style={{ marginBottom: 0 }}>
+          <S.TitleWrapper style={{ marginTop: '80px', marginBottom: 0 }}>
             <S.Title>진행 중인 이벤트</S.Title>
           </S.TitleWrapper>
           <S.CarouselsBox>
