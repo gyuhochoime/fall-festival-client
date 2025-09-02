@@ -65,7 +65,7 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
         {/* 모든 경우에 동일하게 처리 */}
         <Slider {...settings}>
           {todayEvents.map((card, i) => (
-            <div key={i} className="event-card-wrapper">
+            <div key={i}>
               <EventCard
                 {...card}
                 currentIndex={i + 1}
