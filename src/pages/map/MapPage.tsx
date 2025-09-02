@@ -140,10 +140,6 @@ export default function Map() {
 
   // 헤더 핸들러 (제거됨)
 
-  const handleExit = () => {
-    navigate('/main');
-  };
-
   const handleSearchClick = () => {
     navigate('/map/search');
   };
@@ -184,14 +180,7 @@ export default function Map() {
         <ReCenterButtonIcon />
       </S.ReCenterButton>
       <S.ContentContainer>
-        <NavBar
-          isBack={true}
-          title="지도"
-          isClose={true}
-          backPath="/main"
-          onCloseClick={handleExit}
-          opacity={true}
-        />
+        <NavBar hideLeft={true} title="지도" isClose={false} opacity={true} />
         <S.SearchBarContainer>
           <SearchBar
             selectedDay={`${selectedDay}`}

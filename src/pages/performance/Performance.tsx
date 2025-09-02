@@ -44,10 +44,6 @@ export default function Performance() {
     );
   };
 
-  const handleExit = () => {
-    navigate('/main');
-  };
-
   const handleArtistClick = (artistData: PerformanceItem) => {
     navigate('/performance/detail', { state: artistData });
   };
@@ -55,13 +51,7 @@ export default function Performance() {
   return (
     <S.PerformanceContainer>
       {/* 상단 헤더 */}
-      <NavBar
-        isBack={true}
-        title="공연"
-        isClose={true}
-        backPath="/main"
-        onCloseClick={handleExit}
-      />
+      <NavBar hideLeft={true} title="공연" isClose={false} />
 
       {/* 본문 */}
       <S.Fullscreen role="main">
