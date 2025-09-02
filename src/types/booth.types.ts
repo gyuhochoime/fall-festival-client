@@ -29,8 +29,8 @@ export interface PubApiResponse {
   affiliation: string;
   name: string;
   takeout: boolean;
-  profile_image: string;
-  poster_image: string;
+  profileImage: string;
+  posterImage: string;
 }
 
 export interface PubListResponse {
