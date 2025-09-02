@@ -1,10 +1,20 @@
 import { useParams } from 'react-router-dom';
-import { NoticeData } from '@/constants/main/Notice';
+// import { NoticeData } from '@/constants/main/Notice'; // 기존 하드코딩 데이터 (주석 처리)
 import { NavBar } from '@/components/nav-bar';
 import * as S from './NoticeDetail.styles';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { NoticeDetailCarousels, NoticeBody } from '@/features/main/components/notice/index';
+import { fetchNoticeDetail } from '@/services/noticeService';
+
+// API 응답 데이터를 UI에 맞게 변환
+interface UINotice {
+  id: number;
+  title: string;
+  body: string;
+  img: string[];
+  tags: { text: string; color: string }[];
+}
 
 /**
  * 공지사항 상세 페이지 - 인스타그램 스타일 캐러셀
@@ -12,7 +22,9 @@ import { NoticeDetailCarousels, NoticeBody } from '@/features/main/components/no
  */
 export default function NoticeDetail() {
   const { id } = useParams<{ id: string }>();
-  const notice = useMemo(() => NoticeData.find((item) => item.id === Number(id)), [id]);
+  const [notice, setNotice] = useState<UINotice | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const setIsNav = useLayoutStore((state) => state.setIsNav);
 
@@ -23,11 +35,52 @@ export default function NoticeDetail() {
     };
   }, [setIsNav]);
 
-  if (!notice) {
+  useEffect(() => {
+    const getNoticeDetail = async () => {
+      if (!id) return;
+
+      try {
+        const apiNotice = await fetchNoticeDetail(Number(id));
+
+        // API 응답을 UI 형식으로 변환
+        const uiNotice: UINotice = {
+          id: apiNotice.id,
+          title: apiNotice.title,
+          body: apiNotice.content,
+          img: [apiNotice.image], // 이미지 URL을 배열로 변환
+          tags: [{ text: apiNotice.tag, color: '#7e419a' }], // 기본 색상 값 지정
+        };
+
+        setNotice(uiNotice);
+        setLoading(false);
+      } catch (err) {
+        console.error(`공지사항 ${id}번을 불러오는데 실패했습니다:`, err);
+        setError('공지사항을 불러오는데 실패했습니다.');
+        setLoading(false);
+      }
+    };
+
+    getNoticeDetail();
+  }, [id]);
+
+  if (loading) {
     return (
       <>
         <NavBar title="공지사항" isBack={true} />
-        <S.Container>해당 공지사항을 찾을 수 없습니다.</S.Container>
+        <S.Container>
+          <S.LoadingText>공지사항을 불러오는 중...</S.LoadingText>
+        </S.Container>
+      </>
+    );
+  }
+
+  if (error || !notice) {
+    return (
+      <>
+        <NavBar title="공지사항" isBack={true} />
+        <S.Container>
+          <S.ErrorText>{error || '해당 공지사항을 찾을 수 없습니다.'}</S.ErrorText>
+        </S.Container>
       </>
     );
   }
