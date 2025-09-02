@@ -14,21 +14,30 @@ interface EventCarouselsProps {
 /**
  * Carousels 컴포넌트
  * - MainEventData를 기반으로 UI를 렌더링
+ * - 이벤트 데이터가 없을 경우 기본 메시지 표시
  */
 
 export default function EventCarousels({ events }: EventCarouselsProps) {
   const navigate = useNavigate();
   const isSwipingRef = useRef(false);
 
-  const eventCardLinkMap: Record<string, string> = {
-    '1': '/main/notice/13',
-    '2': '/main/notice/14',
-    '10': '/main/notice/8',
-    '15': '/main/notice/14',
-  };
+  // 진행 중인 이벤트가 없을 경우 표시할 데이터
+  const noEventsData: EventCardData[] = [
+    {
+      id: '1',
+      title: '진행 중인 이벤트가 없어요!',
+      startTime: '',
+      endTime: '',
+      location: '',
+      date: '곧 새로운 이벤트가 시작될 예정입니다',
+      noticeId: null, // 링크 없음
+    },
+  ];
 
-  const todayEvents = events;
+  // 이벤트가 비어있으면 기본 메시지를 표시
+  const todayEvents = events.length > 0 ? events : noEventsData;
 
+  // 아이템 개수에 상관없이 일관된 설정 적용
   const settings = {
     dots: false,
     infinite: false,
@@ -36,8 +45,9 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    centerMode: true,
-    variableWidth: true,
+    centerMode: false,
+    variableWidth: false,
+    initialSlide: 0,
 
     beforeChange: () => {
       isSwipingRef.current = true;
@@ -52,23 +62,24 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
   return (
     <S.Wrapper>
       <S.CardWrap>
+        {/* 모든 경우에 동일하게 처리 */}
         <Slider {...settings}>
-          {todayEvents.map((card, i) => {
-            return (
-              <div key={i}>
-                <EventCard
-                  {...card}
-                  currentIndex={i + 1}
-                  totalCards={todayEvents.length}
-                  onClick={() => {
-                    if (isSwipingRef.current) return;
-                    const link = eventCardLinkMap[card.id];
-                    if (link) navigate(link);
-                  }}
-                />
-              </div>
-            );
-          })}
+          {todayEvents.map((card, i) => (
+            <div key={i} className="event-card-wrapper">
+              <EventCard
+                {...card}
+                currentIndex={i + 1}
+                totalCards={todayEvents.length}
+                onClick={() => {
+                  if (isSwipingRef.current) return;
+                  // API에서 받은 noticeId가 있을 경우에만 해당 공지사항으로 이동
+                  if (card.noticeId) {
+                    navigate(`/main/notice/${card.noticeId}`);
+                  }
+                }}
+              />
+            </div>
+          ))}
         </Slider>
       </S.CardWrap>
       {/*

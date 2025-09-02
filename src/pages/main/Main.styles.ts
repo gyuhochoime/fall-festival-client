@@ -34,8 +34,8 @@ export const Title = styled.p`
 `;
 
 export const CarouselsBox = styled.div`
-  display: flex;
-  justify-content: center;
+  width: 100dvw;
+  overflow: hidden;
 `;
 
 // ne
@@ -59,4 +59,18 @@ export const MoreButton = styled(motion.div)`
 export const BtnText = styled.p`
   ${(props) => props.theme.fonts.body.small600}
   text-align: center;
+`;
+
+export const LoadingText = styled.p`
+  ${(props) => props.theme.fonts.body.medium500}
+  text-align: center;
+  color: ${(props) => props.theme.colors.grayScale.offwhite};
+  margin: 2rem 0;
+`;
+
+export const ErrorText = styled.p`
+  ${(props) => props.theme.fonts.body.medium500}
+  text-align: center;
+  color: ${(props) => props.theme.colors.secondary.rd500};
+  margin: 2rem 0;
 `;

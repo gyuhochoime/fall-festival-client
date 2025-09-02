@@ -2,3 +2,4 @@
 export * from './boothService';
 export * from './fortuneService';
 export * from './noticeService';
+export * from './eventService';
