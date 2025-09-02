@@ -6,12 +6,15 @@ import { useLayoutStore } from '@/stores/useLayoutStore';
 import Lottie from 'react-lottie-player';
 import fortuneAnimation from '@/assets/lotties/fortune/Background_Size.json';
 import FortuneBall from '@/assets/images/fortune/Ball.webp';
+import useModal from '@/hooks/useModal';
+import ValidationModal from '@/components/validation-modal/ValidationModal';
 
 export default function FortuneOnboarding() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [birthDate, setBirthDate] = useState('');
+  const { open: openModal, close: closeModal } = useModal(ValidationModal);
 
   const handleCloseClick = () => {
     navigate('/main');
@@ -50,9 +53,19 @@ export default function FortuneOnboarding() {
         state: { name, birthDate },
       });
     } else if (!name.trim()) {
-      alert('이름을 입력해주세요.');
+      openModal({
+        title: '알림',
+        message: '이름을 입력해주세요.',
+        buttonText: '다시 입력하기',
+        onConfirm: closeModal,
+      });
     } else if (!isValidDate(birthDate)) {
-      alert('유효하지 않은 생년월일 입니다. 올바른 생년월일 8자리를 입력해주세요. (예: 19990101)');
+      openModal({
+        title: '생년월일을 확인해 주세요!',
+        message: '유효하지 않은 생년월일이에요. \n 올바른 생년월일 8자리를 입력해주세요.',
+        buttonText: '다시 입력하기',
+        onConfirm: closeModal,
+      });
     }
   };
 
