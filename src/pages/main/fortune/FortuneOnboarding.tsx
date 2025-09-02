@@ -54,8 +54,8 @@ export default function FortuneOnboarding() {
       });
     } else if (!name.trim()) {
       openModal({
-        title: '알림',
-        message: '이름을 입력해주세요.',
+        title: '이름을 확인해 주세요!',
+        message: '아직 이름이 입력되지 않았어요.\n원활한 진행을 위해 이름을 입력해 주세요!',
         buttonText: '다시 입력하기',
         onConfirm: closeModal,
       });
