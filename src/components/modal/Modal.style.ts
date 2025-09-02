@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import CloseBtn from '@/assets/icons/nrk_close.svg?react';
+import CloseBtn from '@/assets/icons/close-black.svg?react';
 import HelpIcon from '@/assets/icons/nrk_help.svg?react';
 
 export const ModalOverlay = styled(motion.div)`
@@ -18,19 +18,22 @@ export const ModalOverlay = styled(motion.div)`
 
 export const ModalWrapper = styled(motion.div)`
   display: flex;
-  width: 18.4375rem;
-  padding-bottom: 1rem;
+  width: 330px;
+  padding-bottom: 1.2rem;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.8rem;
   border-radius: 1.25rem;
   background: ${(props) => props.theme.colors.grayScale.white};
-  box-shadow: 0 0 0.75rem 0 rgb(126 65 154 / 30%);
+  box-shadow:
+    0 -4px 12px ${(props) => props.theme.colors.primary.violet}70,
+    /* top */ -4px 0 12px ${(props) => props.theme.colors.primary.violet}70,
+    /* left */ 4px 0 12px ${(props) => props.theme.colors.primary.violet}70; /* right */
 `;
 
 export const ModalTab = styled.div`
   display: flex;
-  height: 3.375rem;
-  padding: 0.5rem 0.75rem;
+  height: 3.25rem;
+  padding: 0.3rem 0.5rem;
   justify-content: center;
   align-items: center;
   border-radius: 1.25rem 1.25rem 0 0;
@@ -42,7 +45,6 @@ export const ModalTab = styled.div`
 export const ModalTitle = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.375rem;
 `;
 
 export const ModalTitleText = styled.span`
@@ -54,7 +56,7 @@ export const Help = styled(HelpIcon)``;
 
 export const ModalCloseBtn = styled(CloseBtn)`
   position: absolute;
-  right: 1rem;
+  right: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
