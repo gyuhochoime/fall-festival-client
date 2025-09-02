@@ -62,10 +62,6 @@ export default function MapSearch() {
     [navigate],
   );
 
-  const handleExit = () => {
-    navigate('/map');
-  };
-
   const handleClearSearch = () => {
     setSearchKeyword('');
   };
@@ -76,13 +72,7 @@ export default function MapSearch() {
 
   return (
     <S.SearchPageContainer>
-      <NavBar
-        isBack={true}
-        title="지도 검색"
-        isClose={true}
-        backPath="/main"
-        onCloseClick={handleExit}
-      />
+      <NavBar isBack={true} title="지도 검색" isClose={false} backPath="/main" />
       <S.SearchSection>
         <S.SearchInputWrapper>
           <S.SearchInput
