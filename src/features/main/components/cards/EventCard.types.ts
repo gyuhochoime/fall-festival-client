@@ -9,6 +9,7 @@ export interface CardProps {
   onClick?: () => void;
   currentIndex?: number;
   totalCards?: number;
+  noticeId?: number | null; // noticeId 추가
 }
 
 export interface ProgressProps {

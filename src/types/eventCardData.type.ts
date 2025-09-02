@@ -9,5 +9,5 @@ export interface EventCardData {
   endTime: string;
   location: string;
   date: string;
-  // isSun: boolean;
+  noticeId: number | null; // 이벤트와 연결된 공지사항 ID (없으면 null)
 }
