@@ -2,12 +2,10 @@ import styled from 'styled-components';
 import HelpIcon from '@/assets/icons/nrk_help.svg?react';
 
 export const PerformanceContainer = styled.div`
-  position: relative;
   width: 100%;
-  min-height: 100dvh;
-  background-color: ${(p) => p.theme.colors.grayScale.white};
-  display: flex;
-  flex-direction: column;
+  height: auto;
+  position: relative;
+  margin-bottom: 5.37rem;
 `;
 
 export const Header = styled.header`
@@ -39,7 +37,7 @@ export const Fullscreen = styled.main`
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  overflow: visible;
+  overflow: hidden auto;
   min-height: 0;
   padding-bottom: 5rem;
 `;
