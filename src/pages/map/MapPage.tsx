@@ -44,10 +44,14 @@ export default function Map() {
     이벤트: '프로모션',
     주점: '주점',
     푸드트럭: '푸드트럭',
-    의무실: '콘텐츠',
+    콘텐츠: '콘텐츠',
     화장실: '화장실',
-    흡연실: '흡연구역',
+    의무실: '콘텐츠', // 의무실은 콘텐츠로 매핑
     셔틀콕: '셔틀콕',
+    공연장: '공연장',
+    흡연실: '흡연구역',
+    '주류 구매': '주류 구매 위치',
+    플리마켓: '플리마켓',
   };
 
   // 카카오맵 커스텀 훅 사용
@@ -171,8 +175,6 @@ export default function Map() {
     moveToCurrentLocation(); // 현재 위치로 이동
   };
 
-  console.log('[지도] MapPage 컴포넌트가 렌더링되었습니다.');
-
   return (
     <S.MapContainer>
       <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen} />
@@ -190,7 +192,19 @@ export default function Map() {
         </S.SearchBarContainer>
         <S.CategoryTabsContainer>
           <Tabs
-            tabs={['이벤트', '주점', '푸드트럭', '의무실', '화장실', '흡연실', '셔틀콕']}
+            tabs={[
+              '이벤트',
+              '주점',
+              '푸드트럭',
+              '콘텐츠',
+              '화장실',
+              '의무실',
+              '셔틀콕',
+              '공연장',
+              '흡연실',
+              '주류 구매',
+              '플리마켓',
+            ]}
             activeTab={selectedMapCategory}
             onTabClick={handleMapCategoryChange}
             autoWidth={true}
