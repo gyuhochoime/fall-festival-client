@@ -130,8 +130,12 @@ export const TimeBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>`
 `;
 
 export const TimeText = styled.p`
-  ${(props) => props.theme.fonts.body.medium500};
   color: ${({ theme }) => theme.colors.grayScale.gy850};
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 142%;
+  letter-spacing: -0.28px;
 `;
 
 export const ContentBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>`
@@ -213,23 +217,24 @@ export const NorthStarContainer = styled.div`
 
 export const NorthStarLine = styled.div`
   width: 0.0663rem;
-  height: 33.75rem;
-  background: ${(props) => props.theme.colors.grayScale.gy100};
-  position: relative;
+  height: 45.25rem;
+  background: ${(props) => props.theme.colors.primary.violet};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const NorthStarTop = styled.div`
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const NorthStarBottom = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ArtistBoxContainer = styled.div`
@@ -265,4 +270,10 @@ export const ArtistTime = styled.div<{ $isActive: boolean }>`
   color: ${({ $isActive, theme }) =>
     $isActive ? theme.colors.primary.violet : theme.colors.grayScale.gy400};
   ${(props) => props.theme.fonts.body.xsmall500};
+`;
+
+export const ArtistInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;

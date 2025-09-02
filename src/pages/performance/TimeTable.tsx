@@ -5,7 +5,7 @@ import { useLayoutStore } from '@/stores/useLayoutStore';
 import { useNavigate } from 'react-router-dom';
 import TabNav from '@/components/tab-nav';
 import StageFillIcon from '@/assets/icons/stage-fill.svg?react';
-import NorthStarIcon from '@/assets/icons/north-star.svg?react';
+import NorthStarIcon from '@/assets/icons/timetable-north-star.svg?react';
 import { NavBar } from '@/components/nav-bar/NavBar';
 
 /**
@@ -13,9 +13,9 @@ import { NavBar } from '@/components/nav-bar/NavBar';
  * @returns {JSX.Element}
  */
 const DAY_TO_DATE: Record<(typeof TABS)[number], string> = {
-  '1일차': '2025-05-27',
-  '2일차': '2025-05-28',
-  '3일차': '2025-05-29',
+  '1일차': '2025-09-15',
+  '2일차': '2025-09-16',
+  '3일차': '2025-09-17',
 };
 const TABS = ['1일차', '2일차', '3일차'] as const;
 
@@ -59,6 +59,29 @@ export default function TimeTable() {
     const nowTotal = currentTime.getHours() * 60 + currentTime.getMinutes();
 
     return nowTotal >= startTotal && nowTotal < endTotal;
+  };
+
+  const calculateBoxHeight = (start: string, end: string) => {
+    const [startHour, startMin] = start.split(':').map(Number);
+    const [endHour, endMin] = end.split(':').map(Number);
+
+    const startTotal = startHour * 60 + startMin;
+    const endTotal = endHour * 60 + endMin;
+    const duration = endTotal - startTotal; // 분 단위
+
+    // 공연 시간에 따른 높이 설정
+    if (duration <= 20) return 2.75;
+    if (duration <= 30) return 4.125;
+    if (duration <= 45) return 4.125;
+    if (duration <= 60) return 8.25;
+    return 8.25; // 기본값
+  };
+
+  // 공연 시간에 따른 topPosition 계산
+  const calculateTopPosition = (start: string) => {
+    const [startHour] = start.split(':').map(Number);
+    const basePosition = (startHour - 17) * 8.25; // 17시를 기준으로 계산하고 미세 조정
+    return basePosition;
   };
 
   // const calculateDurationInBlocks = (start: string, end: string) => {
@@ -127,7 +150,7 @@ export default function TimeTable() {
                 const active = isNowPlaying(performance.start, performance.end, selectedDay);
 
                 // 시간대별 고정 위치 계산 (17:00 = 0, 18:00 = 1, ...)
-                const topPosition = timeIndex * (6.25 + 0.859375); // 1시간 + 간격
+                const topPosition = calculateTopPosition(performance.start);
 
                 return (
                   <S.ArtistBox
@@ -136,12 +159,15 @@ export default function TimeTable() {
                     style={{
                       position: 'absolute',
                       top: `${topPosition}rem`,
+                      height: `${calculateBoxHeight(performance.start, performance.end)}rem`,
                     }}
                   >
-                    <S.ArtistName $isActive={active}>{performance.name}</S.ArtistName>
-                    <S.ArtistTime $isActive={active}>
-                      {performance.start}~{performance.end}
-                    </S.ArtistTime>
+                    <S.ArtistInfo>
+                      <S.ArtistName $isActive={active}>{performance.name}</S.ArtistName>
+                      <S.ArtistTime $isActive={active}>
+                        {performance.start}~{performance.end}
+                      </S.ArtistTime>
+                    </S.ArtistInfo>
                   </S.ArtistBox>
                 );
               })}
