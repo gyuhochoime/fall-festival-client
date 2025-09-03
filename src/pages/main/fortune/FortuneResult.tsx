@@ -18,6 +18,7 @@ export default function FortuneResult() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const state = location.state as LocationState;
   const selectedCardIndex = state?.selectedCardIndex ?? 0;
@@ -38,6 +39,7 @@ export default function FortuneResult() {
 
   useEffect(() => {
     setIsNav(false);
+    setTimeout(() => setIsVisible(true), 600);
     return () => {
       setIsNav(true);
     };
@@ -55,7 +57,12 @@ export default function FortuneResult() {
         </S.Title>
 
         <S.CardContainer>
-          <S.CardInner $isFlipped={isFlipped} onClick={handleCardClick} aria-pressed={isFlipped}>
+          <S.CardInner
+            $isFlipped={isFlipped}
+            $isVisible={isVisible}
+            onClick={handleCardClick}
+            aria-pressed={isFlipped}
+          >
             <S.CardFaceFront>
               <img
                 src={FortuneCardBack}
