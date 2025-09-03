@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 // import { NoticeData } from '@/constants/main/Notice'; // 기존 하드코딩 데이터 (주석 처리)
 import { NavBar } from '@/components/nav-bar';
 import * as S from './NoticeDetail.styles';
@@ -27,6 +27,7 @@ export default function NoticeDetail() {
   const [error, setError] = useState<string | null>(null);
 
   const setIsNav = useLayoutStore((state) => state.setIsNav);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsNav(false);
@@ -75,6 +76,7 @@ export default function NoticeDetail() {
   }
 
   if (error || !notice) {
+    /*
     return (
       <>
         <NavBar title="공지사항" isBack={true} />
@@ -83,6 +85,17 @@ export default function NoticeDetail() {
         </S.Container>
       </>
     );
+    */
+
+    // 에러 페이지로 네비게이션
+    navigate('/error', {
+      state: {
+        mainText: '앗! 뭔가 잘못됐네요.',
+        subText: '멋사가 금방 고쳐올테니, 잠시 후에 다시 와주세요!',
+        showBackButton: true,
+        showHomeButton: true,
+      },
+    });
   }
 
   return (
