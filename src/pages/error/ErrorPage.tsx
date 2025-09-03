@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import * as S from './ErrorPage.styles';
 
 import BackIcon from '@/assets/icons/left-arrow.svg?react';
-import ErrorIcon from '@/assets/icons/error.svg?react';
+// import ErrorIcon from '@/assets/icons/error.svg?react';
 import { AccentButton } from '@/components/accentbuttons';
 
 interface ErrorPageProps {
@@ -48,7 +48,7 @@ const ErrorPage = ({
       )}
       <S.ErrorContent>
         <S.ErrorIconWrapper>
-          <ErrorIcon width="4rem" height="4rem" />
+          <img src="/error/icon.svg" style={{ width: '4rem' }} />
         </S.ErrorIconWrapper>
         <S.ErrorMainText>{mainText}</S.ErrorMainText>
         {subText ? <S.ErrorSubText>{subText}</S.ErrorSubText> : <br />}
