@@ -1,4 +1,4 @@
-import { BlueButton } from '@/components/bluebuttons';
+import { AccentButton } from '@/components/accentbuttons';
 import * as S from './UserLogin.styles';
 import { useNavigate } from 'react-router-dom';
 export default function UserLogin() {
@@ -16,7 +16,7 @@ export default function UserLogin() {
           기능들을 모두 이용해보세요!
         </S.Sub>
         <S.ButtonWrap>
-          <BlueButton label={'로그인 하러가기'} onClick={() => navigate('/login')} size="large" />
+          <AccentButton label={'로그인 하러가기'} onClick={() => navigate('/login')} size="large" />
         </S.ButtonWrap>
       </S.Container>
     </>
