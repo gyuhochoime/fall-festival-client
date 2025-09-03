@@ -44,7 +44,7 @@ export const RightSection = styled.div<{ $opacity?: boolean }>`
 export const Title = styled.p<{ $opacity?: boolean }>`
   ${(props) => props.theme.fonts.header.h4}
   text-align: center;
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.grayScale.black_1a1a};
 `;
 
 export const InputWrapper = styled.label`
