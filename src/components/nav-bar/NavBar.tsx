@@ -28,6 +28,7 @@ const NavBar: React.FC<NavBarProps> = ({
   isFavorite = false,
   isClose = false,
   hideLeft = false,
+  hideRight = false,
   title,
   onSearchClick,
   onFavoriteClick,
@@ -71,21 +72,25 @@ const NavBar: React.FC<NavBarProps> = ({
 
       {title && <S.Title $opacity={opacity}>{title}</S.Title>}
       <S.RightSection $opacity={opacity}>
-        {isSearch && (
-          <SearchIcon
-            style={{ cursor: 'pointer' }}
-            width={'1.5rem'}
-            height={'1.5rem'}
-            onClick={onSearchClick}
-          />
-        )}
-        {isClose && (
-          <CloseIcon
-            style={{ cursor: 'pointer' }}
-            width={'0.85rem'}
-            height={'0.85rem'}
-            onClick={onCloseClick}
-          />
+        {!hideRight && (
+          <>
+            {isSearch && (
+              <SearchIcon
+                style={{ cursor: 'pointer' }}
+                width={'1.5rem'}
+                height={'1.5rem'}
+                onClick={onSearchClick}
+              />
+            )}
+            {isClose && (
+              <CloseIcon
+                style={{ cursor: 'pointer' }}
+                width={'0.85rem'}
+                height={'0.85rem'}
+                onClick={onCloseClick}
+              />
+            )}
+          </>
         )}
       </S.RightSection>
     </S.Container>

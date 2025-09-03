@@ -111,29 +111,6 @@ export const BoothItemWrapper = styled.div`
   gap: 0.75rem;
 `;
 
-export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
-  flex-shrink: 0;
-  gap: 0.4375rem;
-  border: ${({ $isFavorited, theme }) =>
-    $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`};
-  background: ${({ $isFavorited, theme }) => ($isFavorited ? theme.colors.primary.violet : 'none')};
-  border-radius: 0.75rem;
-  width: 3.375rem;
-  height: 4.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  color: ${({ $isFavorited, theme }) => ($isFavorited ? '#ffffff' : theme.colors.primary.violet)};
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:active {
-    transform: scale(0.95);
-  }
-`;
-
 export const EmptyState = styled.div`
   display: flex;
   flex-direction: column;
