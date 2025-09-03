@@ -14,6 +14,7 @@ import { FortuneOnboarding, FortuneSelecting, FortuneResult } from './main/fortu
 import Polaroid from '@/pages/polaroid/Polaroid';
 import Favorites from '@/pages/booth/favorites/Favorites';
 import BoothSearch from '@/pages/booth/search/BoothSearch';
+import ErrorPage from '@/pages/error/ErrorPage';
 
 export {
   Main,
@@ -34,4 +35,5 @@ export {
   Polaroid,
   Favorites,
   BoothSearch,
+  ErrorPage,
 };

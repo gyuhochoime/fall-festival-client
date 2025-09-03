@@ -95,7 +95,7 @@ export default function Main() {
       <S.Main>
         <S.MainLogo />
         <section>
-          <S.TitleWrapper style={{ marginTop: '80px', marginBottom: 0 }}>
+          <S.TitleWrapper style={{ marginTop: '6rem', marginBottom: 0 }}>
             <S.Title>진행 중인 이벤트</S.Title>
           </S.TitleWrapper>
           <S.CarouselsBox>

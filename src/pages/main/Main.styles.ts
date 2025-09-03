@@ -15,12 +15,12 @@ export const Layout = styled.div`
 
 export const MainLogo = styled.div`
   position: absolute;
-  width: 150px;
-  height: 49px;
+  width: 9.9rem;
+  height: 3.3rem;
   background-image: url(${logo});
   background-size: contain;
   background-repeat: no-repeat;
-  left: 1rem;
+  left: 0.8rem;
   top: 1.3rem;
 `;
 
