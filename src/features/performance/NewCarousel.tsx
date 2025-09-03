@@ -20,33 +20,37 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
     const timeout = setTimeout(() => {
       setTextFade('in');
     }, 100);
-
     return () => clearTimeout(timeout);
   }, [currentIndex]);
 
   // 인덱스 변경 시 콜백 호출
   useEffect(() => {
     if (onIndexChange) {
+      console.log('Final Index sent to parent:', currentIndex, 'Data Length:', data.length);
       onIndexChange(currentIndex);
     }
-  }, [currentIndex, onIndexChange]);
+  }, [currentIndex, onIndexChange, data.length]);
 
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 1.5,
     slidesToScroll: 1,
     arrows: false,
-    centerMode: false,
-    variableWidth: true,
+    centerMode: true,
+    variableWidth: false,
+    centerPadding: '1.25rem',
     initialSlide: 0,
-
     beforeChange: () => {
       isSwipingRef.current = true;
     },
     afterChange: (current: number) => {
-      setCurrentIndex(current);
+      console.log('Raw afterChange value:', current);
+      // 반올림 처리
+      const roundedIndex = Math.round(current);
+      console.log('Rounded index:', roundedIndex);
+      setCurrentIndex(roundedIndex);
       setTimeout(() => {
         isSwipingRef.current = false;
       }, 100);
@@ -67,7 +71,9 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
           <Slider {...settings}>
             {data.map((singer: PerformanceItem, index: number) => {
               const isEven = index % 2 === 0;
-              const isActive = index === currentIndex;
+              const isActive =
+                index === currentIndex ||
+                (currentIndex >= data.length - 2 && index === data.length - 1);
 
               return (
                 <div key={index}>
@@ -82,7 +88,7 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                           </S.TimeBox>
                         </S.ArtistTimeBox>
                         <S.NorthStar>
-                          <NorthStarIcon width="1rem" height="1rem" />
+                          <NorthStarIcon width="1.75rem" height="1.75rem" />
                         </S.NorthStar>
                         <S.VerticalLine />
                         <S.ArtistCircle $isActive={isActive}>
@@ -112,7 +118,7 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                         </S.ArtistCircle>
                         <S.VerticalLine />
                         <S.NorthStar>
-                          <NorthStarIcon width="1rem" height="1rem" />
+                          <NorthStarIcon width="1.75rem" height="1.75rem" />
                         </S.NorthStar>
                         <S.ArtistTimeBox fade={isActive ? textFade : 'in'}>
                           <S.ArtistName>{singer.singer}</S.ArtistName>

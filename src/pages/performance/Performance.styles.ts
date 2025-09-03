@@ -139,7 +139,7 @@ export const ProgressBar = styled.div`
   height: 0.125rem;
   background: ${(props) => props.theme.colors.grayScale.gy200_eee};
   position: relative;
-  border-radius: 0.0625rem;
+  border-radius: 0.125rem;
 `;
 
 export const ProgressFill = styled.div<{ width: string; left: string }>`
@@ -150,6 +150,6 @@ export const ProgressFill = styled.div<{ width: string; left: string }>`
   left: ${(props) => props.left};
   top: 50%;
   transform: translateY(-50%);
-  border-radius: 0.0625rem;
+  border-radius: 0.125rem;
   transition: all 0.3s ease;
 `;

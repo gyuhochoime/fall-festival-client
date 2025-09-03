@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { Notification } from '@/components/notification';
 import { Tabs } from '@/components/tabs';
-
 import NewCarousel from '@/features/performance/NewCarousel';
 import { performanceData } from '@/constants/performance/SingerInfo';
 import { ModalHelp } from '@/features/performance';
@@ -18,13 +17,13 @@ export type DayType = '1일차' | '2일차' | '3일차';
  * Performance 페이지
  * @returns {JSX.Element}
  */
-
 export default function Performance() {
   const { open } = useModal(ModalHelp);
   const navigate = useNavigate();
   const setIsNav = useLayoutStore((s) => s.setIsNav);
   const [selectedDay, setSelectedDay] = useState<DayType>('2일차');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
   const performances = performanceData[selectedDay];
 
   // 진입/이탈 시 하단 탭바 숨김/복원
@@ -48,6 +47,23 @@ export default function Performance() {
     navigate('/performance/detail', { state: artistData });
   };
 
+  const getProgressBarProps = () => {
+    if (performances.length <= 1) {
+      return { width: '100%', left: '0%' };
+    }
+
+    const progressWidth = (1 / performances.length) * 100;
+    // 일반적인 비례 계산
+    const progressLeft = (currentIndex / (performances.length - 1)) * (100 - progressWidth);
+
+    return {
+      width: `${progressWidth}%`,
+      left: `${progressLeft}%`,
+    };
+  };
+
+  const { width, left } = getProgressBarProps();
+
   return (
     <S.PerformanceContainer>
       {/* 상단 헤더 */}
@@ -61,6 +77,7 @@ export default function Performance() {
             onClick={() => navigate('/main/notice/25')}
           />
         </S.InfoWrap>
+
         <S.DayWrap>
           <S.TabsHelpWrap>
             <Tabs
@@ -80,16 +97,15 @@ export default function Performance() {
             onArtistClick={handleArtistClick}
           />
         </S.Carousel>
+
         {performances.length > 0 && (
           <S.ProgressContainer>
             <S.ProgressBar>
-              <S.ProgressFill
-                width={`${(1 / performances.length) * 100}%`}
-                left={`${(currentIndex / performances.length) * 100}%`}
-              />
+              <S.ProgressFill width={width} left={left} />
             </S.ProgressBar>
           </S.ProgressContainer>
         )}
+
         <S.TimeTableButton onClick={() => navigate('/performance/timetable')}>
           전체 타임 테이블 보러가기
         </S.TimeTableButton>

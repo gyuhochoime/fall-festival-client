@@ -16,25 +16,19 @@ export const CarouselWrapper = styled.div`
     flex-wrap: nowrap;
   }
 
-  /* slick-slide 스타일링 */
-  .slick-slide {
-    padding: 0 0.75rem;
-  }
-
   .slick-list {
     overflow: visible;
+    padding: 0 1.25rem;
   }
 `;
 
 export const CarouselItem = styled.div`
-  flex-shrink: 0;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
   width: 12.25rem;
-  height: 23.125rem;
 `;
 
 export const ArtistTimeBox = styled.div<{ fade: 'in' | 'out' }>`
@@ -60,13 +54,14 @@ export const TimeBox = styled.div`
 
 export const TimeText = styled.span`
   ${(props) => props.theme.fonts.body.xsmall500};
-  color: ${(props) => props.theme.colors.grayScale.gy800};
+  color: ${(props) => props.theme.colors.grayScale.gy850};
 `;
 
 export const NorthStar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  filter: drop-shadow(0 0 12px rgb(126 65 154 / 30%));
 `;
 
 export const VerticalLine = styled.div`
@@ -86,7 +81,6 @@ export const ArtistCircle = styled.div<{ $isActive?: boolean }>`
   box-shadow: ${(props) =>
     props.$isActive ? '0 0 1.5rem rgba(126, 65, 154, 0.8)' : '0 0 0.75rem rgba(126, 65, 154, 0.3)'};
   position: relative;
-  overflow: hidden;
 `;
 
 export const ArtistImage = styled.img`
