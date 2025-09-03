@@ -76,3 +76,15 @@ export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
   z-index: 10;
   transition: all 0.2s ease;
 `;
+
+export const LoadingText = styled.div`
+  display: flex;
+  height: 1.625rem;
+  padding: 0.0625rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 320px;
+  ${(props) => props.theme.fonts.body.medium500};
+  color: ${(props) => props.theme.colors.primary.violet};
+`;

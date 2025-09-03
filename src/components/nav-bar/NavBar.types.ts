@@ -7,6 +7,7 @@ export interface NavBarProps {
   isFavorite?: boolean;
   isClose?: boolean;
   hideLeft?: boolean;
+  hideRight?: boolean;
   title?: string;
   onSearchClick?: () => void;
   onFavoriteClick?: () => void;
