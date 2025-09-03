@@ -31,7 +31,7 @@ const mapApiNoticeToUi = (apiNotice: NoticeItem): Notice => {
   };
 };
 
-const MainNoticeList: React.FC = () => {
+const MainNoticeList: React.FC<object> = () => {
   const navigate = useNavigate();
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
@@ -71,12 +71,11 @@ const MainNoticeList: React.FC = () => {
       </S.Container>
     );
   if (error)
-    return {
-      /* <S.Container>
+    return (
+      <S.Container>
         <S.ErrorText>{error}</S.ErrorText>
       </S.Container>
-      */
-    };
+    );
 
   return (
     <S.Container>
