@@ -41,7 +41,8 @@ const MainNoticeList: React.FC = () => {
     const getNotices = async () => {
       try {
         const apiNotices = await fetchMainNotices();
-        const uiNotices = apiNotices.map(mapApiNoticeToUi);
+        // id 기준 내림차순 정렬
+        const uiNotices = apiNotices.map(mapApiNoticeToUi).sort((a, b) => b.id - a.id);
         setNotices(uiNotices);
         setLoading(false);
       } catch (err) {
