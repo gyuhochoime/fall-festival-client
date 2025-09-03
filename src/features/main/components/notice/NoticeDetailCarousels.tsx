@@ -1,8 +1,9 @@
 import * as S from './NoticeDetailCarousels.styles';
 import { useEffect, useRef, useState } from 'react';
-import { useAnimation } from 'framer-motion';
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import { Indicator } from '@/components/indicator';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 /**
  * 공지사항 상세 페이지 - 인스타그램 스타일 캐러셀
@@ -12,10 +13,7 @@ import { Indicator } from '@/components/indicator';
 
 export default function NoticeDetailCarousels({ img }: { img: string[] }) {
   const [currentPage, setCurrentPage] = useState(0);
-  const [containerWidth, setContainerWidth] = useState(0);
-  const controls = useAnimation();
-  const containerRef = useRef<HTMLDivElement>(null);
-
+  const isSwipingRef = useRef(false);
   const setIsNav = useLayoutStore((state) => state.setIsNav);
 
   useEffect(() => {
@@ -25,65 +23,40 @@ export default function NoticeDetailCarousels({ img }: { img: string[] }) {
     };
   }, [setIsNav]);
 
-  useEffect(() => {
-    const updateContainerWidth = () => {
-      if (containerRef.current) {
-        const width = containerRef.current.offsetWidth;
-        setContainerWidth(width);
-      }
-    };
-    updateContainerWidth();
-    window.addEventListener('resize', updateContainerWidth);
-    return () => {
-      window.removeEventListener('resize', updateContainerWidth);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (containerWidth > 0) {
-      controls.start({
-        x: -currentPage * containerWidth,
-      });
-    }
-  }, [currentPage, containerWidth, controls]);
-
-  const handleDragEnd = (
-    _: MouseEvent | TouchEvent | PointerEvent,
-    info: { offset: { x: number } },
-  ) => {
-    const swipe = info.offset.x;
-
-    if (swipe < -50 && img && currentPage < img.length - 1) {
-      setCurrentPage((prev) => prev + 1);
-    } else if (swipe > 50 && currentPage > 0) {
-      setCurrentPage((prev) => prev - 1);
-    } else {
-      controls.start({
-        x: -currentPage * containerWidth,
-      });
-    }
+  // react-slick 설정
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    centerMode: false,
+    variableWidth: false,
+    initialSlide: 0,
+    beforeChange: () => {
+      isSwipingRef.current = true;
+    },
+    afterChange: (current: number) => {
+      setCurrentPage(current);
+      setTimeout(() => {
+        isSwipingRef.current = false;
+      }, 100);
+    },
   };
 
   return (
-    <>
-      <S.CarouselWrapper>
-        <S.Carousel ref={containerRef}>
-          <S.CarouselMotion
-            drag="x"
-            dragConstraints={{ left: -containerWidth * (img.length - 1), right: 0 }}
-            onDragEnd={handleDragEnd}
-            animate={controls}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          >
-            {img.map((src, index) => (
-              <S.CarouselSlide key={index} width={containerWidth}>
-                <S.Image src={src} alt={`Image ${index + 1}`} />
-              </S.CarouselSlide>
-            ))}
-          </S.CarouselMotion>
-        </S.Carousel>
-        <Indicator currentPage={currentPage} totalPages={img.length} />
-      </S.CarouselWrapper>
-    </>
+    <S.CarouselWrapper>
+      <Slider {...settings}>
+        {img.map((src, index) => (
+          <div key={index}>
+            <S.Image src={src} alt={`Image ${index + 1}`} />
+          </div>
+        ))}
+      </Slider>
+      <S.Pill>
+        {currentPage + 1} <span>/</span> {img.length}
+      </S.Pill>
+    </S.CarouselWrapper>
   );
 }
