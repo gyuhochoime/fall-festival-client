@@ -7,6 +7,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   overflow: auto;
+  overscroll-behavior: none;
+  touch-action: pan-y;
 `;
 
 export const Content = styled.div`
@@ -58,13 +60,23 @@ export const Card = styled.img`
   height: 170px;
   cursor: pointer;
   transition: all 0.2s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 
   &:hover {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-4px) scale(1.02) translateZ(0);
   }
 
   &:active {
-    transform: translateY(-2px) scale(0.98);
+    transform: translateY(-2px) scale(0.98) translateZ(0);
+  }
+
+  @media (hover: none) {
+    &:hover {
+      transform: none;
+    }
   }
 `;
 
