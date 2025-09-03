@@ -1,35 +1,30 @@
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Carousel = styled.div`
-  position: relative;
+export const CarouselWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  position: relative;
   overflow: hidden;
-  margin-bottom: 0.75rem;
 `;
 
 export const Image = styled.img`
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 20rem;
+  object-fit: cover;
+  background-color: ${(props) => props.theme.colors.grayScale.gy100};
 `;
 
-export const CarouselWrapper = styled.figure`
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+export const Pill = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 1rem;
+  background-color: ${(props) => props.theme.colors.secondary.vl800}80;
+  color: ${(props) => props.theme.colors.grayScale.white};
+  ${(props) => props.theme.fonts.body.xsmall400}
 
-export const CarouselMotion = styled(motion.div)`
-  display: flex;
-  height: 100%;
-  will-change: transform;
-`;
-
-export const CarouselSlide = styled.div<{ width: number }>`
-  width: ${(props) => props.width}px;
-  height: 100%;
-  flex-shrink: 0;
+  span {
+    opacity: 0.7;
+  }
 `;
