@@ -49,8 +49,8 @@ const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
       affiliation: pub.affiliation,
       pubName: pub.name,
       takeout: pub.takeout,
-      profileImage: pub.profile_image,
-      posterImage: pub.poster_image,
+      profileImage: pub.profileImage,
+      posterImage: pub.posterImage,
       menu,
     } as Booth;
   } catch {
@@ -64,8 +64,8 @@ const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
       affiliation: pub.affiliation,
       pubName: pub.name,
       takeout: pub.takeout,
-      profileImage: pub.profile_image,
-      posterImage: pub.poster_image,
+      profileImage: pub.profileImage,
+      posterImage: pub.posterImage,
       menu: boothData
         ? JSON.parse(JSON.stringify(boothData.menu))
         : { main: [], side: [], sub: [] },

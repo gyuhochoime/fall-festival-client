@@ -3,12 +3,7 @@ import type { FortuneRequest, FortuneResponse } from '@/types/fortune.types';
 
 export const fortuneService = {
   async getFortune(request: FortuneRequest): Promise<string> {
-    try {
-      const response = await axiosInstance.post<FortuneResponse>('/api/fortunes', request);
-      return response.data.data.imageUrl;
-    } catch (error) {
-      console.error('Failed to fetch fortune:', error);
-      throw error;
-    }
+    const response = await axiosInstance.post<FortuneResponse>('/api/fortunes', request);
+    return response.data.data.imageUrl;
   },
 };

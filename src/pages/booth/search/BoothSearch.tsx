@@ -3,10 +3,6 @@ import { ImageTextFrameWithOrganization } from '@/components/image-text-frame';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useBooths } from '@/hooks/useBooth';
 import { Fragment, useState, useMemo } from 'react';
-import { useFavorites } from '@/hooks/useFavorites';
-
-import FavoriteOn from '@/assets/icons/favorite-on.svg?react';
-import FavoriteOff from '@/assets/icons/favorite-off.svg?react';
 import SearchIcon from '@/assets/icons/search-gray.svg?react';
 import CloseIcon from '@/assets/icons/close-search.svg?react';
 
@@ -15,7 +11,6 @@ import * as S from './BoothSearch.styles';
 export default function BoothSearch() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { handleToggleFavorite, isFavorited } = useFavorites();
   const { booths, loading } = useBooths();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -45,7 +40,7 @@ export default function BoothSearch() {
 
   return (
     <S.Container>
-      <NavBar hideLeft isClose title="주점 검색" onCloseClick={handleCloseClick} />
+      <NavBar isBack hideRight title="주점 검색" onCloseClick={handleCloseClick} />
       <S.Main>
         <S.Content>
           <S.SearchSection>
@@ -90,8 +85,6 @@ export default function BoothSearch() {
               <S.ResultsList>
                 <S.ResultItem>
                   {filteredBooths.map((booth) => {
-                    const isBoothFavorited = isFavorited(booth.id);
-
                     return (
                       <Fragment key={booth.id}>
                         <S.BoothItemWrapper>
@@ -108,14 +101,6 @@ export default function BoothSearch() {
                               })
                             }
                           />
-                          <S.FavoriteButton
-                            onClick={(e) => handleToggleFavorite(booth.id, e)}
-                            $isFavorited={isBoothFavorited}
-                            aria-label={isBoothFavorited ? '찜 완료' : '찜하기'}
-                          >
-                            {isBoothFavorited ? <FavoriteOn /> : <FavoriteOff />}
-                            {isBoothFavorited ? '찜 완료' : '찜하기'}
-                          </S.FavoriteButton>
                         </S.BoothItemWrapper>
                         <S.HorizontalLine />
                       </Fragment>

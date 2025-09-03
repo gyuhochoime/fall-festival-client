@@ -42,7 +42,7 @@ export const CardContainer = styled.div`
 `;
 
 // 회전하는 박스
-export const CardInner = styled.button<{ $isFlipped: boolean }>`
+export const CardInner = styled.button<{ $isFlipped: boolean; $isVisible: boolean }>`
   -webkit-tap-highlight-color: transparent;
   appearance: none;
   border: 0;
@@ -52,8 +52,11 @@ export const CardInner = styled.button<{ $isFlipped: boolean }>`
   width: 295px;
   height: 440px;
   transform-style: preserve-3d;
+  transform: ${({ $isVisible }) => ($isVisible ? 'scale(1)' : 'scale(0)')};
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   transition:
-    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 1.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 1.8s cubic-bezier(0.2, 0.7, 0.2, 1),
     box-shadow 0.3s ease;
   box-shadow:
     0 0 20px 6px ${({ theme }) => theme.colors.secondary.DS_Card}50,
@@ -67,11 +70,17 @@ export const CardInner = styled.button<{ $isFlipped: boolean }>`
   `}
 
   &:hover {
-    transform: ${(props) => (props.$isFlipped ? 'rotateY(180deg) scale(1.02)' : 'scale(1.02)')};
+    transform: ${(props) => {
+      const baseScale = props.$isVisible ? 'scale(1.02)' : 'scale(0)';
+      return props.$isFlipped ? 'rotateY(180deg) scale(1.02)' : baseScale;
+    }};
   }
 
   &:active {
-    transform: ${(props) => (props.$isFlipped ? 'rotateY(180deg) scale(0.98)' : 'scale(0.98)')};
+    transform: ${(props) => {
+      const baseScale = props.$isVisible ? 'scale(0.98)' : 'scale(0)';
+      return props.$isFlipped ? 'rotateY(180deg) scale(0.98)' : baseScale;
+    }};
   }
 
   &:focus-visible {

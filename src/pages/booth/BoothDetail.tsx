@@ -29,12 +29,12 @@ export default function BoothDetail() {
       <S.Container>
         <NavBar
           isBack
-          isClose
+          hideRight
           title="주점 정보"
           backPath={fromRef.current}
           onCloseClick={handleCloseClick}
         />
-        <div>주점 정보를 불러오는 중...</div>
+        <S.LoadingText>주점 정보를 불러오는 중...</S.LoadingText>
       </S.Container>
     );
   }
@@ -42,14 +42,8 @@ export default function BoothDetail() {
   if (error || !booth) {
     return (
       <S.Container>
-        <NavBar
-          isBack
-          isClose
-          title="주점 정보"
-          backPath={fromRef.current}
-          onCloseClick={handleCloseClick}
-        />
-        <div>{error || '주점을 찾을 수 없습니다.'}</div>
+        <NavBar isBack hideRight title="주점 정보" backPath={fromRef.current} />
+        <S.LoadingText>{error || '주점을 찾을 수 없습니다.'}</S.LoadingText>
       </S.Container>
     );
   }
@@ -58,13 +52,7 @@ export default function BoothDetail() {
 
   return (
     <S.Container>
-      <NavBar
-        isBack
-        isClose
-        title="주점 정보"
-        backPath={fromRef.current}
-        onCloseClick={handleCloseClick}
-      />
+      <NavBar isBack hideRight title="주점 정보" backPath={fromRef.current} />
       <S.BackgroundImg src={booth.posterImage} />
       <S.FavoriteButton
         onClick={(e) => handleToggleFavorite(booth.id, e)}
