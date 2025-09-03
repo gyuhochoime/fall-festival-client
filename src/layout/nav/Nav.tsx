@@ -21,7 +21,9 @@ export default function Nav() {
   return (
     <S.Nav>
       {NAV_ITEMS.map((item) => {
-        const isLocation = locate.pathname.startsWith(item.path);
+        const isLocation = item.activePaths
+          ? item.activePaths.some((path) => locate.pathname.startsWith(path))
+          : locate.pathname.startsWith(item.path);
         return (
           <NavLink
             to={item.path}

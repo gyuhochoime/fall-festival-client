@@ -2,7 +2,7 @@ import { BeforeInstallPromptEvent } from '@/types/window';
 import { useEffect, useState } from 'react';
 import * as S from './AppInstallPrompt.styles';
 import { easeOut } from 'framer-motion';
-import { BlueButton } from '@/components/bluebuttons';
+import { AccentButton } from '@/components/accentbuttons';
 
 export default function AppInstallPrompt({ forced = false }: { forced?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -114,9 +114,12 @@ function AppInstallPromptModal({
             </S.ModalText>
           )}
           {platform === 'android' && (
-            <BlueButton onClick={handleInstallClick} label="홈 화면에 추가하기" />
+            <>
+              <AccentButton onClick={handleInstallClick} label="홈 화면에 추가하기" />
+              <S.CancelButton onClick={handleCancelClick}>불편해도 웹에서 이용하기</S.CancelButton>
+            </>
           )}
-          <S.CancelButton onClick={handleCancelClick}>불편해도 웹에서 이용하기</S.CancelButton>
+          {platform === 'ios' && <AccentButton onClick={handleCancelClick} label="확인했습니다!" />}
         </S.Content>
       </S.ModalWrapper>
     </S.ModalOverlay>

@@ -31,7 +31,7 @@ const mapApiNoticeToUi = (apiNotice: NoticeItem): Notice => {
   };
 };
 
-const MainNoticeList: React.FC = () => {
+const MainNoticeList: React.FC<object> = () => {
   const navigate = useNavigate();
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
@@ -49,6 +49,15 @@ const MainNoticeList: React.FC = () => {
         console.error('공지사항을 불러오는데 실패했습니다:', err);
         setError('공지사항을 불러오는데 실패했습니다.');
         setLoading(false);
+
+        navigate('/error', {
+          state: {
+            mainText: '앗! 뭔가 잘못됐네요.',
+            subText: '멋사가 금방 고쳐올테니, 잠시 후에 다시 와주세요!',
+            showBackButton: true,
+            showHomeButton: true,
+          },
+        });
       }
     };
 

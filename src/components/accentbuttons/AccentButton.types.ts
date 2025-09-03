@@ -5,12 +5,12 @@
  * - 'large-header': 20rem 버튼 (폰트 header.h4)
  * - 'larger': 20 rem 버튼 (폰트 medium500)
  */
-export type BlueButtonSize = 'small' | 'large' | 'large-header' | 'larger';
+export type AccentButtonSize = 'small' | 'large' | 'large-header' | 'larger';
 
 /**
- * 공통 BlueButton 컴포넌트의 Props
+ * 공통 AccentButton 컴포넌트의 Props
  */
-export interface BlueButtonProps {
+export interface AccentButtonProps {
   /**
    * 버튼에 표시될 텍스트
    */
@@ -26,7 +26,7 @@ export interface BlueButtonProps {
    * 버튼 사이즈 및 스타일
    * @default 'large'
    */
-  size?: BlueButtonSize;
+  size?: AccentButtonSize;
 
   /**
    * 버튼 클릭 시 실행되는 함수
@@ -39,5 +39,5 @@ export interface BlueButtonProps {
  * 스타일 전용 Props
  */
 export interface StyledButtonProps {
-  $size: BlueButtonSize;
+  $size: AccentButtonSize;
 }

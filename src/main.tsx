@@ -22,6 +22,7 @@ import {
   Polaroid,
   Favorites,
   BoothSearch,
+  ErrorPage,
 } from '@/pages';
 import Layout from '@/layout';
 import { ensureSessionCookie } from '@/utils/session';
@@ -144,6 +145,16 @@ const routes = createBrowserRouter([
       {
         path: 'booth/search',
         element: <BoothSearch />,
+      },
+      {
+        path: '*',
+        element: (
+          <ErrorPage
+            mainText="앗, 여긴 없는 길이에요!"
+            subText="다시 돌아가볼까요? "
+            showBackButton={true}
+          />
+        ),
       },
     ],
   },

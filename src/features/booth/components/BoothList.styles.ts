@@ -49,12 +49,17 @@ export const BoothItemWrapper = styled.div`
   gap: 0.75rem;
 `;
 
-export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
+export const FavoriteButton = styled.button<{ $isFavorited: boolean; $isTrashMode?: boolean }>`
   flex-shrink: 0;
   gap: 0.4375rem;
-  border: ${({ $isFavorited, theme }) =>
-    $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`};
-  background: ${({ $isFavorited, theme }) => ($isFavorited ? theme.colors.primary.violet : 'none')};
+  border: ${({ $isFavorited, $isTrashMode, theme }) => {
+    if ($isTrashMode) return 'none';
+    return $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`;
+  }};
+  background: ${({ $isFavorited, $isTrashMode, theme }) => {
+    if ($isTrashMode) return 'transparent';
+    return $isFavorited ? theme.colors.primary.violet : 'none';
+  }};
   border-radius: 0.75rem;
   width: 3.375rem;
   height: 4.5rem;
@@ -63,11 +68,77 @@ export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  color: ${({ $isFavorited, theme }) => ($isFavorited ? '#ffffff' : theme.colors.primary.violet)};
+  color: ${({ $isFavorited, $isTrashMode, theme }) => {
+    if ($isTrashMode) return theme.colors.grayScale.gy400;
+    return $isFavorited ? '#ffffff' : theme.colors.primary.violet;
+  }};
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:active {
     transform: scale(0.95);
+  }
+`;
+
+export const TabContainer = styled.div<{ width?: string }>`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 24px;
+  gap: 0.5rem;
+  margin: 0 auto 1rem;
+  width: ${({ width }) => width || '360px'};
+  height: 42px;
+  background-color: ${(props) => props.theme.colors.grayScale.gy50};
+  padding: 2px;
+`;
+
+export const TabSlider = styled.div<{ $activeIndex: number }>`
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(50% - 2px);
+  height: calc(100% - 4px);
+  background-color: ${(props) => props.theme.colors.primary.violet};
+  border-radius: 22px;
+  transform: translateX(${({ $activeIndex }) => $activeIndex * 100}%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+`;
+
+export const EmptyState = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 0;
+`;
+
+export const EmptyText = styled.p`
+  ${(props) => props.theme.fonts.body.medium400};
+  color: ${(props) => props.theme.colors.grayScale.gy400};
+  text-align: center;
+  white-space: pre-line;
+`;
+
+export const TabButton = styled.button<{ $active: boolean }>`
+  ${(props) => props.theme.fonts.body.small400};
+  flex: 1;
+  height: 42px;
+  border-radius: 22px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.grayScale.white : theme.colors.grayScale.gy600};
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
