@@ -137,6 +137,7 @@
   </script>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script src="/error/inapp.js"></script>
   <script defer>
     var inappdeny_exec_vanillajs = (callback) => {
       if (document.readyState !== 'loading') {
@@ -166,9 +167,10 @@
           /inapp|naver|snapchat|wirtschaftswoche|thunderbird|instagram|everytimeapp|whatsApp|electron|wadiz|aliapp|zumapp|iphone(.*)whale|android(.*)whale|kakaostory|band|twitter|DaumApps|DaumDevice\/mobile|FB_IAB|FB4A|FBAN|FBIOS|FBSS|trill|SamsungBrowser\/[^1]/i,
         )
       ) {
-        //그외 다른 인앱들
+        //그외 다른 인앱들 - 외부 브라우저 오픈 유도 페이지 표시
+        showInAppBrowserError();
       }
-    });
+    });    
   </script>
 </body>
 
