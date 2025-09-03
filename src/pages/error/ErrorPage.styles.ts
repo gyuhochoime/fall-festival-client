@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import errorBackground from '@/assets/images/error/error-background.jpg';
 import logo from '@/assets/images/espero-logo.png';
 
 export const ErrorPageContainer = styled.div`
@@ -10,7 +9,7 @@ export const ErrorPageContainer = styled.div`
   height: 100vh;
   width: 100%;
   position: relative;
-  background-image: url('${errorBackground}');
+  background-image: url('/error/background.jpg');
   background-size: cover;
   background-position: center;
 `;
