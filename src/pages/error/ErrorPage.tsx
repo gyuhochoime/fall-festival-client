@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import * as S from './ErrorPage.styles';
 
 import BackIcon from '@/assets/icons/left-arrow.svg?react';
@@ -13,12 +13,20 @@ interface ErrorPageProps {
 }
 
 const ErrorPage = ({
-  mainText = '오류가 발생했습니다',
-  subText = '',
-  showBackButton = false,
-  showHomeButton = true,
+  mainText: propMainText = '오류가 발생했습니다',
+  subText: propSubText = '',
+  showBackButton: propShowBackButton = false,
+  showHomeButton: propShowHomeButton = true,
 }: ErrorPageProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // location.state에서 전달받은 데이터 우선 사용
+  const state = location.state as ErrorPageProps | null;
+  const mainText = state?.mainText || propMainText;
+  const subText = state?.subText || propSubText;
+  const showBackButton = state?.showBackButton ?? propShowBackButton;
+  const showHomeButton = state?.showHomeButton ?? propShowHomeButton;
 
   const handleGoBack = () => {
     navigate(-1);
