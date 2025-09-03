@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneSelecting.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
+import { useToastStore } from '@/stores/useToastStore';
 import { useFortune } from '@/hooks/useFortune';
 import FortuneCardBack from '@/assets/images/fortune/FortuneCardBack.webp';
 
@@ -16,6 +17,7 @@ export default function FortuneSelecting() {
   const navigate = useNavigate();
   const location = useLocation();
   const { getFortune, loading } = useFortune();
+  const showToast = useToastStore((state) => state.showToast);
 
   const state = location.state as LocationState;
   const { name, birthDate } = state || { name: '', birthDate: '' };
@@ -38,7 +40,7 @@ export default function FortuneSelecting() {
         },
       });
     } catch {
-      alert('운세를 불러오는데 실패했습니다. 다시 시도해주세요.');
+      showToast('동시 접속자가 너무 많아\n잠시 후 다시 시도해주세요.');
     }
   };
 
