@@ -14,6 +14,7 @@ export interface NavBarProps {
   onCloseClick?: () => void;
   backPath?: number | string;
   opacity?: boolean;
+  whiteIcons?: boolean;
 }
 
 export interface SearchNavBarProps {
