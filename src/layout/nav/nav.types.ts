@@ -6,6 +6,7 @@ export type navItem = {
   label: string;
   DefaultIcon: ReactElement;
   ActiveIcon: ReactElement;
+  activePaths?: string[];
 };
 
 export type navItems = readonly navItem[];

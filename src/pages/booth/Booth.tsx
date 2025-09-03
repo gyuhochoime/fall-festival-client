@@ -7,23 +7,13 @@ import * as S from './Booth.styles';
 export default function Booth() {
   const navigate = useNavigate();
 
-  const handleFavoriteClick = () => {
-    navigate('/favorites');
-  };
-
   const handleSearchClick = () => {
     navigate('/booth/search');
   };
 
   return (
     <S.Container>
-      <NavBar
-        isFavorite
-        isSearch
-        title="주점"
-        onFavoriteClick={handleFavoriteClick}
-        onSearchClick={handleSearchClick}
-      />
+      <NavBar hideLeft isSearch title="주점" onSearchClick={handleSearchClick} />
       <S.Main>
         <BoothList />
       </S.Main>

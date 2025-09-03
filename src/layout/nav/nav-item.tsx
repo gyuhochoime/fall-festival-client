@@ -40,6 +40,7 @@ export const NAV_ITEMS: navItems = [
     label: '주점',
     DefaultIcon: <PUB_ICON width={'1.5rem'} height={'1.5rem'} />,
     ActiveIcon: <PUB_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
+    activePaths: ['/booth', '/favorites'],
   },
   {
     id: 'polaroid',
