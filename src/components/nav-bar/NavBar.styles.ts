@@ -16,7 +16,7 @@ export const Container = styled.header<{ $opacity?: boolean }>`
   z-index: 99;
 `;
 
-export const LeftSection = styled.div<{ $opacity?: boolean }>`
+export const LeftSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -24,11 +24,11 @@ export const LeftSection = styled.div<{ $opacity?: boolean }>`
   margin-left: 8.5px;
 
   svg {
-    filter: none;
+    filter: ${({ $whiteIcons }) => ($whiteIcons ? 'brightness(0) invert(1)' : 'none')};
   }
 `;
 
-export const RightSection = styled.div<{ $opacity?: boolean }>`
+export const RightSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -37,7 +37,7 @@ export const RightSection = styled.div<{ $opacity?: boolean }>`
   margin-right: 3px;
 
   svg {
-    filter: none;
+    filter: ${({ $whiteIcons }) => ($whiteIcons ? 'brightness(0) invert(1)' : 'none')};
   }
 `;
 
