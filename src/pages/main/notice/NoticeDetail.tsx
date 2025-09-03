@@ -98,6 +98,7 @@ export default function NoticeDetail() {
     });
   }
 
+  if (!notice) return null;
   return (
     <>
       <NavBar title="공지사항" isBack={true} />
