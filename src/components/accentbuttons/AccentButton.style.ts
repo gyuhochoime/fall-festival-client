@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledButtonProps } from './BlueButton.types';
+import { StyledButtonProps } from './AccentButton.types';
 
 export const StyledButton = styled.button<StyledButtonProps>`
   display: flex;
