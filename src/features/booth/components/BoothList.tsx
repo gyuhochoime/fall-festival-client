@@ -70,8 +70,8 @@ export default function BoothList({ showFavoritesOnly = false }: BoothListProps)
       {showFavoritesOnly && displayBooths.length === 0 ? (
         <S.EmptyState>
           <S.EmptyText>
-            아직 찜한 주점이 없습니다.{'\n'}
-            마음에 드는 주점을 찜해보세요!
+            찜한 주점이 없어요.{'\n'}
+            원하는 주점의 찜하기 버튼을 눌러보세요!
           </S.EmptyText>
         </S.EmptyState>
       ) : (
