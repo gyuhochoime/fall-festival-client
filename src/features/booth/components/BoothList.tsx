@@ -45,11 +45,15 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
     : booths;
 
   if (error) {
-    return (
-      <S.Container>
-        <div>{error}</div>
-      </S.Container>
-    );
+    navigate('/error', {
+      state: {
+        mainText: '서버가 힘들어하고 있어요.',
+        subText: '멋사가 금방 고쳐올테니, 잠시 후에 다시 와주세요!',
+        showBackButton: true,
+        showHomeButton: true,
+      },
+    });
+    return null;
   }
 
   return (
@@ -73,8 +77,8 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
       {showFavoritesOnly && displayBooths.length === 0 ? (
         <S.EmptyState>
           <S.EmptyText>
-            아직 찜한 주점이 없습니다.{'\n'}
-            마음에 드는 주점을 찜해보세요!
+            찜한 주점이 없어요.{'\n'}
+            원하는 주점의 찜하기 버튼을 눌러보세요!
           </S.EmptyText>
         </S.EmptyState>
       ) : (

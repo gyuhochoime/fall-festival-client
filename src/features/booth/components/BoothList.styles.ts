@@ -121,6 +121,7 @@ export const EmptyText = styled.p`
   color: ${(props) => props.theme.colors.grayScale.gy400};
   text-align: center;
   white-space: pre-line;
+  margin-top: 50px;
 `;
 
 export const TabButton = styled.button<{ $active: boolean }>`

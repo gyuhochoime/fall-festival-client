@@ -260,8 +260,8 @@ export default function Polaroid() {
         <S.HeaderButton aria-label="나가기">
           <CloseIcon
             style={{ cursor: 'pointer' }}
-            width={'0.85rem'}
-            height={'0.85rem'}
+            width={'0.95rem'}
+            height={'0.95rem'}
             onClick={handleExit}
           />
         </S.HeaderButton>

@@ -7,7 +7,7 @@ export interface BoothMenuItem {
 export interface BoothMenu {
   main: BoothMenuItem[];
   side: BoothMenuItem[];
-  sub: BoothMenuItem[];
+  others: BoothMenuItem[];
 }
 
 export interface Booth {
@@ -52,7 +52,7 @@ export interface PubDetailResponse {
 export interface MenuApiResponse {
   id: number;
   name: string;
-  category: 'main' | 'side' | 'drink';
+  category: 'main' | 'side' | 'others';
   description: string;
   price: number;
 }

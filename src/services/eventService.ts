@@ -24,7 +24,7 @@ interface EventListResponse {
  */
 export const fetchCurrentEvents = async (): Promise<EventItem[]> => {
   try {
-    const response = await axiosInstance.get<EventListResponse>(`/api/events`);
+    const response = await axiosInstance.get<EventListResponse>(`/api/contents`);
     return response.data.data;
   } catch (error: unknown) {
     // 타입스크립트를 위한 타입 가드

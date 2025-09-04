@@ -25,15 +25,15 @@ const transformMenusToBoothMenu = (menus: MenuApiResponse[]) => {
       price: `${m.price.toLocaleString()} 원`,
     }));
 
-  const sub = menus
-    .filter((m) => m.category === 'drink')
+  const others = menus
+    .filter((m) => m.category === 'others')
     .map((m) => ({
       name: m.name,
       describtion: m.description,
       price: `${m.price.toLocaleString()} 원`,
     }));
 
-  return { main, side, sub };
+  return { main, side, others };
 };
 
 const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
