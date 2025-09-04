@@ -21,11 +21,11 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header`
-  height: 56px;
+  height: 3.5rem; /* 56px */
   display: grid;
-  grid-template-columns: 56px 1fr 56px;
+  grid-template-columns: 3.5rem 1fr 3.5rem; /* 56px 1fr 56px */
   align-items: center;
-  border-bottom: 1px solid ${(p) => p.theme.colors.grayScale.gy100};
+  border-bottom: 0.0625rem solid ${(p) => p.theme.colors.grayScale.gy100}; /* 1px */
 `;
 
 export const HeaderButton = styled.button`
@@ -50,7 +50,6 @@ export const TimeWrap = styled.div`
   flex: 1;
   margin-top: 8.625rem;
   min-height: 34.6875rem;
-  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 5rem;
 `;
@@ -65,6 +64,7 @@ export const TimeAndBarContainer = styled.div`
 export const TimeContainer = styled.div`
   display: flex;
   width: 2.5rem;
+  height: 45.25rem; /* 724px - 막대기와 같은 높이 */
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
@@ -135,7 +135,7 @@ export const TimeText = styled.p`
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 142%;
-  letter-spacing: -0.28px;
+  letter-spacing: -0.0175rem; /* -0.28px */
 `;
 
 export const ContentBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>`
@@ -155,20 +155,6 @@ export const ContentBox = styled.div<{ $isActive: boolean; $isEmpty?: boolean }>
         : theme.colors.grayScale.gy50};
 `;
 
-export const PerformanceName = styled.p`
-  color: ${({ theme }) => theme.colors.grayScale.black};
-  ${(props) => props.theme.fonts.body.large500};
-`;
-
-export const PerformanceTime = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 0.375rem;
-  ${(props) => props.theme.fonts.body.small500};
-  color: ${({ theme }) => theme.colors.grayScale.black};
-`;
-
 export const Divider = styled.div`
   display: flex;
   height: 0.5rem;
@@ -179,7 +165,7 @@ export const Divider = styled.div`
 
 export const Line = styled.div`
   width: 4.38rem;
-  height: 1px;
+  height: 0.0625rem; /* 1px */
   background-color: ${({ theme }) => theme.colors.grayScale.gy50};
 `;
 
@@ -217,7 +203,7 @@ export const NorthStarContainer = styled.div`
 
 export const NorthStarLine = styled.div`
   width: 0.0663rem;
-  height: 45.25rem;
+  height: 45.25rem; /* 724px */
   background: ${(props) => props.theme.colors.primary.violet};
   display: flex;
   flex-direction: column;
@@ -276,4 +262,83 @@ export const ArtistInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+`;
+
+// 새로운 공연 컨테이너 스타일들
+export const PerformanceBoxContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 2.125rem;
+  gap: 0.75rem;
+`;
+
+export const Day2Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+`;
+
+export const Day3Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+`;
+
+export const PerformanceBox = styled.div<{
+  $boxSize: 'large' | 'large-day3' | 'medium' | 'small';
+  $isActive: boolean;
+}>`
+  display: flex;
+  width: 15.3125rem; /* 245px */
+  height: ${({ $boxSize }) => {
+    switch ($boxSize) {
+      case 'large':
+        return '16.5rem'; /* 264px for day 2 */
+      case 'large-day3':
+        return '15.125rem'; /* 242px for day 3 */
+      case 'medium':
+        return '5.5rem'; /* 88px */
+      case 'small':
+        return '4.125rem'; /* 66px */
+      default:
+        return '5.5rem';
+    }
+  }};
+  padding: 0.75rem 1.25rem; /* 12px 20px */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem; /* 0.5rem */
+  border-radius: 1rem; /* 16px */
+  background: ${({ $isActive, theme }) =>
+    $isActive ? 'rgba(126, 65, 154, 0.20)' : theme.colors.grayScale.white};
+  box-shadow: 0 0 0.75rem 0 rgb(126 65 154 / 30%); /* 12px */
+  transition: all 0.3s ease;
+`;
+
+export const PerformanceInfo = styled.div<{ $isActive: boolean }>`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem; /* 8px */
+`;
+
+export const PerformanceName = styled.div<{ $isActive: boolean }>`
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.primary.violet : theme.colors.grayScale.gy800};
+  font-weight: 600;
+  font-size: 0.875rem; /* 14px */
+  line-height: 142%; /* 19.88px */
+  letter-spacing: -0.0175rem; /* -0.28px */
+`;
+
+export const PerformanceTime = styled.div<{ $isActive: boolean }>`
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.primary.violet : theme.colors.grayScale.gy400};
+  font-weight: 500;
+  font-size: 0.625rem; /* 10px */
+  line-height: 150%; /* 15px */
+  letter-spacing: -0.0125rem; /* -0.2px */
 `;

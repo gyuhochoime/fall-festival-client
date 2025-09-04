@@ -13,6 +13,7 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [textFade, setTextFade] = useState<'in' | 'out'>('in');
   const isSwipingRef = useRef(false);
+  const sliderRef = useRef<Slider>(null);
 
   // 텍스트 fade 처리
   useEffect(() => {
@@ -30,6 +31,14 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
       onIndexChange(currentIndex);
     }
   }, [currentIndex, onIndexChange, data.length]);
+
+  // 데이터 변경 시 슬라이더를 첫 번째 슬라이드로 이동
+  useEffect(() => {
+    if (sliderRef.current && data.length > 0) {
+      sliderRef.current.slickGoTo(0);
+      setCurrentIndex(0);
+    }
+  }, [data]);
 
   const settings = {
     dots: false,
@@ -68,12 +77,10 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
         </S.EmptyStateContainer>
       ) : (
         <S.CarouselWrapper>
-          <Slider {...settings}>
+          <Slider ref={sliderRef} {...settings}>
             {data.map((singer: PerformanceItem, index: number) => {
               const isEven = index % 2 === 0;
-              const isActive =
-                index === currentIndex ||
-                (currentIndex >= data.length - 2 && index === data.length - 1);
+              const isActive = index === currentIndex;
 
               return (
                 <div key={index}>
