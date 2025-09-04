@@ -38,7 +38,6 @@ export const SearchSection = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-top: 4.375rem;
-  margin-bottom: 1rem;
 `;
 
 export const SearchInputWrapper = styled.div`
@@ -95,7 +94,8 @@ export const RecommendedSearchSection = styled.div`
   width: 20.9375rem; /* 335px */
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.25rem; /* 4px */
+  gap: 0.25rem;
+  margin-top: 1rem;
 `;
 
 export const RecommendedSearchHeader = styled.h3`
@@ -138,8 +138,7 @@ export const SearchResultsContainer = styled.div`
   width: 20.9375rem;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 1rem;
-  gap: 0rem;
+  margin-top: 0.75rem;
 `;
 
 export const Divider = styled.div`

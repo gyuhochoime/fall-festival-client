@@ -62,10 +62,7 @@ export default function MapSearch() {
     // 위치 검색어 자동완성
     Object.values(MapData).forEach((items) => {
       items.forEach((item) => {
-        if (
-          item.title.toLowerCase().includes(query) ||
-          (item.subtitle && item.subtitle.toLowerCase().includes(query))
-        ) {
+        if (item.title.toLowerCase().includes(query)) {
           autocomplete.push({
             id: `location-${item.id}`,
             text: item.title,
@@ -94,10 +91,7 @@ export default function MapSearch() {
       // 모든 카테고리의 아이템을 검색
       Object.values(MapData).forEach((items) => {
         items.forEach((item) => {
-          if (
-            item.title.includes(debouncedSearchTerm) ||
-            (item.subtitle && item.subtitle.includes(debouncedSearchTerm))
-          ) {
+          if (item.title.includes(debouncedSearchTerm)) {
             results.push(item);
           }
         });
