@@ -8,7 +8,6 @@ export const Container = styled.footer`
   justify-content: center;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 5.37rem;
 `;
 
 export const Sub = styled.p`
