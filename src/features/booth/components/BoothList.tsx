@@ -12,9 +12,10 @@ import TrashIcon from 'src/assets/icons/trash.svg?react';
 
 interface BoothListProps {
   showFavoritesOnly?: boolean;
+  hideTabs?: boolean;
 }
 
-export default function BoothList({ showFavoritesOnly = false }: BoothListProps) {
+export default function BoothList({ showFavoritesOnly = false, hideTabs = false }: BoothListProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { booths, error } = useBooths();
@@ -54,15 +55,17 @@ export default function BoothList({ showFavoritesOnly = false }: BoothListProps)
   return (
     <S.Container>
       <Notification title="[공지] 미취학 아동 입장 제한" width="100%" />
-      <S.TabContainer width="100%">
-        <S.TabSlider $activeIndex={showFavoritesOnly ? 1 : 0} />
-        <S.TabButton $active={!showFavoritesOnly} onClick={() => navigate('/booth')}>
-          전체 주점
-        </S.TabButton>
-        <S.TabButton $active={showFavoritesOnly} onClick={() => navigate('/favorites')}>
-          찜한 주점
-        </S.TabButton>
-      </S.TabContainer>
+      {!hideTabs && (
+        <S.TabContainer width="100%">
+          <S.TabSlider $activeIndex={showFavoritesOnly ? 1 : 0} />
+          <S.TabButton $active={!showFavoritesOnly} onClick={() => navigate('/booth')}>
+            전체 주점
+          </S.TabButton>
+          <S.TabButton $active={showFavoritesOnly} onClick={() => navigate('/favorites')}>
+            찜한 주점
+          </S.TabButton>
+        </S.TabContainer>
+      )}
       <S.Header>
         <S.Count>전체 {displayBooths.length}개</S.Count>
       </S.Header>

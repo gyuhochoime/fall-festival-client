@@ -5,6 +5,7 @@ import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
 import SearchBar from '@/components/search-bar/SearchBar';
 import DaySelectorModal from '@/components/day-selector-modal/DaySelectorModal';
+import { BoothList } from '@/features/booth';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 import { getCurrentFestivalDay } from '@/utils/dateUtils';
@@ -41,7 +42,7 @@ export default function Map() {
 
   // 카테고리 매핑
   const categoryMapping: Record<string, CATEGORIES | null> = {
-    이벤트: '프로모션',
+    프로모션: '프로모션',
     주점: '주점',
     푸드트럭: '푸드트럭',
     콘텐츠: '콘텐츠',
@@ -63,7 +64,7 @@ export default function Map() {
       draggable: true,
       zoomable: true,
       scrollwheel: true,
-      isBottomSheetOpen,
+      isBottomSheetOpen: isBottomSheetOpen || !!selectedMapCategory,
     },
     selectedMapCategory ? categoryMapping[selectedMapCategory] : selectedCategory,
     selectedDay,
@@ -112,7 +113,7 @@ export default function Map() {
 
   // 바텀시트가 열리면 하단 네비게이션 숨김 및 지도 리사이즈
   useEffect(() => {
-    if (isBottomSheetOpen) {
+    if (isBottomSheetOpen || selectedMapCategory) {
       useLayoutStore.getState().setIsNav(false);
     } else {
       useLayoutStore.getState().setIsNav(true);
@@ -127,7 +128,7 @@ export default function Map() {
 
     // cleanup 함수로 timeout 제거
     return () => clearTimeout(timeoutId);
-  }, [isBottomSheetOpen, kakaoMap]);
+  }, [isBottomSheetOpen, selectedMapCategory, kakaoMap]);
 
   // 페이지를 벗어날 때 네비게이션 바를 원상복구
   useEffect(() => {
@@ -167,6 +168,17 @@ export default function Map() {
     // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
     const newCategory = category === selectedMapCategory ? '' : category;
     setSelectedMapCategory(newCategory);
+
+    // 바텀시트를 위한 카테고리 설정
+    if (newCategory) {
+      const mappedCategory = categoryMapping[newCategory];
+      setSelectedCategory(mappedCategory);
+      console.log('[MapPage] 바텀시트 카테고리 설정:', mappedCategory);
+    } else {
+      setSelectedCategory(null);
+      console.log('[MapPage] 바텀시트 닫기');
+    }
+
     console.log('[MapPage] 매핑된 카테고리:', newCategory ? categoryMapping[newCategory] : 'none');
   };
 
@@ -177,8 +189,11 @@ export default function Map() {
 
   return (
     <S.MapContainer>
-      <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen} />
-      <S.ReCenterButton $isBottomSheetOpen={isBottomSheetOpen} onClick={handleReCenterClick}>
+      <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen || !!selectedMapCategory} />
+      <S.ReCenterButton
+        $isBottomSheetOpen={isBottomSheetOpen || !!selectedMapCategory}
+        onClick={handleReCenterClick}
+      >
         <ReCenterButtonIcon />
       </S.ReCenterButton>
       <S.ContentContainer>
@@ -193,7 +208,7 @@ export default function Map() {
         <S.CategoryTabsContainer>
           <Tabs
             tabs={[
-              '이벤트',
+              '프로모션',
               '주점',
               '푸드트럭',
               '콘텐츠',
@@ -211,13 +226,17 @@ export default function Map() {
             margin="0.75rem"
           />
         </S.CategoryTabsContainer>
-        {isBottomSheetOpen && (
+        {(isBottomSheetOpen || selectedMapCategory) && (
           <S.BottomSheetContainer>
             <MapPageBottomSheet
               selectedCategory={selectedCategory}
               selectedDay={selectedDay}
               onItemClick={showItemMarker}
-            />
+            >
+              {selectedCategory === '주점' && (
+                <BoothList showFavoritesOnly={false} hideTabs={true} />
+              )}
+            </MapPageBottomSheet>
           </S.BottomSheetContainer>
         )}
       </S.ContentContainer>

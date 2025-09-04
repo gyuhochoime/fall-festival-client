@@ -49,9 +49,9 @@ export const SearchInputWrapper = styled.div`
 
 export const SearchInput = styled.input`
   width: 20.9375rem; /* 335px */
-  height: 2.625rem; /* 42px */
+  height: 2.8125rem; /* 45px */
   flex-shrink: 0;
-  padding: 1rem 3rem 1rem 1rem;
+  padding: 1rem 1.5625rem;
   border: transparent;
   background: ${(props) => props.theme.colors.grayScale.gy100}; /* #E9E9EA */
   border-radius: 0.75rem; /* 12px */
@@ -70,7 +70,7 @@ export const SearchInput = styled.input`
 
 export const SearchIconWrapper = styled.div<{ $isClickable?: boolean }>`
   position: absolute;
-  right: 1rem;
+  right: 1.5625rem;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: ${({ $isClickable }) => ($isClickable ? 'auto' : 'none')};
@@ -135,9 +135,11 @@ export const CustomTabsWrapper = styled.div`
 
 export const SearchResultsContainer = styled.div`
   display: flex;
+  width: 20.9375rem;
   flex-direction: column;
-  margin-top: 1.6rem;
-  gap: 0.62rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+  gap: 0rem;
 `;
 
 export const Divider = styled.div`
@@ -181,4 +183,41 @@ export const NoResultsText = styled.p`
   line-height: 150%; /* 24px */
   letter-spacing: -0.02rem; /* -0.32px */
   white-space: pre-line;
+`;
+export const AutocompleteContainer = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: ${(props) => props.theme.colors.grayScale.white};
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 10%);
+  z-index: 1000;
+  margin-top: 0.25rem;
+  max-height: 12.5rem;
+  overflow-y: auto;
+`;
+
+export const AutocompleteItem = styled.div`
+  display: flex;
+  padding: 0.625rem 0;
+  align-items: center;
+  gap: 0.75rem;
+  align-self: stretch;
+  cursor: pointer;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.grayScale.gy50};
+  }
+`;
+
+export const AutocompleteText = styled.span`
+  color: ${(props) => props.theme.colors.grayScale.black};
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -0.02rem;
 `;
