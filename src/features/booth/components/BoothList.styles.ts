@@ -23,7 +23,7 @@ export const BoothList = styled.ul`
   flex-direction: column;
   gap: 1.5rem;
   padding: 0rem 0rem 13.12rem;
-  margin: 0;
+  margin-top: -8px;
 `;
 
 export const BoothItem = styled.li`
@@ -88,23 +88,22 @@ export const TabContainer = styled.div<{ width?: string }>`
   align-items: center;
   border-radius: 24px;
   gap: 0.5rem;
-  margin: 0 auto 1rem;
-  width: ${({ width }) => width || '360px'};
-  height: 42px;
+  margin-top: -0.8rem;
+  width: ${({ width }) => width || '20.9375rem'};
+  height: 2.5rem;
+  padding: 0.5rem 0rem;
   background-color: ${(props) => props.theme.colors.grayScale.gy50};
-  padding: 2px;
 `;
 
 export const TabSlider = styled.div<{ $activeIndex: number }>`
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: calc(50% - 2px);
-  height: calc(100% - 4px);
+  width: calc(50% - 0px);
+  height: calc(100% - 0px);
   background-color: ${(props) => props.theme.colors.primary.violet};
   border-radius: 22px;
   transform: translateX(${({ $activeIndex }) => $activeIndex * 100}%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 6px rgb(0 0 0 / 30%);
   z-index: 1;
 `;
 
@@ -127,7 +126,7 @@ export const EmptyText = styled.p`
 export const TabButton = styled.button<{ $active: boolean }>`
   ${(props) => props.theme.fonts.body.small400};
   flex: 1;
-  height: 42px;
+  height: 2.5rem;
   border-radius: 22px;
   border: none;
   cursor: pointer;
