@@ -1,13 +1,26 @@
 import * as S from './BoothInfo.styles';
 import { newlineToBr } from '@/utils/newlineToBr';
 import { useBooth } from '@/hooks/useBooth';
+import { useNavigate } from 'react-router-dom';
 import { OPERATING_HOURS } from '@/constants/booth/operating-hours';
 import PubBeerIcon from '@/assets/icons/pub_beer.svg?react';
 import TimeIcon from '@/assets/icons/time_pub.svg?react';
 
 export default function BoothInfo({ id }: { id: number }) {
   const { booth, error } = useBooth(id);
-  if (error || !booth) return <div>주점 정보를 찾을 수 없습니다.</div>;
+  const navigate = useNavigate();
+
+  if (error || !booth) {
+    navigate('/error', {
+      state: {
+        mainText: '서버가 힘들어하고 있어요.',
+        subText: '멋사가 금방 고쳐올테니, 잠시 후에 다시 와주세요!',
+        showBackButton: true,
+        showHomeButton: true,
+      },
+    });
+    return null;
+  }
   return (
     <S.Container>
       <S.ImageBtnFrame>

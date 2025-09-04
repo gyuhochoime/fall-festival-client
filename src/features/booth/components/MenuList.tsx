@@ -3,13 +3,25 @@ import { useState } from 'react';
 import * as S from './MenuList.styles';
 import { MenuFrame } from '@/components/image-text-frame';
 import { useBooth } from '@/hooks/useBooth';
+import { useNavigate } from 'react-router-dom';
 const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '기타'];
 
 export default function MenuList({ id }: { id: number }) {
   const [activeTab, setActiveTab] = useState<string>('');
   const { booth, error } = useBooth(id);
+  const navigate = useNavigate();
 
-  if (error || !booth) return <div>메뉴 정보를 찾을 수 없습니다.</div>;
+  if (error || !booth) {
+    navigate('/error', {
+      state: {
+        mainText: '서버가 힘들어하고 있어요.',
+        subText: '멋사가 금방 고쳐올테니, 잠시 후에 다시 와주세요!',
+        showBackButton: true,
+        showHomeButton: true,
+      },
+    });
+    return null;
+  }
   return (
     <>
       <S.TabsContainer>
