@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const CarouselWrapper = styled.div`
   width: 100dvw;
-  padding-left: 1.25rem;
+  max-width: 21rem;
 
   /* slick-track 스타일링 */
   .slick-track {
@@ -66,7 +66,8 @@ export const NorthStar = styled.div`
 
 export const VerticalLine = styled.div`
   width: 0.0625rem;
-  height: 4.5rem;
+  height: calc(100dvh - 45rem);
+  max-height: 10rem;
   background: ${(props) => props.theme.colors.primary.violet};
 `;
 

@@ -5,7 +5,8 @@ export const PerformanceContainer = styled.div`
   width: 100%;
   height: auto;
   position: relative;
-  margin-bottom: 5.37rem;
+
+  /* margin-bottom: 5.37rem; */
 `;
 
 export const Header = styled.header`
@@ -39,7 +40,7 @@ export const Fullscreen = styled.main`
   position: relative;
   overflow: hidden auto;
   min-height: 0;
-  padding-bottom: 5rem;
+  height: calc(100dvh - 5.5rem);
 `;
 
 export const InfoWrap = styled.div`
@@ -77,11 +78,12 @@ export const HelpIconStyled = styled(HelpIcon)`
 export const Carousel = styled.div<{ $isFirstDay?: boolean }>`
   display: flex;
   align-items: center;
-  justify-content: ${(props) => (props.$isFirstDay ? 'center' : 'flex-start')};
+  justify-content: center; /* ${(props) => (props.$isFirstDay ? 'center' : 'flex-start')}; */
   gap: 0.75rem;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 0;
   overflow: visible;
+  flex: 1;
 `;
 
 export const TableNoteWrap = styled.div`
@@ -107,22 +109,15 @@ export const NoteText = styled.p`
 
 export const TimeTableButton = styled.button`
   display: flex;
-  padding: 0.25rem 0.75rem;
   justify-content: center;
   align-items: center;
-  gap: 0.375rem;
-  margin-top: 2rem;
+  margin: 0.8rem 1.4rem 2rem;
   align-self: flex-end;
-  margin-right: 1.25rem;
-  ${(props) => props.theme.fonts.body.xsmall500};
+  ${(props) => props.theme.fonts.body.xsmall600};
   color: ${(props) => props.theme.colors.primary.violet};
   text-align: center;
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-skip-ink: auto;
-  text-decoration-thickness: auto;
-  text-underline-offset: auto;
-  text-underline-position: from-font;
   background: transparent;
   border: none;
   cursor: pointer;

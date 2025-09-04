@@ -5,4 +5,5 @@
 export type ImageBannerFrameProps = {
   image: string;
   onClick?: () => void;
+  backgroundColor?: string;
 };

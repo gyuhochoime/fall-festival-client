@@ -73,18 +73,3 @@ export const TextWrapper = styled.div`
 export const EventText = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500}
 `;
-
-export const Pill = styled.div`
-  position: absolute;
-  bottom: 0.8rem;
-  right: 0.8rem;
-  padding: 0.25rem 0.7rem;
-  border-radius: 1rem;
-  background-color: ${(props) => props.theme.colors.secondary.vl800}80;
-  color: ${(props) => props.theme.colors.grayScale.white};
-  ${(props) => props.theme.fonts.body.xsmall400}
-
-  span {
-    opacity: 0.7;
-  }
-`;

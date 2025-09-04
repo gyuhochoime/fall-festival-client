@@ -7,8 +7,6 @@ export interface CardProps {
   location: string;
   date: string;
   onClick?: () => void;
-  currentIndex?: number;
-  totalCards?: number;
   noticeId?: number | null; // noticeId 추가
 }
 
