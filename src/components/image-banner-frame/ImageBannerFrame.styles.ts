@@ -10,7 +10,7 @@ export const Container = styled.div<ImageProps>`
   border-radius: 16px;
   background-color: ${(props) => props.theme.colors.grayScale.white};
   cursor: pointer;
-  box-shadow: 0 0 12px 0 rgb(126 65 154 / 30%);
+  box-shadow: 0 0 12px 0 rgb(126 65 154 / 50%);
   overflow: hidden; /* Add overflow hidden to clip the image within border-radius */
 
   &:active {

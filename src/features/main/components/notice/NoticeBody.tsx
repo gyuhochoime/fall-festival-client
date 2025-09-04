@@ -1,6 +1,6 @@
 import * as S from './NoticeBody.styles';
 import { ColorButton } from '@/components/colorbuttons';
-import { ColorKey } from '@/components/colorbuttons/ColorButton.types';
+// import { ColorKey } from '@/components/colorbuttons/ColorButton.types';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { NoticeBodyProps } from './Notice.types';
@@ -21,7 +21,11 @@ function NoticeBody({ title, tags, body }: NoticeBodyProps) {
         <S.Title>{title}</S.Title>
         <S.TagWrapper>
           {tags.map((tag, index) => (
-            <ColorButton key={index} backgroundColor={tag.color as ColorKey} label={tag.text} />
+            <ColorButton
+              key={index}
+              backgroundColor={tag.text == '공지사항' ? '#DD3721' : '#7E419A'}
+              label={tag.text}
+            />
           ))}
         </S.TagWrapper>
         <S.Body>

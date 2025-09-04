@@ -14,6 +14,7 @@ export const Body = styled.div`
 export const Main = styled.main`
   padding: 1.78rem 1.25rem 4.35rem;
   width: 100%;
+  max-width: 32rem;
 `;
 
 export const TagWrapper = styled.div`

@@ -10,10 +10,18 @@ import { ImageBannerFrameProps } from './ImageBannerFrame.types';
  * @returns {JSX.Element}
  */
 
-export default function ImageBannerFrame({ image, onClick }: ImageBannerFrameProps) {
+export default function ImageBannerFrame({
+  image,
+  onClick,
+  backgroundColor = '#fff',
+}: ImageBannerFrameProps) {
   const hasImage = Boolean(image);
   return (
-    <S.Container $hasImage={hasImage} onClick={onClick}>
+    <S.Container
+      $hasImage={hasImage}
+      onClick={onClick}
+      style={{ backgroundColor: backgroundColor }}
+    >
       {hasImage && <S.Image src={image} alt="이미지" />}
     </S.Container>
   );

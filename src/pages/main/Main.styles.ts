@@ -13,15 +13,26 @@ export const Layout = styled.div`
   position: absolute;
 `;
 
+export const TitleBar = styled.div`
+  width: 100%;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: fixed;
+  padding: 1.3rem;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 10;
+  box-shadow: 0 0 15px 0 #7e419a55;
+`;
+
 export const MainLogo = styled.div`
-  position: absolute;
-  width: 9.9rem;
-  height: 3.3rem;
+  width: 8.1rem;
+  height: 2.7rem;
   background-image: url(${logo});
   background-size: contain;
   background-repeat: no-repeat;
-  left: 0.8rem;
-  top: 1.3rem;
+  filter: drop-shadow(0px 0 4px #7e419a);
 `;
 
 export const Container = styled.div`
