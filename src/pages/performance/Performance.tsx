@@ -32,6 +32,11 @@ export default function Performance() {
     return () => setIsNav(true);
   }, [setIsNav]);
 
+  // 일차 변경 시 인덱스 초기화
+  React.useEffect(() => {
+    setCurrentIndex(0);
+  }, [selectedDay]);
+
   const handleHelpClick = () => {
     open(
       {

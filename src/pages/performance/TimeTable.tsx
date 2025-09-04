@@ -61,41 +61,6 @@ export default function TimeTable() {
     return nowTotal >= startTotal && nowTotal < endTotal;
   };
 
-  const calculateBoxHeight = (start: string, end: string) => {
-    const [startHour, startMin] = start.split(':').map(Number);
-    const [endHour, endMin] = end.split(':').map(Number);
-
-    const startTotal = startHour * 60 + startMin;
-    const endTotal = endHour * 60 + endMin;
-    const duration = endTotal - startTotal; // 분 단위
-
-    // 공연 시간에 따른 높이 설정
-    if (duration <= 20) return 2.75;
-    if (duration <= 30) return 4.125;
-    if (duration <= 45) return 4.125;
-    if (duration <= 60) return 8.25;
-    return 8.25; // 기본값
-  };
-
-  // 공연 시간에 따른 topPosition 계산
-  const calculateTopPosition = (start: string) => {
-    const [startHour] = start.split(':').map(Number);
-    const basePosition = (startHour - 17) * 8.25; // 17시를 기준으로 계산하고 미세 조정
-    return basePosition;
-  };
-
-  // const calculateDurationInBlocks = (start: string, end: string) => {
-  //   const [startHour, startMin] = start.split(':').map(Number);
-  //   const [endHour, endMin] = end.split(':').map(Number);
-
-  //   const startTotalMinutes = startHour * 60 + startMin;
-  //   const endTotalMinutes = endHour * 60 + endMin;
-
-  //   const diffMinutes = endTotalMinutes - startTotalMinutes;
-
-  //   return Math.round(diffMinutes / 5);
-  // };
-
   return (
     <S.Container>
       <NavBar
@@ -140,38 +105,52 @@ export default function TimeTable() {
                 </S.NorthStarBottom>
               </S.NorthStarLine>
             </S.NorthStarContainer>
-            <S.ArtistBoxContainer>
-              {time.map((timeSlot, timeIndex) => {
-                // 해당 시간대에 시작하는 공연 찾기
-                const performance = currentPerformances.find((p) => p.start === timeSlot && p.name);
+            <S.PerformanceBoxContainer>
+              {selectedDay === '2일차' && (
+                <S.Day2Container>
+                  {currentPerformances.map((performance, index) => {
+                    const active = isNowPlaying(performance.start, performance.end, selectedDay);
+                    const boxSize = index === 0 ? 'large' : index === 2 ? 'small' : 'medium';
 
-                if (!performance) return null;
+                    return (
+                      <S.PerformanceBox key={index} $boxSize={boxSize} $isActive={active}>
+                        <S.PerformanceInfo $isActive={active}>
+                          <S.PerformanceName $isActive={active}>
+                            {performance.name}
+                          </S.PerformanceName>
+                          <S.PerformanceTime $isActive={active}>
+                            {performance.start}~{performance.end}
+                          </S.PerformanceTime>
+                        </S.PerformanceInfo>
+                      </S.PerformanceBox>
+                    );
+                  })}
+                </S.Day2Container>
+              )}
 
-                const active = isNowPlaying(performance.start, performance.end, selectedDay);
+              {selectedDay === '3일차' && (
+                <S.Day3Container>
+                  {currentPerformances.map((performance, index) => {
+                    const active = isNowPlaying(performance.start, performance.end, selectedDay);
+                    const boxSize =
+                      index === 0 ? 'large-day3' : index === 1 || index === 2 ? 'small' : 'medium';
 
-                // 시간대별 고정 위치 계산 (17:00 = 0, 18:00 = 1, ...)
-                const topPosition = calculateTopPosition(performance.start);
-
-                return (
-                  <S.ArtistBox
-                    key={timeIndex}
-                    $isActive={active}
-                    style={{
-                      position: 'absolute',
-                      top: `${topPosition}rem`,
-                      height: `${calculateBoxHeight(performance.start, performance.end)}rem`,
-                    }}
-                  >
-                    <S.ArtistInfo>
-                      <S.ArtistName $isActive={active}>{performance.name}</S.ArtistName>
-                      <S.ArtistTime $isActive={active}>
-                        {performance.start}~{performance.end}
-                      </S.ArtistTime>
-                    </S.ArtistInfo>
-                  </S.ArtistBox>
-                );
-              })}
-            </S.ArtistBoxContainer>
+                    return (
+                      <S.PerformanceBox key={index} $boxSize={boxSize} $isActive={active}>
+                        <S.PerformanceInfo $isActive={active}>
+                          <S.PerformanceName $isActive={active}>
+                            {performance.name}
+                          </S.PerformanceName>
+                          <S.PerformanceTime $isActive={active}>
+                            {performance.start}~{performance.end}
+                          </S.PerformanceTime>
+                        </S.PerformanceInfo>
+                      </S.PerformanceBox>
+                    );
+                  })}
+                </S.Day3Container>
+              )}
+            </S.PerformanceBoxContainer>
           </S.TimeAndBarContainer>
         </S.TimeWrap>
       )}
