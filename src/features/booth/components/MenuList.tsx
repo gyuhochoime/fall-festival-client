@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as S from './MenuList.styles';
 import { MenuFrame } from '@/components/image-text-frame';
 import { useBooth } from '@/hooks/useBooth';
-const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '음료'];
+const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '기타'];
 
 export default function MenuList({ id }: { id: number }) {
   const [activeTab, setActiveTab] = useState<string>('');
@@ -49,13 +49,13 @@ export default function MenuList({ id }: { id: number }) {
         </S.MenuFrame>
       )}
 
-      {activeTab === '' && booth.menu.sub.length > 0 && <S.HorizontalLine />}
+      {activeTab === '' && booth.menu.others.length > 0 && <S.HorizontalLine />}
 
-      {(activeTab === '' || activeTab === '음료') && (
+      {(activeTab === '' || activeTab === '기타') && (
         <S.MenuFrame>
-          <S.MenuItem>음료</S.MenuItem>
+          <S.MenuItem>기타</S.MenuItem>
           <S.MenuList>
-            {booth.menu.sub.map((menu) => (
+            {booth.menu.others.map((menu) => (
               <MenuFrame
                 menu={menu.name}
                 price={menu.price}
