@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledButtonProps } from './BlueButton.types';
+import { StyledButtonProps } from './AccentButton.types';
 
 export const StyledButton = styled.button<StyledButtonProps>`
   display: flex;
@@ -13,22 +13,12 @@ export const StyledButton = styled.button<StyledButtonProps>`
   padding: ${({ $size }) => {
     switch ($size) {
       case 'small':
-        return '0.25rem 1rem';
+        return '0.25rem 2rem';
       case 'larger':
       case 'large-header':
-        return '0.75rem 1.25rem';
+        return '0.75rem 2.5rem';
       default:
-        return '0.5rem 1.25rem';
-    }
-  }};
-  width: ${({ $size }) => {
-    switch ($size) {
-      case 'small':
-        return '7.5rem';
-      case 'large':
-        return '15rem';
-      default:
-        return '20.9375rem';
+        return '0.5rem 2.5rem';
     }
   }};
   ${({ $size, theme }) => {

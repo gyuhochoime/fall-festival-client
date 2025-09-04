@@ -47,7 +47,13 @@ export default function FortuneResult() {
 
   return (
     <S.Container>
-      <NavBar hideLeft isClose={true} onCloseClick={handleCloseClick} opacity={true} />
+      <NavBar
+        hideLeft
+        isClose={true}
+        onCloseClick={handleCloseClick}
+        opacity={true}
+        whiteIcons={true}
+      />
 
       <S.Content>
         <S.Title>

@@ -35,6 +35,7 @@ const NavBar: React.FC<NavBarProps> = ({
   onCloseClick,
   backPath = -1,
   opacity = false,
+  whiteIcons = false,
 }) => {
   const navigate = useNavigate();
 
@@ -50,7 +51,7 @@ const NavBar: React.FC<NavBarProps> = ({
 
   return (
     <S.Container $opacity={opacity}>
-      <S.LeftSection $opacity={opacity}>
+      <S.LeftSection $opacity={opacity} $whiteIcons={whiteIcons}>
         {hideLeft ? null : isBack ? (
           <BackIcon
             style={{ cursor: 'pointer' }}
@@ -71,7 +72,7 @@ const NavBar: React.FC<NavBarProps> = ({
       </S.LeftSection>
 
       {title && <S.Title $opacity={opacity}>{title}</S.Title>}
-      <S.RightSection $opacity={opacity}>
+      <S.RightSection $opacity={opacity} $whiteIcons={whiteIcons}>
         {!hideRight && (
           <>
             {isSearch && (

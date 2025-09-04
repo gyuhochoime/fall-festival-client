@@ -6,9 +6,7 @@ import PubBeerIcon from '@/assets/icons/pub_beer.svg?react';
 import TimeIcon from '@/assets/icons/time_pub.svg?react';
 
 export default function BoothInfo({ id }: { id: number }) {
-  const { booth, loading, error } = useBooth(id);
-
-  if (loading) return <div>로딩 중...</div>;
+  const { booth, error } = useBooth(id);
   if (error || !booth) return <div>주점 정보를 찾을 수 없습니다.</div>;
   return (
     <S.Container>

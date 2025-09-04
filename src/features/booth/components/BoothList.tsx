@@ -8,11 +8,16 @@ import { useBooths } from '@/hooks/useBooth';
 
 import FavoriteOn from 'src/assets/icons/favorite-on.svg?react';
 import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
+import TrashIcon from 'src/assets/icons/trash.svg?react';
 
-export default function BoothList() {
+interface BoothListProps {
+  showFavoritesOnly?: boolean;
+}
+
+export default function BoothList({ showFavoritesOnly = false }: BoothListProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { booths, loading, error } = useBooths();
+  const { booths, error } = useBooths();
 
   // 찜하기 기능 상태 관리 추가 (localStorage)
   const [favorites, setFavorites] = useState<number[]>(() => {
@@ -33,13 +38,10 @@ export default function BoothList() {
     });
   };
 
-  if (loading) {
-    return (
-      <S.Container>
-        <div>주점 정보를 불러오는 중...</div>
-      </S.Container>
-    );
-  }
+  // 찜한 주점들만 필터링 (showFavoritesOnly가 true일 때)
+  const displayBooths = showFavoritesOnly
+    ? booths.filter((booth) => favorites.includes(booth.id))
+    : booths;
 
   if (error) {
     return (
@@ -52,45 +54,70 @@ export default function BoothList() {
   return (
     <S.Container>
       <Notification title="[공지] 미취학 아동 입장 제한" width="100%" />
+      <S.TabContainer width="100%">
+        <S.TabSlider $activeIndex={showFavoritesOnly ? 1 : 0} />
+        <S.TabButton $active={!showFavoritesOnly} onClick={() => navigate('/booth')}>
+          전체 주점
+        </S.TabButton>
+        <S.TabButton $active={showFavoritesOnly} onClick={() => navigate('/favorites')}>
+          찜한 주점
+        </S.TabButton>
+      </S.TabContainer>
       <S.Header>
-        <S.Count>전체 {booths.length}개</S.Count>
+        <S.Count>전체 {displayBooths.length}개</S.Count>
       </S.Header>
-      <S.BoothList>
-        <S.BoothItem>
-          {booths.map((booth) => {
-            const isFavorited = favorites.includes(booth.id); //주점 찜하기 추가
 
-            return (
-              <Fragment key={booth.id}>
-                <S.BoothItemWrapper>
-                  <ImageTextFrameWithOrganization
-                    key={booth.id}
-                    width="100%"
-                    image={booth.profileImage}
-                    title={booth.pubName}
-                    organization={booth.affiliation}
-                    canPickup={booth.takeout}
-                    onClick={() =>
-                      navigate(`/booth/${booth.id}`, {
-                        state: { from: location.pathname + location.search },
-                      })
-                    }
-                  />
-                  <S.FavoriteButton
-                    onClick={(e) => handleToggleFavorite(booth.id, e)}
-                    $isFavorited={isFavorited}
-                    aria-label={isFavorited ? '찜 완료' : '찜하기'}
-                  >
-                    {isFavorited ? <FavoriteOn /> : <FavoriteOff />}
-                    {isFavorited ? '찜 완료' : '찜하기'}
-                  </S.FavoriteButton>
-                </S.BoothItemWrapper>
-                <S.HorizontalLine />
-              </Fragment>
-            );
-          })}
-        </S.BoothItem>
-      </S.BoothList>
+      {showFavoritesOnly && displayBooths.length === 0 ? (
+        <S.EmptyState>
+          <S.EmptyText>
+            아직 찜한 주점이 없습니다.{'\n'}
+            마음에 드는 주점을 찜해보세요!
+          </S.EmptyText>
+        </S.EmptyState>
+      ) : (
+        <S.BoothList>
+          <S.BoothItem>
+            {displayBooths.map((booth) => {
+              const isFavorited = favorites.includes(booth.id);
+
+              return (
+                <Fragment key={booth.id}>
+                  <S.BoothItemWrapper>
+                    <ImageTextFrameWithOrganization
+                      key={booth.id}
+                      width="100%"
+                      image={booth.profileImage}
+                      title={booth.pubName}
+                      organization={booth.affiliation}
+                      canPickup={booth.takeout}
+                      onClick={() =>
+                        navigate(`/booth/${booth.id}`, {
+                          state: { from: location.pathname + location.search },
+                        })
+                      }
+                    />
+                    <S.FavoriteButton
+                      onClick={(e) => handleToggleFavorite(booth.id, e)}
+                      $isFavorited={isFavorited}
+                      $isTrashMode={showFavoritesOnly}
+                    >
+                      {showFavoritesOnly ? (
+                        <TrashIcon />
+                      ) : isFavorited ? (
+                        <FavoriteOn />
+                      ) : (
+                        <FavoriteOff />
+                      )}
+                      {showFavoritesOnly ? null : isFavorited ? '찜 완료' : '찜하기'}
+                    </S.FavoriteButton>
+                  </S.BoothItemWrapper>
+                  <S.HorizontalLine />
+                </Fragment>
+              );
+            })}
+          </S.BoothItem>
+        </S.BoothList>
+      )}
     </S.Container>
   );
 }
