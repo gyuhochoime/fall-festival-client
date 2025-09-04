@@ -25,8 +25,8 @@ export interface ColorButtonProps {
   label: string;
 
   /**
-   * 배경색으로 사용할 색상 키
-   * primary 또는 secondary 컬러에서 선택 가능
+   * 배경색으로 사용할 색상 키 또는 CSS 색상 값
+   * primary 또는 secondary 컬러에서 선택하거나, CSS 색상 값을 직접 전달할 수 있습니다.
    */
-  backgroundColor: ColorKey;
+  backgroundColor: ColorKey | string;
 }

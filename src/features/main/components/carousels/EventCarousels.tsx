@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -20,6 +20,7 @@ interface EventCarouselsProps {
 export default function EventCarousels({ events }: EventCarouselsProps) {
   const navigate = useNavigate();
   const isSwipingRef = useRef(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   // 진행 중인 이벤트가 없을 경우 표시할 데이터
   const noEventsData: EventCardData[] = [
@@ -52,7 +53,8 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
     beforeChange: () => {
       isSwipingRef.current = true;
     },
-    afterChange: () => {
+    afterChange: (current: number) => {
+      setCurrentIndex(current);
       setTimeout(() => {
         isSwipingRef.current = false;
       }, 100);
@@ -68,8 +70,6 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
             <div key={i}>
               <EventCard
                 {...card}
-                currentIndex={i + 1}
-                totalCards={todayEvents.length}
                 onClick={() => {
                   if (isSwipingRef.current) return;
                   // API에서 받은 noticeId가 있을 경우에만 해당 공지사항으로 이동
@@ -82,6 +82,14 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
           ))}
         </Slider>
       </S.CardWrap>
+
+      {/* Float된 Pill - 이벤트가 2개 이상일 때만 표시 */}
+      {todayEvents.length > 1 && (
+        <S.FloatingPill>
+          {currentIndex + 1} <span>/ {todayEvents.length}</span>
+        </S.FloatingPill>
+      )}
+
       {/*
       <S.CursorBox>
         <Cursor width={'12.625rem'} height={'3.72063rem'} />

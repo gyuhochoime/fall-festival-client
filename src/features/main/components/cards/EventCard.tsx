@@ -13,16 +13,7 @@ import { theme } from '@/styles/theme';
 //import { ColorKey } from '@/components/colorbuttons/ColorButton.types';
 import React from 'react';
 
-function EventCard({
-  startTime,
-  endTime,
-  title,
-  location,
-  date,
-  onClick,
-  currentIndex,
-  totalCards,
-}: CardProps) {
+function EventCard({ startTime, endTime, title, location, date, onClick }: CardProps) {
   return (
     <S.Container onClick={onClick}>
       {/*
@@ -69,11 +60,6 @@ function EventCard({
         <Progress startTime={startTime} endTime={endTime} />
         */}
       </S.InfoSection>
-      {currentIndex && totalCards && (
-        <S.Pill>
-          {currentIndex} <span>/ {totalCards}</span>
-        </S.Pill>
-      )}
     </S.Container>
   );
 }

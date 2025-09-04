@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,5 +40,22 @@ export const CardWrap = styled.div`
     width: 100%;
     margin: 0 auto; /* 리스트도 중앙 정렬 */
     overflow: visible;
+  }
+`;
+
+export const FloatingPill = styled.div`
+  position: absolute;
+  bottom: 1.6rem;
+  right: 2.5rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 1rem;
+  background-color: ${(props) => props.theme.colors.secondary.vl800}80;
+  color: ${(props) => props.theme.colors.grayScale.white};
+  ${(props) => props.theme.fonts.body.xsmall400}
+  z-index: 10;
+  backdrop-filter: blur(4px);
+
+  span {
+    opacity: 0.7;
   }
 `;
