@@ -171,9 +171,10 @@ export const Line = styled.div`
 
 export const TabNavWrap = styled.div`
   position: fixed;
-  top: 4.375rem;
+  top: 3.5rem;
   left: 0;
   right: 0;
+  padding-top: 0.875rem;
   background-color: ${(props) => props.theme.colors.grayScale.white};
   z-index: 100;
 `;
