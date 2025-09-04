@@ -17,7 +17,7 @@ interface BoothListProps {
 export default function BoothList({ showFavoritesOnly = false }: BoothListProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { booths, loading, error } = useBooths();
+  const { booths, error } = useBooths();
 
   // 찜하기 기능 상태 관리 추가 (localStorage)
   const [favorites, setFavorites] = useState<number[]>(() => {
@@ -42,14 +42,6 @@ export default function BoothList({ showFavoritesOnly = false }: BoothListProps)
   const displayBooths = showFavoritesOnly
     ? booths.filter((booth) => favorites.includes(booth.id))
     : booths;
-
-  if (loading) {
-    return (
-      <S.Container>
-        <div>주점 정보를 불러오는 중...</div>
-      </S.Container>
-    );
-  }
 
   if (error) {
     return (
