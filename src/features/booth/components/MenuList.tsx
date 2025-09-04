@@ -7,9 +7,8 @@ const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '음료'];
 
 export default function MenuList({ id }: { id: number }) {
   const [activeTab, setActiveTab] = useState<string>('');
-  const { booth, loading, error } = useBooth(id);
+  const { booth, error } = useBooth(id);
 
-  if (loading) return <div>메뉴 정보를 불러오는 중...</div>;
   if (error || !booth) return <div>메뉴 정보를 찾을 수 없습니다.</div>;
   return (
     <>

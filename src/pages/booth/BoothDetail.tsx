@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './BoothDetail.styles';
 import { BoothInfo, BoothLocation, MenuList } from '@/features/booth';
@@ -11,33 +11,13 @@ import { useBooth } from '@/hooks/useBooth';
 export default function BoothDetail() {
   const { id } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const fromRef = useRef(location.state?.from || '/booth');
-  const { booth, loading, error } = useBooth(Number(id) || 0);
+  const { booth, error } = useBooth(Number(id) || 0);
   const { handleToggleFavorite, isFavorited } = useFavorites();
-
-  const handleCloseClick = () => {
-    navigate('/booth');
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  if (loading) {
-    return (
-      <S.Container>
-        <NavBar
-          isBack
-          hideRight
-          title="주점 정보"
-          backPath={fromRef.current}
-          onCloseClick={handleCloseClick}
-        />
-        <S.LoadingText>주점 정보를 불러오는 중...</S.LoadingText>
-      </S.Container>
-    );
-  }
 
   if (error || !booth) {
     return (
