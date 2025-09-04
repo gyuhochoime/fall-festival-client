@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from './SearchPage.styles';
 import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
@@ -15,10 +16,12 @@ interface AutocompleteItem {
   id: string;
   text: string;
   type: 'category' | 'location';
+  category?: string; // 위치 검색어의 소속 카테고리
 }
 
 export default function MapSearch() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
+  const navigate = useNavigate();
   const [searchKeyword, setSearchKeyword] = useState('');
   const [, setSearchResults] = useState<MapDataItem[]>([]);
   const debouncedSearchTerm = useDebounce(searchKeyword, 300);
@@ -60,13 +63,14 @@ export default function MapSearch() {
     });
 
     // 위치 검색어 자동완성
-    Object.values(MapData).forEach((items) => {
+    Object.entries(MapData).forEach(([categoryName, items]) => {
       items.forEach((item) => {
         if (item.title.toLowerCase().includes(query)) {
           autocomplete.push({
             id: `location-${item.id}`,
             text: item.title,
             type: 'location',
+            category: categoryName,
           });
         }
       });
@@ -116,7 +120,18 @@ export default function MapSearch() {
   };
 
   const handleAutocompleteClick = (item: AutocompleteItem) => {
-    setSearchKeyword(item.text);
+    if (item.type === 'category') {
+      // 카테고리 클릭 시 MapPage로 이동하면서 카테고리 선택 상태 전달
+      navigate('/map', {
+        state: {
+          selectedCategory: item.text,
+          showBottomSheet: true,
+        },
+      });
+    } else {
+      // 위치 검색어 클릭 시 검색어만 설정
+      setSearchKeyword(item.text);
+    }
   };
 
   return (
@@ -153,6 +168,9 @@ export default function MapSearch() {
                   <MapSearchPageIcon width="1.5rem" height="1.5rem" />
                 )}
                 <S.AutocompleteText>{item.text}</S.AutocompleteText>
+                {item.type === 'location' && item.category && (
+                  <S.AutocompleteCategory>{item.category}</S.AutocompleteCategory>
+                )}
               </S.AutocompleteItem>
             ))}
           </S.SearchResultsContainer>

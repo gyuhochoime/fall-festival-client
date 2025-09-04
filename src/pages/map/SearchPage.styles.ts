@@ -219,4 +219,14 @@ export const AutocompleteText = styled.span`
   font-weight: 500;
   line-height: 150%;
   letter-spacing: -0.02rem;
+  flex: 1;
+`;
+
+export const AutocompleteCategory = styled.span`
+  color: ${(props) => props.theme.colors.grayScale.gy550};
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 142%;
+  letter-spacing: -0.0175rem;
 `;
