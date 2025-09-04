@@ -87,8 +87,7 @@ export const TabContainer = styled.div<{ width?: string }>`
   justify-content: space-between;
   align-items: center;
   border-radius: 24px;
-  gap: 0.5rem;
-  margin-top: -0.8rem;
+  margin-top: -0.23rem;
   width: ${({ width }) => width || '20.9375rem'};
   height: 2.5rem;
   padding: 0.5rem 0rem;
@@ -102,8 +101,8 @@ export const TabSlider = styled.div<{ $activeIndex: number }>`
   background-color: ${(props) => props.theme.colors.primary.violet};
   border-radius: 22px;
   transform: translateX(${({ $activeIndex }) => $activeIndex * 100}%);
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 6px rgb(0 0 0 / 30%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 6px ${(props) => props.theme.colors.primary.violet}70;
   z-index: 1;
 `;
 
