@@ -68,7 +68,7 @@ export default function Menu() {
             image={Student}
             title="축제 FAQ"
             description="총학생회 인스타그램"
-            onClick={() => window.open(externalLinks.linkTree, '_blank')}
+            onClick={() => navigate('/main/faq')}
           />
         </S.Frame>
       </S.Section>

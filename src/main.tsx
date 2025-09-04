@@ -16,6 +16,7 @@ import {
   Notice,
   NoticeDetail,
   MadeBy,
+  Faq,
   FortuneOnboarding,
   FortuneSelecting,
   FortuneResult,
@@ -84,6 +85,10 @@ const routes = createBrowserRouter([
       {
         path: 'main/about',
         element: <MadeBy />,
+      },
+      {
+        path: 'main/faq',
+        element: <Faq />,
       },
       {
         path: 'main/fortune/onboarding',
