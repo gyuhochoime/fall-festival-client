@@ -18,7 +18,6 @@ export const Header = styled.header`
   display: grid;
   grid-template-columns: 56px 1fr 56px;
   align-items: center;
-  border-bottom: 1px solid ${(p) => p.theme.colors.grayScale.gy100};
 `;
 
 export const HeaderButton = styled.button`
@@ -80,7 +79,7 @@ export const Slide = styled.div`
 
 export const OnboardingImage = styled.img`
   width: 90%;
-  max-height: calc(100dvh - 18.5rem);
+  max-height: calc(100dvh - 24rem);
 
   /* max-width: 320px; */
   aspect-ratio: 1;
@@ -104,11 +103,12 @@ export const Dots = styled.div`
 `;
 
 export const Dot = styled.span<{ $active?: boolean }>`
-  width: 8px;
+  width: ${(p) => (p.$active ? '24px' : '8px')};
   height: 8px;
-  border-radius: 50%;
+  border-radius: ${(p) => (p.$active ? '4px' : '50%')};
   background: ${(p) =>
-    p.$active ? p.theme.colors.primary.violet : p.theme.colors.grayScale.gy300};
+    p.$active ? p.theme.colors.primary.violet : p.theme.colors.grayScale.gy100};
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 `;
 
 // Buttons
@@ -124,7 +124,7 @@ const buttonBase = css`
 export const PrimaryButton = styled.button`
   ${buttonBase};
   background: ${(p) => p.theme.colors.primary.violet};
-  color: white;
+  color: ${(p) => p.theme.colors.grayScale.white};
   border-radius: 100px;
   ${(p) => p.theme.fonts.body.medium500};
 `;
@@ -287,7 +287,7 @@ export const CategoryTab = styled.button<{ $active?: boolean }>`
   border-bottom: 2px solid ${(p) => (p.$active ? p.theme.colors.primary.violet : 'transparent')};
   ${(p) => p.theme.fonts.body.medium500};
   background: transparent;
-  color: ${(p) => (p.$active ? p.theme.colors.primary.violet : p.theme.colors.grayScale.gy500)};
+  color: ${(p) => (p.$active ? p.theme.colors.primary.violet : p.theme.colors.grayScale.gy300)};
   transition: all 0.2s ease;
   font-weight: ${(p) => (p.$active ? '600' : '400')};
 `;
@@ -343,7 +343,7 @@ export const PermissionButton = styled.button`
     ${(p) => p.theme.colors.primary.violet},
     ${(p) => p.theme.colors.primary.bl400}
   );
-  color: white;
+  color: ${(p) => p.theme.colors.grayScale.white};
   border: none;
   padding: 15px 30px;
   border-radius: 25px;

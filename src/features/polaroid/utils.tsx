@@ -53,7 +53,11 @@ export function calculatePreviewSize(
   containerWidth: number,
   containerHeight: number,
 ): PolaroidDimensions {
-  const maxPreviewHeight = Math.min(containerHeight * 0.7, window.innerHeight * 0.5);
+  // const maxPreviewHeight = Math.min(containerHeight * 0.7, window.innerHeight * 0.5);
+
+  const dynamicMaxHeight = window.innerHeight - 380;
+  const maxPreviewHeight = Math.min(containerHeight * 0.6, dynamicMaxHeight);
+
   const widthBasedPreview = Math.min(360, Math.floor(containerWidth * 0.8));
   const widthBasedHeight = Math.round(
     (widthBasedPreview * FRAME_DIMENSIONS.height) / FRAME_DIMENSIONS.width,

@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import * as S from './Layout.styles';
 import Nav from '@/layout/nav';
@@ -13,6 +14,23 @@ import { Toast } from '@/components/toast';
  */
 export default function Layout() {
   const isNav = useLayoutStore((state) => state.isNav);
+  const location = useLocation();
+
+  // 경로에 따른 테마 컬러 변경
+  useEffect(() => {
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (!themeColorMeta) return;
+
+    // /main 또는 /main/fortune으로 시작하는 페이지에서 보라색 테마 사용
+    const isVioletThemePage =
+      location.pathname === '/main' ||
+      location.pathname === '/' ||
+      location.pathname.startsWith('/main/fortune');
+
+    const themeColor = isVioletThemePage ? '#7E419A' : '#fafafa';
+
+    themeColorMeta.setAttribute('content', themeColor);
+  }, [location.pathname]);
 
   return (
     <S.Container>
