@@ -81,9 +81,8 @@ export const Carousel = styled.div<{ $isFirstDay?: boolean }>`
   justify-content: center; /* ${(props) => (props.$isFirstDay ? 'center' : 'flex-start')}; */
   gap: 0.75rem;
   width: 100%;
-  margin-top: 0;
+  margin-top: 1.5rem;
   overflow: visible;
-  flex: 1;
 `;
 
 export const TableNoteWrap = styled.div`
@@ -111,7 +110,7 @@ export const TimeTableButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.8rem 1.4rem 2rem;
+  margin: 0.25rem 1.4rem 2rem;
   align-self: flex-end;
   ${(props) => props.theme.fonts.body.xsmall600};
   color: ${(props) => props.theme.colors.primary.violet};

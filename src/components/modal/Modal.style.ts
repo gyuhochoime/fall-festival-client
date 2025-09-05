@@ -28,6 +28,12 @@ export const ModalWrapper = styled(motion.div)`
     0 -4px 12px ${(props) => props.theme.colors.primary.violet}70,
     /* top */ -4px 0 12px ${(props) => props.theme.colors.primary.violet}70,
     /* left */ 4px 0 12px ${(props) => props.theme.colors.primary.violet}70; /* right */
+
+  /* Performance 모달 전용 스타일 */
+  &.performance-modal {
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+  }
 `;
 
 export const ModalTab = styled.div`

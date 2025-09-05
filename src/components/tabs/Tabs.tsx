@@ -40,11 +40,8 @@ function Tabs({
           $isFirst={index === 0}
           $isLast={index === tabs.length - 1}
           $margin={margin}
-          $isFirstDay={tab === '1일차'}
         >
-          <S.TabText $isActive={tab === activeTab} $isFirstDay={tab === '1일차'}>
-            {tab}
-          </S.TabText>
+          <S.TabText $isActive={tab === activeTab}>{tab}</S.TabText>
         </S.Tab>
       ))}
     </S.TabsContainer>

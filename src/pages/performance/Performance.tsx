@@ -1,17 +1,15 @@
 import * as S from './Performance.styles';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { Notification } from '@/components/notification';
 import { Tabs } from '@/components/tabs';
 import NewCarousel from '@/features/performance/NewCarousel';
-import { performanceData } from '@/constants/performance/SingerInfo';
 import { ModalHelp } from '@/features/performance';
 import useModal from '@/hooks/useModal';
-import { PerformanceItem } from '@/features/performance/Carousel.types';
 import { NavBar } from '@/components/nav-bar/NavBar';
-
-export type DayType = '1일차' | '2일차' | '3일차';
+import { usePerformanceStore, DayType } from '@/stores/usePerformanceStore';
+import { PerformanceItem } from '@/features/performance/Carousel.types';
 
 /**
  * Performance 페이지
@@ -24,13 +22,24 @@ export default function Performance() {
   const [selectedDay, setSelectedDay] = useState<DayType>('2일차');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const performances = performanceData[selectedDay];
+  // Performance store 사용
+  const { fetchPerformances, getPerformancesByDay, loading, error, isInitialized } =
+    usePerformanceStore();
+
+  const performances = getPerformancesByDay(selectedDay);
 
   // 진입/이탈 시 하단 탭바 숨김/복원
   React.useEffect(() => {
     setIsNav(true);
     return () => setIsNav(true);
   }, [setIsNav]);
+
+  // 컴포넌트 마운트 시 한 번만 데이터 가져오기
+  useEffect(() => {
+    if (!isInitialized) {
+      fetchPerformances();
+    }
+  }, [fetchPerformances, isInitialized]);
 
   // 일차 변경 시 인덱스 초기화
   React.useEffect(() => {
@@ -96,11 +105,17 @@ export default function Performance() {
         </S.DayWrap>
 
         <S.Carousel $isFirstDay={selectedDay === '1일차'}>
-          <NewCarousel
-            data={performances}
-            onIndexChange={setCurrentIndex}
-            onArtistClick={handleArtistClick}
-          />
+          {loading ? (
+            <div>공연 정보를 불러오는 중...</div>
+          ) : error ? (
+            <div>{error}</div>
+          ) : (
+            <NewCarousel
+              data={performances}
+              onIndexChange={setCurrentIndex}
+              onArtistClick={handleArtistClick}
+            />
+          )}
         </S.Carousel>
 
         {performances.length > 0 && (
