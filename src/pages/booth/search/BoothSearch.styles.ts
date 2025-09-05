@@ -124,6 +124,7 @@ export const EmptyText = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
   color: ${(props) => props.theme.colors.grayScale.gy400};
   text-align: center;
+  margin-top: 110px;
 `;
 
 export const NoResultsState = styled.div`
