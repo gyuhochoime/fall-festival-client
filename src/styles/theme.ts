@@ -57,6 +57,7 @@ const colors = {
     gy300: '#BDBDBD',
     gy400: '#A6A9AA',
     gy500: '#909394',
+    gy550: '#9E9E9E',
     gy600: '#7A7D7F',
     gy700: '#64686A',
     gy800: '#4D5255',

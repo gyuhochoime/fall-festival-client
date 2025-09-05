@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState, useRef, useMemo } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { MapPageBottomSheet } from '@/features/map';
 import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
 import SearchBar from '@/components/search-bar/SearchBar';
 import DaySelectorModal from '@/components/day-selector-modal/DaySelectorModal';
+import { BoothList } from '@/features/booth';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 import { getCurrentFestivalDay } from '@/utils/dateUtils';
@@ -20,6 +21,7 @@ export default function Map() {
   // 파라미터를 숫자로 변환
   const itemId = itemIdParam ? Number(itemIdParam) : undefined;
   const navigate = useNavigate();
+  const location = useLocation();
   const mapRef = useRef<HTMLDivElement>(null);
 
   // 현재 날짜에 기반한 페스티벌 일차 계산
@@ -35,24 +37,28 @@ export default function Map() {
 
   // 지도 카테고리 상태
   const [selectedMapCategory, setSelectedMapCategory] = useState<string>('');
+  const [isFromSearchPage, setIsFromSearchPage] = useState<boolean>(false);
 
   // 모달 상태
   const [isDayModalOpen, setIsDayModalOpen] = useState<boolean>(false);
 
   // 카테고리 매핑
-  const categoryMapping: Record<string, CATEGORIES | null> = {
-    이벤트: '프로모션',
-    주점: '주점',
-    푸드트럭: '푸드트럭',
-    콘텐츠: '콘텐츠',
-    화장실: '화장실',
-    의무실: '콘텐츠', // 의무실은 콘텐츠로 매핑
-    셔틀콕: '셔틀콕',
-    공연장: '공연장',
-    흡연실: '흡연구역',
-    '주류 구매': '주류 구매 위치',
-    플리마켓: '플리마켓',
-  };
+  const categoryMapping: Record<string, CATEGORIES | null> = useMemo(
+    () => ({
+      프로모션: '프로모션',
+      주점: '주점',
+      푸드트럭: '푸드트럭',
+      콘텐츠: '콘텐츠',
+      화장실: '화장실',
+      의무실: '콘텐츠', // 의무실은 콘텐츠로 매핑
+      셔틀콕: '셔틀콕',
+      공연장: '공연장',
+      흡연실: '흡연구역',
+      '주류 구매': '주류 구매 위치',
+      플리마켓: '플리마켓',
+    }),
+    [],
+  );
 
   // 카카오맵 커스텀 훅 사용
   const { moveToCurrentLocation, showItemMarker, kakaoMap } = useKakaoMap(
@@ -63,7 +69,7 @@ export default function Map() {
       draggable: true,
       zoomable: true,
       scrollwheel: true,
-      isBottomSheetOpen,
+      isBottomSheetOpen: isBottomSheetOpen || !!selectedMapCategory,
     },
     selectedMapCategory ? categoryMapping[selectedMapCategory] : selectedCategory,
     selectedDay,
@@ -110,9 +116,28 @@ export default function Map() {
     }
   }, [selectedCategory]);
 
+  // SearchPage에서 전달받은 카테고리 선택 상태 처리
+  useEffect(() => {
+    if (location.state?.selectedCategory && location.state?.showBottomSheet) {
+      const categoryName = location.state.selectedCategory;
+      setSelectedMapCategory(categoryName);
+      setIsFromSearchPage(true); // SearchPage에서 온 경우임을 표시
+
+      // 카테고리 매핑을 통해 CATEGORIES 타입으로 변환
+      const mappedCategory = categoryMapping[categoryName];
+      if (mappedCategory) {
+        setSelectedCategory(mappedCategory);
+        setIsBottomSheetOpen(true);
+      }
+
+      // location state 초기화 (뒤로가기 시 중복 실행 방지)
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location.state, navigate, location.pathname, categoryMapping]);
+
   // 바텀시트가 열리면 하단 네비게이션 숨김 및 지도 리사이즈
   useEffect(() => {
-    if (isBottomSheetOpen) {
+    if (isBottomSheetOpen || selectedMapCategory) {
       useLayoutStore.getState().setIsNav(false);
     } else {
       useLayoutStore.getState().setIsNav(true);
@@ -127,7 +152,7 @@ export default function Map() {
 
     // cleanup 함수로 timeout 제거
     return () => clearTimeout(timeoutId);
-  }, [isBottomSheetOpen, kakaoMap]);
+  }, [isBottomSheetOpen, selectedMapCategory, kakaoMap]);
 
   // 페이지를 벗어날 때 네비게이션 바를 원상복구
   useEffect(() => {
@@ -167,6 +192,18 @@ export default function Map() {
     // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
     const newCategory = category === selectedMapCategory ? '' : category;
     setSelectedMapCategory(newCategory);
+    setIsFromSearchPage(false); // MapPage에서 직접 클릭한 경우
+
+    // 바텀시트를 위한 카테고리 설정
+    if (newCategory) {
+      const mappedCategory = categoryMapping[newCategory];
+      setSelectedCategory(mappedCategory);
+      console.log('[MapPage] 바텀시트 카테고리 설정:', mappedCategory);
+    } else {
+      setSelectedCategory(null);
+      console.log('[MapPage] 바텀시트 닫기');
+    }
+
     console.log('[MapPage] 매핑된 카테고리:', newCategory ? categoryMapping[newCategory] : 'none');
   };
 
@@ -177,47 +214,75 @@ export default function Map() {
 
   return (
     <S.MapContainer>
-      <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen} />
-      <S.ReCenterButton $isBottomSheetOpen={isBottomSheetOpen} onClick={handleReCenterClick}>
+      <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen || !!selectedMapCategory} />
+      <S.ReCenterButton
+        $isBottomSheetOpen={isBottomSheetOpen || !!selectedMapCategory}
+        onClick={handleReCenterClick}
+      >
         <ReCenterButtonIcon />
       </S.ReCenterButton>
       <S.ContentContainer>
-        <NavBar hideLeft={true} title="지도" isClose={false} opacity={true} />
-        <S.SearchBarContainer>
-          <SearchBar
-            selectedDay={`${selectedDay}`}
-            onSearchClick={handleSearchClick}
-            onDayChange={handleDayChange}
-          />
-        </S.SearchBarContainer>
-        <S.CategoryTabsContainer>
-          <Tabs
-            tabs={[
-              '이벤트',
-              '주점',
-              '푸드트럭',
-              '콘텐츠',
-              '화장실',
-              '의무실',
-              '셔틀콕',
-              '공연장',
-              '흡연실',
-              '주류 구매',
-              '플리마켓',
-            ]}
-            activeTab={selectedMapCategory}
-            onTabClick={handleMapCategoryChange}
-            autoWidth={true}
-            margin="0.75rem"
-          />
-        </S.CategoryTabsContainer>
-        {isBottomSheetOpen && (
+        <NavBar
+          isBack={isFromSearchPage && selectedMapCategory ? true : false}
+          hideLeft={isFromSearchPage && selectedMapCategory ? false : true}
+          title={isFromSearchPage && selectedMapCategory ? `${selectedMapCategory}` : '지도'}
+          isClose={isFromSearchPage && selectedMapCategory ? true : false}
+          backPath={isFromSearchPage && selectedMapCategory ? '/map/search' : undefined}
+          onCloseClick={
+            isFromSearchPage && selectedMapCategory
+              ? () => {
+                  setSelectedMapCategory('');
+                  setSelectedCategory(null);
+                  setIsBottomSheetOpen(false);
+                  setIsFromSearchPage(false);
+                }
+              : undefined
+          }
+          opacity={isFromSearchPage && selectedMapCategory ? false : true}
+        />
+        {!(isFromSearchPage && selectedMapCategory) && (
+          <S.SearchBarContainer>
+            <SearchBar
+              selectedDay={`${selectedDay}`}
+              onSearchClick={handleSearchClick}
+              onDayChange={handleDayChange}
+            />
+          </S.SearchBarContainer>
+        )}
+        {!(isFromSearchPage && selectedMapCategory) && (
+          <S.CategoryTabsContainer>
+            <Tabs
+              tabs={[
+                '프로모션',
+                '주점',
+                '푸드트럭',
+                '콘텐츠',
+                '화장실',
+                '의무실',
+                '셔틀콕',
+                '공연장',
+                '흡연실',
+                '주류 구매',
+                '플리마켓',
+              ]}
+              activeTab={selectedMapCategory}
+              onTabClick={handleMapCategoryChange}
+              autoWidth={true}
+              margin="0.75rem"
+            />
+          </S.CategoryTabsContainer>
+        )}
+        {(isBottomSheetOpen || selectedMapCategory) && (
           <S.BottomSheetContainer>
             <MapPageBottomSheet
               selectedCategory={selectedCategory}
               selectedDay={selectedDay}
               onItemClick={showItemMarker}
-            />
+            >
+              {selectedCategory === '주점' && (
+                <BoothList showFavoritesOnly={false} hideTabs={true} />
+              )}
+            </MapPageBottomSheet>
           </S.BottomSheetContainer>
         )}
       </S.ContentContainer>
