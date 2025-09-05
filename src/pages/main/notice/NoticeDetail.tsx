@@ -48,7 +48,7 @@ export default function NoticeDetail() {
           id: apiNotice.id,
           title: apiNotice.title,
           body: apiNotice.content,
-          img: [apiNotice.image], // 이미지 URL을 배열로 변환
+          img: apiNotice.images, // images 배열을 그대로 사용
           tags: [{ text: apiNotice.tag, color: '#7e419a' }], // 기본 색상 값 지정
         };
 

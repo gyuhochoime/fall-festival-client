@@ -20,7 +20,7 @@ const mapApiNoticeToUi = (apiNotice: NoticeItem): Notice => {
     id: apiNotice.id,
     title: apiNotice.title,
     body: apiNotice.content,
-    img: [apiNotice.image], // 이미지는 URL이 하나만 있는 형태로 변환
+    img: apiNotice.images, // images 배열을 그대로 사용
   };
 };
 
