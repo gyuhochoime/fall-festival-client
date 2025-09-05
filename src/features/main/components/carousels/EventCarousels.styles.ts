@@ -43,10 +43,16 @@ export const CardWrap = styled.div`
   }
 `;
 
-export const FloatingPill = styled.div`
-  position: absolute;
-  bottom: 1.6rem;
-  right: 2.5rem;
+export const PillWrapper = styled.div`
+  width: 21rem;
+  height: 0;
+  text-align: right;
+`;
+
+export const FloatingPill = styled.span`
+  position: relative;
+  bottom: 3rem;
+  right: 1rem;
   padding: 0.25rem 0.7rem;
   border-radius: 1rem;
   background-color: ${(props) => props.theme.colors.secondary.vl800}80;

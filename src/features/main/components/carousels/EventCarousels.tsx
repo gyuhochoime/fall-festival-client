@@ -85,9 +85,11 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
 
       {/* Float된 Pill - 이벤트가 2개 이상일 때만 표시 */}
       {todayEvents.length > 1 && (
-        <S.FloatingPill>
-          {currentIndex + 1} <span>/ {todayEvents.length}</span>
-        </S.FloatingPill>
+        <S.PillWrapper>
+          <S.FloatingPill>
+            {currentIndex + 1} <span>/ {todayEvents.length}</span>
+          </S.FloatingPill>
+        </S.PillWrapper>
       )}
 
       {/*
