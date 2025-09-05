@@ -51,6 +51,8 @@ export const TakeOut = styled.div`
 export const HorizontalLine = styled.div`
   height: 0.5rem;
   width: 100%;
+  margin-top: 36px;
+  margin-bottom: 36px;
   background-color: ${(props) => props.theme.colors.grayScale.gy200};
 `;
 
