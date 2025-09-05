@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 import { useState } from 'react';
 import { useBooths } from '@/hooks/useBooth';
+import { useBoothNotificationStore } from '@/stores/useBoothNotificationStore';
 
 import FavoriteOn from 'src/assets/icons/favorite-on.svg?react';
 import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
@@ -19,6 +20,7 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
   const navigate = useNavigate();
   const location = useLocation();
   const { booths, error } = useBooths();
+  const { isBoothNotificationClosed, closeBoothNotification } = useBoothNotificationStore();
 
   // 찜하기 기능 상태 관리 추가 (localStorage)
   const [favorites, setFavorites] = useState<number[]>(() => {
@@ -56,9 +58,21 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
     return null;
   }
 
+  const handleNotificationClick = () => {
+    // TODO: 나중에 주점 공지사항 페이지로 이동
+    console.log('주점 공지사항 페이지로 이동');
+  };
+
   return (
     <S.Container>
-      <Notification title="[공지] 미취학 아동 입장 제한" width="100%" />
+      {!isBoothNotificationClosed && (
+        <Notification
+          title="[공지] 미취학 아동 입장 제한"
+          width="100%"
+          onClick={handleNotificationClick}
+          onClose={closeBoothNotification}
+        />
+      )}
       {!hideTabs && (
         <S.TabContainer width="100%">
           <S.TabSlider $activeIndex={showFavoritesOnly ? 1 : 0} />

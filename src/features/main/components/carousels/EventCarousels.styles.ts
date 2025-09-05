@@ -43,17 +43,25 @@ export const CardWrap = styled.div`
   }
 `;
 
-export const FloatingPill = styled.div`
+export const PillWrapper = styled.div`
+  position: relative;
+  width: 21rem;
+  height: 0;
+  text-align: right;
+`;
+
+export const FloatingPill = styled.span`
   position: absolute;
-  bottom: 1.6rem;
-  right: 2.5rem;
+  bottom: 1.7rem;
+  right: 1rem;
   padding: 0.25rem 0.7rem;
   border-radius: 1rem;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   background-color: ${(props) => props.theme.colors.secondary.vl800}80;
   color: ${(props) => props.theme.colors.grayScale.white};
   ${(props) => props.theme.fonts.body.xsmall400}
   z-index: 10;
-  backdrop-filter: blur(4px);
 
   span {
     opacity: 0.7;
