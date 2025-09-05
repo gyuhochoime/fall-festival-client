@@ -1,26 +1,27 @@
 import { NavBar } from '@/components/nav-bar';
 import * as S from './Notice.styles';
-// import { NoticeData } from '@/constants/main/Notice'; // 기존 하드코딩 데이터 (주석 처리)
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NoticeBox } from '@/features/main/components/notice/index';
 import { fetchNotices, NoticeItem } from '@/services/noticeService';
+import { Tabs } from '@/components/tabs';
 
 interface Notice {
   id: number;
   title: string;
   body: string;
   img: string[];
+  tag: string;
 }
 
-// API 응답 데이터를 컴포넌트에서 사용하는 형식으로 변환
 const mapApiNoticeToUi = (apiNotice: NoticeItem): Notice => {
   return {
     id: apiNotice.id,
     title: apiNotice.title,
     body: apiNotice.content,
-    img: apiNotice.images, // images 배열을 그대로 사용
+    img: apiNotice.images,
+    tag: apiNotice.tag,
   };
 };
 
@@ -30,6 +31,7 @@ export default function Notice() {
   const [notices, setNotices] = useState<Notice[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState('전체');
 
   useEffect(() => {
     setIsNav(false);
@@ -42,7 +44,6 @@ export default function Notice() {
     const getNotices = async () => {
       try {
         const apiNotices = await fetchNotices();
-        // id 기준 내림차순 정렬
         const uiNotices = apiNotices.map(mapApiNoticeToUi).sort((a, b) => b.id - a.id);
         setNotices(uiNotices);
         setLoading(false);
@@ -55,6 +56,18 @@ export default function Notice() {
 
     getNotices();
   }, []);
+
+  const tabItems = useMemo(() => {
+    const tags = new Set(notices.map((notice) => notice.tag));
+    return ['전체', ...Array.from(tags)];
+  }, [notices]);
+
+  const filteredNotices = useMemo(() => {
+    if (selectedTab === '전체') {
+      return notices;
+    }
+    return notices.filter((notice) => notice.tag === selectedTab);
+  }, [notices, selectedTab]);
 
   const handleDetail = useCallback(
     (id: string) => {
@@ -73,8 +86,16 @@ export default function Notice() {
           <S.ErrorWrapper>{error}</S.ErrorWrapper>
         ) : (
           <S.Flex>
-            {notices.length > 0 ? (
-              notices.map((notice) => (
+            <S.NoticeTabsWrapper>
+              <Tabs
+                tabs={tabItems}
+                activeTab={selectedTab}
+                onTabClick={setSelectedTab}
+                autoWidth={true}
+              />
+            </S.NoticeTabsWrapper>
+            {filteredNotices.length > 0 ? (
+              filteredNotices.map((notice) => (
                 <NoticeBox
                   key={notice.id}
                   id={notice.id}
