@@ -35,6 +35,7 @@ function Tabs({
         <S.Tab
           key={tab}
           $isActive={tab === activeTab}
+          data-active={tab === activeTab}
           onClick={() => handleTabClick(tab)}
           $isFirst={index === 0}
           $isLast={index === tabs.length - 1}
@@ -85,6 +86,7 @@ function MultiTabs({
           <S.Tab
             key={tab}
             $isActive={isActive}
+            data-active={isActive}
             onClick={() => handleTabClick(tab)}
             $isFirst={index === 0}
             $isLast={index === tabs.length - 1}

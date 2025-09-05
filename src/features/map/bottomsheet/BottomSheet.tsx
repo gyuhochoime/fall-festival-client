@@ -63,6 +63,14 @@ export default function BottomSheet({
       ) || []
     : [];
 
+  console.log('[BottomSheet] 필터링된 데이터:', {
+    selectedCategory,
+    selectedDay,
+    totalItems: selectedCategory ? MapData[selectedCategory]?.length || 0 : 0,
+    filteredItems: filteredData.length,
+    data: filteredData,
+  });
+
   // 알림 클릭 핸들러 - 경로로 이동
   const handleNotificationClick = useCallback(() => {
     if (selectedCategory && CATEGORY_NOTIFICATIONS[selectedCategory]?.path) {
@@ -91,7 +99,17 @@ export default function BottomSheet({
     alert('모든 알림 상태가 초기화되었습니다.');
   }, [selectedCategory]);
 
-  if (!selectedCategory) return null;
+  if (!selectedCategory) {
+    console.log('[BottomSheet] selectedCategory가 null이므로 바텀시트를 렌더링하지 않습니다.');
+    return null;
+  }
+
+  console.log(
+    '[BottomSheet] 바텀시트 렌더링 - selectedCategory:',
+    selectedCategory,
+    'selectedDay:',
+    selectedDay,
+  );
 
   // 카테고리별 알림 데이터 가져오기
   const notification = CATEGORY_NOTIFICATIONS[selectedCategory];
@@ -118,15 +136,34 @@ export default function BottomSheet({
                 />
               )}
 
-              {filteredData.length > 0
-                ? filteredData.map((item, index) => (
+              {filteredData.length > 0 ? (
+                selectedCategory === '주점' ? (
+                  <S.BoothListContainer>
+                    {filteredData.map((item, index) => (
+                      <MapItemCard
+                        key={index}
+                        item={item}
+                        onItemClick={onItemClick}
+                        category={selectedCategory}
+                      />
+                    ))}
+                  </S.BoothListContainer>
+                ) : (
+                  filteredData.map((item, index) => (
                     <S.ContentUnitWrap key={index} $isLastItem={index === filteredData.length - 1}>
-                      <MapItemCard item={item} onItemClick={onItemClick} />
+                      <MapItemCard
+                        item={item}
+                        onItemClick={onItemClick}
+                        category={selectedCategory}
+                      />
                     </S.ContentUnitWrap>
                   ))
-                : selectedCategory && (
-                    <S.NoDataMessage>해당 카테고리의 데이터가 없습니다.</S.NoDataMessage>
-                  )}
+                )
+              ) : (
+                selectedCategory && (
+                  <S.NoDataMessage>해당 카테고리의 데이터가 없습니다.</S.NoDataMessage>
+                )
+              )}
 
               {/* 개발 환경에서만 표시되는 디버그 기능 */}
               {import.meta.env.DEV && (

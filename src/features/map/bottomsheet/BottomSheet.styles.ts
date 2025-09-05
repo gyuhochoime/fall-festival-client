@@ -69,12 +69,9 @@ export const BottomSheetContent = styled.div`
 export const ContentUnitWrap = styled.div<{ $isLastItem?: boolean }>`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.5988rem 0;
-  border-bottom: ${(props) =>
-    props.$isLastItem ? 'none' : `0.0625rem solid ${props.theme.colors.grayScale.gy50}`};
+  padding: 0.75rem 0;
   margin-bottom: ${(props) => (props.$isLastItem ? '33rem' : '0')};
 `;
 
