@@ -30,18 +30,22 @@ export const ToastContainer = styled.div<{ $show: boolean }>`
   /* Set initial transform state for animation */
   transform: translate(-50%, calc(-50% + 50px));
   opacity: 0;
-  padding: 12px 24px;
-  background-color: ${(props) => props.theme.colors.secondary.vl900}aa;
+  padding: 0.8rem 1.2rem;
+  background-color: ${(props) => props.theme.colors.secondary.vl100}cc;
   backdrop-filter: blur(10px);
 
   --webkit-backdrop-filter: blur(10px);
 
-  color: white;
+  color: ${(props) => props.theme.colors.primary.violet};
   border-radius: 999px; /* Pill shape */
   font-size: 14px;
   z-index: 1000;
   white-space: pre-line; /* Allow line breaks with \n */
+  word-break: keep-all; /* Keep words intact */
+  min-width: 5rem; /* Minimum width to prevent too narrow toast */
+  max-width: 90%;
   text-align: center;
   animation: ${({ $show }) => ($show ? slideIn : slideOut)} 0.4s forwards ease-in-out;
   pointer-events: ${({ $show }) => ($show ? 'auto' : 'none')};
+  box-shadow: 0 0 10px 0 #dbc2e3;
 `;
