@@ -225,7 +225,7 @@ export default function Map() {
         <NavBar
           isBack={isFromSearchPage && selectedMapCategory ? true : false}
           hideLeft={isFromSearchPage && selectedMapCategory ? false : true}
-          title={isFromSearchPage && selectedMapCategory ? `${selectedMapCategory} 검색어` : '지도'}
+          title={isFromSearchPage && selectedMapCategory ? `${selectedMapCategory}` : '지도'}
           isClose={isFromSearchPage && selectedMapCategory ? true : false}
           backPath={isFromSearchPage && selectedMapCategory ? '/map/search' : undefined}
           onCloseClick={

@@ -118,7 +118,7 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
                       {showFavoritesOnly ? null : isFavorited ? '찜 완료' : '찜하기'}
                     </S.FavoriteButton>
                   </S.BoothItemWrapper>
-                  <S.HorizontalLine />
+                  {!hideTabs && <S.HorizontalLine />}
                 </Fragment>
               );
             })}
