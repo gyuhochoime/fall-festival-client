@@ -46,7 +46,7 @@ export const BoothItemWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 181px;
+  gap: 0.75rem;
 `;
 
 export const FavoriteButton = styled.button<{ $isFavorited: boolean; $isTrashMode?: boolean }>`
