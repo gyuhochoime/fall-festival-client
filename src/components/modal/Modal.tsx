@@ -81,6 +81,7 @@ function ModalItem({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8 }}
         transition={{ delay: 0.2, duration: 0.2, ease: easeOut }}
+        className={props.title === '공연 정보 제공 안내' ? 'performance-modal' : ''}
       >
         <S.ModalTab>
           <S.ModalTitle>
