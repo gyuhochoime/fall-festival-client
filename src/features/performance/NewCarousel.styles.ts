@@ -35,7 +35,6 @@ export const ArtistTimeBox = styled.div<{ fade: 'in' | 'out' }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
   opacity: ${(props) => (props.fade === 'in' ? 1 : 0)};
   transition: opacity 0.3s ease;
 `;
@@ -61,13 +60,11 @@ export const NorthStar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  filter: drop-shadow(0 0 12px rgb(126 65 154 / 30%));
 `;
 
 export const VerticalLine = styled.div`
-  width: 0.0625rem;
-  height: calc(100dvh - 45rem);
-  max-height: 10rem;
+  width: 0.063rem;
+  height: 4.5rem;
   background: ${(props) => props.theme.colors.primary.violet};
 `;
 
