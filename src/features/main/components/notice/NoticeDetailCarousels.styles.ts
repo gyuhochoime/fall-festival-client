@@ -9,9 +9,9 @@ export const CarouselWrapper = styled.div`
 export const Image = styled.img`
   width: 100%;
   height: auto;
-  min-height: 20rem;
-  object-fit: cover;
-  background-color: ${(props) => props.theme.colors.grayScale.gy100};
+  max-height: calc(100dvh - 15rem);
+  object-fit: contain;
+  background-color: transparent;
 `;
 
 export const Pill = styled.div`
