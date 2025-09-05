@@ -23,6 +23,8 @@ export const Pill = styled.div`
   background-color: ${(props) => props.theme.colors.secondary.vl800}80;
   color: ${(props) => props.theme.colors.grayScale.white};
   ${(props) => props.theme.fonts.body.xsmall400}
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 
   span {
     opacity: 0.7;
