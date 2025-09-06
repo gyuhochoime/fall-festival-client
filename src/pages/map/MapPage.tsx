@@ -39,6 +39,14 @@ export default function Map() {
   const [selectedMapCategory, setSelectedMapCategory] = useState<string>('');
   const [isFromSearchPage, setIsFromSearchPage] = useState<boolean>(false);
 
+  console.log('🗺️ MapPage 상태:', {
+    selectedDay,
+    selectedCategory,
+    isBottomSheetOpen,
+    selectedMapCategory,
+    isFromSearchPage,
+  });
+
   // 모달 상태
   const [isDayModalOpen, setIsDayModalOpen] = useState<boolean>(false);
 
@@ -118,22 +126,53 @@ export default function Map() {
 
   // SearchPage에서 전달받은 카테고리 선택 상태 처리
   useEffect(() => {
+    console.log('🔍 MapPage - location.state 확인:', location.state);
     if (location.state?.selectedCategory && location.state?.showBottomSheet) {
       const categoryName = location.state.selectedCategory;
+      console.log('📂 SearchPage에서 전달받은 카테고리:', categoryName);
+      console.log('📋 showBottomSheet:', location.state.showBottomSheet);
+
       setSelectedMapCategory(categoryName);
       setIsFromSearchPage(true); // SearchPage에서 온 경우임을 표시
+      console.log('✅ selectedMapCategory 설정:', categoryName);
+      console.log('✅ isFromSearchPage 설정: true');
 
       // 카테고리 매핑을 통해 CATEGORIES 타입으로 변환
       const mappedCategory = categoryMapping[categoryName];
+      console.log('🔄 카테고리 매핑 결과:', mappedCategory);
       if (mappedCategory) {
         setSelectedCategory(mappedCategory);
         setIsBottomSheetOpen(true);
+        console.log('✅ selectedCategory 설정:', mappedCategory);
+        console.log('✅ 바텀시트 열기');
+      } else {
+        console.log('❌ 매핑된 카테고리가 없음');
       }
 
       // location state 초기화 (뒤로가기 시 중복 실행 방지)
       navigate(location.pathname, { replace: true });
+      console.log('🔄 location state 초기화');
+    } else {
+      console.log('❌ location.state에 selectedCategory 또는 showBottomSheet가 없음');
     }
   }, [location.state, navigate, location.pathname, categoryMapping]);
+
+  // selectedMapCategory가 변경될 때마다 selectedCategory도 동기화
+  useEffect(() => {
+    console.log('🔄 selectedMapCategory 변경 감지:', selectedMapCategory);
+    if (selectedMapCategory) {
+      const mappedCategory = categoryMapping[selectedMapCategory];
+      console.log('🔄 카테고리 매핑 결과:', mappedCategory);
+      if (mappedCategory && mappedCategory !== selectedCategory) {
+        setSelectedCategory(mappedCategory);
+        console.log('✅ selectedCategory 동기화:', mappedCategory);
+      }
+    } else if (selectedCategory) {
+      // selectedMapCategory가 비어있으면 selectedCategory도 초기화
+      setSelectedCategory(null);
+      console.log('❌ selectedCategory 초기화');
+    }
+  }, [selectedMapCategory, categoryMapping, selectedCategory]);
 
   // 바텀시트가 열리면 하단 네비게이션 숨김 및 지도 리사이즈
   useEffect(() => {
@@ -188,23 +227,25 @@ export default function Map() {
   };
 
   const handleMapCategoryChange = (category: string) => {
-    console.log('[MapPage] 카테고리 변경:', category, '이전:', selectedMapCategory);
+    console.log('🔄 MapPage 카테고리 변경:', category, '이전:', selectedMapCategory);
     // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
     const newCategory = category === selectedMapCategory ? '' : category;
     setSelectedMapCategory(newCategory);
     setIsFromSearchPage(false); // MapPage에서 직접 클릭한 경우
+    console.log('✅ selectedMapCategory 업데이트:', newCategory);
+    console.log('✅ isFromSearchPage 업데이트: false');
 
-    // 바텀시트를 위한 카테고리 설정
+    // 바텀시트를 위한 카테고리   설정
     if (newCategory) {
       const mappedCategory = categoryMapping[newCategory];
       setSelectedCategory(mappedCategory);
-      console.log('[MapPage] 바텀시트 카테고리 설정:', mappedCategory);
+      console.log('✅ 바텀시트 카테고리 설정:', mappedCategory);
     } else {
       setSelectedCategory(null);
-      console.log('[MapPage] 바텀시트 닫기');
+      console.log('❌ 바텀시트 닫기');
     }
 
-    console.log('[MapPage] 매핑된 카테고리:', newCategory ? categoryMapping[newCategory] : 'none');
+    console.log('🔄 최종 매핑된 카테고리:', newCategory ? categoryMapping[newCategory] : 'none');
   };
 
   // 현재 위치로 이동 핸들러
