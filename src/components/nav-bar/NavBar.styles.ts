@@ -35,6 +35,7 @@ export const RightSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boole
   flex: 1;
   margin-top: 3px;
   margin-right: 10px;
+  margin-bottom: 2px;
 
   svg {
     filter: ${({ $whiteIcons }) => ($whiteIcons ? 'brightness(0) invert(1)' : 'none')};
