@@ -6,6 +6,7 @@ import { allMembers } from '@/constants/main/Members';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { useEffect } from 'react';
 import { NavBar } from '@/components/nav-bar';
+import StarIcon from '@/assets/icons/staricon.svg?react';
 
 /**
  * MadeBy 컴포넌트
@@ -13,7 +14,7 @@ import { NavBar } from '@/components/nav-bar';
  */
 
 export default function MadeBy() {
-  const parts = ['기획&디자인', '프론트엔드', '백엔드'];
+  const parts = ['기획 & 디자인', '프론트엔드', '백엔드'];
   const setIsNav = useLayoutStore((state) => state.setIsNav);
 
   useEffect(() => {
@@ -31,11 +32,25 @@ export default function MadeBy() {
       <S.TextWrap>
         <S.MainTitle>우리는 ‘멋쟁이사자처럼’ 동아리입니다.</S.MainTitle>
         <S.SubTitle>
-          3개월간 기획부터 디자인, 개발까지 정성을 담아 봄축제 어플을 만들었습니다. 사용자들이 쉽고
-          즐겁게 축제를 즐길 수 있도록 고민을 거듭해 팀원 모두가 각자의 역할에서 최선을 다해
-          협업했습니다. 축제의 설렘을 어플 속에 고스란히 담아냈습니다. <br />
+          저희 팀이 2개월간 한마음으로 만든
           <br />
-          지금 여러분께 우리의 결과물을 자신 있게 소개합니다!
+          가을 축제 웹앱을 공개합니다!
+          <br />
+          <br />
+          서툴지만 진심을 담아,
+          <br />
+          기획부터 디자인, 개발까지 차근차근 만들었습니다.
+          <br />
+          <br />
+          사용자들이 더 편하게 축제를 즐기고 추억할 수 있도록
+          <br />
+          팀원 모두가 최선을 다해 협업했습니다.
+          <br />
+          <br />
+          이제 남은 건 여러분의 차례입니다.
+          <br />
+          저희 웹앱과 함께 가을 축제의 모든 순간을 즐겨주세요!
+          <br />
         </S.SubTitle>
       </S.TextWrap>
       <S.PartWrap>
@@ -43,10 +58,13 @@ export default function MadeBy() {
           const members = allMembers.filter((member) => member.part === part);
           return (
             <S.PartBox key={part}>
-              <S.PartTitle>{part}</S.PartTitle>
+              <S.PartTitle>
+                <StarIcon />
+                {part}
+              </S.PartTitle>
               <S.PartCard>
                 {members.map((member, index) => (
-                  <Card key={index} {...member} />
+                  <Card key={index} index={index} {...member} />
                 ))}
               </S.PartCard>
             </S.PartBox>

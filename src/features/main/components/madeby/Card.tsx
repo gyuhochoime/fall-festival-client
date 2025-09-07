@@ -1,30 +1,33 @@
-import { ColorButton } from '@/components/colorbuttons';
 import * as S from './Card.styles';
 import { CardProps } from './Card.types';
-import { ColorKey } from '@/components/colorbuttons/ColorButton.types';
+
+import StarIcon from '@/assets/icons/staricon.svg?react';
 
 /**
  * Card 컴포넌트
+ * @param {number} index - 인덱스
  * @param {string} image - 이미지 URL
  * @param {string} label - 버튼 내부에 표시될 텍스트
- * @param {string} backgroundColor - 테마에서 사용할 색상 키
  * @param {string} name - 이름
  * @param {string} description - 설명
  * @returns {JSX.Element}
  */
 
-export default function Card({ image, label, backgroundColor, name, description }: CardProps) {
+export default function Card({ index, image, label, name, description }: CardProps) {
   return (
     <S.Container>
-      <S.Wrap>
+      <S.Wrap index={index}>
         <S.ImageBox>
           <S.Image src={image} alt="made by" />
         </S.ImageBox>
+        <S.HorizontalLine />
+        <StarIcon style={{ margin: '.1rem' }} />
         <S.TextWrap>
-          <S.ColorButtonWrap>
-            <ColorButton label={label} backgroundColor={backgroundColor as ColorKey} />
+          <S.TitleWrap className="title-wrap">
             <S.Name>{name}</S.Name>
-          </S.ColorButtonWrap>
+            <S.Seperator />
+            <S.Part>{label}</S.Part>
+          </S.TitleWrap>
           <S.Description
             dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br/>') }}
           />
