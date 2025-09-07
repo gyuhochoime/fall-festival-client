@@ -185,6 +185,7 @@ export const MenuTextWrap = styled.div`
   flex-grow: 1;
   min-width: 0;
   gap: 0.125rem;
+  padding: 0 20;
 `;
 
 export const MenuDescription = styled.p`
@@ -204,6 +205,7 @@ export const menuTitle = styled.p`
   white-space: nowrap;
   min-width: 0;
   flex: 0 1 auto;
+  margin-top: 12px;
 `;
 
 export const Price = styled.p`

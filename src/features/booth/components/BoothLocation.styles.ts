@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  padding: 2.75rem 0rem 0rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -39,7 +38,7 @@ export const Button = styled.button`
   position: absolute;
   right: 0.75rem;
   bottom: 0.75rem;
-  z-index: 999;
+  z-index: 99;
 `;
 
 export const ButtonText = styled.p`
