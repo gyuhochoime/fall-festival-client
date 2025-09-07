@@ -26,7 +26,6 @@ export const FavoriteButton = styled.button<{
   }};
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
   z-index: 10;
   position: ${({ $position }) => $position};
 
@@ -57,14 +56,6 @@ export const FavoriteButton = styled.button<{
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-  }
-
-  &:hover:not(:disabled) {
-    transform: scale(1.05);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.95);
   }
 `;
 
