@@ -57,11 +57,9 @@ export default function Notification({ title, onClick, onClose, width }: Notific
           <S.Container $width={width}>
             <S.Icon src={NotificationIcon} alt="Notification" />
             <S.Title onClick={() => onClick?.()}>{title}</S.Title>
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <S.CloseButton onClick={handleClose}>
-                <CloseIcon width={'0.75rem'} height={'0.75rem'} />
-              </S.CloseButton>
-            </motion.div>
+            <S.CloseButton onClick={handleClose}>
+              <CloseIcon width={'0.75rem'} height={'0.75rem'} />
+            </S.CloseButton>
           </S.Container>
         </motion.div>
       )}
