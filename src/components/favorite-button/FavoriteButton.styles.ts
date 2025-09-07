@@ -39,7 +39,7 @@ export const FavoriteButton = styled.button<{
           flex-direction: column;
           gap: 0.4375rem;
           font-size: 0.75rem;
-          top: 1.1rem;
+          top: 0rem;
         `;
       case 'default':
       default:
