@@ -39,7 +39,7 @@ export const Button = styled.button`
   position: absolute;
   right: 0.75rem;
   bottom: 0.75rem;
-  z-index: 999;
+  z-index: 99;
 `;
 
 export const ButtonText = styled.p`
