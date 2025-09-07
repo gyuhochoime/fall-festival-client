@@ -46,7 +46,7 @@ export const Image = styled.img`
 `;
 
 export const HorizontalLine = styled.div`
-  width: 5rem;
+  width: 4.35rem;
   height: 1px;
   background-color: ${(props) => props.theme.colors.primary.violet};
 `;
