@@ -8,9 +8,9 @@ export const Container = styled.div<ImageProps>`
   display: flex;
   width: 20.9375rem;
   padding: ${({ $hasImage }) =>
-    $hasImage ? '0.7rem 0.6rem 0.7rem 0.85rem' : '0.87rem 0.6rem 0.87rem 1.225rem'};
+    $hasImage ? '0.7rem 0.6rem 0.7rem 0.85rem' : '0.8rem 0.6rem 0.8rem 2rem'};
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.2rem;
   border-radius: 16px;
   background-color: ${(props) => props.theme.colors.grayScale.white};
   cursor: pointer;
@@ -33,20 +33,22 @@ export const Image = styled.img`
 export const TextWrap = styled.div<ImageProps>`
   display: flex;
   flex-direction: column;
-  width: ${({ $hasImage }) => ($hasImage ? '12.1875rem' : '16.5625rem')};
+  width: ${({ $hasImage }) => ($hasImage ? '13rem' : '17rem')};
   gap: 0.125rem;
 `;
 
 export const TitleText = styled.p`
-  ${(props) => props.theme.fonts.header.h4};
+  ${(props) => props.theme.fonts.header.h4_600};
   align-self: stretch;
   color: ${(props) => props.theme.colors.grayScale.black};
+  line-height: 1.3rem;
 `;
 
 export const DescriptionText = styled.p`
   ${(props) => props.theme.fonts.body.xsmall400};
   align-self: stretch;
   color: ${(props) => props.theme.colors.grayScale.black};
+  line-height: 1rem;
 `;
 
 export const Icon = styled.img`
