@@ -41,8 +41,6 @@ export default function BoothInfo({ id }: { id: number }) {
       </S.ImageBtnFrame>
       <S.TextSection>
         <S.TextFrame>
-          <S.Text>{booth.type}</S.Text>
-          <S.VerticalLine />
           <S.Text>{booth.affiliation}</S.Text>
         </S.TextFrame>
         <S.BoothName
