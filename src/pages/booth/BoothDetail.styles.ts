@@ -34,7 +34,6 @@ export const Container = styled.div`
   align-items: center;
   position: relative;
   padding-top: 3.875rem;
-  margin-left: -15px;
 `;
 
 export const TakeOut = styled.div`
