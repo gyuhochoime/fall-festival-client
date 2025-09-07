@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { MapPageBottomSheet } from '@/features/map';
 import { NavBar } from '@/components/nav-bar';
@@ -14,6 +14,7 @@ import { useLayoutStore } from '@/stores/useLayoutStore';
 import ReCenterButtonIcon from '@/assets/icons/re-center.svg?react';
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { MapData, MapDataItem } from '@/constants/map/MapData';
+import { useMarkerStore } from '@/stores/useMarkerStore';
 
 export default function Map() {
   // URL에서 itemId 파라미터 가져오기
@@ -37,6 +38,14 @@ export default function Map() {
   const [isFromSearchPage, setIsFromSearchPage] = useState<boolean>(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
+  // 🔥 단일 아이템 검색 모드 상태 추가
+  const [singleItemMode, setSingleItemMode] = useState<boolean>(false);
+  const [singleItem, setSingleItem] = useState<MapDataItem | null>(null);
+  const [singleItemSearchKeyword, setSingleItemSearchKeyword] = useState<string>('');
+
+  // Marker store 사용
+  const { fetchMarkers, markers, loading: isApiLoading, isInitialized } = useMarkerStore();
+
   // 모달 상태
   const [isDayModalOpen, setIsDayModalOpen] = useState<boolean>(false);
 
@@ -48,17 +57,87 @@ export default function Map() {
       푸드트럭: '푸드트럭',
       콘텐츠: '콘텐츠',
       화장실: '화장실',
-      의무실: '콘텐츠', // 의무실은 콘텐츠로 매핑
+      의무실: '의무실', // 의무실은 의무실로 매핑
       셔틀콕: '셔틀콕',
       공연장: '공연장',
       흡연실: '흡연구역',
       '주류 구매': '주류 구매 위치',
       플리마켓: '플리마켓',
+      AED: 'AED',
     }),
     [],
   );
 
-  // 카카오맵 커스텀 훅 사용
+  // API 카테고리를 내부 카테고리로 매핑
+  const apiCategoryMapping: Record<string, string> = useMemo(
+    () => ({
+      '주류 구매': '주류 구매 위치',
+      플리마켓: '플리마켓',
+      이벤트: '프로모션',
+      콘텐츠: '콘텐츠',
+      화장실: '화장실',
+      공연장: '공연장',
+      셔틀콕: '셔틀콕',
+      푸드트럭: '푸드트럭',
+      흡연실: '흡연구역',
+      의무실: '의무실', // 의무실은 의무실로 매핑
+      AED: 'AED', // AED는 AED로 매핑
+    }),
+    [],
+  );
+
+  // API 데이터를 MapData 형식으로 변환하는 함수
+  const convertApiDataToMapData = useCallback((): MapDataItem[] => {
+    return markers
+      .filter((item) => {
+        // closedDays에 현재 선택된 날짜가 포함되어 있으면 제외
+        const currentDayString = selectedDay.replace('일차', '일차');
+        return !item.closedDays.includes(currentDayString);
+      })
+      .map((item) => ({
+        id: item.id,
+        image: item.image,
+        title: item.name,
+        subtitle: apiCategoryMapping[item.category] || item.category,
+        time: item.time,
+        lat: item.latitude,
+        lng: item.longitude,
+        closeDay: item.closedDays as ('1일차' | '2일차' | '3일차')[],
+        path:
+          item.linkType === 'STATIC' ? undefined : `/${item.linkType.toLowerCase()}/${item.linkId}`,
+      }));
+  }, [selectedDay, apiCategoryMapping, markers]);
+
+  // 통합된 맵 데이터 (모든 카테고리를 API 데이터로 사용)
+  const integratedMapData = useMemo(() => {
+    // API 데이터가 로딩 중이면 기존 MapData 사용
+    if (isApiLoading) {
+      return MapData;
+    }
+
+    const apiMapData = convertApiDataToMapData();
+
+    return {
+      ...MapData,
+      // API 데이터로 카테고리별 데이터 업데이트 (모든 카테고리 포함)
+      주점: apiMapData.filter((item: MapDataItem) => item.subtitle === '주점'),
+      '주류 구매 위치': apiMapData.filter(
+        (item: MapDataItem) => item.subtitle === '주류 구매 위치',
+      ),
+      플리마켓: apiMapData.filter((item: MapDataItem) => item.subtitle === '플리마켓'),
+      프로모션: apiMapData.filter((item: MapDataItem) => item.subtitle === '프로모션'),
+      콘텐츠: apiMapData.filter((item: MapDataItem) => item.subtitle === '콘텐츠'),
+      화장실: apiMapData.filter((item: MapDataItem) => item.subtitle === '화장실'),
+      공연장: apiMapData.filter((item: MapDataItem) => item.subtitle === '공연장'),
+      셔틀콕: apiMapData.filter((item: MapDataItem) => item.subtitle === '셔틀콕'),
+      푸드트럭: apiMapData.filter((item: MapDataItem) => item.subtitle === '푸드트럭'),
+      흡연구역: apiMapData.filter((item: MapDataItem) => item.subtitle === '흡연구역'),
+      의무실: apiMapData.filter((item: MapDataItem) => item.subtitle === '의무실'),
+      AED: apiMapData.filter((item: MapDataItem) => item.subtitle === 'AED'),
+    };
+  }, [convertApiDataToMapData, isApiLoading]);
+
+  // 카카오맵 커스텀 훅 사용 - 단일 아이템 모드와 단일 아이템 데이터 전달
   const { moveToCurrentLocation, showItemMarker, kakaoMap } = useKakaoMap(
     {
       mapRef,
@@ -71,19 +150,20 @@ export default function Map() {
     },
     selectedMapCategory ? categoryMapping[selectedMapCategory] : selectedCategory,
     selectedDay,
+    singleItemMode, // 🔥 단일 아이템 모드 전달
+    singleItem, // 🔥 단일 아이템 데이터 전달
+    integratedMapData, // 🔥 통합된 맵 데이터 전달
   );
 
   // itemId가 있을 경우 해당 아이템 자동 선택
   useEffect(() => {
     // 탭을 통해 카테고리를 직접 선택한 상태에서는 itemId 처리를 하지 않음
-    if (itemId && kakaoMap && !selectedMapCategory) {
-      console.log('🔍 [DEBUG] itemId 처리 시작:', itemId);
-
-      // 모든 카테고리에서 아이템 찾기
+    if (itemId && kakaoMap && !selectedMapCategory && !isApiLoading) {
+      // 통합된 데이터에서 아이템 찾기
       let foundItem: MapDataItem | undefined;
       let foundCategory: CATEGORIES | null = null;
 
-      Object.entries(MapData).some(([category, items]) => {
+      Object.entries(integratedMapData).some(([category, items]) => {
         const item = items.find((item) => item.id === itemId);
         if (item) {
           foundItem = item;
@@ -94,24 +174,19 @@ export default function Map() {
       });
 
       if (foundItem && foundCategory) {
-        console.log(
-          '🎯 [DEBUG] 단일 항목 검색 - 아이템:',
-          foundItem.title,
-          '카테고리:',
-          foundCategory,
-        );
-
         if (selectedCategory !== foundCategory) {
           setSelectedCategory(foundCategory);
-          console.log('📋 [DEBUG] selectedCategory 설정:', foundCategory);
         }
         if (selectedItemId !== itemId) {
           setSelectedItemId(itemId);
-          console.log('🏷️ [DEBUG] selectedItemId 설정:', itemId);
         }
 
         setIsFromSearchPage(true);
-        console.log('🔍 [DEBUG] isFromSearchPage 설정: true');
+
+        // 🔥 단일 아이템 모드 활성화
+        setSingleItemMode(true);
+        setSingleItem(foundItem);
+        setSingleItemSearchKeyword(foundItem.title); // 검색어 저장
 
         // 해당 카테고리의 selectedMapCategory 설정
         const categoryKey = Object.keys(categoryMapping).find(
@@ -119,7 +194,6 @@ export default function Map() {
         );
         if (categoryKey) {
           setSelectedMapCategory(categoryKey);
-          console.log('🗂️ [DEBUG] selectedMapCategory 설정:', categoryKey);
         }
 
         setTimeout(() => {
@@ -129,19 +203,29 @@ export default function Map() {
     } else if (!itemId && selectedItemId) {
       // itemId가 없어졌는데 selectedItemId가 있으면 초기화
       setSelectedItemId(null);
-      console.log('🧹 [DEBUG] itemId 없음 - selectedItemId 초기화');
+      // 🔥 단일 아이템 모드도 해제
+      setSingleItemMode(false);
+      setSingleItem(null);
+      setSingleItemSearchKeyword('');
     }
-  }, [itemId, kakaoMap, showItemMarker, selectedCategory, selectedItemId]);
+  }, [
+    itemId,
+    kakaoMap,
+    showItemMarker,
+    selectedCategory,
+    selectedItemId,
+    isApiLoading,
+    integratedMapData,
+    categoryMapping,
+    selectedMapCategory,
+  ]);
 
   // 바텀시트 열기/닫기
   useEffect(() => {
-    console.log('📊 [DEBUG] 바텀시트 상태 체크 - selectedCategory:', selectedCategory);
     if (selectedCategory) {
       setIsBottomSheetOpen(true);
-      console.log('⬆️ [DEBUG] 바텀시트 열림');
     } else {
       setIsBottomSheetOpen(false);
-      console.log('⬇️ [DEBUG] 바텀시트 닫힘');
     }
   }, [selectedCategory]);
 
@@ -205,7 +289,18 @@ export default function Map() {
   // 날짜 바꾸면 카테고리 초기화
   useEffect(() => {
     setSelectedCategory(null);
+    // 🔥 단일 아이템 모드도 해제
+    setSingleItemMode(false);
+    setSingleItem(null);
+    setSingleItemSearchKeyword('');
   }, [selectedDay]);
+
+  // 컴포넌트 마운트 시 한 번만 데이터 가져오기
+  useEffect(() => {
+    if (!isInitialized) {
+      fetchMarkers();
+    }
+  }, [fetchMarkers, isInitialized]);
 
   const handleSearchClick = () => {
     navigate('/map/search');
@@ -225,61 +320,44 @@ export default function Map() {
   };
 
   const handleMapCategoryChange = (category: string) => {
-    console.log('🔄 [DEBUG] 탭 클릭 - 클릭한 카테고리:', category);
-    console.log('📊 [DEBUG] 현재 상태:', {
-      selectedMapCategory,
-      selectedCategory,
-      selectedItemId,
-      isFromSearchPage,
-      itemId,
-    });
-
     // **🔥 탭 카테고리 클릭 시 단일 항목 검색 상태 완전 초기화**
     // 새로운 카테고리를 선택하는 경우 (카테고리 해제가 아닌 경우)
     if (category !== selectedMapCategory && category !== '') {
-      console.log('🧹 [DEBUG] 단일 항목 상태 초기화 시작');
-
       setSelectedItemId(null);
-      console.log('🏷️ [DEBUG] selectedItemId 초기화: null');
-
       setIsFromSearchPage(false);
-      console.log('🔍 [DEBUG] isFromSearchPage 초기화: false');
+
+      // 🔥 단일 아이템 모드 해제
+      setSingleItemMode(false);
+      setSingleItem(null);
+      setSingleItemSearchKeyword('');
 
       // URL에 itemId가 있다면 제거
       if (itemId) {
         navigate('/map', { replace: true });
-        console.log('🌐 [DEBUG] URL itemId 제거');
       }
     }
 
     // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
     const newCategory = category === selectedMapCategory ? '' : category;
     setSelectedMapCategory(newCategory);
-    console.log('🗂️ [DEBUG] selectedMapCategory 업데이트:', newCategory);
 
     // **검색 상태 관리 로직 간소화**
     if (newCategory) {
       setIsFromSearchPage(false);
-      console.log('✅ [DEBUG] 카테고리 선택 시 일반 상태로 설정');
     }
 
     // 바텀시트를 위한 카테고리 설정
     if (newCategory) {
       const mappedCategory = categoryMapping[newCategory];
       setSelectedCategory(mappedCategory);
-      console.log('📋 [DEBUG] 새 카테고리 바텀시트 설정:', mappedCategory);
     } else {
       setSelectedCategory(null);
       setSelectedItemId(null);
-      console.log('❌ [DEBUG] 모든 선택 해제');
+      // 🔥 단일 아이템 모드도 해제
+      setSingleItemMode(false);
+      setSingleItem(null);
+      setSingleItemSearchKeyword('');
     }
-
-    console.log('📊 [DEBUG] 최종 상태 예상:', {
-      newSelectedMapCategory: newCategory,
-      newSelectedCategory: newCategory ? categoryMapping[newCategory] : null,
-      newSelectedItemId: newCategory ? null : selectedItemId,
-      newIsFromSearchPage: newCategory ? false : isFromSearchPage,
-    });
   };
 
   // 현재 위치로 이동 핸들러
@@ -300,7 +378,13 @@ export default function Map() {
         <NavBar
           isBack={isFromSearchPage && selectedMapCategory ? true : false}
           hideLeft={isFromSearchPage && selectedMapCategory ? false : true}
-          title={isFromSearchPage && selectedMapCategory ? `${selectedMapCategory}` : '지도'}
+          title={
+            isFromSearchPage && selectedMapCategory
+              ? singleItemMode
+                ? singleItemSearchKeyword // 단일 검색어일 때는 검색어 표시
+                : selectedMapCategory // 카테고리 검색일 때는 카테고리명 표시
+              : '지도'
+          }
           isClose={isFromSearchPage && selectedMapCategory ? true : false}
           backPath={isFromSearchPage && selectedMapCategory ? '/map/search' : undefined}
           onCloseClick={
@@ -310,10 +394,15 @@ export default function Map() {
                   setSelectedCategory(null);
                   setIsBottomSheetOpen(false);
                   setIsFromSearchPage(false);
+                  // 🔥 단일 아이템 모드도 해제
+                  setSingleItemMode(false);
+                  setSingleItem(null);
+                  setSingleItemSearchKeyword('');
                 }
               : undefined
           }
           opacity={isFromSearchPage && selectedMapCategory ? false : true}
+          isSearchMode={isFromSearchPage && selectedMapCategory ? true : false}
         />
         {!(isFromSearchPage && selectedMapCategory) && (
           <S.SearchBarContainer>
@@ -338,11 +427,13 @@ export default function Map() {
               '흡연실',
               '주류 구매',
               '플리마켓',
+              'AED',
             ]}
             activeTab={selectedMapCategory}
             onTabClick={handleMapCategoryChange}
             autoWidth={true}
             margin="0.75rem"
+            gap="0.25rem"
           />
         </S.CategoryTabsContainer>
         {(isBottomSheetOpen || selectedMapCategory) && (
@@ -352,6 +443,7 @@ export default function Map() {
               selectedDay={selectedDay}
               onItemClick={showItemMarker}
               selectedItemId={selectedItemId}
+              customMapData={integratedMapData}
             >
               {selectedCategory === '주점' && (
                 <BoothList showFavoritesOnly={false} hideTabs={true} />

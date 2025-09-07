@@ -48,6 +48,7 @@ import PHOTOZONE from '@/assets/images/map/photozone.webp';
 import ONETODOUBLE from '@/assets/images/map/onetodouble.webp';
 import PROTEEN from '@/assets/images/map/proteen.webp';
 import STAMP from '@/assets/images/map/stamp.webp';
+// import AED_IMAGE from '@/assets/images/map/aed.webp';
 
 // 각 카테고리별 항목 타입 정의
 export interface MapDataItem extends ImageTextFrameWithTimeProps {
@@ -596,5 +597,30 @@ export const MapData: MapDataProps = {
       lng: 126.83253354377807,
       closeDay: [],
     },
+  ],
+  AED: [
+    {
+      id: 100,
+      image: HDP, // 임시로 HDP 이미지 사용
+      title: 'AED 1',
+      subtitle: '응급처치',
+      time: '24시간',
+      lat: 37.295669407307464,
+      lng: 126.83489418254456,
+      closeDay: [],
+    },
+    {
+      id: 101,
+      image: HDP, // 임시로 HDP 이미지 사용
+      title: 'AED 2',
+      subtitle: '응급처치',
+      time: '24시간',
+      lat: 37.296037547941225,
+      lng: 126.83558981569682,
+      closeDay: [],
+    },
+  ],
+  의무실: [
+    // API에서 받아올 데이터로 대체될 예정
   ],
 };

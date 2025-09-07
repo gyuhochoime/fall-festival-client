@@ -11,6 +11,7 @@ import MarkerPerformance from '@/assets/icons/marker-performance.svg';
 import MarkerBusStop from '@/assets/icons/marker-busstop.svg';
 import MarkerFoodTruck from '@/assets/icons/marker-foodtruck.svg';
 import MarkerSmokingArea from '@/assets/icons/marker-smokingarea.svg';
+import MarkerAED from '@/assets/icons/marker-aed.svg';
 
 // 아이콘 매핑 객체 정의
 type MarkerIconMap = {
@@ -27,10 +28,12 @@ export const markerIcons: MarkerIconMap = {
   프로모션: MarkerPromotion,
   콘텐츠: MarkerHospital,
   화장실: MarkerToilet,
+  의무실: MarkerHospital,
   공연장: MarkerPerformance,
   셔틀콕: MarkerBusStop,
   푸드트럭: MarkerFoodTruck,
   흡연구역: MarkerSmokingArea,
+  AED: MarkerAED,
   myLocation: MyLocationIcon,
 };
 

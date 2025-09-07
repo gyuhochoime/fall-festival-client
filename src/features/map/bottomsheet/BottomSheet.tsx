@@ -39,6 +39,7 @@ export default function BottomSheet({
   children,
   onItemClick,
   selectedItemId,
+  customMapData,
 }: BottomSheetProps) {
   const navigate = useNavigate();
   const { sheet, content, header } = useBottomSheet();
@@ -56,11 +57,14 @@ export default function BottomSheet({
     }
   }, [selectedCategory, isNotificationClosed]);
 
+  // 사용할 데이터 소스 결정 (customMapData가 있으면 사용, 없으면 기본 MapData 사용)
+  const dataSource = customMapData || MapData;
+
   // selectedCategory가 null이 아닌 경우에만 데이터 필터링
   // closeDay 배열에 현재 선택된 날짜가 포함된 항목은 제외
   // selectedItemId가 있으면 해당 아이템만 표시
   const filteredData = selectedCategory
-    ? MapData[selectedCategory]?.filter((item) => {
+    ? dataSource[selectedCategory]?.filter((item) => {
         // 날짜 필터링
         const isNotClosed = !item.closeDay || !item.closeDay.includes(selectedDay);
 
@@ -76,9 +80,10 @@ export default function BottomSheet({
   console.log('[BottomSheet] 필터링된 데이터:', {
     selectedCategory,
     selectedDay,
-    totalItems: selectedCategory ? MapData[selectedCategory]?.length || 0 : 0,
+    totalItems: selectedCategory ? dataSource[selectedCategory]?.length || 0 : 0,
     filteredItems: filteredData.length,
     data: filteredData,
+    usingCustomData: !!customMapData,
   });
 
   // 알림 클릭 핸들러 - 경로로 이동
@@ -95,19 +100,6 @@ export default function BottomSheet({
       setShowNotification(false);
     }
   }, [selectedCategory, closeNotification]);
-
-  /**
-   * 개발 모드에서 모든 알림 상태 초기화 핸들러
-   * 모든 알림을 다시 표시 가능한 상태로 초기화합니다.
-   */
-  const handleResetAllNotifications = useCallback(() => {
-    useNotificationStore.getState().resetAllNotifications();
-    // 모든 알림 초기화 후 현재 카테고리 알림 상태 업데이트
-    if (selectedCategory) {
-      setShowNotification(!!CATEGORY_NOTIFICATIONS[selectedCategory]);
-    }
-    alert('모든 알림 상태가 초기화되었습니다.');
-  }, [selectedCategory]);
 
   if (!selectedCategory) {
     console.log('[BottomSheet] selectedCategory가 null이므로 바텀시트를 렌더링하지 않습니다.');
@@ -159,15 +151,6 @@ export default function BottomSheet({
                 : selectedCategory && (
                     <S.NoDataMessage>해당 카테고리의 데이터가 없습니다.</S.NoDataMessage>
                   )}
-
-              {/* 개발 환경에서만 표시되는 디버그 기능 */}
-              {import.meta.env.DEV && (
-                <S.DevSection>
-                  <S.DevButton onClick={handleResetAllNotifications}>
-                    🔄 개발자: 알림 상태 초기화
-                  </S.DevButton>
-                </S.DevSection>
-              )}
             </>
           )}
         </S.BottomSheetContent>

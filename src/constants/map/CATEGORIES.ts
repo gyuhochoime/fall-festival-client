@@ -5,10 +5,12 @@ const categories = [
   '프로모션',
   '콘텐츠',
   '화장실',
+  '의무실',
   '공연장',
   '셔틀콕',
   '푸드트럭',
   '흡연구역',
+  'AED',
 ] as const;
 type CATEGORIES = (typeof categories)[number];
 

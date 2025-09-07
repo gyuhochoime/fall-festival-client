@@ -4,8 +4,9 @@ import * as S from './SearchPage.styles';
 import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import { MapData, MapDataItem } from '@/constants/map/MapData';
+import { MapDataItem } from '@/constants/map/MapData';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useMarkerStore } from '@/stores/useMarkerStore';
 import SearchIcon from '@/assets/icons/search-gray.svg?react';
 import CloseIcon from '@/assets/icons/close-search.svg?react';
 import MapSearchIcon from '@/assets/icons/map-search.svg?react';
@@ -26,23 +27,34 @@ export default function MapSearch() {
   const [, setSearchResults] = useState<MapDataItem[]>([]);
   const debouncedSearchTerm = useDebounce(searchKeyword, 300);
 
-  // 카테고리 목록
-  const categories = useMemo(
-    () => [
-      '프로모션',
-      '주점',
-      '푸드트럭',
-      '콘텐츠',
-      '화장실',
-      '의무실',
-      '셔틀콕',
-      '공연장',
-      '흡연실',
-      '주류 구매',
-      '플리마켓',
-    ],
+  // Marker store 사용
+  const { markers, fetchMarkers, isInitialized } = useMarkerStore();
+
+  // API 카테고리를 내부 카테고리로 매핑
+  const apiCategoryMapping: Record<string, string> = useMemo(
+    () => ({
+      '주류 구매': '주류 구매 위치',
+      플리마켓: '플리마켓',
+      이벤트: '프로모션',
+      콘텐츠: '콘텐츠',
+      화장실: '화장실',
+      공연장: '공연장',
+      셔틀콕: '셔틀콕',
+      푸드트럭: '푸드트럭',
+      흡연실: '흡연구역',
+      의무실: '의무실',
+      AED: 'AED',
+    }),
     [],
   );
+
+  // 카테고리 목록 (API에서 받은 고유 카테고리들)
+  const categories = useMemo(() => {
+    const uniqueCategories = [
+      ...new Set(markers.map((marker) => apiCategoryMapping[marker.category] || marker.category)),
+    ];
+    return uniqueCategories;
+  }, [markers, apiCategoryMapping]);
 
   // 자동완성 생성 (useMemo로 최적화)
   const autocompleteItems = useMemo(() => {
@@ -62,22 +74,28 @@ export default function MapSearch() {
       }
     });
 
-    // 위치 검색어 자동완성
-    Object.entries(MapData).forEach(([categoryName, items]) => {
-      items.forEach((item) => {
-        if (item.title.toLowerCase().includes(query)) {
-          autocomplete.push({
-            id: `location-${item.id}`,
-            text: item.title,
-            type: 'location',
-            category: categoryName,
-          });
-        }
-      });
+    // 위치 검색어 자동완성 (API 데이터 사용)
+    markers.forEach((marker) => {
+      const mappedCategory = apiCategoryMapping[marker.category] || marker.category;
+      if (marker.name.toLowerCase().includes(query)) {
+        autocomplete.push({
+          id: `location-${marker.id}`,
+          text: marker.name,
+          type: 'location',
+          category: mappedCategory,
+        });
+      }
     });
 
     return autocomplete;
-  }, [searchKeyword, categories]);
+  }, [searchKeyword, categories, markers, apiCategoryMapping]);
+
+  // API 데이터 초기화
+  useEffect(() => {
+    if (!isInitialized) {
+      fetchMarkers();
+    }
+  }, [fetchMarkers, isInitialized]);
 
   // 내비바 숨기기 및 언마운트 시 내비바 보이기
   useEffect(() => {
@@ -92,20 +110,32 @@ export default function MapSearch() {
     if (debouncedSearchTerm) {
       const results: MapDataItem[] = [];
 
-      // 모든 카테고리의 아이템을 검색
-      Object.values(MapData).forEach((items) => {
-        items.forEach((item) => {
-          if (item.title.includes(debouncedSearchTerm)) {
-            results.push(item);
-          }
-        });
+      // API 데이터에서 검색
+      markers.forEach((marker) => {
+        if (marker.name.includes(debouncedSearchTerm)) {
+          const mappedCategory = apiCategoryMapping[marker.category] || marker.category;
+          results.push({
+            id: marker.id,
+            image: marker.image,
+            title: marker.name,
+            subtitle: mappedCategory,
+            time: marker.time,
+            lat: marker.latitude,
+            lng: marker.longitude,
+            closeDay: marker.closedDays as ('1일차' | '2일차' | '3일차')[],
+            path:
+              marker.linkType === 'STATIC'
+                ? undefined
+                : `/${marker.linkType.toLowerCase()}/${marker.linkId}`,
+          });
+        }
       });
 
       setSearchResults(results);
     } else {
       setSearchResults([]);
     }
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, markers, apiCategoryMapping]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
