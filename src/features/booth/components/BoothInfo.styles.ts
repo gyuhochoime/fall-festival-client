@@ -4,11 +4,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin-bottom: 0;
 `;
 
 export const ImageBtnFrame = styled.div`
   width: 100%;
-  height: 6.25rem;
+  height: auto;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -17,9 +18,10 @@ export const ImageBtnFrame = styled.div`
 export const Image = styled.img`
   width: 6.25rem;
   height: 6.25rem;
-  background: ${(props) => props.theme.colors.grayScale.gy100};
-  border-radius: 0.75rem;
-  border: 0.5px solid ${(props) => props.theme.colors.grayScale.gy100};
+  background: ${(props) => props.theme.colors.grayScale.gy400};
+  border-radius: 12px;
+  border: 1px solid ${(props) => props.theme.colors.grayScale.gy100};
+  margin-top: 1.2rem;
 `;
 
 export const TextSection = styled.div`
@@ -41,11 +43,6 @@ export const Text = styled.p`
 export const BoothName = styled(Text)`
   ${(props) => props.theme.fonts.header.h2};
   color: ${(props) => props.theme.colors.grayScale.black};
-`;
-
-export const VerticalLine = styled.div`
-  width: 0.0625rem;
-  background: ${(props) => props.theme.colors.grayScale.gy100};
 `;
 
 export const TakeOut = styled.div`

@@ -43,44 +43,21 @@ export default function Menu() {
         </S.TitleWrapper>
         <MainNoticeList />
       </S.Section>
-      <S.Section>
-        <S.SubTitle aria-label="SNS 바로가기">SNS 바로가기</S.SubTitle>
-        <S.Frame>
-          <ImageTextIconFrame
-            image={Student}
-            title="총학생회 인스타그램 바로가기"
-            description="축제 공지를 한눈에 보아요"
-            onClick={() => window.open(externalLinks.instagramStudent, '_blank')}
-          />
-          <ImageTextIconFrame
-            image={Lion}
-            title="멋사 보러가볼까"
-            description="멋사 인스타그램 바로가기"
-            onClick={() => window.open(externalLinks.instagramLikelion, '_blank')}
-          />
-        </S.Frame>
-      </S.Section>
+
       <S.Section>
         {/* 링크 수정필요 */}
-        <S.SubTitle aria-label="문의사항">문의사항</S.SubTitle>
+        <S.SubTitle aria-label="문의사항 및 후기">문의사항 및 후기</S.SubTitle>
         <S.Frame>
           <ImageTextIconFrame
-            image={Form}
-            title="축제 문의사항 남기기"
+            title="축제 문의 남기기"
             description="축기단 링크트리로 이동"
             onClick={() => window.open(externalLinks.linkTree, '_blank')}
           />
           <ImageTextIconFrame
-            image={Student}
             title="축제 FAQ"
-            description="총학생회 인스타그램"
+            description="자주 묻는 질문"
             onClick={() => navigate('/main/faq')}
           />
-        </S.Frame>
-      </S.Section>
-
-      <S.Section>
-        <S.Frame>
           <ImageTextIconFrame
             image={Form}
             title="축제 웹앱 사용후기"
@@ -92,6 +69,30 @@ export default function Menu() {
             title="만든 이들"
             description="멋쟁이사자처럼 운영진 제작 후기"
             onClick={() => navigate('/main/about')}
+          />
+        </S.Frame>
+      </S.Section>
+
+      <S.Section>
+        <S.SubTitle aria-label="SNS">SNS</S.SubTitle>
+        <S.Frame>
+          <ImageTextIconFrame
+            image={Student}
+            title="제 43대 총학생회 [ NOTE ]"
+            description="인스타그램 바로가기"
+            onClick={() => window.open(externalLinks.instagramStudent, '_blank')}
+          />
+          <ImageTextIconFrame
+            image={Lion}
+            title="제3대 총동아리연합회 [ HERE ]"
+            description="인스타그램 바로가기"
+            onClick={() => window.open(externalLinks.instagramLikelion, '_blank')}
+          />
+          <ImageTextIconFrame
+            image={Lion}
+            title="IT 창업 동아리 [ 멋쟁이사자처럼 ]"
+            description="인스타그램 바로가기"
+            onClick={() => window.open(externalLinks.instagramLikelion, '_blank')}
           />
         </S.Frame>
       </S.Section>

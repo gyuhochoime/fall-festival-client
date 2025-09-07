@@ -18,7 +18,7 @@ export const ModalOverlay = styled(motion.div)`
 
 export const ModalWrapper = styled(motion.div)`
   display: flex;
-  width: 330px;
+  width: 20rem;
   padding-bottom: 1.2rem;
   flex-direction: column;
   gap: 0.8rem;

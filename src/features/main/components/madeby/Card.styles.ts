@@ -2,34 +2,41 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  width: 10rem;
-  padding: 1.5rem 1.75rem;
+  width: 100%;
+
+  /* margin-bottom: 1rem; */
+  padding: 0.6rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.625rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.offwhite};
+
+  /* background-color: ${(props) => props.theme.colors.grayScale.gy300}; */
 `;
 
-export const Wrap = styled.div`
+export const Wrap = styled.div<{ index: number }>`
   display: flex;
-  width: 6.3125rem;
-  flex-direction: column;
+  flex-direction: ${({ index }) => (index % 2 === 0 ? 'row' : 'row-reverse')};
+  text-align: ${({ index }) => (index % 2 === 0 ? 'right' : 'left')};
   align-items: center;
-  gap: 1rem;
+  width: 100%;
+
+  .title-wrap {
+    flex-direction: ${({ index }) => (index % 2 === 0 ? 'row-reverse' : 'row')};
+  }
 `;
 
 export const ImageBox = styled.div`
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 4rem;
   display: flex;
   overflow: hidden;
-  background-color: ${(props) => props.theme.colors.grayScale.gy950};
+  box-shadow: 0 0 0.2rem ${(props) => props.theme.colors.primary.violet}55;
   justify-content: flex-end;
   border: none;
   align-items: center;
+  margin: 0 0.6rem;
 `;
 
 export const Image = styled.img`
@@ -38,29 +45,43 @@ export const Image = styled.img`
   aspect-ratio: 1/1;
 `;
 
+export const HorizontalLine = styled.div`
+  width: 4.35rem;
+  height: 1px;
+  background-color: ${(props) => props.theme.colors.primary.violet};
+`;
+
 export const TextWrap = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  align-self: stretch;
+  flex: 1;
 `;
 
-export const ColorButtonWrap = styled.div`
+export const TitleWrap = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.2rem;
 `;
 
-export const Name = styled.p`
-  ${(props) => props.theme.fonts.body.medium500};
+export const Name = styled.span`
+  ${(props) => props.theme.fonts.body.small500};
   color: ${(props) => props.theme.colors.grayScale.black};
-  text-align: center;
 `;
+
+export const Part = styled.span`
+  ${(props) => props.theme.fonts.body.xsmall400};
+  color: ${(props) => props.theme.colors.grayScale.gy600};
+`;
+
+export const Seperator = styled.div`
+  width: 0.08rem;
+  height: 0.8rem;
+  background-color: ${(props) => props.theme.colors.grayScale.gy200};
+`;
+
 export const Description = styled.p`
   ${(props) => props.theme.fonts.body.xsmall400};
-  color: ${(props) => props.theme.colors.grayScale.black};
-  text-align: center;
+  color: ${(props) => props.theme.colors.grayScale.gy800};
   align-self: stretch;
 `;

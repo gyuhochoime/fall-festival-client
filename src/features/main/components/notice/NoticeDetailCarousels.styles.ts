@@ -9,7 +9,7 @@ export const CarouselWrapper = styled.div`
 export const Image = styled.img`
   width: 100%;
   height: auto;
-  max-height: calc(100dvh - 15rem);
+  max-height: calc(100dvh - 13.5rem);
   object-fit: contain;
   background-color: transparent;
 `;

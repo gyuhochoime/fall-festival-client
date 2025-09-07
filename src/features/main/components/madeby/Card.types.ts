@@ -1,7 +1,7 @@
 export interface CardProps {
+  index: number;
   image: string;
   label: string;
-  backgroundColor: string;
   name: string;
   description: string;
 }

@@ -1,12 +1,8 @@
 import styled from 'styled-components';
-import BackLayout from '@/assets/icons/Background-main.svg';
 import { motion } from 'framer-motion';
 import logo from '@/assets/images/espero-logo.png';
 
 export const Layout = styled.div`
-  /* background-image: url(${BackLayout});
-  background-repeat: no-repeat;
-  background-size: cover; */
   background: linear-gradient(180deg, #7e419a 35%, #7e419aca 45%, transparent 90%);
   width: 100%;
   height: 50rem;

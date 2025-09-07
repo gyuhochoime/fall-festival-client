@@ -117,3 +117,6 @@ export const DevButton = styled.button`
     background-color: #333;
   }
 `;
+
+// 빌드 실패나서 임시로 추가
+export const BoothListContainer = styled.div``;

@@ -15,6 +15,8 @@ export const Flex = styled.div`
 `;
 
 export const NoticeTabsWrapper = styled.div`
+  margin-bottom: 0.5rem;
+
   button[data-active='false'] {
     background-color: ${({ theme }) => theme.colors.grayScale.gy50} !important;
     border-color: transparent !important;

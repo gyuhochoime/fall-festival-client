@@ -6,6 +6,8 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { useToastStore } from '@/stores/useToastStore';
+import { getTodayDateString } from '@/utils/dateUtils';
+import useModal from '@/hooks/useModal';
 
 import BackIcon from '@/assets/icons/left-arrow.svg?react';
 import CloseIcon from '@/assets/icons/close-black.svg?react';
@@ -13,6 +15,7 @@ import Onboarding1 from '@/assets/images/polaroid/onboarding/page1.webp';
 import Onboarding2 from '@/assets/images/polaroid/onboarding/page2.webp';
 import Onboarding3 from '@/assets/images/polaroid/onboarding/page3.webp';
 
+import { ConfirmationModal } from '@/components/confirmation-modal';
 import * as S from '@/pages/polaroid/Polaroid.styles';
 import {
   Step,
@@ -46,6 +49,9 @@ export default function Polaroid() {
   const setIsNav = useLayoutStore((s) => s.setIsNav);
   const showToast = useToastStore((s) => s.showToast);
 
+  // 확인 모달
+  const { open: openConfirmModal, close: closeConfirmModal } = useModal(ConfirmationModal);
+
   // 전체 단계
   const [step, setStep] = useState<Step>('intro');
 
@@ -70,8 +76,8 @@ export default function Polaroid() {
   // 흔들기 현상 훅
   const {
     shakeCount,
-    // maxShakes,
-    progress,
+    maxShakes,
+    // progress,
     opacity: shakeOpacity,
     isShaking,
     permissionGranted,
@@ -103,15 +109,9 @@ export default function Polaroid() {
 
   // 흔들기 진행률에 따른 텍스트
   const shakeProgressText = useMemo(() => {
-    const percent = progress * 100;
-    if (percent <= 50) {
-      return '흔들어 주세요!';
-    }
-    if (percent <= 80) {
-      return '잘하고 있어요!';
-    }
-    return '조금만 더!';
-  }, [progress]);
+    const currentStep = Math.min(shakeCount, maxShakes);
+    return `${currentStep}/${maxShakes}`;
+  }, [shakeCount, maxShakes]);
 
   // 진입/이탈 시 하단 탭바 숨김/복원
   useEffect(() => {
@@ -143,8 +143,27 @@ export default function Polaroid() {
   };
 
   const handleExit = () => {
-    navigate('/main');
-    setIsNav(true);
+    // 프레임 선택 단계 이상에서 사진이 있는 경우 확인 모달 띄우기
+    if ((step === 'frame' || step === 'develop') && photoUrl) {
+      openConfirmModal({
+        title: '안내사항',
+        message: '현상을 중단하고 홈으로 이동할까요?\n사진은 저장되지 않아요!',
+        confirmText: '이동하기',
+        cancelText: '머무르기',
+        onConfirm: () => {
+          closeConfirmModal();
+          navigate('/main');
+          setIsNav(true);
+        },
+        onCancel: () => {
+          closeConfirmModal();
+        },
+      });
+    } else {
+      // 그 외의 경우는 바로 나가기
+      navigate('/main');
+      setIsNav(true);
+    }
   };
 
   // 프레임 선택 완료 -> 현상 시작
@@ -199,17 +218,21 @@ export default function Polaroid() {
     }
   };
 
-  const headerTitle = useMemo(() => '폴라로이드', []);
+  const headerTitle = useMemo(() => {
+    switch (step) {
+      case 'intro':
+        return '폴라로이드';
+      case 'frame':
+        return '프레임 선택';
+      case 'develop':
+        return '현상하기';
+      case 'done':
+        return '출력 완료';
+      default:
+        return '폴라로이드';
+    }
+  }, [step]);
   const isLastSlide = slideIndex === 2;
-
-  // YYYY-MM-DD 형식의 오늘 날짜를 반환하는 함수
-  const getTodayDateString = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   // 스킵 버튼 핸들러
   const handleSkip = () => {
@@ -464,10 +487,10 @@ export default function Polaroid() {
             {/* 흔들기 지원 && 권한 있음 */}
             {window.DeviceMotionEvent && permissionGranted && (
               <S.ShakeInstructions>
-                <S.ShakeText>사진을 흔들거나 터치해 주세요!</S.ShakeText>
-                <S.ProgressBar>
+                <S.ShakeText>핸드폰을 흔들거나 사진을 터치해 주세요</S.ShakeText>
+                {/* <S.ProgressBar>
                   <S.ProgressFill $width={progress * 100} />
-                </S.ProgressBar>
+                </S.ProgressBar> */}
                 <S.ShakeCounter>{shakeProgressText}</S.ShakeCounter>
 
                 {/* 데스크톱 테스트용 */}
@@ -495,12 +518,16 @@ export default function Polaroid() {
             {/* 흔들기 지원 && 권한 없음 */}
             {window.DeviceMotionEvent && !permissionGranted && (
               <S.ShakeInstructions>
-                <S.ShakeText>뽑을 준비 되셨나요?</S.ShakeText>
+                <S.ShakeText>
+                  멋진 사진이 완성되었어요!
+                  <br />
+                  이제 핸드폰을 흔들어 사진을 현상해 볼까요?
+                </S.ShakeText>
                 <S.PermissionButton onClick={handleRequestPermissionAndStart}>
-                  현상 시작!
+                  현상하기
                 </S.PermissionButton>
                 {shakeError && <S.ErrorMessage>{shakeError}</S.ErrorMessage>}
-                <S.SubtleText>버튼을 누르면 가속도 센서 권한을 요청합니다</S.SubtleText>
+                <S.SubtleText>원활한 측정을 위해 가속도 센서 권한을 허용해 주세요</S.SubtleText>
               </S.ShakeInstructions>
             )}
 
@@ -554,10 +581,11 @@ export default function Polaroid() {
               </S.PolaroidCard>
             </S.FramePreview>
 
-            {/* 흔들기로 현상했을 경우 축하 메시지 */}
+            {/* 흔들기로 현상했을 경우 메시지
             {window.DeviceMotionEvent && permissionGranted && shakeCount > 0 && (
               <S.SuccessMessage>멋진 폴라로이드가 완성되었어요!</S.SuccessMessage>
             )}
+            */}
 
             <S.ButtonRow>
               <S.PrimaryButton onClick={handleSave}>저장하기</S.PrimaryButton>

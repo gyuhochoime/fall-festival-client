@@ -293,11 +293,10 @@ export const CategoryTab = styled.button<{ $active?: boolean }>`
 `;
 
 export const SubtleText = styled.p`
-  ${(p) => p.theme.fonts.body.medium400};
-  color: ${(p) => p.theme.colors.grayScale.gy600};
+  ${(p) => p.theme.fonts.body.xsmall600};
+  color: ${(p) => p.theme.colors.primary.violet};
   text-align: center;
-  margin: 8px 16px 16px;
-  font-size: x-small;
+  padding: 0 0 1rem;
 `;
 
 // 흔들기 관련 스타일
@@ -305,14 +304,16 @@ export const ShakeInstructions = styled.div`
   text-align: center;
   padding: 16px;
   margin: 16px 0;
+  width: 100%;
 `;
 
 export const ShakeText = styled.p`
   ${(p) => p.theme.fonts.body.medium500};
-  color: ${(p) => p.theme.colors.grayScale.gy700};
-  margin-bottom: 16px;
+  color: ${(p) => p.theme.colors.grayScale.gy500};
+  margin-bottom: 1.5em;
 `;
 
+/*
 export const ProgressBar = styled.div`
   width: 100%;
   max-width: 280px;
@@ -330,19 +331,20 @@ export const ProgressFill = styled.div<{ $width: number }>`
   transition: width 0.3s ease;
   border-radius: 3px;
 `;
+*/
 
-export const ShakeCounter = styled.p`
+export const ShakeCounter = styled.span`
   ${(p) => p.theme.fonts.body.small400};
-  color: ${(p) => p.theme.colors.grayScale.gy600};
+  color: ${(p) => p.theme.colors.primary.violet};
   text-align: center;
+  background-color: ${(p) => p.theme.colors.secondary.vl50};
+  padding: 0.3rem 0.8rem;
+  box-shadow: 0 0 10px 0 #dbc2e3;
+  border-radius: 3rem;
 `;
 
 export const PermissionButton = styled.button`
-  background: linear-gradient(
-    45deg,
-    ${(p) => p.theme.colors.primary.violet},
-    ${(p) => p.theme.colors.primary.bl400}
-  );
+  background-color: ${(p) => p.theme.colors.primary.violet};
   color: ${(p) => p.theme.colors.grayScale.white};
   border: none;
   padding: 15px 30px;
@@ -352,6 +354,7 @@ export const PermissionButton = styled.button`
   cursor: pointer;
   margin: 16px auto;
   display: block;
+  width: 100%;
   box-shadow: 0 4px 15px rgb(0 0 0 / 20%);
   transition: all 0.3s ease;
 

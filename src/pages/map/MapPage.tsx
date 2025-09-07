@@ -157,6 +157,11 @@ export default function Map() {
 
   // itemId가 있을 경우 해당 아이템 자동 선택
   useEffect(() => {
+    // ✅ 방법 A: 닫기(X)로 들어온 렌더는 itemId 핸들링을 건너뜁니다.
+    if (location.state?.fromCloseClick) {
+      return;
+    }
+
     // 탭을 통해 카테고리를 직접 선택한 상태에서는 itemId 처리를 하지 않음
     if (itemId && kakaoMap && !selectedMapCategory && !isApiLoading) {
       // 통합된 데이터에서 아이템 찾기
@@ -164,7 +169,7 @@ export default function Map() {
       let foundCategory: CATEGORIES | null = null;
 
       Object.entries(integratedMapData).some(([category, items]) => {
-        const item = items.find((item) => item.id === itemId);
+        const item = items.find((it) => it.id === itemId);
         if (item) {
           foundItem = item;
           foundCategory = category as CATEGORIES;
@@ -183,10 +188,10 @@ export default function Map() {
 
         setIsFromSearchPage(true);
 
-        // 🔥 단일 아이템 모드 활성화
+        // 단일 아이템 모드 활성화
         setSingleItemMode(true);
         setSingleItem(foundItem);
-        setSingleItemSearchKeyword(foundItem.title); // 검색어 저장
+        setSingleItemSearchKeyword(foundItem.title);
 
         // 해당 카테고리의 selectedMapCategory 설정
         const categoryKey = Object.keys(categoryMapping).find(
@@ -203,7 +208,6 @@ export default function Map() {
     } else if (!itemId && selectedItemId) {
       // itemId가 없어졌는데 selectedItemId가 있으면 초기화
       setSelectedItemId(null);
-      // 🔥 단일 아이템 모드도 해제
       setSingleItemMode(false);
       setSingleItem(null);
       setSingleItemSearchKeyword('');
@@ -218,6 +222,8 @@ export default function Map() {
     integratedMapData,
     categoryMapping,
     selectedMapCategory,
+    // ✅ 가드가 동작하도록 반드시 추가
+    location.state,
   ]);
 
   // 바텀시트 열기/닫기
@@ -231,6 +237,11 @@ export default function Map() {
 
   // SearchPage에서 전달받은 카테고리 선택 상태 처리
   useEffect(() => {
+    // fromCloseClick 상태가 있으면 처리하지 않음
+    if (location.state?.fromCloseClick) {
+      return;
+    }
+
     if (location.state?.selectedCategory && location.state?.showBottomSheet) {
       const categoryName = location.state.selectedCategory;
 
@@ -251,13 +262,18 @@ export default function Map() {
 
   // selectedMapCategory가 변경될 때마다 selectedCategory도 동기화
   useEffect(() => {
+    // fromCloseClick 상태가 있으면 처리하지 않음
+    if (location.state?.fromCloseClick) {
+      return;
+    }
+
     if (selectedMapCategory) {
       const mappedCategory = categoryMapping[selectedMapCategory];
       if (mappedCategory && mappedCategory !== selectedCategory) {
         setSelectedCategory(mappedCategory);
       }
     }
-  }, [selectedMapCategory, categoryMapping, selectedCategory]);
+  }, [selectedMapCategory, categoryMapping, selectedCategory, location.state]);
 
   // 바텀시트가 열리면 하단 네비게이션 숨김 및 지도 리사이즈
   useEffect(() => {
@@ -394,10 +410,13 @@ export default function Map() {
                   setSelectedCategory(null);
                   setIsBottomSheetOpen(false);
                   setIsFromSearchPage(false);
-                  // 🔥 단일 아이템 모드도 해제
                   setSingleItemMode(false);
                   setSingleItem(null);
                   setSingleItemSearchKeyword('');
+                  setSelectedItemId(null);
+
+                  // URL에서 itemId 파라미터도 제거하면서 /map으로 이동
+                  navigate('/map', { replace: true, state: { fromCloseClick: true } });
                 }
               : undefined
           }

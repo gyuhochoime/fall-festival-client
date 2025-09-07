@@ -8,12 +8,12 @@ export const Container = styled.div`
   align-items: center;
   padding-bottom: 100px;
   gap: 3.75rem;
+  background-color: ${(props) => props.theme.colors.grayScale.white};
 `;
 
 export const Image = styled.img`
   display: flex;
-  width: 14.625rem;
-  height: 12.75rem;
+  width: 18rem;
   margin-top: 3.26rem;
 `;
 
@@ -62,28 +62,26 @@ export const PartWrap = styled.div`
   display: flex;
   width: 21.0313rem;
   flex-direction: column;
-  align-items: flex-start;
   gap: 2.5rem;
   margin-top: 2.75rem;
 `;
 
 export const PartTitle = styled.p`
   ${(props) => props.theme.fonts.header.h3};
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.primary.violet};
+  display: flex;
+  gap: 0.3rem;
   align-self: stretch;
 `;
 
 export const PartBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
 `;
 
 export const PartCard = styled.div`
-  display: grid;
-  gap: 1rem 16px;
-  align-self: stretch;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
 `;

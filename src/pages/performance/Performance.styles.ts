@@ -83,9 +83,11 @@ export const Carousel = styled.div<{ $isFirstDay?: boolean }>`
   width: 100%;
   margin-top: 1.5rem;
   overflow: visible;
+  flex: 1;
 `;
 
 export const TableNoteWrap = styled.div`
+  flex: 1;
   display: flex;
   min-width: 20.9375rem;
   flex-direction: column;

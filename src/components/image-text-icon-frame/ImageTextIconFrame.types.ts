@@ -3,7 +3,7 @@
  */
 
 export type ImageTextIconFrameProps = {
-  image: string;
+  image?: string;
   title: string;
   description: string;
   onClick?: () => void;
