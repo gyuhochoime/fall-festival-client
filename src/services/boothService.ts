@@ -43,7 +43,6 @@ const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
   return {
     id: pub.id,
     locate: pub.location,
-    type: pub.type,
     affiliation: pub.affiliation,
     pubName: pub.name,
     takeout: pub.takeout,
