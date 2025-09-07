@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin-bottom: 0;
 `;
 
 export const ImageBtnFrame = styled.div`
@@ -42,11 +43,6 @@ export const Text = styled.p`
 export const BoothName = styled(Text)`
   ${(props) => props.theme.fonts.header.h2};
   color: ${(props) => props.theme.colors.grayScale.black};
-`;
-
-export const VerticalLine = styled.div`
-  width: 0.0625rem;
-  background: ${(props) => props.theme.colors.grayScale.gy100};
 `;
 
 export const TakeOut = styled.div`

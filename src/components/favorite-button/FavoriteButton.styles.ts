@@ -35,7 +35,7 @@ export const FavoriteButton = styled.button<{
       case 'large':
         return `
           width: 3.375rem;
-          height: 4.4rem;
+          height: 4.5rem;
           flex-direction: column;
           gap: 0.4375rem;
           font-size: 0.75rem;

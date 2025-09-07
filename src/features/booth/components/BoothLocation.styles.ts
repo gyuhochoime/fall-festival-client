@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  padding: 2.75rem 0rem 0rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

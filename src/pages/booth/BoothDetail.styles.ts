@@ -9,7 +9,6 @@ export const BackgroundImg = styled.img`
 `;
 
 export const Section = styled.div`
-  padding: 0rem 0rem 1.75rem;
   width: 20.9375rem;
   display: flex;
   flex-direction: column;
@@ -18,10 +17,8 @@ export const Section = styled.div`
 
 export const BorderSection = styled.div`
   width: 20.9375rem;
-  padding: 0rem 0rem 2.75rem;
   display: flex;
   flex-direction: column;
-  margin-top: 25px;
 `;
 
 export const BottomPadding = styled.div`
@@ -50,7 +47,7 @@ export const TakeOut = styled.div`
 export const HorizontalLine = styled.div`
   height: 0.5rem;
   width: 100%;
-  margin-top: 36px;
-  margin-bottom: 36px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   background-color: ${(props) => props.theme.colors.grayScale.gy200};
 `;
