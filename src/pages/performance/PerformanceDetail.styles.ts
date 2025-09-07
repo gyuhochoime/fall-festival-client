@@ -74,6 +74,23 @@ export const ArtistCircle = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
+  /* iOS Safari 최적화 - rem 단위 유지 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  /* 모바일에서 반응형 크기 조정 */
+  @media (width <= 480px) {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  @media (width <= 360px) {
+    width: 10rem;
+    height: 10rem;
+  }
 `;
 
 export const ArtistCircleImage = styled.img`
@@ -81,6 +98,20 @@ export const ArtistCircleImage = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+
+  /* iOS Safari 이미지 렌더링 최적화 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  image-rendering: optimize-contrast;
+  image-rendering: crisp-edges;
+
+  /* 이미지 로딩 실패 시 처리 */
+  &[src=''],
+  &:not([src]) {
+    display: none;
+  }
 `;
 
 export const ArtistTextSection = styled.div`
