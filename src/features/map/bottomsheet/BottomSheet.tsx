@@ -38,6 +38,7 @@ export default function BottomSheet({
   selectedDay = days[0],
   children,
   onItemClick,
+  selectedItemId,
 }: BottomSheetProps) {
   const navigate = useNavigate();
   const { sheet, content, header } = useBottomSheet();
@@ -57,10 +58,19 @@ export default function BottomSheet({
 
   // selectedCategory가 null이 아닌 경우에만 데이터 필터링
   // closeDay 배열에 현재 선택된 날짜가 포함된 항목은 제외
+  // selectedItemId가 있으면 해당 아이템만 표시
   const filteredData = selectedCategory
-    ? MapData[selectedCategory]?.filter(
-        (item) => !item.closeDay || !item.closeDay.includes(selectedDay),
-      ) || []
+    ? MapData[selectedCategory]?.filter((item) => {
+        // 날짜 필터링
+        const isNotClosed = !item.closeDay || !item.closeDay.includes(selectedDay);
+
+        // 특정 아이템이 선택된 경우 해당 아이템만 표시
+        if (selectedItemId !== null && selectedItemId !== undefined) {
+          return isNotClosed && item.id === selectedItemId;
+        }
+
+        return isNotClosed;
+      }) || []
     : [];
 
   console.log('[BottomSheet] 필터링된 데이터:', {
@@ -136,20 +146,8 @@ export default function BottomSheet({
                 />
               )}
 
-              {filteredData.length > 0 ? (
-                selectedCategory === '주점' ? (
-                  <S.BoothListContainer>
-                    {filteredData.map((item, index) => (
-                      <MapItemCard
-                        key={index}
-                        item={item}
-                        onItemClick={onItemClick}
-                        category={selectedCategory}
-                      />
-                    ))}
-                  </S.BoothListContainer>
-                ) : (
-                  filteredData.map((item, index) => (
+              {filteredData.length > 0
+                ? filteredData.map((item, index) => (
                     <S.ContentUnitWrap key={index} $isLastItem={index === filteredData.length - 1}>
                       <MapItemCard
                         item={item}
@@ -158,12 +156,9 @@ export default function BottomSheet({
                       />
                     </S.ContentUnitWrap>
                   ))
-                )
-              ) : (
-                selectedCategory && (
-                  <S.NoDataMessage>해당 카테고리의 데이터가 없습니다.</S.NoDataMessage>
-                )
-              )}
+                : selectedCategory && (
+                    <S.NoDataMessage>해당 카테고리의 데이터가 없습니다.</S.NoDataMessage>
+                  )}
 
               {/* 개발 환경에서만 표시되는 디버그 기능 */}
               {import.meta.env.DEV && (

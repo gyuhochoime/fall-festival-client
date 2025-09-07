@@ -17,4 +17,5 @@ export interface BottomSheetProps {
   selectedDay: DAYS;
   children?: ReactNode;
   onItemClick?: (item: MapDataItem) => void;
+  selectedItemId?: number | null;
 }

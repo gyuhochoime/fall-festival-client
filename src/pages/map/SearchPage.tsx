@@ -129,8 +129,10 @@ export default function MapSearch() {
         },
       });
     } else {
-      // 위치 검색어 클릭 시 검색어만 설정
-      setSearchKeyword(item.text);
+      // 위치 검색어 클릭 시 해당 아이템만 바텀시트에 표시
+      // item.id에서 실제 아이템 ID 추출 (location-{id} 형태)
+      const itemId = item.id.replace('location-', '');
+      navigate(`/map/${itemId}`);
     }
   };
 
