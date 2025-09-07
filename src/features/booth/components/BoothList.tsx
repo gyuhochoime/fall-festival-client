@@ -1,15 +1,12 @@
 import * as S from './BoothList.styles';
 import { ImageTextFrameWithOrganization } from '@/components/image-text-frame';
 import { Notification } from '@/components/notification';
+import { FavoriteButton } from '@/components/favorite-button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 import { useState } from 'react';
 import { useBooths } from '@/hooks/useBooth';
 import { useBoothNotificationStore } from '@/stores/useBoothNotificationStore';
-
-import FavoriteOn from 'src/assets/icons/favorite-on.svg?react';
-import FavoriteOff from 'src/assets/icons/favorite-off.svg?react';
-import TrashIcon from 'src/assets/icons/trash.svg?react';
 
 interface BoothListProps {
   showFavoritesOnly?: boolean;
@@ -117,20 +114,12 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
                         })
                       }
                     />
-                    <S.FavoriteButton
-                      onClick={(e) => handleToggleFavorite(booth.id, e)}
-                      $isFavorited={isFavorited}
-                      $isTrashMode={showFavoritesOnly}
-                    >
-                      {showFavoritesOnly ? (
-                        <TrashIcon />
-                      ) : isFavorited ? (
-                        <FavoriteOn />
-                      ) : (
-                        <FavoriteOff />
-                      )}
-                      {showFavoritesOnly ? null : isFavorited ? '찜 완료' : '찜하기'}
-                    </S.FavoriteButton>
+                    <FavoriteButton
+                      id={booth.id}
+                      isFavorited={isFavorited}
+                      onClick={handleToggleFavorite}
+                      mode={showFavoritesOnly ? 'delete' : 'favorite'}
+                    />
                   </S.BoothItemWrapper>
                   {!hideTabs && <S.HorizontalLine />}
                 </Fragment>

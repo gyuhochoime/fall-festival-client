@@ -54,26 +54,3 @@ export const HorizontalLine = styled.div`
   margin-bottom: 36px;
   background-color: ${(props) => props.theme.colors.grayScale.gy200};
 `;
-
-export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
-  position: absolute;
-  top: 10.5rem;
-  right: 20px;
-  gap: 7px;
-  border: ${({ $isFavorited, theme }) =>
-    $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`};
-  background: ${({ $isFavorited, theme }) =>
-    $isFavorited ? theme.colors.primary.violet : 'rgba(255, 255, 255, 0.9)'};
-  border-radius: 12px;
-  width: 54px;
-  height: 72px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: ${({ $isFavorited, theme }) => ($isFavorited ? '#ffffff' : theme.colors.primary.violet)};
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.2s ease;
-`;
