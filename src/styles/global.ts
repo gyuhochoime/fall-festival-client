@@ -58,4 +58,14 @@ export const GlobalStyle = createGlobalStyle`
     *::-webkit-scrollbar {
         display: none;
     }
+
+    /* Safari SVG 렌더링 최적화 */
+    @supports (-webkit-appearance: none) {
+        svg {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+    }
 `;

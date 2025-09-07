@@ -72,7 +72,7 @@ export const TabSlider = styled.div<{ $activeIndex: number }>`
   transform: translateX(${({ $activeIndex }) => $activeIndex * 100}%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 6px ${(props) => props.theme.colors.primary.violet}70;
-  z-index: 1;
+  z-index: 3;
 `;
 
 export const EmptyState = styled.div`
@@ -100,13 +100,9 @@ export const TabButton = styled.button<{ $active: boolean }>`
   border: none;
   cursor: pointer;
   position: relative;
-  z-index: 2;
+  z-index: 4;
   background: transparent;
   color: ${({ $active, theme }) =>
     $active ? theme.colors.grayScale.white : theme.colors.grayScale.gy600};
   transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover {
-    opacity: 0.8;
-  }
 `;
