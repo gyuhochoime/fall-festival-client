@@ -3,9 +3,17 @@ import { persist } from 'zustand/middleware';
 import { CATEGORIES } from '@/constants/map/CATEGORIES';
 import { NOTIFICATION_STORAGE_KEY } from '@/constants/map/CategoryNotifications';
 
+// 오늘 날짜를 YYYY-MM-DD 형식으로 반환
+const getTodayString = (): string => {
+  return new Date().toISOString().split('T')[0];
+};
+
 interface NotificationState {
   // 닫힌 알림을 추적하는 Record (카테고리를 키로, true면 닫힘)
   closedNotifications: Partial<Record<CATEGORIES, boolean>>;
+
+  // 마지막 초기화 날짜 (YYYY-MM-DD 형식)
+  lastResetDate: string;
 
   // 알림 닫기 액션
   closeNotification: (category: CATEGORIES) => void;
@@ -18,6 +26,9 @@ interface NotificationState {
 
   // 알림이 닫혔는지 확인하는 함수
   isNotificationClosed: (category: CATEGORIES) => boolean;
+
+  // 하루가 지났는지 확인하고 필요시 초기화하는 함수
+  checkAndResetDaily: () => void;
 }
 
 // 초기 상태를 생성하는 함수
@@ -32,14 +43,29 @@ export const useNotificationStore = create<NotificationState>()(
     (set, get) => ({
       // 초기 상태는 비어있는 객체 (모든 알림이 열려있음)
       closedNotifications: createInitialState(),
+      lastResetDate: getTodayString(),
 
-      closeNotification: (category) =>
+      checkAndResetDaily: () => {
+        const today = getTodayString();
+        const { lastResetDate } = get();
+
+        if (lastResetDate !== today) {
+          set({
+            closedNotifications: {},
+            lastResetDate: today,
+          });
+        }
+      },
+
+      closeNotification: (category) => {
+        get().checkAndResetDaily();
         set((state) => ({
           closedNotifications: {
             ...state.closedNotifications,
             [category]: true,
           },
-        })),
+        }));
+      },
 
       resetNotification: (category) =>
         set((state) => {
@@ -48,9 +74,13 @@ export const useNotificationStore = create<NotificationState>()(
           return { closedNotifications: updated };
         }),
 
-      resetAllNotifications: () => set({ closedNotifications: {} }),
+      resetAllNotifications: () =>
+        set({ closedNotifications: {}, lastResetDate: getTodayString() }),
 
-      isNotificationClosed: (category) => !!get().closedNotifications[category],
+      isNotificationClosed: (category) => {
+        get().checkAndResetDaily();
+        return !!get().closedNotifications[category];
+      },
     }),
     {
       name: NOTIFICATION_STORAGE_KEY, // 로컬 스토리지 키
