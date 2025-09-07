@@ -1,10 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
-import { FavoriteButton } from '@/components/favorite-button';
 import * as S from './BoothDetail.styles';
 import { BoothInfo, BoothLocation, MenuList } from '@/features/booth';
-import { useFavorites } from '@/hooks/useFavorites';
 import { useBooth } from '@/hooks/useBooth';
 
 export default function BoothDetail() {
@@ -13,7 +11,6 @@ export default function BoothDetail() {
   const location = useLocation();
   const fromRef = useRef(location.state?.from || '/booth');
   const { booth, error } = useBooth(Number(id) || 0);
-  const { handleToggleFavorite, isFavorited } = useFavorites();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,19 +28,10 @@ export default function BoothDetail() {
     return null;
   }
 
-  const isBoothFavorited = isFavorited(booth.id);
-
   return (
     <S.Container>
       <NavBar isBack hideRight title="주점 정보" backPath={fromRef.current} />
       <S.BackgroundImg src={booth.posterImage} />
-      <FavoriteButton
-        id={booth.id}
-        isFavorited={isBoothFavorited}
-        onClick={handleToggleFavorite}
-        variant="large"
-        position="absolute"
-      />
       <S.Section style={{ marginTop: '-2rem' }}>
         <BoothInfo id={booth.id} />
       </S.Section>

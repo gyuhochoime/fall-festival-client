@@ -34,13 +34,12 @@ export const FavoriteButton = styled.button<{
     switch ($variant) {
       case 'large':
         return `
-          width: 54px;
-          height: 72px;
+          width: 3.375rem;
+          height: 4.4rem;
           flex-direction: column;
-          gap: 7px;
-          font-size: 12px;
-          top: 10.5rem;
-          right: 20px;
+          gap: 0.4375rem;
+          font-size: 0.75rem;
+          top: 1.1rem;
         `;
       case 'default':
       default:
