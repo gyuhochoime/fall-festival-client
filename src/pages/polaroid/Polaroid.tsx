@@ -144,7 +144,7 @@ export default function Polaroid() {
 
   const handleExit = () => {
     // 프레임 선택 단계 이상에서 사진이 있는 경우 확인 모달 띄우기
-    if ((step === 'frame' || step === 'develop' || step === 'done') && photoUrl) {
+    if ((step === 'frame' || step === 'develop') && photoUrl) {
       openConfirmModal({
         title: '안내사항',
         message: '현상을 중단하고 홈으로 이동할까요?\n사진은 저장되지 않아요!',
