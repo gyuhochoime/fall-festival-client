@@ -32,7 +32,7 @@ export const NAV_ITEMS: navItems = [
     path: '/performance',
     label: '공연',
     DefaultIcon: <STAGE_ICON width={'1.5rem'} height={'1.5rem'} />,
-    ActiveIcon: <STAGE_ICON_ACTIVE width={'24px'} height={'24px'} />,
+    ActiveIcon: <STAGE_ICON_ACTIVE width={'1.5rem'} height={'1.5rem'} />,
   },
   {
     id: 'booth',
