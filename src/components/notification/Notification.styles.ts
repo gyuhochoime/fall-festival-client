@@ -45,4 +45,12 @@ export const CloseButton = styled.button`
   cursor: pointer;
   height: 100%;
   margin: 0;
+
+  svg {
+    /* Safari SVG 렌더링 최적화 */
+    @supports (-webkit-appearance: none) {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+  }
 `;
