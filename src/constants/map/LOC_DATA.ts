@@ -387,4 +387,24 @@ export const LOCATION_DATA: Record<CATEGORIES, LocationData[]> = {
       closeDay: [],
     },
   ],
+  // AED
+  AED: [
+    {
+      lat: 37.295669407307464,
+      lng: 126.83489418254456,
+      name: 'AED 1',
+      id: 100,
+      closeDay: [],
+    },
+    {
+      lat: 37.296037547941225,
+      lng: 126.83558981569682,
+      name: 'AED 2',
+      id: 101,
+      closeDay: [],
+    },
+  ],
+  의무실: [
+    // API에서 받아올 데이터로 대체될 예정
+  ],
 };

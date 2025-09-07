@@ -44,14 +44,15 @@ export const SearchBarContainer = styled.div`
   z-index: ${Z_INDEX.CONTENTS};
 `;
 
-export const CategoryTabsContainer = styled.div`
+export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
   position: absolute;
-  top: 7.5rem;
-  left: 54%;
-  transform: translateX(-50%);
-  z-index: ${Z_INDEX.CONTENTS};
+  top: ${(props) => (props.$isFromSearch ? '4.125rem' : '7.563rem')};
+  display: flex;
   width: 100%;
-  overflow: auto hidden;
+  align-items: center;
+  justify-content: center;
+  z-index: ${Z_INDEX.CONTENTS};
+  transition: top 0.3s ease;
 
   /* 스크롤바 숨기기 */
   &::-webkit-scrollbar {
@@ -70,7 +71,7 @@ export const CategoryTabsContainer = styled.div`
 
 export const ReCenterButton = styled.div<{ $isBottomSheetOpen?: boolean }>`
   position: fixed;
-  bottom: ${(props) => (props.$isBottomSheetOpen ? '18rem' : '8rem')};
+  bottom: ${(props) => (props.$isBottomSheetOpen ? '21.188rem' : '8rem')};
   left: 1.25rem;
   width: 4rem;
   height: 4rem;

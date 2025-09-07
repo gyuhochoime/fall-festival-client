@@ -128,15 +128,6 @@ export const DaySelectButton = styled.button`
   ${(props) => props.theme.fonts.body.medium400};
   color: ${(props) => props.theme.colors.grayScale.black};
   transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.grayScale.gy50};
-  }
-
-  &:active {
-    background-color: ${(props) => props.theme.colors.grayScale.gy100};
-  }
-
   border-bottom: 1px solid ${(props) => props.theme.colors.grayScale.gy50};
 
   &:last-child {

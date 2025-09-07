@@ -16,11 +16,16 @@ export const Container = styled.header<{ $opacity?: boolean }>`
   z-index: 99;
 `;
 
-export const LeftSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boolean }>`
+export const LeftSection = styled.div<{
+  $opacity?: boolean;
+  $whiteIcons?: boolean;
+  $isSearchMode?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex: 1;
+  flex: ${(props) => (props.$isSearchMode ? 'none' : '1')};
+  margin-right: ${(props) => (props.$isSearchMode ? '1.5rem' : '0')};
   margin-left: 10px;
 
   svg {

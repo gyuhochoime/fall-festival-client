@@ -2,7 +2,6 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import { KakaoMapOptions } from '@/types/kakao-maps';
 import { getCategoryMarkerImage, markerIcons } from '@/utils/markerIcons';
 import { CATEGORIES } from '@/constants/map';
-import { LOCATION_DATA } from '@/constants/map/LOC_DATA';
 import { DAYS } from '@/constants/map';
 import { MapData, MapDataItem } from '@/constants/map/MapData';
 
@@ -10,6 +9,9 @@ export function useKakaoMap(
   options: KakaoMapOptions = {},
   selectedCategory: CATEGORIES | null = null,
   selectedDay: DAYS,
+  singleItemMode: boolean = false, // 단일 아이템 모드 매개변수 추가
+  singleItem: MapDataItem | null = null, // 단일 아이템 데이터 매개변수 추가
+  customMapData?: Record<CATEGORIES, MapDataItem[]>, // 통합된 맵 데이터
 ) {
   // 커스텀 오버레이 참조 저장
   const internalMapRef = useRef<HTMLDivElement>(null);
@@ -17,6 +19,9 @@ export function useKakaoMap(
   const myLocationMarkerRef = useRef<kakao.maps.Marker | null>(null);
   const customOverlaysRef = useRef<kakao.maps.CustomOverlay[]>([]);
   const customPolygonsRef = useRef<kakao.maps.Polygon[]>([]);
+
+  // 사용할 데이터 소스 결정 (customMapData가 있으면 사용, 없으면 기본 MapData 사용)
+  const dataSource = customMapData || MapData;
 
   // 지도 크기가 변경될 때 relayout 호출
   useEffect(() => {
@@ -352,23 +357,23 @@ export function useKakaoMap(
       // 먼저 모든 마커들을 생성하고 저장
       const overlays: { overlay: kakao.maps.CustomOverlay; isSelected: boolean }[] = [];
 
-      // LOCATION_DATA에서 모든 위치를 처리
-      LOCATION_DATA[selectedCategory].forEach((location) => {
+      // dataSource에서 모든 위치를 처리
+      dataSource[selectedCategory].forEach((location) => {
         // closeDay에 해당되는 마커는 건너뛰기
         if (location.closeDay && location.closeDay.includes(selectedDay)) {
           return;
         }
 
         const isSelected = location.lat === selectedItem.lat && location.lng === selectedItem.lng;
-        const position = new kakao.maps.LatLng(location.lat, location.lng);
+        const position = new kakao.maps.LatLng(location.lat!, location.lng!);
 
         const overlay = createCustomMarker(
           map,
           position,
           selectedCategory,
-          selectedCategory === '주점' ? (isSelected ? location.name : '') : location.name, // 주점만 선택시에 라벨 표시, 나머지는 항상 표시
+          selectedCategory === '주점' ? (isSelected ? location.title : '') : location.title, // 주점만 선택시에 라벨 표시, 나머지는 항상 표시
           () => {
-            const mapData = MapData[selectedCategory].find(
+            const mapData = dataSource[selectedCategory].find(
               (item: MapDataItem) => item.lat === location.lat && item.lng === location.lng,
             );
             if (mapData) {
@@ -394,7 +399,7 @@ export function useKakaoMap(
       // 지도 중심 이동 (줌 레벨 유지)
       kakaoMapRef.current?.setCenter(selectedPosition);
     },
-    [selectedCategory, selectedDay],
+    [selectedCategory, selectedDay, dataSource],
   );
 
   // 지도 크기 변경 감지 및 리사이즈
@@ -406,7 +411,7 @@ export function useKakaoMap(
     map.relayout();
   }, [options]);
 
-  // 카테고리별 마커 추가
+  // 🔥 카테고리별 마커 추가 (단일 아이템 모드 지원)
   useEffect(() => {
     // 지도가 로드되지 않은 경우 처리하지 않음
     if (!kakaoMapRef.current) {
@@ -444,8 +449,17 @@ export function useKakaoMap(
     }
 
     console.log(`[KakaoMap] '${selectedCategory}' 카테고리 마커 표시 시작`);
-    const categoryData = LOCATION_DATA[selectedCategory];
+    console.log(`[KakaoMap] 단일 아이템 모드:`, singleItemMode);
+    console.log(`[KakaoMap] 단일 아이템:`, singleItem?.title);
+
+    const categoryData = dataSource[selectedCategory];
     console.log(`[KakaoMap] 카테고리 데이터 개수:`, categoryData?.length || 0);
+
+    // categoryData가 없으면 함수 종료
+    if (!categoryData) {
+      console.log(`[KakaoMap] '${selectedCategory}' 카테고리 데이터가 없습니다.`);
+      return;
+    }
 
     // 이전 커스텀 오버레이 제거
     customOverlaysRef.current.forEach((overlay) => {
@@ -461,45 +475,91 @@ export function useKakaoMap(
     // 해당 카테고리에 표시할 마커가 있는지 확인하기 위한 플래그
     let hasVisibleMarkers = false;
 
-    categoryData.forEach((location) => {
-      console.log(`[KakaoMap] 마커 생성 시도: ${location.name}`);
-      // closeDay에 현재 선택된 날짜가 포함되어 있으면 마커를 표시하지 않음
-      if (location.closeDay && location.closeDay.includes(selectedDay)) {
-        console.log(`[KakaoMap] ${location.name}은(는) ${selectedDay}에 운영하지 않습니다.`);
-        return;
-      }
+    // 🔥 단일 아이템 모드인 경우 특정 아이템만 표시
+    if (singleItemMode && singleItem) {
+      console.log(`[KakaoMap] 단일 아이템 모드 - ${singleItem.title}만 표시`);
 
-      const position = new window.kakao.maps.LatLng(location.lat, location.lng);
-
-      // 텍스트가 있는 커스텀 오버레이 생성
-      const overlay = createCustomMarker(
-        kakaoMapRef.current as kakao.maps.Map,
-        position,
-        selectedCategory,
-        selectedCategory === '주점' ? '' : location.name, // 주점이 아닌 경우에는 항상 라벨 표시
-        () => {
-          // 마커 클릭 시 실행될 함수
-          console.log(`[KakaoMap] 마커 클릭: ${location.name}`);
-
-          const mapData = MapData[selectedCategory].find(
-            (item: MapDataItem) => item.lat === location.lat && item.lng === location.lng,
-          );
-          if (mapData) {
-            showItemMarker(mapData);
-          }
-        },
-        false, // 초기에는 작은 크기로 표시
-        customPolygonsRef, // 다각형 참조 전달
+      // 해당 아이템과 일치하는 위치 정보 찾기
+      const targetLocation = categoryData.find(
+        (location) => location.lat === singleItem.lat && location.lng === singleItem.lng,
       );
 
-      // 오버레이를 지도에 표시하고 배열에 추가
-      overlay.setMap(kakaoMapRef.current);
-      overlays.push(overlay);
+      if (
+        targetLocation &&
+        (!targetLocation.closeDay || !targetLocation.closeDay.includes(selectedDay))
+      ) {
+        const position = new window.kakao.maps.LatLng(targetLocation.lat!, targetLocation.lng!);
 
-      // 경계 확장
-      bounds.extend(position);
-      hasVisibleMarkers = true;
-    });
+        const overlay = createCustomMarker(
+          kakaoMapRef.current as kakao.maps.Map,
+          position,
+          selectedCategory,
+          selectedCategory === '주점' ? targetLocation.title : targetLocation.title, // 단일 아이템 모드에서는 항상 라벨 표시
+          () => {
+            // 마커 클릭 시 실행될 함수
+            console.log(`[KakaoMap] 마커 클릭: ${targetLocation.title}`);
+            showItemMarker(singleItem);
+          },
+          true, // 단일 아이템은 항상 선택된 상태로 표시 (큰 크기)
+          customPolygonsRef, // 다각형 참조 전달
+        );
+
+        // 오버레이를 지도에 표시하고 배열에 추가
+        overlay.setMap(kakaoMapRef.current);
+        overlays.push(overlay);
+
+        // 경계 확장
+        bounds.extend(position);
+        hasVisibleMarkers = true;
+
+        console.log(`[KakaoMap] 단일 아이템 마커 생성 완료: ${targetLocation.title}`);
+      } else {
+        console.log(`[KakaoMap] 단일 아이템을 찾을 수 없거나 운영하지 않는 날입니다.`);
+      }
+    } else {
+      // 🔥 일반 모드인 경우 카테고리 전체 아이템 표시 (기존 로직)
+      console.log(`[KakaoMap] 일반 모드 - 전체 ${selectedCategory} 마커 표시`);
+
+      categoryData.forEach((location) => {
+        console.log(`[KakaoMap] 마커 생성 시도: ${location.title}`);
+        // closeDay에 현재 선택된 날짜가 포함되어 있으면 마커를 표시하지 않음
+        if (location.closeDay && location.closeDay.includes(selectedDay)) {
+          console.log(`[KakaoMap] ${location.title}은(는) ${selectedDay}에 운영하지 않습니다.`);
+          return;
+        }
+
+        const position = new window.kakao.maps.LatLng(location.lat!, location.lng!);
+
+        // 텍스트가 있는 커스텀 오버레이 생성
+        const overlay = createCustomMarker(
+          kakaoMapRef.current as kakao.maps.Map,
+          position,
+          selectedCategory,
+          selectedCategory === '주점' ? '' : location.title, // 주점이 아닌 경우에는 항상 라벨 표시
+          () => {
+            // 마커 클릭 시 실행될 함수
+            console.log(`[KakaoMap] 마커 클릭: ${location.title}`);
+
+            const mapData = dataSource[selectedCategory].find(
+              (item: MapDataItem) => item.lat === location.lat && item.lng === location.lng,
+            );
+            if (mapData) {
+              showItemMarker(mapData);
+            }
+          },
+          false, // 초기에는 작은 크기로 표시
+          customPolygonsRef, // 다각형 참조 전달
+        );
+
+        // 오버레이를 지도에 표시하고 배열에 추가
+        overlay.setMap(kakaoMapRef.current);
+        overlays.push(overlay);
+
+        // 경계 확장
+        bounds.extend(position);
+        hasVisibleMarkers = true;
+      });
+    }
 
     // 참조 업데이트
     customOverlaysRef.current = overlays;
@@ -508,15 +568,20 @@ export function useKakaoMap(
     if (hasVisibleMarkers) {
       // MapWrapper 크기 변경이 완료될 때까지 대기
       setTimeout(() => {
-        // 패딩 값 설정 (픽셀 단위)
-        const padding = 50;
-
-        // bounds 영역이 모두 보이도록 지도 이동 (자동으로 최적의 줌 레벨 계산)
-        kakaoMapRef.current?.relayout(); // 현재 크기 재계산
-        kakaoMapRef.current?.setBounds(bounds, padding);
+        // 🔥 단일 아이템 모드인 경우 해당 위치로 바로 이동
+        if (singleItemMode && singleItem) {
+          const singlePosition = new window.kakao.maps.LatLng(singleItem.lat!, singleItem.lng!);
+          kakaoMapRef.current?.setCenter(singlePosition);
+          kakaoMapRef.current?.setLevel(3); // 적절한 줌 레벨 설정
+        } else {
+          // 일반 모드인 경우 전체 영역을 보여주도록 bounds 설정
+          const padding = 50;
+          kakaoMapRef.current?.relayout(); // 현재 크기 재계산
+          kakaoMapRef.current?.setBounds(bounds, padding);
+        }
       }, 100); // 애니메이션 시작 후 약간의 지연을 두어 크기 변경이 완료되도록 함
     }
-  }, [selectedCategory, selectedDay, showItemMarker]);
+  }, [selectedCategory, selectedDay, showItemMarker, singleItemMode, singleItem, dataSource]);
 
   // 드래그 이벤트 처리
   useEffect(() => {

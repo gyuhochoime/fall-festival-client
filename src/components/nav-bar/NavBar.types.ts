@@ -15,6 +15,7 @@ export interface NavBarProps {
   backPath?: number | string;
   opacity?: boolean;
   whiteIcons?: boolean;
+  isSearchMode?: boolean; // 검색 모드 여부
 }
 
 export interface SearchNavBarProps {

@@ -17,4 +17,6 @@ export interface BottomSheetProps {
   selectedDay: DAYS;
   children?: ReactNode;
   onItemClick?: (item: MapDataItem) => void;
+  selectedItemId?: number | null;
+  customMapData?: Record<CATEGORIES, MapDataItem[]>; // 통합된 맵 데이터
 }
