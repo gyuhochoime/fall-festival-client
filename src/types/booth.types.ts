@@ -15,7 +15,6 @@ export interface Booth {
   locate: string;
   latitude: number;
   longitude: number;
-  type: string;
   affiliation: string;
   pubName: string;
   menu: BoothMenu;
@@ -29,7 +28,6 @@ export interface PubApiResponse {
   location: string;
   latitude: number;
   longitude: number;
-  type: string;
   affiliation: string;
   name: string;
   takeout: boolean;
