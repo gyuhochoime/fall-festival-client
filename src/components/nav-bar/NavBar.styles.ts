@@ -25,13 +25,6 @@ export const LeftSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boolea
 
   svg {
     filter: ${({ $whiteIcons }) => ($whiteIcons ? 'brightness(0) invert(1)' : 'none')};
-
-    /* Safari SVG 렌더링 최적화 */
-    @supports (-webkit-appearance: none) {
-      shape-rendering: crispedges;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-    }
   }
 `;
 
@@ -46,12 +39,6 @@ export const RightSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boole
 
   svg {
     filter: ${({ $whiteIcons }) => ($whiteIcons ? 'brightness(0) invert(1)' : 'none')};
-
-    /* Safari SVG 렌더링 최적화 */
-    @supports (-webkit-appearance: none) {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-    }
   }
 `;
 
