@@ -21,7 +21,7 @@ export const LeftSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boolea
   align-items: center;
   justify-content: flex-start;
   flex: 1;
-  margin-left: 8.5px;
+  margin-left: 10px;
 
   svg {
     filter: ${({ $whiteIcons }) => ($whiteIcons ? 'brightness(0) invert(1)' : 'none')};
@@ -34,7 +34,7 @@ export const RightSection = styled.div<{ $opacity?: boolean; $whiteIcons?: boole
   justify-content: flex-end;
   flex: 1;
   margin-top: 3px;
-  margin-right: 3px;
+  margin-right: 10px;
 
   svg {
     filter: ${({ $whiteIcons }) => ($whiteIcons ? 'brightness(0) invert(1)' : 'none')};
