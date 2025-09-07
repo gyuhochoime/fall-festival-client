@@ -25,7 +25,7 @@ import { NavBar } from '@/components/nav-bar/NavBar';
 
 export default function PerformanceDetail() {
   const { state } = useLocation() as { state: PerformanceDetailsProps };
-  const { backgroundUrl, singer, time, songList } = state;
+  const { backgroundUrl, singer, time, songList, description } = state;
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
 
@@ -59,18 +59,21 @@ export default function PerformanceDetail() {
         isClose={true}
         backPath="/performance"
         onCloseClick={handleExit}
+        opacity={true}
       />
 
       {/* 본문 */}
       <S.Fullscreen role="main">
         {/* 아티스트 정보 섹션 */}
         <S.ArtistInfoSection>
-          <S.ArtistCircle>
-            <S.ArtistCircleImage src={backgroundUrl} alt={singer} />
-          </S.ArtistCircle>
+          <S.ArtistCircleWrapper>
+            <S.ArtistCircle>
+              <S.ArtistCircleImage src={backgroundUrl} alt={singer} />
+            </S.ArtistCircle>
+          </S.ArtistCircleWrapper>
           <S.ArtistTextSection>
             <S.ArtistName>{singer}</S.ArtistName>
-            <S.ArtistGenre>K-POP / 댄스</S.ArtistGenre>
+            <S.ArtistGenre>{description}</S.ArtistGenre>
             <S.ArtistInfoBox>
               <S.InfoItem>
                 <CalendarIcon width="1rem" height="1rem" />

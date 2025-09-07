@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const ModalContainer = styled.div`
   display: flex;
-  width: 18.4375rem;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;

@@ -56,6 +56,13 @@ export const ArtistInfoSection = styled.div`
   margin-top: 5.875rem;
 `;
 
+export const ArtistCircleWrapper = styled.div`
+  display: inline-flex;
+  padding: 0.625rem;
+  align-items: center;
+  gap: 0.625rem;
+`;
+
 export const ArtistCircle = styled.div`
   width: 15rem;
   height: 15rem;
