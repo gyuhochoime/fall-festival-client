@@ -11,10 +11,18 @@ export default function BoothDetail() {
   const location = useLocation();
   const handleBackClick = () => {
     const from = location.state?.from;
-    // 검색에서 온 경우에만 검색으로 돌아가기, 그 외에는 주점 메인으로
-    if (from === '/booth/search') {
+    const fromType = location.state?.fromType;
+
+    // 지도에서 온 경우 지도로 돌아가기
+    if (from === '/map' || fromType === 'map') {
+      navigate('/map');
+    }
+    // 검색에서 온 경우 검색으로 돌아가기
+    else if (from === '/booth/search') {
       navigate('/booth/search');
-    } else {
+    }
+    // 그 외에는 주점 메인으로
+    else {
       navigate('/booth');
     }
   };
