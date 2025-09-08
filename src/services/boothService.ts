@@ -25,6 +25,14 @@ const transformMenusToBoothMenu = (menus: MenuApiResponse[]) => {
       price: `${m.price.toLocaleString()} 원`,
     }));
 
+  const set = menus
+    .filter((m) => m.category === 'set')
+    .map((m) => ({
+      name: m.name,
+      describtion: m.description,
+      price: `${m.price.toLocaleString()} 원`,
+    }));
+
   const others = menus
     .filter((m) => m.category === 'others')
     .map((m) => ({
@@ -33,7 +41,7 @@ const transformMenusToBoothMenu = (menus: MenuApiResponse[]) => {
       price: `${m.price.toLocaleString()} 원`,
     }));
 
-  return { main, side, others };
+  return { main, side, set, others };
 };
 
 const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
