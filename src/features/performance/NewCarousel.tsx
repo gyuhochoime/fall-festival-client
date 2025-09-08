@@ -59,7 +59,7 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
 
       return () => clearTimeout(timer);
     }
-  }, [data, currentIndex]);
+  }, [data]); // currentIndex 제거!
 
   const settings = {
     dots: false,
