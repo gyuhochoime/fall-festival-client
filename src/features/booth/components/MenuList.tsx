@@ -4,8 +4,6 @@ import * as S from './MenuList.styles';
 import { MenuFrame } from '@/components/image-text-frame';
 import { useBooth } from '@/hooks/useBooth';
 import { useNavigate } from 'react-router-dom';
-const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '세트 메뉴', '기타'];
-
 export default function MenuList({ id }: { id: number }) {
   const [activeTab, setActiveTab] = useState<string>('');
   const { booth, error } = useBooth(id);
@@ -22,10 +20,25 @@ export default function MenuList({ id }: { id: number }) {
     });
     return null;
   }
+
+  // 데이터가 있는 카테고리만 표시
+  const availableCategories = ['메인 메뉴', '사이드 메뉴'];
+  if (booth.menu.set.length > 0) {
+    availableCategories.push('세트 메뉴');
+  }
+  if (booth.menu.others.length > 0) {
+    availableCategories.push('기타');
+  }
+
   return (
     <>
       <S.TabsContainer>
-        <Tabs tabs={MENU_CATEGORY} activeTab={activeTab} onTabClick={setActiveTab} toggle={true} />
+        <Tabs
+          tabs={availableCategories}
+          activeTab={activeTab}
+          onTabClick={setActiveTab}
+          toggle={true}
+        />
       </S.TabsContainer>
       {(activeTab === '' || activeTab === '메인 메뉴') && (
         <S.MenuFrame>
@@ -63,7 +76,7 @@ export default function MenuList({ id }: { id: number }) {
 
       {activeTab === '' && booth.menu.set.length > 0 && <S.HorizontalLine />}
 
-      {(activeTab === '' || activeTab === '세트 메뉴') && (
+      {(activeTab === '' || activeTab === '세트 메뉴') && booth.menu.set.length > 0 && (
         <S.MenuFrame>
           <S.MenuItem>세트 메뉴</S.MenuItem>
           <S.MenuList>
@@ -81,7 +94,7 @@ export default function MenuList({ id }: { id: number }) {
 
       {activeTab === '' && booth.menu.others.length > 0 && <S.HorizontalLine />}
 
-      {(activeTab === '' || activeTab === '기타') && (
+      {(activeTab === '' || activeTab === '기타') && booth.menu.others.length > 0 && (
         <S.MenuFrame>
           <S.MenuItem>기타</S.MenuItem>
           <S.MenuList>
