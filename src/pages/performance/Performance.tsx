@@ -1,6 +1,6 @@
 import * as S from './Performance.styles';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { Notification } from '@/components/notification';
 import { Tabs } from '@/components/tabs';
@@ -18,8 +18,17 @@ import { PerformanceItem } from '@/features/performance/Carousel.types';
 export default function Performance() {
   const { open } = useModal(ModalHelp);
   const navigate = useNavigate();
+  const location = useLocation();
   const setIsNav = useLayoutStore((s) => s.setIsNav);
-  const [selectedDay, setSelectedDay] = useState<DayType>('2일차');
+
+  // 뒤로가기 시 전달받은 selectedDay를 초기값으로 사용
+  const getInitialSelectedDay = (): DayType => {
+    const state = location.state as { selectedDay?: DayType } | null;
+    const sessionSelectedDay = sessionStorage.getItem('performanceSelectedDay') as DayType;
+    return state?.selectedDay || sessionSelectedDay || '2일차';
+  };
+
+  const [selectedDay, setSelectedDay] = useState<DayType>(getInitialSelectedDay());
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   // Performance store 사용
@@ -39,12 +48,14 @@ export default function Performance() {
     if (!isInitialized) {
       fetchPerformances();
     }
-  }, [fetchPerformances, isInitialized]);
+  }, [fetchPerformances, isInitialized, loading, error, performances.length]);
 
-  // 일차 변경 시 인덱스 초기화
+  // 일차 변경 시 인덱스 초기화 및 sessionStorage 저장
   React.useEffect(() => {
+    // sessionStorage에 selectedDay 저장
+    sessionStorage.setItem('performanceSelectedDay', selectedDay);
     setCurrentIndex(0);
-  }, [selectedDay]);
+  }, [selectedDay, currentIndex]);
 
   const handleHelpClick = () => {
     open(
@@ -58,7 +69,19 @@ export default function Performance() {
   };
 
   const handleArtistClick = (artistData: PerformanceItem) => {
-    navigate('/performance/detail', { state: artistData });
+    // sessionStorage에 selectedDay 저장 (뒤로가기용)
+    sessionStorage.setItem('performanceSelectedDay', selectedDay);
+
+    try {
+      navigate('/performance/detail', {
+        state: {
+          ...artistData,
+          selectedDay,
+        },
+      });
+    } catch (error) {
+      console.error('❌ [ERROR] Navigation failed:', error);
+    }
   };
 
   const getProgressBarProps = () => {
