@@ -7,6 +7,7 @@ import { useLayoutStore } from '@/stores/useLayoutStore';
 import { MapDataItem } from '@/constants/map/MapData';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useMarkerStore } from '@/stores/useMarkerStore';
+import { useBooths } from '@/hooks/useBooth';
 import SearchIcon from '@/assets/icons/search-gray.svg?react';
 import CloseIcon from '@/assets/icons/close-search.svg?react';
 import MapSearchIcon from '@/assets/icons/map-search.svg?react';
@@ -30,6 +31,9 @@ export default function MapSearch() {
   // Marker store 사용
   const { markers, fetchMarkers, isInitialized } = useMarkerStore();
 
+  // Booth API 사용
+  const { booths } = useBooths();
+
   // API 카테고리를 내부 카테고리로 매핑
   const apiCategoryMapping: Record<string, string> = useMemo(
     () => ({
@@ -44,6 +48,7 @@ export default function MapSearch() {
       흡연실: '흡연구역',
       의무실: '의무실',
       AED: 'AED',
+      주점: '주점', // 주점 카테고리 추가
     }),
     [],
   );
@@ -74,10 +79,11 @@ export default function MapSearch() {
       }
     });
 
-    // 위치 검색어 자동완성 (API 데이터 사용)
+    // 위치 검색어 자동완성 (API 데이터 사용) - 주점 제외
     markers.forEach((marker) => {
       const mappedCategory = apiCategoryMapping[marker.category] || marker.category;
-      if (marker.name.toLowerCase().includes(query)) {
+      // 주점은 booths API에서 처리하므로 제외
+      if (marker.name.toLowerCase().includes(query) && mappedCategory !== '주점') {
         autocomplete.push({
           id: `location-${marker.id}`,
           text: marker.name,
@@ -87,8 +93,20 @@ export default function MapSearch() {
       }
     });
 
+    // 주점 검색어 자동완성 (Booth API 데이터만 사용)
+    booths.forEach((booth) => {
+      if (booth.pubName.toLowerCase().includes(query)) {
+        autocomplete.push({
+          id: `booth-${booth.id}`,
+          text: booth.pubName,
+          type: 'location',
+          category: '주점',
+        });
+      }
+    });
+
     return autocomplete;
-  }, [searchKeyword, categories, markers, apiCategoryMapping]);
+  }, [searchKeyword, categories, markers, apiCategoryMapping, booths]);
 
   // API 데이터 초기화
   useEffect(() => {
@@ -131,11 +149,29 @@ export default function MapSearch() {
         }
       });
 
+      // 주점 데이터에서 검색
+      booths.forEach((booth) => {
+        if (booth.pubName.includes(debouncedSearchTerm)) {
+          results.push({
+            id: booth.id,
+            image: booth.profileImage,
+            title: booth.pubName,
+            subtitle: '주점',
+            time: '18:00-24:00',
+            lat: booth.latitude,
+            lng: booth.longitude,
+            closeDay: [],
+            path: `/booth/${booth.id}`,
+            canPickup: booth.takeout,
+          });
+        }
+      });
+
       setSearchResults(results);
     } else {
       setSearchResults([]);
     }
-  }, [debouncedSearchTerm, markers, apiCategoryMapping]);
+  }, [debouncedSearchTerm, markers, apiCategoryMapping, booths]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
@@ -160,9 +196,15 @@ export default function MapSearch() {
       });
     } else {
       // 위치 검색어 클릭 시 해당 아이템만 바텀시트에 표시
-      // item.id에서 실제 아이템 ID 추출 (location-{id} 형태)
-      const itemId = item.id.replace('location-', '');
-      navigate(`/map/${itemId}`);
+      if (item.id.startsWith('booth-')) {
+        // 주점 클릭 시
+        const itemId = item.id.replace('booth-', '');
+        navigate(`/map/${itemId}`);
+      } else {
+        // 일반 위치 클릭 시
+        const itemId = item.id.replace('location-', '');
+        navigate(`/map/${itemId}`);
+      }
     }
   };
 
