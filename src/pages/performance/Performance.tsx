@@ -55,7 +55,7 @@ export default function Performance() {
     // sessionStorage에 selectedDay 저장
     sessionStorage.setItem('performanceSelectedDay', selectedDay);
     setCurrentIndex(0);
-  }, [selectedDay, currentIndex]);
+  }, [selectedDay]);
 
   const handleHelpClick = () => {
     open(
