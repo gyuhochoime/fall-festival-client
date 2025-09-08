@@ -32,13 +32,20 @@ export const usePerformanceStore = create<PerformanceState & PerformanceActions>
   fetchPerformances: async () => {
     const { isInitialized } = get();
 
-    // 이미 초기화되었으면 다시 호출하지 않음
-    if (isInitialized) return;
+    console.log('fetchPerformances called, isInitialized:', isInitialized);
 
+    // 이미 초기화되었으면 다시 호출하지 않음
+    if (isInitialized) {
+      console.log('Already initialized, skipping fetch');
+      return;
+    }
+
+    console.log('Starting to fetch performances...');
     set({ loading: true, error: null });
 
     try {
       const performancesWithArtists = await artistService.getPerformancesWithArtists();
+      console.log('Fetched performances with artists:', performancesWithArtists);
 
       // 일차별로 데이터 분류
       const performancesByDay: Record<DayType, PerformanceItem[]> = {
@@ -65,12 +72,14 @@ export const usePerformanceStore = create<PerformanceState & PerformanceActions>
         performancesByDay[performance.day as DayType].push(performanceItem);
       });
 
+      console.log('Setting performances by day:', performancesByDay);
       set({
         performances: performancesByDay,
         loading: false,
         error: null,
         isInitialized: true,
       });
+      console.log('Performance store initialized successfully');
     } catch (err) {
       console.error('공연 데이터를 가져오는데 실패했습니다:', err);
       set({
