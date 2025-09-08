@@ -1,7 +1,9 @@
 import { MapDataItem } from '@/constants/map/MapData';
 import * as S from './MapItemCard.styles';
-import TimeIcon from '@/assets/icons/clock.svg?react';
+import { FavoriteButton } from '@/components/favorite-button';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PubBeerIcon from '@/assets/icons/pub_beer.svg?react';
 
 interface MapItemCardProps {
   item: MapDataItem;
@@ -12,49 +14,64 @@ interface MapItemCardProps {
 export function MapItemCard({ item, onItemClick, category }: MapItemCardProps) {
   const navigate = useNavigate();
 
-  const handleDetailClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 이벤트 버블링 중지
-    if (item.path) {
-      navigate(item.path);
-    }
+  // 찜하기 기능 상태 관리 (localStorage)
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const saved = localStorage.getItem('booth-favorites');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const handleToggleFavorite = (boothId: number, event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    setFavorites((prev) => {
+      const newFavorites = prev.includes(boothId)
+        ? prev.filter((id) => id !== boothId)
+        : [...prev, boothId];
+
+      localStorage.setItem('booth-favorites', JSON.stringify(newFavorites));
+      return newFavorites;
+    });
   };
 
-  // 주점 카테고리인 경우 booth 스타일 사용 (border 없이)
-  if (category === '주점') {
+  // 주점 카테고리인 경우 찜하기 버튼과 함께 표시
+  if (category === '주점' && item.id) {
+    const isFavorited = favorites.includes(item.id);
+
     return (
-      <S.BoothCardContainer
-        onClick={() => {
-          if (onItemClick && item.lat && item.lng) {
-            onItemClick(item);
-          }
-        }}
-      >
-        <S.ItemImage src={item.image} alt={item.title} />
-        <S.BoothContentsWrap>
-          <S.BoothTitleWrap>
-            <S.BoothTitle>{item.title}</S.BoothTitle>
-            {item.subtitle && (
-              <>
-                <S.BoothTitleDivider />
-                <S.BoothSubTitle>{item.subtitle}</S.BoothSubTitle>
-              </>
+      <S.BoothItemWrapper>
+        <S.MapItemCardContainer
+          onClick={() => {
+            // 주점 카테고리인 경우 상세페이지로 이동
+            if (category === '주점' && item.id) {
+              navigate(`/booth/${item.id}`);
+            } else if (onItemClick && item.lat && item.lng) {
+              onItemClick(item);
+            }
+          }}
+        >
+          <S.ItemImage src={item.image} alt={item.title} />
+          <S.ItemContent>
+            <S.ItemTitle>{item.title}</S.ItemTitle>
+            <S.ItemCategory>{category}</S.ItemCategory>
+            {item.canPickup && (
+              <S.Pickup>
+                <PubBeerIcon width="0.75rem" height="0.75rem" />
+                포장가능
+              </S.Pickup>
             )}
-          </S.BoothTitleWrap>
-          <S.BoothContentsFooter>
-            <S.BoothTimeWrap>
-              <TimeIcon width="1.25rem" height="1.25rem" fill="#17171B" />
-              <S.BoothTime>{item.time}</S.BoothTime>
-            </S.BoothTimeWrap>
-            {item.path && (
-              <S.BoothLinkToDetail onClick={handleDetailClick}>상세보기</S.BoothLinkToDetail>
-            )}
-          </S.BoothContentsFooter>
-        </S.BoothContentsWrap>
-      </S.BoothCardContainer>
+          </S.ItemContent>
+        </S.MapItemCardContainer>
+        <FavoriteButton
+          id={item.id}
+          isFavorited={isFavorited}
+          onClick={handleToggleFavorite}
+          mode="favorite"
+        />
+      </S.BoothItemWrapper>
     );
   }
 
-  // 주점이 아닌 경우 새로운 디자인 사용
+  // 주점이 아닌 경우 기본 디자인 사용
   return (
     <S.MapItemCardContainer
       onClick={() => {

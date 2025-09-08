@@ -37,10 +37,12 @@ interface NoticeDetailResponse {
  */
 export const fetchNotices = async (): Promise<NoticeItem[]> => {
   try {
+    console.log('🔍 /api/notices GET 요청 시작');
     const response = await axiosInstance.get<NoticeListResponse>(`/api/notices`);
+    console.log('✅ /api/notices 응답:', response.data);
     return response.data.data;
   } catch (error) {
-    console.error('공지사항 목록을 가져오는데 실패했습니다:', error);
+    console.error('❌ 공지사항 목록을 가져오는데 실패했습니다:', error);
     throw error;
   }
 };
