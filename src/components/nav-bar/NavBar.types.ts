@@ -12,6 +12,7 @@ export interface NavBarProps {
   onSearchClick?: () => void;
   onFavoriteClick?: () => void;
   onCloseClick?: () => void;
+  onBackClick?: () => void;
   backPath?: number | string;
   opacity?: boolean;
   whiteIcons?: boolean;

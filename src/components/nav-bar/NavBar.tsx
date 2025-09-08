@@ -33,6 +33,7 @@ const NavBar: React.FC<NavBarProps> = ({
   onSearchClick,
   onFavoriteClick,
   onCloseClick,
+  onBackClick,
   backPath = -1,
   opacity = false,
   whiteIcons = false,
@@ -41,6 +42,10 @@ const NavBar: React.FC<NavBarProps> = ({
   const navigate = useNavigate();
 
   const handleBack = () => {
+    if (onBackClick) {
+      onBackClick();
+      return;
+    }
     if (typeof backPath === 'number') {
       navigate(backPath);
     } else if (typeof backPath === 'string') {

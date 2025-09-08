@@ -9,8 +9,6 @@ import { useToastStore } from '@/stores/useToastStore';
 import { getTodayDateString } from '@/utils/dateUtils';
 import useModal from '@/hooks/useModal';
 
-import BackIcon from '@/assets/icons/left-arrow.svg?react';
-import CloseIcon from '@/assets/icons/close-black.svg?react';
 import Onboarding1 from '@/assets/images/polaroid/onboarding/page1.webp';
 import Onboarding2 from '@/assets/images/polaroid/onboarding/page2.webp';
 import Onboarding3 from '@/assets/images/polaroid/onboarding/page3.webp';
@@ -35,6 +33,7 @@ import {
   useContainerSize,
   SpecialFrameKey,
 } from '@/features/polaroid';
+import { NavBar } from '@/components/nav-bar';
 
 const ONBOARDING_IMAGES = [Onboarding1, Onboarding2, Onboarding3];
 
@@ -270,25 +269,13 @@ export default function Polaroid() {
   return (
     <S.Container>
       {/* 상단 헤더 */}
-      <S.Header>
-        <S.HeaderButton aria-label="뒤로">
-          <BackIcon
-            style={{ cursor: 'pointer' }}
-            width={'0.95rem'}
-            height={'0.95rem'}
-            onClick={handleBack}
-          />
-        </S.HeaderButton>
-        <S.HeaderTitle>{headerTitle}</S.HeaderTitle>
-        <S.HeaderButton aria-label="나가기">
-          <CloseIcon
-            style={{ cursor: 'pointer' }}
-            width={'0.95rem'}
-            height={'0.95rem'}
-            onClick={handleExit}
-          />
-        </S.HeaderButton>
-      </S.Header>
+      <NavBar
+        isBack
+        isClose
+        title={headerTitle}
+        onBackClick={handleBack}
+        onCloseClick={handleExit}
+      />
 
       {/* 본문 */}
       <S.Fullscreen role="main" ref={containerRef}>

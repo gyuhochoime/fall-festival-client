@@ -45,13 +45,6 @@ export const allMembers = [
     part: '백엔드',
     image: ProfileImgPlaceholder as string,
     label: 'PL',
-    name: '임진수',
-    description: '한마디 두마디 세마디\n네마디 다섯마디',
-  },
-  {
-    part: '백엔드',
-    image: ProfileImgPlaceholder as string,
-    label: 'PE',
     name: '문서찬',
     description: '한마디 두마디 세마디\n네마디 다섯마디',
   },
@@ -60,6 +53,13 @@ export const allMembers = [
     image: ProfileImgPlaceholder as string,
     label: 'PE',
     name: '이규현',
+    description: '한마디 두마디 세마디\n네마디 다섯마디',
+  },
+  {
+    part: '백엔드',
+    image: ProfileImgPlaceholder as string,
+    label: 'PE',
+    name: '임진수',
     description: '한마디 두마디 세마디\n네마디 다섯마디',
   },
 ];

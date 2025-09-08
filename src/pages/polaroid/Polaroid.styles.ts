@@ -13,27 +13,6 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 
-export const Header = styled.header`
-  height: 56px;
-  display: grid;
-  grid-template-columns: 56px 1fr 56px;
-  align-items: center;
-`;
-
-export const HeaderButton = styled.button`
-  height: 100%;
-  background: transparent;
-  border: none;
-  color: ${(p) => p.theme.colors.grayScale.gy900};
-  ${(p) => p.theme.fonts.header.h3};
-`;
-
-export const HeaderTitle = styled.div`
-  text-align: center;
-  ${(p) => p.theme.fonts.header.h4};
-  color: ${(p) => p.theme.colors.grayScale.gy900};
-`;
-
 export const Fullscreen = styled.main`
   flex: 1;
   display: flex;
@@ -43,7 +22,8 @@ export const Fullscreen = styled.main`
   position: relative;
   overflow: hidden auto;
   min-height: 0; /* 헤더 높이 고려한 내부 스크롤 이슈 방지 */
-  padding-bottom: 16px; /* 하단 여백 추가 */
+  padding-bottom: 2rem;
+  margin-top: 3.875rem;
   gap: 8px; /* 요소간 간격 추가 */
 `;
 
