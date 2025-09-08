@@ -4,7 +4,7 @@ import * as S from './MenuList.styles';
 import { MenuFrame } from '@/components/image-text-frame';
 import { useBooth } from '@/hooks/useBooth';
 import { useNavigate } from 'react-router-dom';
-const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '기타'];
+const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '세트 메뉴', '기타'];
 
 export default function MenuList({ id }: { id: number }) {
   const [activeTab, setActiveTab] = useState<string>('');
@@ -50,6 +50,24 @@ export default function MenuList({ id }: { id: number }) {
           <S.MenuItem>사이드 메뉴</S.MenuItem>
           <S.MenuList>
             {booth.menu.side.map((menu) => (
+              <MenuFrame
+                menu={menu.name}
+                price={menu.price}
+                description={menu.describtion}
+                width="100%"
+              />
+            ))}
+          </S.MenuList>
+        </S.MenuFrame>
+      )}
+
+      {activeTab === '' && booth.menu.set.length > 0 && <S.HorizontalLine />}
+
+      {(activeTab === '' || activeTab === '세트 메뉴') && (
+        <S.MenuFrame>
+          <S.MenuItem>세트 메뉴</S.MenuItem>
+          <S.MenuList>
+            {booth.menu.set.map((menu) => (
               <MenuFrame
                 menu={menu.name}
                 price={menu.price}
