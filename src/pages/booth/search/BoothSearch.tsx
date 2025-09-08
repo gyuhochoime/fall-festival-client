@@ -14,7 +14,7 @@ export default function BoothSearch() {
   const { booths, loading } = useBooths();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleCloseClick = () => {
+  const handleBackClick = () => {
     navigate('/booth');
   };
 
@@ -40,7 +40,7 @@ export default function BoothSearch() {
 
   return (
     <S.Container>
-      <NavBar isBack hideRight title="주점 검색" onCloseClick={handleCloseClick} />
+      <NavBar isBack hideRight title="주점 검색" onBackClick={handleBackClick} />
       <S.Main>
         <S.Content>
           <S.SearchSection>

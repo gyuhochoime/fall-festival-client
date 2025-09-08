@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './BoothDetail.styles';
@@ -9,7 +9,23 @@ export default function BoothDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const fromRef = useRef(location.state?.from || '/booth');
+  const handleBackClick = () => {
+    const from = location.state?.from;
+    const fromType = location.state?.fromType;
+
+    // 지도에서 온 경우 지도로 돌아가기
+    if (from === '/map' || fromType === 'map') {
+      navigate('/map');
+    }
+    // 검색에서 온 경우 검색으로 돌아가기
+    else if (from === '/booth/search') {
+      navigate('/booth/search');
+    }
+    // 그 외에는 주점 메인으로
+    else {
+      navigate('/booth');
+    }
+  };
   const { booth, error } = useBooth(Number(id) || 0);
 
   useEffect(() => {
@@ -30,7 +46,7 @@ export default function BoothDetail() {
 
   return (
     <S.Container>
-      <NavBar isBack hideRight title="주점 정보" backPath={fromRef.current} />
+      <NavBar isBack hideRight title="주점 정보" onBackClick={handleBackClick} />
       <S.BackgroundImg src={booth.posterImage} />
       <S.Section style={{ marginTop: '-2rem' }}>
         <BoothInfo id={booth.id} />
