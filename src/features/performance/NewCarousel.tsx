@@ -13,8 +13,21 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [textFade, setTextFade] = useState<'in' | 'out'>('in');
   const isSwipingRef = useRef(false);
-  const isInitializedRef = useRef(false);
+  const isInitializingRef = useRef(true);
   const sliderRef = useRef<Slider>(null);
+
+  // 컴포넌트 마운트 시 상태 초기화
+  useEffect(() => {
+    isSwipingRef.current = false;
+    isInitializingRef.current = true;
+
+    // 초기화 완료 후 플래그 해제
+    const timer = setTimeout(() => {
+      isInitializingRef.current = false;
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [data.length]);
 
   // 텍스트 fade 처리
   useEffect(() => {
@@ -28,7 +41,6 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
   // 인덱스 변경 시 콜백 호출
   useEffect(() => {
     if (onIndexChange) {
-      console.log('Final Index sent to parent:', currentIndex, 'Data Length:', data.length);
       onIndexChange(currentIndex);
     }
   }, [currentIndex, onIndexChange, data.length]);
@@ -36,14 +48,18 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
   // 데이터 변경 시 슬라이더를 첫 번째 슬라이드로 이동
   useEffect(() => {
     if (sliderRef.current && data.length > 0) {
+      isInitializingRef.current = true;
       sliderRef.current.slickGoTo(0);
       setCurrentIndex(0);
-      // 초기화 완료 후 짧은 지연을 두고 클릭 허용
-      setTimeout(() => {
-        isInitializedRef.current = true;
-      }, 200);
+
+      // 데이터 변경 후 초기화 완료
+      const timer = setTimeout(() => {
+        isInitializingRef.current = false;
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
-  }, [data]);
+  }, [data, currentIndex]);
 
   const settings = {
     dots: false,
@@ -57,17 +73,22 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
     centerPadding: '1.25rem',
     initialSlide: 0,
     beforeChange: () => {
-      isSwipingRef.current = true;
+      // 초기화 중이 아닐 때만 스와이핑 상태로 설정
+      if (!isInitializingRef.current) {
+        isSwipingRef.current = true;
+      }
     },
     afterChange: (current: number) => {
-      console.log('Raw afterChange value:', current);
       // 반올림 처리
       const roundedIndex = Math.round(current);
-      console.log('Rounded index:', roundedIndex);
       setCurrentIndex(roundedIndex);
-      setTimeout(() => {
-        isSwipingRef.current = false;
-      }, 100);
+
+      // 초기화 중이 아닐 때만 스와이핑 상태 해제
+      if (!isInitializingRef.current) {
+        setTimeout(() => {
+          isSwipingRef.current = false;
+        }, 50);
+      }
     },
   };
 
@@ -108,8 +129,17 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                             src={singer.backgroundUrl}
                             alt={singer.singer}
                             onClick={() => {
-                              if (isSwipingRef.current || !isInitializedRef.current) return;
-                              onArtistClick?.(singer);
+                              // 스와이핑 중일 때만 차단
+                              if (isSwipingRef.current) {
+                                return;
+                              }
+
+                              if (!onArtistClick) {
+                                console.error('❌ [ERROR] onArtistClick callback is not provided!');
+                                return;
+                              }
+
+                              onArtistClick(singer);
                             }}
                             style={{ cursor: 'pointer' }}
                           />
@@ -122,8 +152,17 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                             src={singer.backgroundUrl}
                             alt={singer.singer}
                             onClick={() => {
-                              if (isSwipingRef.current || !isInitializedRef.current) return;
-                              onArtistClick?.(singer);
+                              // 스와이핑 중일 때만 차단
+                              if (isSwipingRef.current) {
+                                return;
+                              }
+
+                              if (!onArtistClick) {
+                                console.error('❌ [ERROR] onArtistClick callback is not provided!');
+                                return;
+                              }
+
+                              onArtistClick(singer);
                             }}
                             style={{ cursor: 'pointer' }}
                           />

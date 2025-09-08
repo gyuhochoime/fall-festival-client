@@ -25,7 +25,6 @@ import { NavBar } from '@/components/nav-bar/NavBar';
 
 export default function PerformanceDetail() {
   const { state } = useLocation() as { state: PerformanceDetailsProps };
-  const { backgroundUrl, singer, time, songList, description } = state;
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
 
@@ -35,6 +34,19 @@ export default function PerformanceDetail() {
       setIsNav(true);
     };
   }, [setIsNav]);
+
+  if (!state) {
+    console.error('❌ [ERROR] No state provided to PerformanceDetail!');
+    return (
+      <div>
+        <h1>Error: No performance data provided</h1>
+        <button onClick={() => navigate('/performance')}>Back to Performance</button>
+      </div>
+    );
+  }
+
+  const { backgroundUrl, singer, time, songList, description } = state;
+  // selectedDay는 Performance 페이지에서 뒤로가기 시 복원용으로 사용됨 (현재는 사용하지 않음)
 
   const handleExit = () => {
     navigate('/main');
