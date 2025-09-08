@@ -8,7 +8,7 @@ export const BottomSheetMotionDiv = styled(motion.div)`
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: calc(100% - 19.875rem); /* 뷰포트 하단 기준 몇 px */
+  top: calc(100% - 13.875rem); /* 뷰포트 하단 기준 몇 px */
   left: 0;
   right: 0;
   margin: 0;

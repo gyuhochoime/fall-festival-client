@@ -57,6 +57,7 @@ export interface MapDataItem extends ImageTextFrameWithTimeProps {
   lat?: number; // 위도
   lng?: number; // 경도
   closeDay?: DAYS[];
+  canPickup?: boolean; // 포장가능 여부
 }
 
 // 전체 맵 데이터의 타입 정의

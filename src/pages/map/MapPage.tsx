@@ -5,7 +5,6 @@ import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
 import SearchBar from '@/components/search-bar/SearchBar';
 import DaySelectorModal from '@/components/day-selector-modal/DaySelectorModal';
-import { BoothList } from '@/features/booth';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 import { getCurrentFestivalDay } from '@/utils/dateUtils';
@@ -15,6 +14,7 @@ import ReCenterButtonIcon from '@/assets/icons/re-center.svg?react';
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import { MapData, MapDataItem } from '@/constants/map/MapData';
 import { useMarkerStore } from '@/stores/useMarkerStore';
+import { useBooths } from '@/hooks/useBooth';
 
 export default function Map() {
   // URL에서 itemId 파라미터 가져오기
@@ -45,6 +45,9 @@ export default function Map() {
 
   // Marker store 사용
   const { fetchMarkers, markers, loading: isApiLoading, isInitialized } = useMarkerStore();
+
+  // Booth API 사용
+  const { booths } = useBooths();
 
   // 모달 상태
   const [isDayModalOpen, setIsDayModalOpen] = useState<boolean>(false);
@@ -110,17 +113,39 @@ export default function Map() {
 
   // 통합된 맵 데이터 (모든 카테고리를 API 데이터로 사용)
   const integratedMapData = useMemo(() => {
-    // API 데이터가 로딩 중이면 기존 MapData 사용
-    if (isApiLoading) {
+    // API 데이터가 로딩 중이거나 booths가 비어있으면 기존 MapData 사용
+    if (isApiLoading || booths.length === 0) {
       return MapData;
     }
 
     const apiMapData = convertApiDataToMapData();
 
+    // Booth API 데이터를 MapDataItem 형태로 변환
+    // /api/markers에서 주점 카테고리의 좌표 정보를 가져와서 매칭
+    const boothMarkers = apiMapData.filter((item: MapDataItem) => item.subtitle === '주점');
+
+    const boothApiData: MapDataItem[] = booths.map((booth) => {
+      // markers API에서 해당 주점의 좌표 정보 찾기
+      const markerInfo = boothMarkers.find((marker) => marker.id === booth.id);
+
+      return {
+        id: booth.id,
+        image: booth.profileImage,
+        title: booth.pubName,
+        subtitle: '주점',
+        time: markerInfo?.time || '18:00-24:00',
+        path: `/booth/${booth.id}`,
+        lat: markerInfo?.lat,
+        lng: markerInfo?.lng,
+        closeDay: markerInfo?.closeDay || [],
+        canPickup: booth.takeout, // 포장가능 정보 추가
+      };
+    });
+
     return {
       ...MapData,
       // API 데이터로 카테고리별 데이터 업데이트 (모든 카테고리 포함)
-      주점: apiMapData.filter((item: MapDataItem) => item.subtitle === '주점'),
+      주점: boothApiData, // Booth API 데이터 사용
       '주류 구매 위치': apiMapData.filter(
         (item: MapDataItem) => item.subtitle === '주류 구매 위치',
       ),
@@ -135,7 +160,7 @@ export default function Map() {
       의무실: apiMapData.filter((item: MapDataItem) => item.subtitle === '의무실'),
       AED: apiMapData.filter((item: MapDataItem) => item.subtitle === 'AED'),
     };
-  }, [convertApiDataToMapData, isApiLoading]);
+  }, [convertApiDataToMapData, isApiLoading, booths]);
 
   // 카카오맵 커스텀 훅 사용 - 단일 아이템 모드와 단일 아이템 데이터 전달
   const { moveToCurrentLocation, showItemMarker, kakaoMap } = useKakaoMap(
@@ -381,6 +406,11 @@ export default function Map() {
     moveToCurrentLocation(); // 현재 위치로 이동
   };
 
+  // 홈으로 이동 핸들러
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
   return (
     <S.MapContainer>
       <S.MapWrapper ref={mapRef} $isBottomSheetOpen={isBottomSheetOpen || !!selectedMapCategory} />
@@ -401,7 +431,7 @@ export default function Map() {
                 : selectedMapCategory // 카테고리 검색일 때는 카테고리명 표시
               : '지도'
           }
-          isClose={isFromSearchPage && selectedMapCategory ? true : false}
+          isClose={true} // 항상 X 버튼 표시
           backPath={isFromSearchPage && selectedMapCategory ? '/map/search' : undefined}
           onCloseClick={
             isFromSearchPage && selectedMapCategory
@@ -418,7 +448,7 @@ export default function Map() {
                   // URL에서 itemId 파라미터도 제거하면서 /map으로 이동
                   navigate('/map', { replace: true, state: { fromCloseClick: true } });
                 }
-              : undefined
+              : handleHomeClick // 일반적인 경우 홈으로 이동
           }
           opacity={isFromSearchPage && selectedMapCategory ? false : true}
           isSearchMode={isFromSearchPage && selectedMapCategory ? true : false}
@@ -463,11 +493,7 @@ export default function Map() {
               onItemClick={showItemMarker}
               selectedItemId={selectedItemId}
               customMapData={integratedMapData}
-            >
-              {selectedCategory === '주점' && (
-                <BoothList showFavoritesOnly={false} hideTabs={true} />
-              )}
-            </MapPageBottomSheet>
+            />
           </S.BottomSheetContainer>
         )}
       </S.ContentContainer>

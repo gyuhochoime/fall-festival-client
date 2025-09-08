@@ -18,7 +18,7 @@ export const MapWrapper = styled.div<{ $isBottomSheetOpen?: boolean }>`
   left: 0;
   width: 100%;
   height: ${(props) =>
-    props.$isBottomSheetOpen ? 'calc(100% - 260px)' : '100%'}; /* 260px = 16.25rem */
+    props.$isBottomSheetOpen ? 'calc(100% - 154px)' : '100%'}; /* 260px = 16.25rem */
 
   z-index: ${Z_INDEX.MAP};
   transition: height 0.3s ease-in-out;
@@ -71,7 +71,7 @@ export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
 
 export const ReCenterButton = styled.div<{ $isBottomSheetOpen?: boolean }>`
   position: fixed;
-  bottom: ${(props) => (props.$isBottomSheetOpen ? '21.188rem' : '8rem')};
+  bottom: ${(props) => (props.$isBottomSheetOpen ? '15.188rem' : '8rem')};
   left: 1.25rem;
   width: 4rem;
   height: 4rem;

@@ -13,6 +13,7 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [textFade, setTextFade] = useState<'in' | 'out'>('in');
   const isSwipingRef = useRef(false);
+  const isInitializedRef = useRef(false);
   const sliderRef = useRef<Slider>(null);
 
   // 텍스트 fade 처리
@@ -37,6 +38,10 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
     if (sliderRef.current && data.length > 0) {
       sliderRef.current.slickGoTo(0);
       setCurrentIndex(0);
+      // 초기화 완료 후 짧은 지연을 두고 클릭 허용
+      setTimeout(() => {
+        isInitializedRef.current = true;
+      }, 200);
     }
   }, [data]);
 
@@ -103,7 +108,7 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                             src={singer.backgroundUrl}
                             alt={singer.singer}
                             onClick={() => {
-                              if (isSwipingRef.current) return;
+                              if (isSwipingRef.current || !isInitializedRef.current) return;
                               onArtistClick?.(singer);
                             }}
                             style={{ cursor: 'pointer' }}
@@ -117,7 +122,7 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                             src={singer.backgroundUrl}
                             alt={singer.singer}
                             onClick={() => {
-                              if (isSwipingRef.current) return;
+                              if (isSwipingRef.current || !isInitializedRef.current) return;
                               onArtistClick?.(singer);
                             }}
                             style={{ cursor: 'pointer' }}
