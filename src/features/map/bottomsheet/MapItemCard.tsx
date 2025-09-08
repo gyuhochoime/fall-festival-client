@@ -43,7 +43,9 @@ export function MapItemCard({ item, onItemClick, category }: MapItemCardProps) {
           onClick={() => {
             // 주점 카테고리인 경우 상세페이지로 이동
             if (category === '주점' && item.id) {
-              navigate(`/booth/${item.id}`);
+              navigate(`/booth/${item.id}`, {
+                state: { from: '/map', fromType: 'map' },
+              });
             } else if (onItemClick && item.lat && item.lng) {
               onItemClick(item);
             }
