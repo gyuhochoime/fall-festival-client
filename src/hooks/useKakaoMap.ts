@@ -421,31 +421,26 @@ export function useKakaoMap(
     // MapWrapper 크기 변경 인식을 위한 relayout 호출
     kakaoMapRef.current.relayout();
 
-    // 카테고리가 선택되지 않은 경우 (null) 기존 마커 모두 제거
-    if (!selectedCategory) {
-      // 이전 커스텀 오버레이와 다각형 제거
-      customOverlaysRef.current.forEach((overlay) => {
-        overlay.setMap(null);
-      });
-      customPolygonsRef.current.forEach((polygon) => {
-        polygon.setMap(null);
-      });
-      customOverlaysRef.current = [];
-      customPolygonsRef.current = [];
-
-      // 선택된 항목 마커가 있다면 제거
-      if (selectedItemMarkerRef.current) {
-        selectedItemMarkerRef.current.setMap(null);
-        selectedItemMarkerRef.current = null;
-      }
-
-      return;
-    }
+    // 카테고리가 변경될 때마다 기존 마커와 폴리곤 모두 제거
+    // 이전 커스텀 오버레이와 다각형 제거
+    customOverlaysRef.current.forEach((overlay) => {
+      overlay.setMap(null);
+    });
+    customPolygonsRef.current.forEach((polygon) => {
+      polygon.setMap(null);
+    });
+    customOverlaysRef.current = [];
+    customPolygonsRef.current = [];
 
     // 선택된 항목 마커가 있다면 제거
     if (selectedItemMarkerRef.current) {
       selectedItemMarkerRef.current.setMap(null);
       selectedItemMarkerRef.current = null;
+    }
+
+    // 카테고리가 선택되지 않은 경우 (null) 여기서 종료
+    if (!selectedCategory) {
+      return;
     }
 
     console.log(`[KakaoMap] '${selectedCategory}' 카테고리 마커 표시 시작`);
