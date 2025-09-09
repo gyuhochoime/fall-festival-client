@@ -132,10 +132,6 @@ declare global {
         | 'longdashdotdot';
 
       namespace event {
-        interface MouseEvent {
-          latLng: LatLng;
-        }
-
         function addListener(target: object, type: string, handler: (e?: unknown) => void): number;
 
         function removeListener(listenerId: number): void;
