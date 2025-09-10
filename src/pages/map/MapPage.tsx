@@ -60,13 +60,13 @@ export default function Map() {
       푸드트럭: '푸드트럭',
       콘텐츠: '콘텐츠',
       화장실: '화장실',
-      의무실: '의무실', // 의무실은 의무실로 매핑
+      AED: 'AED',
+      '온열질환 대비소': '온열질환 대비소',
       셔틀콕: '셔틀콕',
       공연장: '공연장',
       흡연실: '흡연구역',
       '주류 구매': '주류 구매 위치',
       플리마켓: '플리마켓',
-      AED: 'AED',
     }),
     [],
   );
@@ -74,17 +74,17 @@ export default function Map() {
   // API 카테고리를 내부 카테고리로 매핑
   const apiCategoryMapping: Record<string, string> = useMemo(
     () => ({
-      '주류 구매': '주류 구매 위치',
-      플리마켓: '플리마켓',
       이벤트: '프로모션',
       콘텐츠: '콘텐츠',
       화장실: '화장실',
-      공연장: '공연장',
+      AED: 'AED',
+      의무실: '온열질환 대비소',
       셔틀콕: '셔틀콕',
+      공연장: '공연장',
       푸드트럭: '푸드트럭',
       흡연실: '흡연구역',
-      의무실: '의무실', // 의무실은 의무실로 매핑
-      AED: 'AED', // AED는 AED로 매핑
+      '주류 구매': '주류 구매 위치',
+      플리마켓: '플리마켓',
     }),
     [],
   );
@@ -126,7 +126,7 @@ export default function Map() {
         셔틀콕: [],
         푸드트럭: [],
         흡연구역: [],
-        의무실: [],
+        '온열질환 대비소': [],
         AED: [],
       };
     }
@@ -169,7 +169,9 @@ export default function Map() {
       셔틀콕: apiMapData.filter((item: MapDataItem) => item.subtitle === '셔틀콕'),
       푸드트럭: apiMapData.filter((item: MapDataItem) => item.subtitle === '푸드트럭'),
       흡연구역: apiMapData.filter((item: MapDataItem) => item.subtitle === '흡연구역'),
-      의무실: apiMapData.filter((item: MapDataItem) => item.subtitle === '의무실'),
+      '온열질환 대비소': apiMapData.filter(
+        (item: MapDataItem) => item.subtitle === '온열질환 대비소',
+      ),
       AED: apiMapData.filter((item: MapDataItem) => item.subtitle === 'AED'),
     };
   }, [convertApiDataToMapData, isApiLoading, booths, markers]);
@@ -508,13 +510,13 @@ export default function Map() {
               '푸드트럭',
               '콘텐츠',
               '화장실',
-              '의무실',
+              'AED',
+              '온열질환 대비소',
               '셔틀콕',
               '공연장',
               '흡연실',
               '주류 구매',
               '플리마켓',
-              'AED',
             ]}
             activeTab={selectedMapCategory}
             onTabClick={handleMapCategoryChange}
