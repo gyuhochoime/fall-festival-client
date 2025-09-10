@@ -7,7 +7,7 @@ import SearchBar from '@/components/search-bar/SearchBar';
 import DaySelectorModal from '@/components/day-selector-modal/DaySelectorModal';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
-import { getCurrentFestivalDay } from '@/utils/dateUtils';
+import { getCurrentFestivalDayKorea } from '@/utils/newDateUtils';
 import * as S from './MapPage.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import ReCenterButtonIcon from '@/assets/icons/re-center.svg?react';
@@ -25,8 +25,8 @@ export default function Map() {
   const location = useLocation();
   const mapRef = useRef<HTMLDivElement>(null);
 
-  // 현재 날짜에 기반한 페스티벌 일차 계산
-  const currentDay = getCurrentFestivalDay(FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS) as DAYS;
+  // 현재 날짜에 기반한 페스티벌 일차 계산 (한국 시간 기준)
+  const currentDay = getCurrentFestivalDayKorea(FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS) as DAYS;
 
   // 날짜 및 카테고리 관련 상태
   const [selectedDay, setSelectedDay] = useState<DAYS>(currentDay);
