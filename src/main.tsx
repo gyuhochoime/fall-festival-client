@@ -76,7 +76,13 @@ const routes = createBrowserRouter([
     path: '/',
     element: <Layout />,
     loader: async () => {},
-    errorElement: <>ERROR</>,
+    errorElement: (
+      <ErrorPage
+        mainText="무언가가 잘못되었어요!"
+        subText="잠시 후 다시 시도해주세요."
+        showHomeButton={true}
+      />
+    ),
     children: [
       {
         index: true,
