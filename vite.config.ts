@@ -140,5 +140,36 @@ export default defineConfig(({ mode }) => {
         },
       ],
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // React 관련 라이브러리를 별도 청크로 분리
+            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+
+            // UI 라이브러리들을 별도 청크로 분리
+            'ui-vendor': ['styled-components', 'framer-motion'],
+
+            // 유틸리티 라이브러리들을 별도 청크로 분리
+            'utils-vendor': ['axios', 'zustand'],
+
+            // 이미지/미디어 관련 라이브러리들을 별도 청크로 분리
+            'media-vendor': ['react-lottie-player', 'react-slick', 'slick-carousel'],
+
+            // PWA 관련을 별도 청크로 분리
+            'pwa-vendor': [
+              'workbox-core',
+              'workbox-precaching',
+              'workbox-routing',
+              'workbox-strategies',
+              'workbox-window',
+              'idb',
+            ],
+          },
+        },
+      },
+      // 청크 크기 경고 제한을 조정 (기본값 500KB에서 1MB로 증가)
+      chunkSizeWarningLimit: 1000,
+    },
   };
 });
