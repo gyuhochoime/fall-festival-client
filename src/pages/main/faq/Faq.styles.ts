@@ -43,7 +43,7 @@ export const FaqQuestion = styled.button`
 
 export const QuestionText = styled.p`
   ${(props) => props.theme.fonts.body.medium500}
-  color: ${(props) => props.theme.colors.grayScale.gy700};
+  color: ${(props) => props.theme.colors.grayScale.black};
   line-height: 1.4;
   margin: 1rem 0;
 `;
