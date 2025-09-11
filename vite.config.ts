@@ -142,7 +142,11 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       rollupOptions: {
+        external: ['jquery'],
         output: {
+          globals: {
+            jquery: 'jQuery',
+          },
           manualChunks: {
             // React 관련 라이브러리를 별도 청크로 분리
             'react-vendor': ['react', 'react-dom', 'react-router-dom'],
@@ -155,16 +159,6 @@ export default defineConfig(({ mode }) => {
 
             // 이미지/미디어 관련 라이브러리들을 별도 청크로 분리
             'media-vendor': ['react-lottie-player', 'react-slick', 'slick-carousel'],
-
-            // PWA 관련을 별도 청크로 분리
-            'pwa-vendor': [
-              'workbox-core',
-              'workbox-precaching',
-              'workbox-routing',
-              'workbox-strategies',
-              'workbox-window',
-              'idb',
-            ],
           },
         },
       },
