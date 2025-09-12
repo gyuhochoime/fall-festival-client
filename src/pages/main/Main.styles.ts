@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import logo from '@/assets/images/espero-logo.png';
+import logo from '@/assets/images/espero-logo.webp';
 
 export const Layout = styled.div`
   background: linear-gradient(180deg, #7e419a 10%, transparent 100%);
@@ -16,7 +16,7 @@ export const TitleBar = styled.div`
   padding: 1.2rem;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 999;
   box-shadow: 0 0 0.5rem 0 ${(props) => props.theme.colors.primary.violet};
 `;
 
