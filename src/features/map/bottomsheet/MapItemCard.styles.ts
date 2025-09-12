@@ -11,9 +11,7 @@ export const MapItemCardContainer = styled.div`
   overflow: hidden;
 `;
 
-export const ItemImage = styled.img.attrs({
-  loading: 'lazy',
-})`
+export const ItemImage = styled.img`
   width: 4.5rem;
   height: 4.5rem;
   flex-shrink: 0;

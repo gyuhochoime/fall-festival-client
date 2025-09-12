@@ -39,13 +39,9 @@ export const MenuContainer = styled.div<{ $width?: string }>`
   background-color: ${(props) => props.theme.colors.grayScale.white};
 `;
 
-export const Image = styled.img
-  .attrs({
-    loading: 'lazy',
-  })
-  .withConfig({
-    shouldForwardProp: (prop) => prop !== '$boothId',
-  })<{ $boothId?: number }>`
+export const Image = styled.img.withConfig({
+  shouldForwardProp: (prop) => prop !== '$boothId',
+})<{ $boothId?: number }>`
   width: 4.5rem;
   height: 4.5rem;
   flex-shrink: 0;
