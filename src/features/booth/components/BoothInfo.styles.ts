@@ -15,9 +15,13 @@ export const ImageBtnFrame = styled.div`
   justify-content: space-between;
 `;
 
-export const Image = styled.img.withConfig({
-  shouldForwardProp: (prop) => prop !== '$boothId',
-})<{ $boothId?: number }>`
+export const Image = styled.img
+  .attrs({
+    loading: 'lazy',
+  })
+  .withConfig({
+    shouldForwardProp: (prop) => prop !== '$boothId',
+  })<{ $boothId?: number }>`
   width: 6.25rem;
   height: 6.25rem;
   border-radius: 12px;

@@ -11,9 +11,11 @@ export const MapItemCardContainer = styled.div`
   overflow: hidden;
 `;
 
-export const ItemImage = styled.img`
-  width: 4.5rem; /* 72px */
-  height: 4.5rem; /* 72px */
+export const ItemImage = styled.img.attrs({
+  loading: 'lazy',
+})`
+  width: 4.5rem;
+  height: 4.5rem;
   flex-shrink: 0;
   border-radius: 0.439rem;
   object-fit: cover;
