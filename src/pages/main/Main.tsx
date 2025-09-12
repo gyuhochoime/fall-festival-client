@@ -50,12 +50,27 @@ export default function Main() {
       </S.TitleBar>
       <S.Main>
         <section>
-          <S.TitleWrapper style={{ marginTop: '1rem', marginBottom: 0 }}>
+          <S.TitleWrapper style={{ marginTop: '6rem', marginBottom: 0 }}>
             <S.Title>진행 중인 콘텐츠</S.Title>
           </S.TitleWrapper>
           <S.CarouselsBox>
             {loading ? (
-              <S.LoadingText>이벤트 정보를 불러오는 중...</S.LoadingText>
+              <>
+                {/* <S.LoadingText>이벤트 정보를 불러오는 중...</S.LoadingText> */}
+                <EventCarousels
+                  events={[
+                    {
+                      id: 'loading',
+                      title: '불러오는 중...',
+                      startTime: '',
+                      endTime: '',
+                      location: '',
+                      date: '',
+                      noticeId: null,
+                    },
+                  ]}
+                />
+              </>
             ) : error ? (
               <S.ErrorText>{error}</S.ErrorText>
             ) : (
