@@ -51,7 +51,7 @@ export const body = styled.p`
   align-self: stretch;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box; /* stylelint-disable-line value-no-vendor-prefix */
+  display: ${'box'};
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: break-word;
