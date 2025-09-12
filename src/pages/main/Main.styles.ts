@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import logo from '@/assets/images/espero-logo.png';
 
 export const Layout = styled.div`
-  background: linear-gradient(180deg, #7e419a 35%, #7e419aca 45%, transparent 90%);
+  background: linear-gradient(180deg, #7e419a 40%, transparent 100%);
   width: 100%;
-  height: 50rem;
+  height: 52rem;
   position: absolute;
 `;
 
