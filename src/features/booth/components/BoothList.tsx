@@ -69,7 +69,7 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
     <S.Container>
       {!isBoothNotificationClosed && (
         <Notification
-          title="[공지] 미취학 아동 입장 제한"
+          title="[공지] 주류 구매 가이드"
           width="100%"
           onClick={handleNotificationClick}
           onClose={closeBoothNotification}
