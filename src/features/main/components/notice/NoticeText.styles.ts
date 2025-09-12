@@ -54,4 +54,5 @@ export const body = styled.p`
   display: box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  word-break: break-word;
 `;
