@@ -51,7 +51,7 @@ export const body = styled.p`
   align-self: stretch;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: box; /* Changed to -webkit-box for better compatibility */
+  display: box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
