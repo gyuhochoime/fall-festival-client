@@ -52,36 +52,28 @@ export function useKakaoMap(
         return;
       }
 
-      try {
-        console.log('[KakaoMap] 지도 초기화 시작');
-        // 지도 옵션 설정
-        const mapOptions = {
-          center: new window.kakao.maps.LatLng(
-            options.center?.lat ?? 37.29644017218779,
-            options.center?.lng ?? 126.83516599926162,
-          ),
-          level: options.level ?? 3,
-          draggable: options.draggable ?? true,
-          zoomable: options.zoomable ?? true,
-          scrollwheel: options.scrollwheel ?? true,
-        };
-        console.log('[KakaoMap] 지도 옵션:', mapOptions);
+      // 지도 옵션 설정
+      const mapOptions = {
+        center: new window.kakao.maps.LatLng(
+          options.center?.lat ?? 37.29644017218779,
+          options.center?.lng ?? 126.83516599926162,
+        ),
+        level: options.level ?? 3,
+        draggable: options.draggable ?? true,
+        zoomable: options.zoomable ?? true,
+        scrollwheel: options.scrollwheel ?? true,
+      };
 
-        // 지도 초기화
-        const map = new window.kakao.maps.Map(mapRef.current, mapOptions);
-        console.log('[KakaoMap] 지도 객체 생성 완료:', !!map);
+      // 지도 초기화
+      const map = new window.kakao.maps.Map(mapRef.current, mapOptions);
 
-        kakaoMapRef.current = map;
+      kakaoMapRef.current = map;
 
-        // 모바일 핀치 줌 관련 설정
-        map.setZoomable(true);
-        enableMultiTouch(mapRef.current);
+      // 모바일 핀치 줌 관련 설정
+      map.setZoomable(true);
+      enableMultiTouch(mapRef.current);
 
-        setMapLoaded(true);
-        console.log('[KakaoMap] 지도 초기화 완료');
-      } catch (error) {
-        console.error('[KakaoMap] 지도 초기화 중 오류 발생:', error);
-      }
+      setMapLoaded(true);
     };
 
     const enableMultiTouch = (element: HTMLDivElement | null) => {
@@ -107,11 +99,6 @@ export function useKakaoMap(
     };
 
     // 초기화 조건 로깅
-    console.log('[KakaoMap] 초기화 조건 상태:', {
-      scriptLoaded,
-      mapRefExists: !!mapRef.current,
-      kakaoMapRefNotExists: !kakaoMapRef.current,
-    });
 
     // 초기화 시도
     initializeMap();
@@ -128,12 +115,9 @@ export function useKakaoMap(
     const loadKakaoSDK = () => {
       // 이미 로드되었거나 로드 중인 경우 중복 로드 방지
       if (window.kakao && window.kakao.maps) {
-        console.log('[KakaoMap] 이미 로드된 kakao 객체 감지');
         setScriptLoaded(true);
         return;
       }
-
-      console.log('[KakaoMap] 카카오맵 스크립트 로드 시작');
 
       // 기존 스크립트가 있다면 제거 (중복 로드 방지)
       const existingScript = document.querySelector('script[src*="dapi.kakao.com"]');
@@ -151,18 +135,14 @@ export function useKakaoMap(
 
       // 로드 이벤트 핸들러
       script.onload = () => {
-        console.log('[KakaoMap] 스크립트 로드 성공');
         if (window.kakao && window.kakao.maps) {
           window.kakao.maps.load(() => {
-            console.log('[KakaoMap] kakao.maps.load 콜백 실행');
             setScriptLoaded(true);
           });
         }
       };
 
-      script.onerror = (error) => {
-        console.error('[KakaoMap] 스크립트 로드 실패:', error);
-      };
+      script.onerror = () => {};
 
       document.head.appendChild(script);
     };
@@ -177,11 +157,8 @@ export function useKakaoMap(
   }, []);
 
   const moveToCurrentLocation = useCallback(() => {
-    console.log('[KakaoMap] 현재 위치로 이동 요청');
-
     // 지도가 아직 초기화되지 않은 경우 실행하지 않음
     if (!kakaoMapRef.current) {
-      console.warn('[KakaoMap] 지도가 초기화되지 않아 현재 위치 이동을 수행할 수 없습니다.');
       return;
     }
 
@@ -204,41 +181,31 @@ export function useKakaoMap(
     }
 
     if ('geolocation' in navigator) {
-      console.log('[KakaoMap] Geolocation API 사용 가능');
-
       // 기존 마커 제거
       if (myLocationMarkerRef.current) {
         myLocationMarkerRef.current.setMap(null);
       }
 
       // 위치 정보 권한 상태 확인 (크롬과 같은 일부 브라우저에서만 작동)
-      try {
-        if (navigator.permissions && navigator.permissions.query) {
-          navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-            console.log(`[KakaoMap] 위치 권한 상태: ${result.state}`);
-            if (result.state === 'denied') {
-              alert(
-                '위치 정보 접근이 차단되어 있습니다. 브라우저 설정에서 위치 정보 접근을 허용해주세요.',
-              );
+      if (navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+          if (result.state === 'denied') {
+            alert(
+              '위치 정보 접근이 차단되어 있습니다. 브라우저 설정에서 위치 정보 접근을 허용해주세요.',
+            );
 
-              // 권한 거부 시 기본 위치에 마커 표시
-              showDefaultMarker();
-              return;
-            }
-          });
-        }
-      } catch (error) {
-        console.log('[KakaoMap] 권한 상태 확인 실패:', error);
+            // 권한 거부 시 기본 위치에 마커 표시
+            showDefaultMarker();
+            return;
+          }
+        });
       }
 
       // 로딩 인디케이터 표시하거나 사용자에게 알림
-      console.log('[KakaoMap] 위치 정보 요청 중...');
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log('[KakaoMap] 위치 정보 수신 성공');
           const { latitude: lat, longitude: lng } = position.coords;
-          console.log(`[KakaoMap] 위도: ${lat}, 경도: ${lng}`);
 
           if (kakaoMapRef.current) {
             // 정확히 동일한 LatLng 객체를 사용하여 일관성 유지
@@ -263,8 +230,6 @@ export function useKakaoMap(
           }
         },
         (error) => {
-          console.error('[KakaoMap] 위치 정보 오류:', error.code, error.message);
-
           // 오류 코드와 메시지 로깅
           let errorMessage = '위치 정보를 가져올 수 없습니다.';
 
@@ -295,7 +260,6 @@ export function useKakaoMap(
         },
       );
     } else {
-      console.error('이 브라우저에서는 위치 정보를 제공하지 않습니다.');
       alert('이 브라우저에서는 위치 정보 기능을 사용할 수 없습니다.');
       showDefaultMarker();
     }
@@ -333,11 +297,8 @@ export function useKakaoMap(
         selectedItem.lat === undefined ||
         selectedItem.lng === undefined
       ) {
-        console.warn('[KakaoMap] 지도가 초기화되지 않았거나 항목에 좌표 정보가 없습니다.');
         return;
       }
-
-      console.log(`[KakaoMap] 항목 마커 표시: ${selectedItem.title}`);
 
       // 선택된 마커의 위치
       const selectedPosition = new kakao.maps.LatLng(selectedItem.lat, selectedItem.lng);
@@ -449,16 +410,10 @@ export function useKakaoMap(
       return;
     }
 
-    console.log(`[KakaoMap] '${selectedCategory}' 카테고리 마커 표시 시작`);
-    console.log(`[KakaoMap] 단일 아이템 모드:`, singleItemMode);
-    console.log(`[KakaoMap] 단일 아이템:`, singleItem?.title);
-
     const categoryData = dataSource[selectedCategory];
-    console.log(`[KakaoMap] 카테고리 데이터 개수:`, categoryData?.length || 0);
 
     // categoryData가 없으면 함수 종료
     if (!categoryData) {
-      console.log(`[KakaoMap] '${selectedCategory}' 카테고리 데이터가 없습니다.`);
       return;
     }
 
@@ -484,8 +439,6 @@ export function useKakaoMap(
 
     // 🔥 단일 아이템 모드인 경우 특정 아이템만 표시
     if (singleItemMode && singleItem) {
-      console.log(`[KakaoMap] 단일 아이템 모드 - ${singleItem.title}만 표시`);
-
       // 해당 아이템과 일치하는 위치 정보 찾기
       const targetLocation = categoryData.find(
         (location: MapDataItem) =>
@@ -505,7 +458,6 @@ export function useKakaoMap(
           selectedCategory === '주점' ? targetLocation.title : targetLocation.title, // 단일 아이템 모드에서는 항상 라벨 표시
           () => {
             // 마커 클릭 시 실행될 함수
-            console.log(`[KakaoMap] 마커 클릭: ${targetLocation.title}`);
             showItemMarker(singleItem);
           },
           true, // 단일 아이템은 항상 선택된 상태로 표시 (큰 크기)
@@ -519,14 +471,9 @@ export function useKakaoMap(
         // 경계 확장
         bounds.extend(position);
         hasVisibleMarkers = true;
-
-        console.log(`[KakaoMap] 단일 아이템 마커 생성 완료: ${targetLocation.title}`);
-      } else {
-        console.log(`[KakaoMap] 단일 아이템을 찾을 수 없거나 운영하지 않는 날입니다.`);
       }
     } else {
       // 🔥 일반 모드인 경우 카테고리 전체 아이템 표시 (기존 로직)
-      console.log(`[KakaoMap] 일반 모드 - 전체 ${selectedCategory} 마커 표시`);
 
       // 현재 시간 확인
       const currentTime = new Date();
@@ -537,10 +484,8 @@ export function useKakaoMap(
 
       if (shouldShowApiMarkers) {
         categoryData.forEach((location: MapDataItem) => {
-          console.log(`[KakaoMap] 마커 생성 시도: ${location.title}`);
           // closeDay에 현재 선택된 날짜가 포함되어 있으면 마커를 표시하지 않음
           if (location.closeDay && location.closeDay.includes(selectedDay)) {
-            console.log(`[KakaoMap] ${location.title}은(는) ${selectedDay}에 운영하지 않습니다.`);
             return;
           }
 
@@ -554,7 +499,6 @@ export function useKakaoMap(
             selectedCategory === '주점' ? '' : location.title, // 주점이 아닌 경우에는 항상 라벨 표시
             () => {
               // 마커 클릭 시 실행될 함수
-              console.log(`[KakaoMap] 마커 클릭: ${location.title}`);
 
               const mapData = dataSource[selectedCategory].find(
                 (item: MapDataItem) => item.lat === location.lat && item.lng === location.lng,
@@ -583,16 +527,10 @@ export function useKakaoMap(
         const currentTime = new Date();
         const currentHour = currentTime.getHours();
 
-        console.log(`[KakaoMap] 푸드트럭 카테고리 - 현재 시간: ${currentHour}시`);
-        console.log(`[KakaoMap] 기존 다각형 개수: ${customPolygonsRef.current.length}`);
-
         // 17:00~23:59 (17시~23시) - 기존 위치
         if (currentHour >= 17) {
-          console.log(`[KakaoMap] 17시 이후 - 기존 위치에 도형 생성`);
           const extraPosition = new window.kakao.maps.LatLng(37.29719886048592, 126.83485418452146);
           const existingPolygon = createRotatedRectangle(extraPosition, 0.00012, 0.0006, 112);
-
-          console.log(`[KakaoMap] 기존 도형 생성 완료:`, existingPolygon);
 
           existingPolygon.setOptions({
             strokeWeight: 1,
@@ -607,21 +545,14 @@ export function useKakaoMap(
           existingPolygon.setMap(kakaoMapRef.current);
           customPolygonsRef.current.push(existingPolygon);
 
-          console.log(
-            `[KakaoMap] 기존 도형 지도에 추가 완료. 총 다각형 개수: ${customPolygonsRef.current.length}`,
-          );
-
           // 경계 확장
           bounds.extend(extraPosition);
           hasVisibleMarkers = true;
         }
         // 00:00~16:59 (0시~16시) - 새로운 위치
         else {
-          console.log(`[KakaoMap] 17시 이전 - 새로운 위치에 도형 생성`);
           const newPosition = new window.kakao.maps.LatLng(37.29711518418602, 126.83461751885015);
           const newPolygon = createRotatedRectangle(newPosition, 0.00012, 0.0017, 112);
-
-          console.log(`[KakaoMap] 새 도형 생성 완료:`, newPolygon);
 
           newPolygon.setOptions({
             strokeWeight: 1,
@@ -636,19 +567,13 @@ export function useKakaoMap(
           newPolygon.setMap(kakaoMapRef.current);
           customPolygonsRef.current.push(newPolygon);
 
-          console.log(
-            `[KakaoMap] 새 도형 지도에 추가 완료. 총 다각형 개수: ${customPolygonsRef.current.length}`,
-          );
-
           // 새로운 위치에 마커 추가
           const markerOverlay = createCustomMarker(
             kakaoMapRef.current as kakao.maps.Map,
             newPosition,
             selectedCategory,
             '푸드트럭', // 마커 라벨
-            () => {
-              console.log(`[KakaoMap] 새 푸드트럭 마커 클릭`);
-            },
+            () => {},
             false,
             customPolygonsRef,
           );
@@ -789,10 +714,7 @@ const createCustomMarker = (
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
 
-    if (category === '푸드트럭' && currentHour < 17) {
-      console.log(`[KakaoMap] 17시 이전 푸드트럭 - createCustomMarker에서 자동 도형 생성 건너뜀`);
-    } else {
-      console.log(`[KakaoMap] createCustomMarker에서 ${category} 도형 생성 시도`);
+    if (!(category === '푸드트럭' && currentHour < 17)) {
       const angle = category === '푸드트럭' ? 59 : category === '플리마켓' ? 59 : 59;
       const angle_rad = angle * (Math.PI / 180);
       const width = category === '푸드트럭' ? 0.00014 : category === '플리마켓' ? 0.00014 : 0.00014;
